@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config.dart';
 
-TextTheme textTheme = const TextTheme(
+TextTheme textTheme =  const TextTheme(
   // !headline is here
   /* headlineLarge: kHeadlineLarge,
   headlineMedium: kHeadlineMedium, */
@@ -9,15 +9,15 @@ TextTheme textTheme = const TextTheme(
   // !title is here
   /* titleLarge: kTitleLarge,
   titleMedium: kTitleMedium, */
-  titleSmall: kTitleSmaller,
+  titleMedium: kTitle,
 
   // !body is here
-/*   bodyLarge: kBodyLarge,
-  bodyMedium: kBodyMedium, */
-  bodySmall: kBodySmall,
+/*   bodyLarge: kBodyLarge,*/
+  bodyMedium: kBody,
+  // bodySmall: kBody,
 
   // !Label
 /*   labelLarge: kLabelLarge,
   labelMedium: kLabelMedium, */
-  labelSmall: kLabelSmall,
+  labelMedium: kLabel,
 );

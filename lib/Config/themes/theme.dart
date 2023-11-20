@@ -7,5 +7,5 @@ ThemeData themeData = ThemeData(
   textTheme: textTheme,
   fontFamily: Fonts.inter,
   primarySwatch: Colors.grey, // should change
-  scaffoldBackgroundColor: AppColor.secondaryColor,
+  scaffoldBackgroundColor: AppColor.white,
 );

@@ -7,10 +7,14 @@ class AppColor {
     return _singletone;
   }
 
-  static const Color primaryColor = Color(0xff27292F);
+  static const Color primaryColor = Color(0xffFF6000);
   static const Color secondaryColor = Color(0xff27292F);
   static const Color primaryDarkColor = Color(0xff27292F);
   static const Color secondaryDarkColor = Color(0xff27292F);
+  static const Color white = Color(0xffFFFFFF);
+  static const Color textColor = Color(0xff000000);
+  static const Color red = Colors.red;
+  static const Color green = Colors.green;
 
   /// gradiant color
   static const LinearGradient kBtnGradiantColor = LinearGradient(

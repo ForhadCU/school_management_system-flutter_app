@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppScreenSize {
+  AppScreenSize._internal();
+  static final AppScreenSize _sinlgeton = AppScreenSize._internal();
+  factory AppScreenSize() {
+    return _sinlgeton;
+  }
+
   static mGetHeight(BuildContext context, double percentage) {
     return (MediaQuery.of(context).size.height * percentage) / 100;
   }
