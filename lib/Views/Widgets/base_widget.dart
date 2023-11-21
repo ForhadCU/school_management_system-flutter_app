@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Utils/spacing.dart';
+import '../../Config/styles/spacing.dart';
+
 
 class BaseWidget extends StatelessWidget {
   final Widget child;
@@ -9,7 +10,7 @@ class BaseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.sm, vertical: AppSpacing.xl),
       child: child,
     );

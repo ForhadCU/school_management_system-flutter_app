@@ -4,8 +4,8 @@ import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../Config/config.dart';
 import '../../../Config/constants/asset_location.dart';
+import '../../../Config/styles/spacing.dart';
 import '../../../Utils/screen_size.dart';
-import '../../../Utils/spacing.dart';
 
 class SlideBody extends StatelessWidget {
   final String imageLoc;

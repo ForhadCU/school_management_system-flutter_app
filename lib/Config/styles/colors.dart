@@ -13,9 +13,12 @@ class AppColor {
   static const Color secondaryDarkColor = Color(0xff27292F);
   static const Color white = Color(0xffFFFFFF);
   static const Color textColor = Color(0xff000000);
-  static const Color textColor500 = Color(0xff0d0d0d);
+  static const Color textColor500 = Color.fromARGB(255, 27, 27, 27);
+  static const Color hintColor = Color.fromARGB(255, 68, 68, 68);
+  static const Color hintColor500 = Color.fromARGB(255, 216, 216, 216);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
+  static const Color yellow = Colors.yellow;
   static const Color unselectedTab = Color(0xfff98da5);
   static const Color dotDarkScreen1 = Color(0xffd1395c);
   static const Color dotLightScreen1 = Color(0xfff98da5);
@@ -33,10 +36,15 @@ class AppColor {
 
   /// gradiant color
   static const LinearGradient kBtnGradiantColor = LinearGradient(
+    colors: [primaryColor, orange700],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  ); 
+/*   static const LinearGradient kBtnGradiantColor = LinearGradient(
     colors: [Color(0xffED5DCD), Color(0xff5F5DD7)],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-  );
+  ); */
   static const LinearGradient kBtnDarkGradiantColor = LinearGradient(
     colors: [Color(0xff322F3B), Color(0xff322F3B)],
     begin: Alignment.centerLeft,

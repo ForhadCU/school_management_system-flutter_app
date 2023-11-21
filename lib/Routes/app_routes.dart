@@ -4,6 +4,7 @@ import 'package:school_management_system/Bindings/contact.dart';
 import 'package:school_management_system/Bindings/gallery.dart';
 import 'package:school_management_system/Bindings/home.dart';
 import 'package:school_management_system/Bindings/launcher_slides.dart';
+import 'package:school_management_system/Bindings/notice.dart';
 import 'package:school_management_system/Bindings/search_school.dart';
 import 'package:school_management_system/Bindings/site_history.dart';
 import 'package:school_management_system/Bindings/test/test_binding.dart';
@@ -11,7 +12,6 @@ import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/academicCalendar/academic_calendar.dart';
 import 'package:school_management_system/Views/contact/contact.dart';
 import 'package:school_management_system/Views/gallery/gallery.dart';
-import 'package:school_management_system/Views/gallery/notice.dart';
 import 'package:school_management_system/Views/home/home.dart';
 import 'package:school_management_system/Views/launcherSlides/launcher_slides.dart';
 import 'package:school_management_system/Views/notice/notice.dart';
@@ -48,7 +48,7 @@ abstract class AppPages {
     /// Notice
     GetPage(
         name: AppRoutes.notice,
-        binding: HomeBinding(),
+        binding: NoticeBinding(),
         page: () => const Notice()),
 
     /// Gallery
@@ -61,7 +61,7 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.siteHistory,
         binding: SiteHistoryBinding(),
-        page: () => const SiteHistory()),
+        page: () => const Notice()),
 
     /// Contact
     GetPage(
@@ -77,7 +77,6 @@ abstract class AppPages {
 
     /// Home
     GetPage(
-        name: AppRoutes.home, 
-        binding: HomeBinding(), page: () => const Home()),
+        name: AppRoutes.home, binding: HomeBinding(), page: () => const Home()),
   ];
 }

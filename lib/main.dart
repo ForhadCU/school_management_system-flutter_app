@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
             builder: EasyLoading.init(),
             theme: themeData,
             initialRoute: AppRoutes.launcherSlides,
+            // initialRoute: AppRoutes.test,
             /* (appData.token.isEmpty)
                 ? AppRoutes.login
                 : AppRoutes.liveStatus, */

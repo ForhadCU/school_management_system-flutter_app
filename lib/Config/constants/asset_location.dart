@@ -17,4 +17,8 @@ const String multiple_login = "assets/logos/multiple_login.jpg";
 const String notice_board_logo = "assets/logos/notice_board.jpg";
 const String routines = "assets/logos/routines.jpg";
 
+const String logoDemoSchool = "assets/logos/demo_school.png";
+
+
+
 

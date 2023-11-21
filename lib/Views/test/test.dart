@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Config/constants/asset_location.dart';
+import 'package:school_management_system/Config/constants/constants.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});
@@ -14,55 +16,13 @@ class Test extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text(
-              "This is heading",
-              style: kHeading,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is title",
-              style: kTitle,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is subtitle",
-              style: kSubTitle,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is body",
-              style: kBody,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is label",
-              style: kLabel,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is error",
-              style: kLabelError,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "This is success",
-              style: kLabelSuccess,
-            ),
-          ],
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: AppSpacing.logoSizeDemoSchool,
+            backgroundImage: AssetImage(logoDemoSchool)
+          ),
+          title: Text(tDemoSchoolName, style: kTitle,),
+          subtitle: Text("This will be address of this school"),
         ),
       ),
     );

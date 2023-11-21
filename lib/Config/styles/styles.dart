@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:school_management_system/Config/constants/constants.dart';
-import 'package:school_management_system/Utils/screen_size.dart';
-
 import '../config.dart';
 
 // title Text
@@ -16,10 +13,14 @@ const TextStyle kHeading = TextStyle(
     fontWeight: FontWeight.w500);
 const TextStyle kTitle = TextStyle(
     color: AppColor.textColor /* kTextColor */,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.w500);
-const TextStyle kSubTitle = TextStyle(
+const TextStyle kTitleLite = TextStyle(
     color: AppColor.textColor /* kTextColor */,
+    fontSize: 16,
+    fontWeight: FontWeight.w400);
+const TextStyle kSubTitle = TextStyle(
+    color: AppColor.textColor500 /* kTextColor */,
     fontSize: 14,
     fontWeight: FontWeight.w400);
 

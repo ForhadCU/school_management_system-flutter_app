@@ -1,8 +1,8 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Utils/spacing.dart';
+
+import '../../Config/styles/spacing.dart';
 
 class AppButtons {
   AppButtons._internal();
@@ -16,10 +16,11 @@ class AppButtons {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding:const EdgeInsets.symmetric(
               horizontal: AppSpacing.xl, vertical: AppSpacing.smh),
           decoration: BoxDecoration(
-              color: AppColor.primaryColor,
+              // color: AppColor.primaryColor,
+              gradient: AppColor.kBtnGradiantColor,
               borderRadius: BorderRadius.circular(AppSpacing.smh)),
           child: Text(
             text,
@@ -59,13 +60,13 @@ class AppButtons {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.smh, vertical: AppSpacing.smh),
-          decoration:const BoxDecoration(
-              // border: Border.all(color: AppColor.primaryColor, width: 2),
-              color: AppColor.white,
-              // borderRadius: BorderRadius.circular(AppSpacing.sm)
-              ),
+          decoration: const BoxDecoration(
+            // border: Border.all(color: AppColor.primaryColor, width: 2),
+            color: AppColor.white,
+            // borderRadius: BorderRadius.circular(AppSpacing.sm)
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +78,9 @@ class AppButtons {
                 ),
               ),
               const SizedBox(
-                width: 32,
+                width: 38,
                 child: Divider(
-                  height: .5,
+                  height: 1,
                   thickness: .5,
                   color: AppColor.primaryColor,
                 ),
