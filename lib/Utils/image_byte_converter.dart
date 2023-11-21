@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
+
 class ImageByteConverter {
   static Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);

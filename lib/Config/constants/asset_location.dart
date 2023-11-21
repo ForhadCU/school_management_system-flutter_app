@@ -2,7 +2,7 @@
 
 const String kAssetBaseLoc = "assets/";
 
-const String kAcademic_calender = "assets/icons/academic_calender.png";
+const String academic_calender = "assets/icons/academic_calender.png";
 const String contact_us = "assets/icons/contact_us.png";
 const String login = "assets/icons/login.png";
 const String noticeboard_ic = "assets/icons/noticeboard.png";

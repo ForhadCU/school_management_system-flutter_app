@@ -30,12 +30,12 @@ class MyApp extends StatelessWidget {
         builder: ((context, child) {
           return GetMaterialApp(
             defaultTransition: Transition.noTransition,
-            transitionDuration: const Duration(milliseconds: 500),   
+            transitionDuration: const Duration(milliseconds: 500),
             title: kAppName,
             debugShowCheckedModeBanner: false,
             builder: EasyLoading.init(),
             theme: themeData,
-            initialRoute: AppRoutes.test,
+            initialRoute: AppRoutes.launcherSlides,
             /* (appData.token.isEmpty)
                 ? AppRoutes.login
                 : AppRoutes.liveStatus, */

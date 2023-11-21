@@ -12,22 +12,22 @@ const TextStyle kPrimaryHeading = TextStyle(
 
 const TextStyle kHeading = TextStyle(
     color: AppColor.textColor /* kTextColor */,
-    fontSize: 18,
-    fontWeight: FontWeight.w600);
+    fontSize: 20,
+    fontWeight: FontWeight.w500);
 const TextStyle kTitle = TextStyle(
     color: AppColor.textColor /* kTextColor */,
     fontSize: 16,
-    fontWeight: FontWeight.w600);
+    fontWeight: FontWeight.w500);
 const TextStyle kSubTitle = TextStyle(
     color: AppColor.textColor /* kTextColor */,
     fontSize: 14,
-    fontWeight: FontWeight.w500);
+    fontWeight: FontWeight.w400);
 
 // body Text
 const TextStyle kBody = TextStyle(
     color: AppColor.textColor /* kTextColor */,
     fontSize: 12,
-    fontWeight: FontWeight.w500);
+    fontWeight: FontWeight.w400);
 
 // label Text
 const TextStyle kLabel = TextStyle(
