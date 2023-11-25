@@ -9,7 +9,7 @@ const TextStyle kPrimaryHeading = TextStyle(
 
 const TextStyle kHeading = TextStyle(
     color: AppColor.textColor /* kTextColor */,
-    fontSize: 20,
+    fontSize: 32,
     fontWeight: FontWeight.w500);
 const TextStyle kTitle = TextStyle(
     color: AppColor.textColor /* kTextColor */,
@@ -45,7 +45,25 @@ const TextStyle kLabelSuccess = TextStyle(
     fontWeight: FontWeight.w400);
 
 // Container decoration
-BoxDecoration kPrimaryContainer = BoxDecoration(
+BoxDecoration kContainerPrimary = BoxDecoration(
     color: AppColor.primaryColor, borderRadius: BorderRadius.circular(5));
+
+BoxDecoration kContainerNoticeBanner = BoxDecoration(
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black12,
+        offset: Offset(.5, .5),
+        blurRadius: 1,
+      ),
+    ],
+    color: AppColor.white,
+    border: Border.all(color: AppColor.orange500, width: 1),
+    borderRadius: BorderRadius.circular(5));
+
+BoxDecoration kContainerPlainWithBorder = BoxDecoration(
+    color: AppColor.white,
+    border: Border.all(color: AppColor.orange500, width: 1),
+    borderRadius: BorderRadius.circular(5));
+
 BoxDecoration kSecondaryContainer = BoxDecoration(
     color: AppColor.secondaryColor, borderRadius: BorderRadius.circular(5));

@@ -1,12 +1,7 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Config/constants/constants.dart';
-import 'package:school_management_system/Config/styles/spacing.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
-import 'package:school_management_system/Utils/screen_size.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/launcherSlides/pages/scr.slidetile_4.dart';
 

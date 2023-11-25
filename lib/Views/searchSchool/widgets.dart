@@ -7,15 +7,17 @@ class SchoolResultListItem extends StatelessWidget {
       {super.key,
       required this.schoolName,
       required this.schoolAdress,
-      this.imageUri});
+      this.imageUri, required this.onTap});
 
   final String schoolName;
   final String schoolAdress;
   final String? imageUri;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap:()=> onTap(),
       leading: const CircleAvatar(
           radius: AppSpacing.logoSizeDemoSchool,
           backgroundImage: AssetImage(logoDemoSchool)),

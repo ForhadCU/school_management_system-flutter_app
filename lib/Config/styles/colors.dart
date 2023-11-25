@@ -15,15 +15,17 @@ class AppColor {
   static const Color textColor = Color(0xff000000);
   static const Color textColor500 = Color.fromARGB(255, 27, 27, 27);
   static const Color hintColor = Color.fromARGB(255, 68, 68, 68);
-  static const Color hintColor500 = Color.fromARGB(255, 216, 216, 216);
+  static const Color hintColor500 = Color.fromARGB(255, 230, 230, 230);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
   static const Color yellow = Colors.yellow;
   static const Color unselectedTab = Color(0xfff98da5);
   static const Color dotDarkScreen1 = Color(0xffd1395c);
   static const Color dotLightScreen1 = Color(0xfff98da5);
+  static const Color dateCardTopBg = Color(0xffff0454);
 
   //** Orange */
+  static const Color orange50 = Color.fromARGB(255, 255, 234, 220);
   static const Color orange100 = Color(0xffffe0cc);
   static const Color orange200 = Color(0xffffd0b3);
   static const Color orange300 = Color(0xffffc099);

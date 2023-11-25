@@ -19,8 +19,8 @@ class AppTextFormFileds {
         contentPadding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.xl, vertical: AppSpacing.mdh),
         hintText: hintText,
-        hintStyle: kBody.copyWith(color: AppColor.hintColor),
-        fillColor: AppColor.hintColor500,
+        hintStyle: kBody.copyWith(color: const Color.fromARGB(255, 97, 97, 97)),
+        fillColor: AppColor.orange100,
         filled: true,
         enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColor.orange300),

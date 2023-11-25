@@ -12,7 +12,9 @@ class AppSpacing {
   static const double sm = 8;
   static const double smh = 4; // smaller half
 
-  static const double logoSizeDemoSchool = 32;
+  static const double logoSizeDemoSchool = 48;
+  static const double noticeBannerHeight = 150;
+  static const double dateCardWidth = 60;
 
 /*   static const double borderRadiusSmall = 4;
   static const double borderRadiusMid = 8;

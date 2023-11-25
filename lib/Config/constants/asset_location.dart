@@ -8,6 +8,7 @@ const String login = "assets/icons/login.png";
 const String noticeboard_ic = "assets/icons/noticeboard.png";
 const String photo_gallery = "assets/icons/photo_gallery.png";
 const String site_history1 = "assets/icons/site_history1.png";
+const String menu = "assets/icons/menu.png";
 
 
 const String attendance = "assets/logos/attendance.jpg";
