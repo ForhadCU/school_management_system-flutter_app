@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Controller/login.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
-
 import '../../../Config/config.dart';
 import '../../Widgets/base_widget.dart';
 
@@ -35,7 +34,7 @@ class Login extends StatelessWidget {
         )),
       ),
     );
-    ;
+    
   }
 
   vSchollNameBanner(LoginController controller) {

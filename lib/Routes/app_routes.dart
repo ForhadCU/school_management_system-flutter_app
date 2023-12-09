@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:get/get.dart';
 import 'package:school_management_system/Bindings/academic_calendar.dart';
 import 'package:school_management_system/Bindings/contact.dart';
@@ -26,7 +24,6 @@ import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/site_history.dart';
-
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/test/test.dart';
 
@@ -99,15 +96,18 @@ abstract class AppPages {
       name: AppRoutes.dashboard,
       binding: DashboardBinding(),
       page: () => const Dashboard(),
-    ), GetPage(
+    ),
+    GetPage(
       name: AppRoutes.login,
       binding: LoginBinding(),
       page: () => const Login(),
-    ), GetPage(
+    ),
+    GetPage(
       name: AppRoutes.notice,
       binding: NoticeBinding(),
       page: () => const Notifications(),
-    ),GetPage(
+    ),
+    GetPage(
       name: AppRoutes.landing,
       binding: LandingBinding(),
       page: () => const Landing(),

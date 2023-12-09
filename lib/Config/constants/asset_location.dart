@@ -34,6 +34,7 @@ class PublicAssetLocation {
     return _singleton;
   }
 
+  /// icons
   static const String no_icon_img = "assets/icons/no_icon_img.png";
   static const String notices = "assets/icons/noitces.png";
   static const String home = "assets/icons/home_user.png";
@@ -42,6 +43,13 @@ class PublicAssetLocation {
   static const String sitehistory = "assets/icons/site_history.png";
   static const String userLogin = "assets/icons/user_login.png";
   static const String contact_mail_us = "assets/icons/contact_mail_us.png";
+
+  /// images
+  static const String slide_bg_1 = "assets/images/slide_bg_1.png";
+  static const String slide_bg_2 = "assets/images/slide_bg_2.png";
+  static const String slide_bg_3 = "assets/images/slide_bg_3.png";
+  static const String slide_bg_4 = "assets/images/slide_bg_4.png";
+  static const String slide_bg_5 = "assets/images/slide_bg_5.png";
 }
 
 class StudentAssetLocation {

@@ -24,16 +24,14 @@ class Notice extends StatelessWidget {
           backgroundColor: AppColor.white,
         ),
         body: BaseWidget(
-            child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              _vTopbar(controller),
-              AppSpacing.xl.height,
-              _vNoticeList()
-            ],
-          ),
-        )),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _vTopbar(controller),
+                AppSpacing.xl.height,
+                Expanded(child: _vNoticeList())
+              ],
+            )),
       ),
     );
   }
@@ -43,9 +41,9 @@ class Notice extends StatelessWidget {
       required String desc,
       required Color color,
       required Function onTap}) {
-    return InkWell(
-      onTap: () {
-        onTap();
+    return GestureDetector(
+      onTap: (){
+        
       },
       child: Container(
           padding: const EdgeInsets.all(AppSpacing.md),

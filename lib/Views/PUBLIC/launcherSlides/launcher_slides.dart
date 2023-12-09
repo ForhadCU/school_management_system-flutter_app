@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Utils/custom_statusbar.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/PUBLIC/launcherSlides/pages/scr.slidetile_4.dart';
 
@@ -51,79 +52,78 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // appBar: AppBar(systemOverlayStyle: SystemUiOverlayStyle()),
       child: Scaffold(
-        // appBar: AppBar(systemOverlayStyle: SystemUiOverlayStyle()),
-        body: Scaffold(
-            backgroundColor: Colors.white,
-            body: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: PageView(
-                controller: controller,
-                onPageChanged: (index) {
-                  setState(() {
-                    slideIndex = index;
-                  });
-                },
-                children: const <Widget>[
-                  // SlideTile1(scrNo: mySLides[0].scrNo),
-                  SlideTile0(),
-                  SlideTile1(),
-                  SlideTile2(),
-                  SlideTile3(),
-                  SlideTile4(),
-                ],
-              ),
+        extendBodyBehindAppBar: true,
+          backgroundColor: Colors.white,
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: PageView(
+              controller: controller,
+              onPageChanged: (index) {
+                setState(() {
+                  slideIndex = index;
+                });
+              },
+              children: const <Widget>[
+                // SlideTile1(scrNo: mySLides[0].scrNo),
+                SlideTile0(),
+                SlideTile1(),
+                SlideTile2(),
+                SlideTile3(),
+                SlideTile4(),
+              ],
             ),
-            bottomSheet: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Divider(height: 1, thickness: 1, color: Colors.grey),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: AppSpacing.sm,
-                    horizontal: AppSpacing.xl,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      AppButtons.vPrimaryButtonUnderlined(
-                          onTap: () {
-                            /* controller.animateToPage(slideIndex - 1,
+          ),
+          bottomSheet: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Divider(height: 1, thickness: 1, color: Colors.grey),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.sm,
+                  horizontal: AppSpacing.xl,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    AppButtons.vPrimaryButtonUnderlined(
+                        onTap: () {
+                          /* controller.animateToPage(slideIndex - 1,
                                 duration: const Duration(milliseconds: 100),
                                 curve: Curves.linear); */
-                            Get.toNamed(AppRoutes.searchSchool);
-                          },
-                          text: "Skip"),
-                      Row(
-                        children: [
-                          for (int i = 0; i <= 4; i++)
-                            i == slideIndex
-                                ? _buildPageIndicator(true)
-                                : _buildPageIndicator(false),
-                        ],
-                      ),
-                      AppButtons.vPrimaryButton(
-                          onTap: () {
-                            slideIndex == 4
-                                ? {
-                                    /* AwesomeDialog(
+                          Get.toNamed(AppRoutes.searchSchool);
+                        },
+                        text: "Skip"),
+                    Row(
+                      children: [
+                        for (int i = 0; i <= 4; i++)
+                          i == slideIndex
+                              ? _buildPageIndicator(true)
+                              : _buildPageIndicator(false),
+                      ],
+                    ),
+                    AppButtons.vPrimaryButton(
+                        onTap: () {
+                          slideIndex == 4
+                              ? {
+                                  /* AwesomeDialog(
                                             context: context,
                                             dialogType: DialogType.warning,
                                             title: 'Saving..')
                                         .show(), */
-                                    Get.toNamed(AppRoutes.searchSchool),
-                                  }
-                                : controller.animateToPage(slideIndex + 1,
-                                    duration: const Duration(milliseconds: 100),
-                                    curve: Curves.linear);
-                          },
-                          text: slideIndex == 4 ? "Finish" : "Next"),
-                    ],
-                  ),
+                                  Get.toNamed(AppRoutes.searchSchool),
+                                }
+                              : controller.animateToPage(slideIndex + 1,
+                                  duration: const Duration(milliseconds: 100),
+                                  curve: Curves.linear);
+                        },
+                        text: slideIndex == 4 ? "Finish" : "Next"),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              ),
+            ],
+          )),
     );
   }
 

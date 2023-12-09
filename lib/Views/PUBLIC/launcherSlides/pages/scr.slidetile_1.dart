@@ -9,6 +9,8 @@ class SlideTile1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SlideBody(
+              bgImageLoc: PublicAssetLocation.slide_bg_2,
+
         imageLoc: notice_board_logo,
         title: tLauncherSlide2Title,
         subtitle: tLauncherSlide2SubTitle);
