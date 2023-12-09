@@ -2,16 +2,22 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/home.dart';
+import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/screen_size.dart';
+import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/Widgets/text_fields.dart';
+import 'package:school_management_system/Views/notice/notice.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-import 'bottom_nav.dart';
+import '../dashboard/widgets/bottom_nav.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -28,22 +34,35 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scafoldKey,
-      endDrawer: vEndDrawer(),
-      floatingActionButton: vFab(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: vBottomNav(),
-      body: Column(
+    return vHome(); /* SafeArea(
+      child:  Scaffold(
+        key: scafoldKey,
+        endDrawer: vEndDrawer(),
+        // floatingActionButton: vFab(),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+        bottomNavigationBar: vBottomNav(),
+        body: Obx(() => vHome()),
+      ),
+    ); */
+  }
+  vHome() {
+    return SingleChildScrollView(
+      child: Column(
         children: [
           vTopbar(),
           AppSpacing.xl.height,
           vSlider(),
+          AppSpacing.xl.height,
+          vExplore(),
+          AppSpacing.xl.height,
+          vAcademicCalendar(),
+
+          /// always bottom margin
+          AppSpacing.xxl.height
         ],
       ),
     );
   }
-
   vSlider() {
     return Container(
       margin: EdgeInsets.only(top: 4, bottom: 5),
@@ -75,7 +94,6 @@ class _HomeState extends State<Home> {
 
   Widget vBannerItem() {
     return Container(
-      // alignment: Alignment.center,
       clipBehavior: Clip.hardEdge,
       // height: MyScreenSize.mGetHeight(context, 30),
       width: AppScreenSize.mGetWidth(context, 100),
@@ -109,7 +127,6 @@ class _HomeState extends State<Home> {
                 width: AppSpacing.logoSizeDemoSchool,
                 height: AppSpacing.logoSizeDemoSchool,
                 fit: BoxFit.fill,
-                
               ),
               IconButton(
                   onPressed: () => scafoldKey.currentState?.openEndDrawer(),
@@ -206,7 +223,35 @@ class _HomeState extends State<Home> {
 
   vEndDrawer() {
     return Drawer(
-      child: ListView(
+        child: Column(
+      children: [
+        DrawerHeader(
+            child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage(logoDemoSchool),
+              width: AppSpacing.logoSizeDemoSchool + 20,
+            ),
+            AppSpacing.md.height,
+            Text(
+              tDemoSchoolName,
+              style: kTitleLite,
+            )
+          ],
+        )),
+        Expanded(
+          child: Container(
+            alignment: Alignment.center,
+            child: AppButtons.vPrimaryButton(
+                onTap: () {
+                  print("Click on Login");
+                },
+                text: "Log in"),
+          ),
+        ),
+      ],
+    ) /* ListView(
         children: [
           DrawerHeader(
               child: Container(
@@ -240,20 +285,24 @@ class _HomeState extends State<Home> {
               color: AppColor.orange300,
             ), */
         ],
-      ),
-    );
+      ), */
+        );
   }
 
   vBottomNav() {
     return HomeBottomNavBar(
+      controller: _controller,
+      /* 
       pageIndex: _pageIndex,
-      fabLocation: FloatingActionButtonLocation.centerDocked,
+      fabLocation: FloatingActionButtonLocation.startDocked,
       shape: const CircularNotchedRectangle(),
       callback: (int pageIndex) {
-        setState(() {
+        _controller.pageIndex.value = pageIndex;
+        /*    setState(() {
           _pageIndex = pageIndex;
-        });
+        }); */
       },
+    */
     );
   }
 
@@ -262,10 +311,108 @@ class _HomeState extends State<Home> {
       onPressed: () {},
       shape: CircleBorder(),
       backgroundColor: AppColor.orange900,
-      child: Icon(
-        Icons.arrow_upward,
+      child: Image(
+        image: AssetImage(home_user),
+        width: 24,
+        height: 24,
         color: AppColor.white,
       ),
     );
   }
+
+  vExplore() {
+    return Padding(
+      padding: const EdgeInsets.all(AppSpacing.primaryPadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Explore",
+            style: kWidgetlabel.copyWith(color: AppColor.orange900),
+            // style: kTitleLite.copyWith(color: AppColor.orange900),
+          ),
+          AppSpacing.md.height,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              /*  AppButtons.vCircularIconButton(
+                  iconUri: login, text: "Login", onTap: () {}), */
+              AppButtons.vCircularIconButton(
+                  iconUri: noticeboard_colored_ic,
+                  text: "Notice board",
+                  onTap: () {
+                    print("Clicke");
+                    Get.toNamed(AppRoutes.notice);
+                  }),
+              AppButtons.vCircularIconButton(
+                  iconUri: photo_gallery, text: "Gallery", onTap: () {}),
+              AppButtons.vCircularIconButton(
+                  iconUri: site_history1, text: "Site history", onTap: () {}),
+              AppButtons.vCircularIconButton(
+                  iconUri: contact_us, text: "Contact us", onTap: () {}),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  vAcademicCalendar() {
+    return Padding(
+      padding: const EdgeInsets.all(AppSpacing.primaryPadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Academic Calendar",
+            style: kWidgetlabel.copyWith(color: AppColor.orange900),
+            // style: kTitleLite.copyWith(color: AppColor.orange900),
+          ),
+          AppSpacing.sm.height,
+          TableCalendar(
+              headerStyle: HeaderStyle(titleCentered: true),
+              calendarFormat: CalendarFormat.month,
+              availableCalendarFormats: {CalendarFormat.month: "Month"},
+              calendarStyle: CalendarStyle(
+                  tableBorder:
+                      TableBorder.all(color: AppColor.orange500, width: 1)),
+              focusedDay: DateTime.now(),
+              firstDay: DateTime.now().subtract(Duration(days: 300)),
+              lastDay: DateTime.now()),
+          AppSpacing.sm.height,
+          Row(
+            children: [
+              AppSpacing.sm.width,
+              vCalendarHint(label: 'Holiday', boxColor: AppColor.red),
+              AppSpacing.sm.width,
+              vCalendarHint(label: 'Event', boxColor: AppColor.green),
+              AppSpacing.sm.width,
+              vCalendarHint(label: 'Examination', boxColor: AppColor.blue),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  vCalendarHint({required String label, required Color boxColor}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        /// hint box
+        Container(
+          height: 10,
+          width: 10,
+          decoration: BoxDecoration(color: boxColor),
+        ),
+        AppSpacing.smh.width,
+        Text(
+          label,
+          style: kLabel,
+        )
+      ],
+    );
+  }
+
+
 }

@@ -12,8 +12,11 @@ class AppRoutes {
   static String searchSchool = '/searchSchool';
   static String home = '/home';
   static String notice = '/notice';
+  static String expandedNotice = '/expandedNotice';
   static String gallery = '/gallery';
   static String siteHistory = '/siteHistory';
   static String contact = '/contact';
   static String academicCalendar = '/academicCalendar';
+  static String dashboard = '/dashboard';
+  static String notification = '/notification';
 }

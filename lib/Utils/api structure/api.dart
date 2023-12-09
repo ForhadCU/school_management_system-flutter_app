@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'dart:html' as html;
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
-import '../Config/constants/constants.dart';
-import '../Model/response_model.dart';
-import '../Singletones/app_data.dart';
-import 'toast_utils.dart';
+import '../../Config/constants/constants.dart';
+import '../../Model/response_model.dart';
+import '../../Singletones/app_data.dart';
+import '../toast_utils.dart';
 
 class CallAPI {
   //make it singleTone class
@@ -204,7 +203,7 @@ class CallAPI {
     return res['image'];
   }
 
-  Future<void> download(String endPoint, var param, String fileName) async {
+ /*  Future<void> download(String endPoint, var param, String fileName) async {
     http.Response response = await http.get(
       Uri.https(_get_host, _get_middle_point + endPoint, param),
       headers: {
@@ -234,8 +233,8 @@ class CallAPI {
       kLog('Failed to download PDF file: ${response.statusCode}');
     }
   }
-
-  void downloadFile(List<int> content, String filename) {
+ */
+ /*  void downloadFile(List<int> content, String filename) {
     final blob = html.Blob([content]);
     final url = html.Url.createObjectUrlFromBlob(blob);
 
@@ -247,7 +246,7 @@ class CallAPI {
 
     // Optionally, clean up the object URL after the download
     html.Url.revokeObjectUrl(url);
-  }
+  } */
 
 //EASY FUNCTIONS
   Future easyGet<T>(

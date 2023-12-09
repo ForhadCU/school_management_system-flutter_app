@@ -1,9 +1,13 @@
+import 'dart:html';
+
 import 'package:get/get.dart';
 import 'package:school_management_system/Bindings/academic_calendar.dart';
 import 'package:school_management_system/Bindings/contact.dart';
+import 'package:school_management_system/Bindings/dashboard.dart';
 import 'package:school_management_system/Bindings/gallery.dart';
 import 'package:school_management_system/Bindings/home.dart';
 import 'package:school_management_system/Bindings/launcher_slides.dart';
+import 'package:school_management_system/Bindings/login.dart';
 import 'package:school_management_system/Bindings/notice.dart';
 import 'package:school_management_system/Bindings/search_school.dart';
 import 'package:school_management_system/Bindings/site_history.dart';
@@ -11,12 +15,17 @@ import 'package:school_management_system/Bindings/test/test_binding.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/academicCalendar/academic_calendar.dart';
 import 'package:school_management_system/Views/contact/contact.dart';
+import 'package:school_management_system/Views/dashboard/dashboard.dart';
 import 'package:school_management_system/Views/gallery/gallery.dart';
 import 'package:school_management_system/Views/home/home.dart';
 import 'package:school_management_system/Views/launcherSlides/launcher_slides.dart';
+import 'package:school_management_system/Views/login/login.dart';
 import 'package:school_management_system/Views/notice/notice.dart';
+import 'package:school_management_system/Views/notification/notifications.dart';
 import 'package:school_management_system/Views/searchSchool/search_school.dart';
+import 'package:school_management_system/Views/siteHistory/site_history.dart';
 
+import '../Views/notice/pages/expanded_notice.dart';
 import '../Views/test/test.dart';
 
 abstract class AppPages {
@@ -30,26 +39,28 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.test,
       binding: TestBinding(),
-      page: () => const Test(),
+      page: () => Test(),
     ),
 
     /// Laucher Slides
     GetPage(
         name: AppRoutes.launcherSlides,
         binding: LaucherSlidesBinding(),
-        page: () => const LauncherSlidesScreen()),
+        page: () => LauncherSlidesScreen()),
 
     /// Search School
     GetPage(
         name: AppRoutes.searchSchool,
         binding: SearchSchoolBinding(),
-        page: () => const SearchSchool()),
+        page: () => SearchSchool()),
 
     /// Notice
     GetPage(
+        name: AppRoutes.notice, binding: NoticeBinding(), page: () => Notice()),
+    GetPage(
         name: AppRoutes.notice,
         binding: NoticeBinding(),
-        page: () => const Notice()),
+        page: () => ExpandedNotice()),
 
     /// Gallery
     GetPage(
@@ -61,7 +72,7 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.siteHistory,
         binding: SiteHistoryBinding(),
-        page: () => const Notice()),
+        page: () => SiteHistory()),
 
     /// Contact
     GetPage(
@@ -80,6 +91,20 @@ abstract class AppPages {
       name: AppRoutes.home,
       binding: HomeBinding(),
       page: () => Home(),
+    ),
+
+    GetPage(
+      name: AppRoutes.dashboard,
+      binding: DashboardBinding(),
+      page: () => const Dashboard(),
+    ), GetPage(
+      name: AppRoutes.login,
+      binding: LoginBinding(),
+      page: () => const Login(),
+    ), GetPage(
+      name: AppRoutes.notice,
+      binding: NoticeBinding(),
+      page: () => const Notifications(),
     ),
   ];
 }

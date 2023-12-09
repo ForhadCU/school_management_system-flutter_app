@@ -45,7 +45,7 @@ class SearchSchool extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return SchoolResultListItem(
                       onTap: () {
-                        Get.toNamed(AppRoutes.home);
+                        Get.toNamed(AppRoutes.dashboard);
                       },
                       schoolName: tDemoSchoolName,
                       schoolAdress: "Cox's Bazar Sadar, Chittagong");

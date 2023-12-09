@@ -18,11 +18,13 @@ class AppColor {
   static const Color hintColor500 = Color.fromARGB(255, 230, 230, 230);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
+  static const Color blue = Colors.blue;
   static const Color yellow = Colors.yellow;
   static const Color unselectedTab = Color(0xfff98da5);
   static const Color dotDarkScreen1 = Color(0xffd1395c);
   static const Color dotLightScreen1 = Color(0xfff98da5);
   static const Color dateCardTopBg = Color(0xffff0454);
+  static const Color nevy = Color(0xff2B3499);
 
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);
@@ -41,7 +43,7 @@ class AppColor {
     colors: [primaryColor, orange700],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-  ); 
+  );
 /*   static const LinearGradient kBtnGradiantColor = LinearGradient(
     colors: [Color(0xffED5DCD), Color(0xff5F5DD7)],
     begin: Alignment.centerLeft,
@@ -52,6 +54,13 @@ class AppColor {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
+
+  static List<Color> kNoticeListColorPlate = [
+    Colors.blue.shade900,
+    Colors.yellow.shade900,
+    Colors.pink.shade900,
+    Colors.green.shade900,
+  ];
 
   /// shadow
   BoxShadow kCardShadow = const BoxShadow(

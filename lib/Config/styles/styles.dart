@@ -9,7 +9,7 @@ const TextStyle kPrimaryHeading = TextStyle(
 
 const TextStyle kHeading = TextStyle(
     color: AppColor.textColor /* kTextColor */,
-    fontSize: 32,
+    fontSize: 22,
     fontWeight: FontWeight.w500);
 const TextStyle kTitle = TextStyle(
     color: AppColor.textColor /* kTextColor */,
@@ -23,17 +23,25 @@ const TextStyle kSubTitle = TextStyle(
     color: AppColor.textColor500 /* kTextColor */,
     fontSize: 14,
     fontWeight: FontWeight.w400);
+const TextStyle kWidgetlabel = TextStyle(
+    color: AppColor.textColor500 /* kTextColor */,
+    fontSize: 14,
+    fontWeight: FontWeight.w500);
 
 // body Text
 const TextStyle kBody = TextStyle(
     color: AppColor.textColor /* kTextColor */,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: FontWeight.w400);
 
 // label Text
 const TextStyle kLabel = TextStyle(
   color: AppColor.textColor /* kTextColor */,
-  fontSize: 11, /*   fontWeight: FontWeight.w300 */
+  fontSize: 12,   fontWeight: FontWeight.w400
+);
+const TextStyle kLabelSmall = TextStyle(
+  color: AppColor.textColor /* kTextColor */,
+  fontSize: 8, /*   fontWeight: FontWeight.w300 */
 );
 const TextStyle kLabelError = TextStyle(
     color: AppColor.red /* kTextColor */,
