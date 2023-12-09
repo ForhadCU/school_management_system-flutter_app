@@ -19,4 +19,5 @@ class AppRoutes {
   static String academicCalendar = '/academicCalendar';
   static String dashboard = '/dashboard';
   static String notification = '/notification';
+  static String landing = '/landing';
 }

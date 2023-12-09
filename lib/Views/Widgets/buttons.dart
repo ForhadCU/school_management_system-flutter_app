@@ -17,7 +17,7 @@ class AppButtons {
         onTap: () => onTap(),
         child: Container(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xl, vertical: AppSpacing.smh),
+              horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
               // color: AppColor.primaryColor,
               gradient: AppColor.kBtnGradiantColor,
@@ -30,6 +30,8 @@ class AppButtons {
           ),
         ));
   }
+
+  
 
   static Widget vPrimaryButtonWithoutColor({
     required Function onTap,

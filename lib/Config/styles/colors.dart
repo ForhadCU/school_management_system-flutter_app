@@ -18,13 +18,18 @@ class AppColor {
   static const Color hintColor500 = Color.fromARGB(255, 230, 230, 230);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
-  static const Color blue = Colors.blue;
+  // static const Color blue = Colors.blue;
   static const Color yellow = Colors.yellow;
   static const Color unselectedTab = Color(0xfff98da5);
   static const Color dotDarkScreen1 = Color(0xffd1395c);
   static const Color dotLightScreen1 = Color(0xfff98da5);
   static const Color dateCardTopBg = Color(0xffff0454);
   static const Color nevy = Color(0xff2B3499);
+
+  static const Color frenchSkyBlue = Color(0xff78ADFC);
+  static const Color silverLakeBlue = Color(0xff587FCE);
+  static const Color topaz = Color(0xffFCC778);
+  static const Color dollarBill = Color(0xff8CC864);
 
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);
@@ -69,4 +74,59 @@ class AppColor {
     blurRadius: 24,
     spreadRadius: 4,
   );
+
+////*** Exports */
+  /// app color
+  static const Color kPrimaryColor = Color(0xff27292F);
+  static const Color kSecondaryColor = Color(0xff1C1D22);
+  static const Color kSecondaryLightColor = Color(0xff212326);
+  static const Color kTextColor = Color(0xffB5B8C5);
+  static const Color kTextColorLite = Color(0xffF7F8FC);
+  static const Color kTextFieldColor = Color(0xff39383d);
+  static const Color kTextFieldHintColor = Color(0xff87898E);
+
+  /// gray color
+  static const Color kGray100 = Color(0xff1D1B20);
+  static const Color kGray200 = Color(0xff211F26);
+  static const Color kGray300 = Color(0xff2B2930);
+  static const Color kGray400 = Color(0xff2B2930);
+  static const Color kGray500 = Color(0xff36343B);
+  static const Color kGray600 = Color(0xff322F3B);
+  static const Color kGray700 = Color(0xff4A4458);
+
+//  Color
+  static const Color kDangerColor = Color(0xffD25B5B);
+  static const Color kGreen = Color(0xff27AE60);
+  static const Color kDarkGreen = Color(0xff05A660);
+  static const Color kYellow = Color.fromARGB(255, 247, 193, 18);
+  static const Color kBlueColor = Color(0xff2D9CDB);
+  static const Color kDarkBlueColor = Color(0xff0047C2);
+  static const Color kLightPink = Color(0xffEFE0FF);
+  static const Color kBorderColor = Color.fromARGB(255, 202, 202, 202);
+  static const Color kliteBG = Color(0xffFAFAFA);
+  static const Color kliteBorder = Color(0xffEAEAEA);
+
+//  color
+  static const Color kWhite = Colors.white;
+  static const Color kBlack = Colors.black;
+  static const Color kAmber = Color(0xffDCE35B);
+  static const Color kRed = Colors.red;
+
+// graph color
+  static const Color kGraphColor1 = Color(0xffED5DCD);
+  static const Color kGraphColor2 = Color(0xff5F5DD7);
+
+
+// Analytics Chart colors
+  static const List<Color> chartColors = [
+    Color(0xff3CEE88),
+    Color(0xffE29A5B),
+    Color(0xffEB7575),
+    Color(0xff378EAA),
+    Color(0xffBA6ADF),
+    Colors.grey,
+  ];
+
+// Trends
+  static const Color kButtonBorder = Colors.white24;
 }

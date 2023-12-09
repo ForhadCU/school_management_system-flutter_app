@@ -5,6 +5,10 @@ import 'package:logger/logger.dart';
 
 String kDummyText =
     "Lorem ipsum dolor sit amet consectetur. Adipiscing mauris urna nisl aliquam nibh. Et elementum dignissim dictum nuncquis consequat tristique vulputate. A et odio varius et viverra dis risus";
+String kDummyBanglaText =
+    "জীবন থেকে পাওয়া শিক্ষা ও অভিজ্ঞতা প্রত্যেক ব্যক্তির কাছে ভিন্ন ও নতুন আর জীবন থেকে পাওয়া এই বিবিধ অভিজ্ঞতার মাধ্যমেই আমরা জ্ঞান লাভ করি, আমাদের দিগন্তকে প্রসারিত করি এবং আমাদের অস্তিত্বের প্রকৃত অর্থ আবিষ্কার করি। আজকে আমরা আমাদের প্রতিবেদনে পরিবেশন করতে চলেছি জীবন নিয়ে কিছু বিখ্যাত ও প্রাসঙ্গিক উক্তি, ক্যাপশন, স্ট্যাটাস যা আপনাদের জীবনের প্রতিটি পদক্ষেপে অনুপ্রাণিত করবে।";
+String kDummyNotice =
+    '২০২৩ - ২-২৪ শিক্ষাবর্ষের একাদশ শ্রেণিতে ভর্তির জন্য নির্বাচিত ছাত্রছাত্রীদের ভর্তির নির্দেশনামূলক বিজ্ঞপ্তি';
 Logger kLogger = Logger();
 // Globel context
 BuildContext kGlobContext = Get.context!;
@@ -72,11 +76,8 @@ const String tDots3 = "...";
 
 ///**Bottom Navigation bar */
 
-
-
-
 kLog(dynamic value) {
-      kLog(value.toString());
+  kLog(value.toString());
 
 /*   if (kDebugMode) {
     kLog(value.toString());

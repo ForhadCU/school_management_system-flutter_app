@@ -12,6 +12,11 @@ const String menu = "assets/icons/menu.png";
 const String userLogin = "assets/icons/user_login.png";
 const String home_user = "assets/icons/home_user.png";
 const String noitce = "assets/icons/noitce.png";
+const String nav_notice = "assets/icons/nav_notice.png";
+const String nav_home = "assets/icons/nav_home.png";
+const String nav_notification = "assets/icons/nav_notification.png";
+const String nav_user = "assets/icons/nav_user.png";
+const String no_icon_img = "assets/icons/no_icon_img.png";
 
 const String attendance = "assets/logos/attendance.jpg";
 const String demo_school = "assets/logos/demo_school.jpg";
@@ -21,3 +26,42 @@ const String notice_board_logo = "assets/logos/notice_board.jpg";
 const String routines = "assets/logos/routines.jpg";
 
 const String logoDemoSchool = "assets/logos/demo_school.png";
+
+class PublicAssetLocation {
+  PublicAssetLocation._internal();
+  static final PublicAssetLocation _singleton = PublicAssetLocation._internal();
+  factory PublicAssetLocation() {
+    return _singleton;
+  }
+
+  static const String no_icon_img = "assets/icons/no_icon_img.png";
+  static const String notices = "assets/icons/noitces.png";
+  static const String home = "assets/icons/home_user.png";
+  static const String gallery = "assets/icons/gallery.png";
+  static const String academicCalander = "assets/icons/academic_calndr.png";
+  static const String sitehistory = "assets/icons/site_history.png";
+  static const String userLogin = "assets/icons/user_login.png";
+  static const String contact_mail_us = "assets/icons/contact_mail_us.png";
+}
+
+class StudentAssetLocation {
+  StudentAssetLocation._internal();
+  static final StudentAssetLocation _singleton =
+      StudentAssetLocation._internal();
+  factory StudentAssetLocation() {
+    return _singleton;
+  }
+
+  static const String no_icon_img = "assets/icons/no_icon_img.png";
+}
+
+class TeacherAssetLocation {
+  TeacherAssetLocation._internal();
+  static final TeacherAssetLocation _singleton =
+      TeacherAssetLocation._internal();
+  factory TeacherAssetLocation() {
+    return _singleton;
+  }
+
+  static const String no_icon_img = "assets/icons/no_icon_img.png";
+}
