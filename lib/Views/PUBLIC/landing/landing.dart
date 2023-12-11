@@ -5,6 +5,7 @@ import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 
 class Landing extends StatelessWidget {
   const Landing({super.key});
@@ -19,7 +20,8 @@ class Landing extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            vSchollNameBanner(),
+            // vSchollNameBanner(),
+           const InstitueBanaer(iconUrl: demo_school, title: tDemoSchoolName),
             (AppSpacing.xxl * 2).height,
             vBody(),
           ],
@@ -85,13 +87,13 @@ class Landing extends StatelessWidget {
             ),
             Expanded(
                 child: Align(
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerLeft,
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.academicCalendar),
                         iconLoc: PublicAssetLocation.academicCalander,
                         bgColor: Colors.green.shade100,
                         iconColor: Colors.green,
-                        label: "Academic Calendar"))),
+                        label: "Calendar"))),
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -142,39 +144,5 @@ class Landing extends StatelessWidget {
     );
   }
 
-  vSchollNameBanner() {
-    return Column(
-      children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage("assets/logos/demo_school.png"),
-              width: 48 * 2,
-              height: 48 * 2,
-              fit: BoxFit.fill,
-            ),
-            /*  IconButton(
-                onPressed: () => scafoldKey.currentState?.openEndDrawer(),
-                icon: Image(
-                  image: AssetImage(menu),
-                  width: 24,
-                  height: 24,
-                  fit: BoxFit.fill,
-                )), */
-          ],
-        ),
-        AppSpacing.sm.height,
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Nasirabad Govt. High School",
-              style: kHeading,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+ 
 }

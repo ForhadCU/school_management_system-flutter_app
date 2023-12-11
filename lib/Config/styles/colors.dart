@@ -7,8 +7,10 @@ class AppColor {
     return _singletone;
   }
 
-  static const Color primaryColor = Color(0xffFF6000);
-  static const Color secondaryColor = Color(0xff27292F);
+  static const Color primaryColor = Color(0xff587FCE);
+  static const Color secondaryColor = Color(0xff78ADFC);
+  /*   static const Color primaryColor = Color(0xffFF6000);
+  static const Color secondaryColor = Color(0xff27292F); */
   static const Color primaryDarkColor = Color(0xff27292F);
   static const Color secondaryDarkColor = Color(0xff27292F);
   static const Color white = Color(0xffFFFFFF);
@@ -45,7 +47,11 @@ class AppColor {
 
   /// gradiant color
   static const LinearGradient kBtnGradiantColor = LinearGradient(
-    colors: [primaryColor, orange700],
+    colors: [primaryColor, secondaryColor],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  ); static const LinearGradient kBtnGradiantColorReverse = LinearGradient(
+    colors: [secondaryColor, primaryColor],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
@@ -115,7 +121,6 @@ class AppColor {
 // graph color
   static const Color kGraphColor1 = Color(0xffED5DCD);
   static const Color kGraphColor2 = Color(0xff5F5DD7);
-
 
 // Analytics Chart colors
   static const List<Color> chartColors = [

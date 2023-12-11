@@ -120,7 +120,7 @@ class Notice extends StatelessWidget {
           vertical: AppSpacing.md / 2, horizontal: AppSpacing.md),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: AppColor.silverLakeBlue),
+          color: AppColor.primaryColor),
       alignment: Alignment.centerLeft,
       child: StaggeredGrid.count(
         crossAxisCount: 7,

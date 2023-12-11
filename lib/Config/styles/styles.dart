@@ -36,9 +36,9 @@ const TextStyle kBody = TextStyle(
 
 // label Text
 const TextStyle kLabel = TextStyle(
-  color: AppColor.textColor /* kTextColor */,
-  fontSize: 12,   fontWeight: FontWeight.w400
-);
+    color: AppColor.textColor /* kTextColor */,
+    fontSize: 12,
+    fontWeight: FontWeight.w400);
 const TextStyle kLabelSmall = TextStyle(
   color: AppColor.textColor /* kTextColor */,
   fontSize: 8, /*   fontWeight: FontWeight.w300 */
@@ -55,6 +55,12 @@ const TextStyle kLabelSuccess = TextStyle(
 // Container decoration
 BoxDecoration kContainerPrimary = BoxDecoration(
     color: AppColor.primaryColor, borderRadius: BorderRadius.circular(5));
+BoxDecoration kContainerPrimaryWithGradient = BoxDecoration(
+    gradient: AppColor.kBtnGradiantColor,
+    borderRadius: BorderRadius.circular(5));
+    BoxDecoration kContainerPrimaryWithGradientReverse = BoxDecoration(
+    gradient: AppColor.kBtnGradiantColorReverse,
+    borderRadius: BorderRadius.circular(5));
 
 BoxDecoration kContainerNoticeBanner = BoxDecoration(
     boxShadow: const [

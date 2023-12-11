@@ -101,7 +101,7 @@ class CustomTextField extends StatelessWidget {
           onEditingComplete: onEditingComplete,
           keyboardType: keyboardType,
           decoration: InputDecoration(
-            errorStyle: kBody.copyWith(color:AppColor. kRed),
+            errorStyle: kBody.copyWith(color: AppColor.kRed),
             // fillColor: const Color(0xff39383D),
             fillColor: AppColor.white,
             filled: true,
@@ -113,27 +113,31 @@ class CustomTextField extends StatelessWidget {
             // border: InputBorder.none,
             disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8),
-                borderSide: BorderSide(color: borderColor ?? AppColor. kTextColor)),
+                borderSide:
+                    BorderSide(color: borderColor ?? AppColor.kTextColor)),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8),
-                borderSide:
-                    BorderSide(color: borderColor ?? AppColor.kWhite.withOpacity(.2))),
+                borderSide: BorderSide(
+                    color: borderColor ?? AppColor.kWhite.withOpacity(.2))),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8),
                 borderSide: BorderSide(
                     width: 1,
-                    color: focusedBorderColor ?? AppColor.kWhite.withOpacity(.5))),
+                    color:
+                        focusedBorderColor ?? AppColor.kWhite.withOpacity(.5))),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8),
                 borderSide: BorderSide(
                     width: 1,
-                    color: enabledBorderColor ?? AppColor.kWhite.withOpacity(.2))),
+                    color:
+                        enabledBorderColor ?? AppColor.kWhite.withOpacity(.2))),
 
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8),
                 borderSide: BorderSide(
                     width: 1,
-                    color: enabledBorderColor ?? AppColor.kWhite.withOpacity(.2))),
+                    color:
+                        enabledBorderColor ?? AppColor.kWhite.withOpacity(.2))),
             hintText: hintText,
             hintStyle: kBody.copyWith(color: const Color(0xff87898E)),
           ),
@@ -148,13 +152,38 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
+/* class CustomChangalbeTextField {
+  CustomChangalbeTextField._internal();
+  static final CustomChangalbeTextField _singleton =
+      CustomChangalbeTextField._internal();
+  factory CustomChangalbeTextField() {
+    return _singleton;
+  }
+} */
+
+TextFormField vTextFieldWithIcon(
+    {required String text, required Widget? icon}) {
+  return TextFormField(
+    readOnly: true,
+    style: kBody,
+    controller: TextEditingController(text: text),
+    textAlignVertical: TextAlignVertical.center,
+    decoration: InputDecoration(
+      isDense: true,
+      fillColor: Colors.transparent,
+      contentPadding: EdgeInsets.symmetric(vertical: AppSpacing.smh),
+      border: InputBorder.none,
+      prefixIcon: icon ?? Container(),
+    ),
+  );
+}
 
 class TextFieldWithLabel extends StatelessWidget {
-  const TextFieldWithLabel({super.key,
+  const TextFieldWithLabel({
+    super.key,
     required this.hint,
     required this.label,
     this.readOnly = false,
-
   });
 
   final String hint, label;
@@ -165,8 +194,13 @@ class TextFieldWithLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: kLabelSmall,),
-        const SizedBox(height: 16,),
+        Text(
+          label,
+          style: kLabelSmall,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
         SizedBox(
           height: 56,
           child: CustomTextField(
@@ -174,12 +208,13 @@ class TextFieldWithLabel extends StatelessWidget {
             readOnly: readOnly,
           ),
         ),
-        const SizedBox(height: 19,),
+        const SizedBox(
+          height: 19,
+        ),
       ],
     );
   }
 }
-
 
 class CustomDropdownTextField extends StatelessWidget {
   const CustomDropdownTextField({
@@ -251,17 +286,17 @@ class CustomDropdownTextField extends StatelessWidget {
                 borderSide: BorderSide(color: AppColor.kWhite.withOpacity(.2))),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    BorderSide(width: 1, color: AppColor.kWhite.withOpacity(.5))),
+                borderSide: BorderSide(
+                    width: 1, color: AppColor.kWhite.withOpacity(.5))),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    BorderSide(width: 1, color: AppColor.kWhite.withOpacity(.2))),
+                borderSide: BorderSide(
+                    width: 1, color: AppColor.kWhite.withOpacity(.2))),
 
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    BorderSide(width: 1, color: AppColor.kWhite.withOpacity(.2))),
+                borderSide: BorderSide(
+                    width: 1, color: AppColor.kWhite.withOpacity(.2))),
             hintText: hintText,
             hintStyle: kBody.copyWith(color: const Color(0xffB5B8C5)),
           ),
@@ -275,8 +310,7 @@ class CustomDropdownTextField extends StatelessWidget {
                       child: Text(
                         data[index],
                         overflow: TextOverflow.ellipsis,
-                        style: kBody.copyWith(color: AppColor.
-                        kWhite),
+                        style: kBody.copyWith(color: AppColor.kWhite),
                       ),
                     ),
                   )),

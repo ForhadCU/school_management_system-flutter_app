@@ -19,7 +19,7 @@ const String nav_user = "assets/icons/nav_user.png";
 const String no_icon_img = "assets/icons/no_icon_img.png";
 
 const String attendance = "assets/logos/attendance.jpg";
-const String demo_school = "assets/logos/demo_school.jpg";
+const String demo_school = "assets/logos/demo_school.png";
 const String mark_sheet = "assets/logos/mark_sheet.jpg";
 const String multiple_login = "assets/logos/multiple_login.jpg";
 const String notice_board_logo = "assets/logos/notice_board.jpg";

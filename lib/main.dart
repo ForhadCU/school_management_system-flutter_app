@@ -8,7 +8,6 @@ import 'Config/constants/constants.dart';
 import 'Controller/base_controller.dart';
 import 'Routes/app_pages.dart';
 import 'Routes/app_routes.dart';
-import 'Singletones/app_data.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      
         designSize: const Size(390, 844),
         minTextAdapt: true,
         splitScreenMode: true,
@@ -37,14 +37,8 @@ class MyApp extends StatelessWidget {
             theme: themeData,
             initialRoute: AppRoutes.launcherSlides,
             // initialRoute: AppRoutes.test,
-            /* (appData.token.isEmpty)
-                ? AppRoutes.login
-                : AppRoutes.liveStatus, */
             getPages: AppPages.pages,
             // home: const BasePage(),
-            // home: const AlarmsView(
-            //
-            // ),
           );
         }));
   }
