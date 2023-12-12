@@ -27,7 +27,7 @@ class Contact extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.white,
         ),
-        body: BaseWidget(
+        body: BaseWidgetChild(
             child: SingleChildScrollView(
           child: Column(
             children: [

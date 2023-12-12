@@ -50,6 +50,7 @@ class PublicAssetLocation {
   static const String slide_bg_3 = "assets/images/slide_bg_3.png";
   static const String slide_bg_4 = "assets/images/slide_bg_4.png";
   static const String slide_bg_5 = "assets/images/slide_bg_5.png";
+  static const String sample_gallery_image = "assets/images/sample_gallery_image.jpg";
 }
 
 class StudentAssetLocation {

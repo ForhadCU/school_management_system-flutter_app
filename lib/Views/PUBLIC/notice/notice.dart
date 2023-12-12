@@ -23,15 +23,15 @@ class Notice extends StatelessWidget {
           elevation: 0,
           backgroundColor: AppColor.white,
         ),
-        body: BaseWidget(
+        body: BaseWidgetChild(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                _vTopbar(controller),
-                AppSpacing.xl.height,
-                Expanded(child: _vNoticeList())
-              ],
-            )),
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _vTopbar(controller),
+            AppSpacing.xl.height,
+            Expanded(child: _vNoticeList())
+          ],
+        )),
       ),
     );
   }
@@ -42,9 +42,7 @@ class Notice extends StatelessWidget {
       required Color color,
       required Function onTap}) {
     return GestureDetector(
-      onTap: (){
-        
-      },
+      onTap: () {},
       child: Container(
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: kContainerPrimary.copyWith(
@@ -119,8 +117,7 @@ class Notice extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: AppSpacing.md / 2, horizontal: AppSpacing.md),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: AppColor.primaryColor),
+          borderRadius: BorderRadius.circular(8), color: AppColor.primaryColor),
       alignment: Alignment.centerLeft,
       child: StaggeredGrid.count(
         crossAxisCount: 7,

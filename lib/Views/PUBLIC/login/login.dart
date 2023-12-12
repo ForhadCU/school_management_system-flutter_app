@@ -14,27 +14,25 @@ class Login extends StatelessWidget {
     final controller = LoginController.to;
     final GlobalKey<FormState> formKey = GlobalKey();
 
-    return SafeArea(
-      child: Scaffold(
-        /* appBar: AppBar(
+    return BaseWidget(
+      title: "Login",
+      /* appBar: AppBar(
           title: Text("Notice Board"),
           elevation: 0,
           backgroundColor: AppColor.white,
         ), */
-        body: BaseWidget(
-            child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              vSchollNameBanner(controller),
-              (AppSpacing.xxl * 2).height,
-              vBody(controller, formKey),
-            ],
-          ),
-        )),
-      ),
+      child: BaseWidgetChild(
+          child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            vSchollNameBanner(controller),
+            (AppSpacing.xxl * 2).height,
+            vBody(controller, formKey),
+          ],
+        ),
+      )),
     );
-    
   }
 
   vSchollNameBanner(LoginController controller) {

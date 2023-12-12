@@ -22,7 +22,7 @@ class ExpandedNotice extends StatelessWidget {
           title: Text(""),
           backgroundColor: Colors.white,
         ),
-        body: BaseWidget(
+        body: BaseWidgetChild(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

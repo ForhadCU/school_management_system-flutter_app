@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
+import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:school_management_system/Views/Widgets/custom_textfield.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 
 class Landing extends StatelessWidget {
@@ -15,7 +17,7 @@ class Landing extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       backgroundColor: AppColor.white,
-      body: BaseWidget(
+      body: BaseWidgetChild(
           child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,6 +46,7 @@ class Landing extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(AppSpacing.md),
+            width: AppScreenSize.mGetWidth(kGlobContext, 20),
             decoration: BoxDecoration(
                 color: bgColor,
                 borderRadius: BorderRadius.circular(AppSpacing.sm)),
@@ -59,6 +62,8 @@ class Landing extends StatelessWidget {
           Text(
             label,
             style: kBody,
+            overflow: TextOverflow.ellipsis,
+            
           )
         ],
       ),
@@ -72,28 +77,23 @@ class Landing extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: vIconButton(
-                    onTap: () {
-                      print("Click");
-                      return Get.toNamed(AppRoutes.notice);
-                    },
-                    iconLoc: PublicAssetLocation.notices,
-                    bgColor: Colors.orange.shade100,
-                    iconColor: Colors.orange,
-                    label: "Notice"),
-              ),
+              child: vIconButton(
+                  onTap: () {
+                    print("Click");
+                    return Get.toNamed(AppRoutes.notice);
+                  },
+                  iconLoc: PublicAssetLocation.notices,
+                  bgColor: Colors.orange.shade100,
+                  iconColor: Colors.orange,
+                  label: "Notice"),
             ),
             Expanded(
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.academicCalendar),
-                        iconLoc: PublicAssetLocation.academicCalander,
-                        bgColor: Colors.green.shade100,
-                        iconColor: Colors.green,
-                        label: "Calendar"))),
+                child: vIconButton(
+                    onTap: () => Get.toNamed(AppRoutes.academicCalendar),
+                    iconLoc: PublicAssetLocation.academicCalander,
+                    bgColor: Colors.green.shade100,
+                    iconColor: Colors.green,
+                    label: "Academic Calendar")),
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
