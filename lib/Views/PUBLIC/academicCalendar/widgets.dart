@@ -13,9 +13,9 @@ class AcademicCalanderWidget {
   factory AcademicCalanderWidget() {
     return _singleton;
   }
-  // static final controller = AcademicCalendarController.to;
-  static vAcademicCalendar(AcademicCalendarController controller) {
-    return   Padding(
+  static final controller = AcademicCalendarController.to;
+  static vAcademicCalendar() {
+    return Padding(
       padding: const EdgeInsets.all(AppSpacing.primaryPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,31 +32,44 @@ class AcademicCalanderWidget {
             ],
           ),
           AppSpacing.sm.height,
-         TableCalendar(
-                onPageChanged: (DateTime focusdate) {
-                  print(focusdate.toString());
-                },
-                eventLoader: (day) => controller.events[day] ?? [],
-                headerStyle: const HeaderStyle(
-                    titleCentered: true,
-                    decoration: BoxDecoration(color: AppColor.secondaryColor)),
-                calendarFormat: CalendarFormat.month,
-                availableCalendarFormats: {CalendarFormat.month: "Month"},
-                calendarStyle: CalendarStyle(
-                    tableBorder:
-                        TableBorder.all(color: AppColor.orange500, width: 1)),
-                focusedDay: controller.focusDay.value,
-                firstDay: DateTime.now().subtract(Duration(days: 300)),
-                lastDay: DateTime.now().add(
-                  const Duration(
-                    days: 34,
-                  ),
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  controller.focusDay.value = focusedDay;
-                  print(controller.focusDay.value);
-                },
-              ),
+          TableCalendar(
+            calendarBuilders: CalendarBuilders(
+              defaultBuilder: (context, day, focusedDay) {
+                for (DateTime d in controller.initialSelectedDateList) {
+                  if (day.day == d.day &&
+                      day.month == d.month &&
+                      day.year == d.year) {
+                    return Container(
+                      margin: EdgeInsets.all(AppSpacing.smh + 2),
+                      decoration: const BoxDecoration(
+                          color: Colors.blue, shape: BoxShape.circle),
+                      child: Center(
+                        child: Text(
+                          '${day.day}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  }
+                }
+                return null;
+              },
+            ),
+            onPageChanged: (DateTime focusdate) {
+              print(focusdate.toString());
+            },
+            headerStyle: const HeaderStyle(
+                titleCentered: true,
+                decoration: BoxDecoration(color: AppColor.secondaryColor)),
+            calendarFormat: CalendarFormat.month,
+            availableCalendarFormats: {CalendarFormat.month: "Month"},
+            calendarStyle: CalendarStyle(
+                tableBorder:
+                    TableBorder.all(color: AppColor.orange500, width: 1)),
+            focusedDay: controller.focusDay.value,
+            firstDay: controller.firstDay,
+            lastDay: controller.lastDay,
+          ),
         ],
       ),
     );
