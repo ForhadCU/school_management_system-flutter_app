@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
@@ -16,6 +17,9 @@ BuildContext kGlobContext = Get.context!;
 // calander dialog
 const String kNormal = "normal";
 const String kCustom = "custom";
+
+// Key
+const String kSiteListModel = "siteListModel";
 
 //appStrings
 const String kAppName = 'Freelancer app';
@@ -74,12 +78,15 @@ const String tReadMore = "Read More";
 const String tSeeAll = "See All";
 const String tDots3 = "...";
 
+const String kAppDateFormat = "dd-MM-yyyy";
+// const String kAppDateWithTimeFormat = "dd-MM-yyyy kk:mm:a";
+const String kAppDateWithTimeFormat = "dd-MM-yyyy h:mm a";
+const String kApiDateFormat = "yyyy-MM-dd";
+
 ///**Bottom Navigation bar */
 
-kLog(dynamic value) {
-  kLog(value.toString());
-
-/*   if (kDebugMode) {
-    kLog(value.toString());
-  } */
+kLog(Object value) {
+  if (kDebugMode) {
+    print(value.toString());
+  }
 }

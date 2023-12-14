@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/PUBLIC/landing_controller.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
@@ -14,6 +16,7 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = LandingController.to;
     return SafeArea(
         child: Scaffold(
       backgroundColor: AppColor.white,
@@ -23,51 +26,16 @@ class Landing extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // vSchollNameBanner(),
-           const InstitueBanaer(iconUrl: demo_school, title: tDemoSchoolName),
+            Obx(() => InstitueBanaer(
+                iconUrl: controller.siteListModel.value.siteLogo,
+                title: controller.siteListModel.value.siteName ??
+                    tDemoSchoolName)),
             (AppSpacing.xxl * 2).height,
             vBody(),
           ],
         ),
       )),
     ));
-  }
-
-  Widget vIconButton(
-      {required Function onTap,
-      required String iconLoc,
-      required Color bgColor,
-      required Color iconColor,
-      required String label}) {
-    return GestureDetector(
-      onTap: () {
-        onTap();
-      },
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.md),
-            width: AppScreenSize.mGetWidth(kGlobContext, 20),
-            decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.circular(AppSpacing.sm)),
-            child: Image(
-              image: AssetImage(
-                iconLoc,
-              ),
-              color: iconColor,
-              width: 48,
-            ),
-          ),
-          AppSpacing.sm.height,
-          Text(
-            label,
-            style: kBody,
-            overflow: TextOverflow.ellipsis,
-            
-          )
-        ],
-      ),
-    );
   }
 
   Widget vBody() {
@@ -144,5 +112,40 @@ class Landing extends StatelessWidget {
     );
   }
 
- 
+  Widget vIconButton(
+      {required Function onTap,
+      required String iconLoc,
+      required Color bgColor,
+      required Color iconColor,
+      required String label}) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            width: AppScreenSize.mGetWidth(kGlobContext, 20),
+            decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(AppSpacing.sm)),
+            child: Image(
+              image: AssetImage(
+                iconLoc,
+              ),
+              color: iconColor,
+              width: 48,
+            ),
+          ),
+          AppSpacing.sm.height,
+          Text(
+            label,
+            style: kBody,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
+      ),
+    );
+  }
 }

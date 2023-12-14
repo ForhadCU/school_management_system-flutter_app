@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Controller/contact.dart';
+import 'package:school_management_system/Controller/PUBLIC/contact_controller.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/PUBLIC/contact/widgets.dart';

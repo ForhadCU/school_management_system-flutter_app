@@ -1,12 +1,11 @@
-import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Controller/gallery.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
+
+import '../../../Controller/PUBLIC/gallery_controller.dart';
 
 class GalleryWidget {
   static final GalleryWidget _singleton = GalleryWidget._internal();

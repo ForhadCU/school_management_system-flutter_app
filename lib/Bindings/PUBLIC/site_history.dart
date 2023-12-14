@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../Controller/site_history.dart';
+import '../../Controller/PUBLIC/site_history_controller.dart';
 
 class SiteHistoryBinding extends Bindings {
 

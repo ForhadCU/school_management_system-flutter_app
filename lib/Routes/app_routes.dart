@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
-import 'package:school_management_system/Bindings/academic_calendar.dart';
-import 'package:school_management_system/Bindings/contact.dart';
+import 'package:school_management_system/Bindings/PUBLIC/academic_calendar.dart';
+import 'package:school_management_system/Bindings/PUBLIC/contact.dart';
 import 'package:school_management_system/Bindings/dashboard.dart';
-import 'package:school_management_system/Bindings/gallery.dart';
+import 'package:school_management_system/Bindings/PUBLIC/gallery.dart';
 import 'package:school_management_system/Bindings/home.dart';
 import 'package:school_management_system/Bindings/landing_binding.dart';
 import 'package:school_management_system/Bindings/launcher_slides.dart';
 import 'package:school_management_system/Bindings/login.dart';
-import 'package:school_management_system/Bindings/notice.dart';
+import 'package:school_management_system/Bindings/PUBLIC/notice.dart';
 import 'package:school_management_system/Bindings/search_school.dart';
-import 'package:school_management_system/Bindings/site_history.dart';
+import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
 import 'package:school_management_system/Bindings/test/test_binding.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_calendar.dart';
@@ -57,7 +57,7 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.notice, binding: NoticeBinding(), page: () => Notice()),
     GetPage(
-        name: AppRoutes.notice,
+        name: AppRoutes.expandedNotice,
         binding: NoticeBinding(),
         page: () => ExpandedNotice()),
 

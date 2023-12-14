@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../Config/config.dart';
-import '../../../Controller/contact.dart';
+import '../../../Controller/PUBLIC/contact_controller.dart';
 import '../../../Utils/utils.dart';
 import '../../Widgets/custom_textfield.dart';
 

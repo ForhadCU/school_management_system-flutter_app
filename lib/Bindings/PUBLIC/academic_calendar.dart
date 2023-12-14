@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../Controller/academic_calendar.dart';
+import '../../Controller/PUBLIC/academic_calendar_controller.dart';
 
 class AcademicCalendarBinding extends Bindings {
   static AcademicCalendarBinding get to => Get.find();

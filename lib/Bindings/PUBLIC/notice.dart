@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/notice.dart';
+
+import '../../Controller/PUBLIC/notice_controller.dart';
 
 class NoticeBinding extends Bindings {
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:school_management_system/Config/config.dart';
 
 class CustomStatusBar {
   CustomStatusBar._internal();

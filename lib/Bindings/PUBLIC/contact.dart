@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../Controller/contact.dart';
+import '../../Controller/PUBLIC/contact_controller.dart';
 
 class ContactBinding extends Bindings {
 

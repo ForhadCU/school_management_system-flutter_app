@@ -16,7 +16,7 @@ class CallAPI {
   }
   CallAPI._internal();
 
-  int timeOutSec = 15;
+  static int timeOutSec = 15;
   //DEV:
 // final  String _host = 'http://10.0.2.2:8080';
 // final  String _getHost = '10.0.2.2:8080';
@@ -24,15 +24,21 @@ class CallAPI {
 // final  String _getMiddlePoint = '/api/app/';
 
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
-  final String _host = 'https://cms.goecworld.com';
+/*   final String _host = 'https://cms.goecworld.com';
   // ignore: non_constant_identifier_names
   final String _get_host = 'cms.goecworld.com';
   final String _url = 'https://cms.goecworld.com/Chargetron/api/';
   // ignore: non_constant_identifier_names
-  final String _get_middle_point = '/Chargetron/api/';
+  final String _get_middle_point = '/Chargetron/api/'; */
+
+  //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
+  static const String _host = 'https://cms.goecworld.com';
+  static const String _get_host = 'fccdc.theworld.com.bd';
+  static const String _url = 'https://cms.goecworld.com/Chargetron/api/';
+  static const String _get_middle_point = '/Chargetron/api/';
 
 /////////POST DATA/////////////////
-  Future<ResponseModel> postData(
+  static Future<ResponseModel> postData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('POST $endPoint');
@@ -59,7 +65,8 @@ class CallAPI {
   }
 
 ////////GET DATA/////////////////
-  Future<ResponseModel> getData(String endPoint, Map<String, dynamic>? params,
+  static Future<ResponseModel> getData(
+      String endPoint, Map<String, dynamic>? params,
       {String? url}) async {
     dynamic body;
     kLog('GET + $endPoint');
@@ -88,8 +95,73 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
+  static Future<ResponseModel> getPublicData(
+      String endPoint, Map<String, dynamic>? params,
+      {String? url}) async {
+    dynamic body;
+    kLog('GET + $endPoint');
+    showLoading("Please wait...");
+    try {
+      http.Response res = await http.get(
+        Uri.https(_get_host, endPoint, params),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Completed");
+      }
+
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> getSiteData(
+      /* String endPoint, */ /* Map<String, dynamic>? params, */
+      {String? url}) async {
+    dynamic body;
+    print('GET + get-site-list');
+    try {
+      http.Response res = await http.get(
+        // Uri.https(_get_host, _get_middle_point + endPoint, params),
+        Uri.https("eduworld.theworld.com.bd", "/api/site/get-site-list"),
+        headers: {
+          // "Access-Control-Allow-Origin": "*",
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Done");
+      }
+
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      print(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
 ////////////////PUT//////////////////////
-  Future<ResponseModel> putData(
+  static Future<ResponseModel> putData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('PUT $endPoint');
@@ -119,7 +191,7 @@ class CallAPI {
   }
 
 ///////DELETE API///////////////
-  Future<ResponseModel> deleteData(
+  static Future<ResponseModel> deleteData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('DELETE $endPoint');
@@ -150,7 +222,7 @@ class CallAPI {
   }
 
 /////////PATCH DATA////////////////
-  Future<ResponseModel> patchData(
+  static Future<ResponseModel> patchData(
       String endPoint, Map<String, dynamic>? params) async {
     http.Response res = await http.patch(
       Uri.http(
@@ -177,7 +249,7 @@ class CallAPI {
   }
 
 //////IMAGE UPLOAD//////
-  uploadFile(String text, File file) async {
+  static uploadFile(String text, File file) async {
     //create multipart request for POST or PATCH method
     showLoading('uploading...');
     var request = http.MultipartRequest(
@@ -203,7 +275,7 @@ class CallAPI {
     return res['image'];
   }
 
- /*  Future<void> download(String endPoint, var param, String fileName) async {
+  /*  Future<void> download(String endPoint, var param, String fileName) async {
     http.Response response = await http.get(
       Uri.https(_get_host, _get_middle_point + endPoint, param),
       headers: {
@@ -234,7 +306,7 @@ class CallAPI {
     }
   }
  */
- /*  void downloadFile(List<int> content, String filename) {
+  /*  void downloadFile(List<int> content, String filename) {
     final blob = html.Blob([content]);
     final url = html.Url.createObjectUrlFromBlob(blob);
 
@@ -249,7 +321,7 @@ class CallAPI {
   } */
 
 //EASY FUNCTIONS
-  Future easyGet<T>(
+  static Future easyGet<T>(
       {required Map<String, dynamic> query,
       required String endpoint,
       required bool isList,

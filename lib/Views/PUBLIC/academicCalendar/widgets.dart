@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/academic_calendar.dart';
+import 'package:school_management_system/Controller/PUBLIC/academic_calendar_controller.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:table_calendar/table_calendar.dart';
 
