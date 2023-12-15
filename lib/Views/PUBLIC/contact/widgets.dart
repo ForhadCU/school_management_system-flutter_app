@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -13,8 +12,8 @@ class ContactWidget {
   factory ContactWidget() {
     return _singleton;
   }
-
-  vMap(ContactController controller) {
+  static final controller = ContactController.to;
+  vMap() {
     return SizedBox(
       height: AppScreenSize.mGetHeight(kGlobContext, 30),
       child: GoogleMap(
@@ -33,14 +32,14 @@ class ContactWidget {
     );
   }
 
-  vInfo(ContactController controller) {
+  vInfo() {
     return Container(
       padding: EdgeInsets.all(AppSpacing.sm),
       decoration: kContainerPrimaryWithGradientReverse,
       child: Column(
         children: [
           vTextFieldWithIcon(
-            text: controller.adress.value.toString(),
+            text: controller.siteListModel.value.address.toString(),
             icon: Icon(
               Icons.location_pin,
               size: 24,
@@ -48,7 +47,7 @@ class ContactWidget {
             ),
           ),
           vTextFieldWithIcon(
-            text: controller.phone.value.toString(),
+            text: controller.siteListModel.value.sitePhone.toString(),
             icon: Icon(
               Icons.phone,
               size: 24,
@@ -56,7 +55,7 @@ class ContactWidget {
             ),
           ),
           vTextFieldWithIcon(
-            text: controller.email.value.toString(),
+            text: controller.siteListModel.value.siteEmail.toString(),
             icon: Icon(
               Icons.email,
               size: 24,
@@ -64,7 +63,7 @@ class ContactWidget {
             ),
           ),
           vTextFieldWithIcon(
-            text: controller.website.value.toString(),
+            text: controller.siteListModel.value.googleLink.toString(),
             icon: Icon(
               Icons.public,
               size: 24,
@@ -76,24 +75,27 @@ class ContactWidget {
     );
   }
 
-  vSites(ContactController controller) {
+  vSites() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _vSitebox(no_icon_img, Color(0xffD70065)),
-        _vSitebox(no_icon_img, Color(0xff6FC556)),
-        _vSitebox(no_icon_img, Color(0xff2463FF)),
-        _vSitebox(no_icon_img, Color(0xff111111)),
-        _vSitebox(no_icon_img, Color(0xffFE0000)),
-        _vSitebox(no_icon_img, Color(0xff667FB5)),
+        // _vSitebox(no_icon_img, Color(0xffD70065)),
+        _vSitebox(PublicAssetLocation.ic_fb, Color(0xff2463FF),
+            controller.siteListModel.value.facebookLink),
+        _vSitebox(PublicAssetLocation.ic_youtube, Color(0xffFE0000),
+            controller.siteListModel.value.youtubeLink),
+        _vSitebox(PublicAssetLocation.ic_web, Color(0xff667FB5),
+            controller.siteListModel.value.googleLink),
+        _vSitebox(PublicAssetLocation.ic_whatsapp, Color(0xff6FC556), ""),
+        _vSitebox(PublicAssetLocation.ic_x, Color(0xff111111), ""),
       ],
     );
   }
 
-  _vSitebox(String imageLoc, Color bgColor) {
+  _vSitebox(String imageLoc, Color bgColor, String url) {
     return Container(
       width: AppScreenSize.mGetWidth(kGlobContext, 14),
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.smh),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       alignment: Alignment.center,
       decoration:
           BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(4)),

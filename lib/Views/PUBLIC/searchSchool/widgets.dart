@@ -7,7 +7,6 @@ import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_mod
 import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
 import '../../../Singletones/app_data.dart';
-import '../../Widgets/text_form_fields.dart';
 
 class SchoolResultListItem extends StatelessWidget {
   const SchoolResultListItem(

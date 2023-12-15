@@ -50,7 +50,7 @@ class Landing extends StatelessWidget {
                     print("Click");
                     return Get.toNamed(AppRoutes.notice);
                   },
-                  iconLoc: PublicAssetLocation.notices,
+                  iconLoc: PublicAssetLocation.ic_notices,
                   bgColor: Colors.orange.shade100,
                   iconColor: Colors.orange,
                   label: "Notice"),
@@ -58,7 +58,7 @@ class Landing extends StatelessWidget {
             Expanded(
                 child: vIconButton(
                     onTap: () => Get.toNamed(AppRoutes.academicCalendar),
-                    iconLoc: PublicAssetLocation.academicCalander,
+                    iconLoc: PublicAssetLocation.ic_academicCalander,
                     bgColor: Colors.green.shade100,
                     iconColor: Colors.green,
                     label: "Academic Calendar")),
@@ -67,7 +67,7 @@ class Landing extends StatelessWidget {
                     alignment: Alignment.center,
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.gallery),
-                        iconLoc: PublicAssetLocation.gallery,
+                        iconLoc: PublicAssetLocation.ic_gallery,
                         bgColor: Colors.blue.shade100,
                         iconColor: Colors.blue,
                         label: "Gallery"))),
@@ -82,7 +82,7 @@ class Landing extends StatelessWidget {
                 alignment: Alignment.center,
                 child: vIconButton(
                     onTap: () => Get.toNamed(AppRoutes.siteHistory),
-                    iconLoc: PublicAssetLocation.sitehistory,
+                    iconLoc: PublicAssetLocation.ic_sitehistory,
                     bgColor: Colors.purple.shade100,
                     iconColor: Colors.purple,
                     label: "Site History"),
@@ -93,7 +93,7 @@ class Landing extends StatelessWidget {
                     alignment: Alignment.center,
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.contact),
-                        iconLoc: PublicAssetLocation.contact_mail_us,
+                        iconLoc: PublicAssetLocation.ic_contact_mail_us,
                         bgColor: Colors.red.shade100,
                         iconColor: Colors.red,
                         label: "Contact Us"))),
@@ -102,7 +102,7 @@ class Landing extends StatelessWidget {
                     alignment: Alignment.center,
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.login),
-                        iconLoc: PublicAssetLocation.userLogin,
+                        iconLoc: PublicAssetLocation.ic_userLogin,
                         bgColor: Colors.amber.shade100,
                         iconColor: Colors.amber,
                         label: "Login"))),

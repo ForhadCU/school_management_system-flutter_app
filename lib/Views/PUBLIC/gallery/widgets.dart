@@ -75,7 +75,7 @@ class GalleryWidget {
                     child: Row(
                       children: [
                         const Image(
-                          image: AssetImage(PublicAssetLocation.gallery),
+                          image: AssetImage(PublicAssetLocation.ic_gallery),
                           width: 24,
                           height: 24,
                           color: AppColor.secondaryColor,
@@ -128,7 +128,7 @@ class GalleryWidget {
   static _vDropdown(GalleryController controler) {
     return Obx(
       () => Container(
-        padding: const EdgeInsets.symmetric(
+        padding:  const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm, vertical: AppSpacing.smh / 2),
         color: AppColor.secondaryColor,
         child: DropdownButton<String>(
@@ -207,7 +207,7 @@ class GalleryWidget {
               shrinkWrap: true,
               itemBuilder: (context, listViewIndex) {
                 return Container(
-                  margin: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                  margin: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,

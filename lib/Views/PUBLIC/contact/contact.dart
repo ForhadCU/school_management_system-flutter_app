@@ -29,13 +29,15 @@ class Contact extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              InstitueBanaer(iconUrl: demo_school, title: tDemoSchoolName),
+              InstitueBanaer(
+                  iconUrl: controller.siteListModel.value.siteLogo,
+                  title: controller.siteListModel.value.siteName!),
               AppSpacing.xl.height,
-              ContactWidget().vInfo(controller),
+              ContactWidget().vInfo(),
               AppSpacing.md.height,
-              ContactWidget().vMap(controller),
+              ContactWidget().vMap(),
               AppSpacing.md.height,
-              ContactWidget().vSites(controller),
+              ContactWidget().vSites(),
               // _vSites(controller),
             ],
           ),

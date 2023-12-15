@@ -317,12 +317,10 @@ class NoticeWidgets {
   }
 
   static Widget _vDownload() {
-    return Container(
-      child: const Icon(
-        Icons.download,
-        color: AppColor.dollarBill,
-        size: 48,
-      ),
+    return const Icon(
+      Icons.download,
+      color: AppColor.dollarBill,
+      size: 48,
     );
   }
 }

@@ -35,14 +35,19 @@ class PublicAssetLocation {
   }
 
   /// icons
-  static const String no_icon_img = "assets/icons/no_icon_img.png";
-  static const String notices = "assets/icons/noitces.png";
-  static const String home = "assets/icons/home_user.png";
-  static const String gallery = "assets/icons/gallery.png";
-  static const String academicCalander = "assets/icons/academic_calndr.png";
-  static const String sitehistory = "assets/icons/site_history.png";
-  static const String userLogin = "assets/icons/user_login.png";
-  static const String contact_mail_us = "assets/icons/contact_mail_us.png";
+  static const String ic_no_icon_img = "assets/icons/no_icon_img.png";
+  static const String ic_notices = "assets/icons/noitces.png";
+  static const String ic_home = "assets/icons/home_user.png";
+  static const String ic_gallery = "assets/icons/gallery.png";
+  static const String ic_academicCalander = "assets/icons/academic_calndr.png";
+  static const String ic_sitehistory = "assets/icons/site_history.png";
+  static const String ic_userLogin = "assets/icons/user_login.png";
+  static const String ic_contact_mail_us = "assets/icons/contact_mail_us.png";
+  static const String ic_fb = "assets/icons/fb.png";
+  static const String ic_web = "assets/icons/web.png";
+  static const String ic_whatsapp = "assets/icons/whatsapp.png";
+  static const String ic_x = "assets/icons/x.png";
+  static const String ic_youtube = "assets/icons/youtube.png";
 
   /// images
   static const String slide_bg_1 = "assets/images/slide_bg_1.png";

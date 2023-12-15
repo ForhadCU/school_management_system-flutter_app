@@ -23,7 +23,7 @@ import 'package:school_management_system/Views/PUBLIC/login/login.dart';
 import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
-import 'package:school_management_system/Views/PUBLIC/siteHistory/site_history.dart';
+import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/test/test.dart';
 
@@ -71,7 +71,7 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.siteHistory,
         binding: SiteHistoryBinding(),
-        page: () => SiteHistory()),
+        page: () => AboutUs()),
 
     /// Contact
     GetPage(
