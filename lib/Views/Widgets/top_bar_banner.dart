@@ -20,7 +20,7 @@ class InstitueBanaer extends StatelessWidget {
           children: [
             iconUrl != null
                 ? CachedNetworkImage(
-                    imageUrl: AppData.eduWorldHostname+iconUrl!,
+                    imageUrl: AppData.eduWorldTheworldHostname + iconUrl!,
                     width: 48 * 2,
                     height: 48 * 2,
                     fit: BoxFit.fill,

@@ -1,8 +1,10 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
+import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 
 import '../../../Controller/PUBLIC/gallery_controller.dart';
@@ -13,7 +15,7 @@ class GalleryWidget {
   factory GalleryWidget() {
     return _singleton;
   }
-  final controller = GalleryController.to;
+  static final controller = GalleryController.to;
   static Widget vTopBar(GalleryController controler) {
     return StaggeredGrid.count(
       crossAxisCount: 2,
@@ -21,59 +23,85 @@ class GalleryWidget {
       children: [
         StaggeredGridTile.fit(
             crossAxisCellCount: 1,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-              decoration: kContainerPrimary,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.camera,
-                    size: 24,
-                    color: AppColor.secondaryColor,
+            child: Obx(() => GestureDetector(
+                  onTap: () => controller.isPhotoViewByAlbums.value = false,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                    decoration: !controller.isPhotoViewByAlbums.value
+                        ? kContainerPrimary
+                        : kContainerPrimary.copyWith(
+                            color: AppColor.kGray700.withOpacity(.5)),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.camera,
+                          size: 24,
+                          color: AppColor.secondaryColor,
+                        ),
+                        AppSpacing.md.width,
+                        Expanded(
+                            child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.sm,
+                              vertical: AppSpacing.sm),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            "All Photos",
+                            style: TextStyle(
+                                color: !controller.isPhotoViewByAlbums.value
+                                    ? Colors.black
+                                    : AppColor.kGray700.withOpacity(.5)),
+                          ),
+                        ))
+                      ],
+                    ),
                   ),
-                  AppSpacing.md.width,
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text("All Photos"),
-                  ))
-                ],
-              ),
-            )),
+                ))),
         StaggeredGridTile.fit(
             crossAxisCellCount: 1,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-              decoration: kContainerPrimary,
-              child: Row(
-                children: [
-                  Image(
-                    image: AssetImage(PublicAssetLocation.gallery),
-                    width: 24,
-                    height: 24,
-                    color: AppColor.secondaryColor,
+            child: Obx(() => GestureDetector(
+                  onTap: () => controller.isPhotoViewByAlbums.value = true,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                    decoration: controller.isPhotoViewByAlbums.value
+                        ? kContainerPrimary
+                        : kContainerPrimary.copyWith(
+                            color: AppColor.kGray700.withOpacity(.5)),
+                    child: Row(
+                      children: [
+                        const Image(
+                          image: AssetImage(PublicAssetLocation.gallery),
+                          width: 24,
+                          height: 24,
+                          color: AppColor.secondaryColor,
+                        ),
+                        AppSpacing.md.width,
+                        Expanded(
+                            child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.sm,
+                              vertical: AppSpacing.sm),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            "Albums",
+                            style: TextStyle(
+                                color: controller.isPhotoViewByAlbums.value
+                                    ? Colors.black
+                                    : AppColor.kGray700.withOpacity(.5)),
+                          ),
+                        ))
+                      ],
+                    ),
                   ),
-                  AppSpacing.md.width,
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text("Albums"),
-                  ))
-                ],
-              ),
-            )),
+                ))),
       ],
     );
   }
@@ -82,12 +110,12 @@ class GalleryWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Expanded(
+        const Expanded(
             child: Divider(
           color: AppColor.secondaryColor,
         )),
         AppSpacing.md.width,
-        Text(
+        const Text(
           "Sort by",
           style: kLabel,
         ),
@@ -100,8 +128,8 @@ class GalleryWidget {
   static _vDropdown(GalleryController controler) {
     return Obx(
       () => Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm, vertical: AppSpacing.smh/2),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm, vertical: AppSpacing.smh / 2),
         color: AppColor.secondaryColor,
         child: DropdownButton<String>(
           value: controler.dropdownValue.value,
@@ -115,8 +143,7 @@ class GalleryWidget {
           onChanged: (String? newValue) {
             controler.mUpdateDropdownValue(newValue!);
           },
-          items: <String>["Date", "Item 2"]
-              .map<DropdownMenuItem<String>>((String value) {
+          items: <String>["Date"].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               alignment: AlignmentDirectional.center,
               value: value,
@@ -135,31 +162,124 @@ class GalleryWidget {
 
   static vPhotos(GalleryController controler) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: StaggeredGrid.count(
-          crossAxisCount: 4,
-          mainAxisSpacing: AppSpacing.md,
-          crossAxisSpacing: AppSpacing.md,
-          children: List.generate(
-              30,
-              (index) => GestureDetector(
+      child: Obx(() => !controller.isPhotoViewByAlbums.value
+          ? StaggeredGrid.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: AppSpacing.md,
+              crossAxisSpacing: AppSpacing.md,
+              children: List.generate(controler.fileElementList.length,
+                  (gridViewIndex) {
+                kLog(AppData.eduWorldErpHostname +
+                    controler.fileElementList[gridViewIndex].path!);
+                return GestureDetector(
                     onTap: () {
-                      _vShowImageDialog();
+                      controller.mGetClickedImageDetails(controler
+                          .fileElementList[gridViewIndex].imageableId!);
+                      _vShowImageDialog(
+                        AppData.eduWorldErpHostname +
+                            controler.fileElementList[gridViewIndex].path!,
+                        controler.clickedImageDetails.value.eventTitle!,
+                        controler.clickedImageDetails.value.eventDescription!,
+                        controler.fileElementList[gridViewIndex].createdAt!,
+                      );
                     },
-                    child: Image(
-                      image:
-                          AssetImage(PublicAssetLocation.sample_gallery_image),
+                    child: CachedNetworkImage(
+                      imageUrl: AppData.eduWorldErpHostname +
+                          controler.fileElementList[gridViewIndex].path!,
                       height: 100,
-                      fit: BoxFit.fitHeight,
-                      // color: AppColor.secondaryColor,
-                    ),
-                  )).toList(),
-        ),
-      ),
+                      fit: BoxFit.fill,
+                    ) /* const Image(
+                              image: AssetImage(
+                                  PublicAssetLocation.sample_gallery_image),
+                              height: 100,
+                              fit: BoxFit.fitHeight,
+                              // color: AppColor.secondaryColor,
+                            ), */
+                    );
+              }).toList(),
+            )
+
+          /// for photo viewing by albums
+          : ListView.builder(
+              itemCount: controller.galleryDataModelList.isEmpty
+                  ? 0
+                  : controler.galleryDataModelList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, listViewIndex) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        controler.galleryDataModelList[listViewIndex].eventTitle
+                            .toString(),
+                        style: kBody.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      AppSpacing.smh.height,
+                      Text(
+                        Utils().getTimeFromTimeStamp(
+                            controler
+                                .galleryDataModelList[listViewIndex].createdAt
+                                .toString(),
+                            kAppDateFormatWithTime12),
+                        style: kLabel.copyWith(
+                            color: AppColor.kGray700.withOpacity(.8)),
+                      ),
+                                            AppSpacing.sm.height,
+
+                      StaggeredGrid.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: AppSpacing.md,
+                        crossAxisSpacing: AppSpacing.md,
+                        children: List.generate(
+                            controler.galleryDataModelList[listViewIndex]
+                                        .files !=
+                                    null
+                                ? controler.galleryDataModelList[listViewIndex]
+                                    .files!.length
+                                : 0, (gridViewIndex) {
+                          kLog(AppData.eduWorldErpHostname +
+                              controler.galleryDataModelList[listViewIndex]
+                                  .files![gridViewIndex].path!);
+                          return GestureDetector(
+                              onTap: () {
+                                _vShowImageDialog(
+                                  AppData.eduWorldErpHostname +
+                                      controler
+                                          .galleryDataModelList[listViewIndex]
+                                          .files![gridViewIndex]
+                                          .path!,
+                                  controler.galleryDataModelList[listViewIndex]
+                                      .eventTitle!,
+                                  controler.galleryDataModelList[listViewIndex]
+                                      .eventDescription!,
+                                  controler.galleryDataModelList[listViewIndex]
+                                      .files![gridViewIndex].createdAt!,
+                                );
+                              },
+                              child: CachedNetworkImage(
+                                imageUrl: AppData.eduWorldErpHostname +
+                                    controler
+                                        .galleryDataModelList[listViewIndex]
+                                        .files![gridViewIndex]
+                                        .path!,
+                                height: 100,
+                                fit: BoxFit.fill,
+                              ));
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )),
     );
   }
 
-  static _vShowImageDialog() {
+  static _vShowImageDialog(
+      String imgUrl, String title, String desc, DateTime dateTime) {
     return showDialog(
         context: (kGlobContext),
         builder: (kGlobContext) {
@@ -172,17 +292,22 @@ class GalleryWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image(
-                      image:
-                          AssetImage(PublicAssetLocation.sample_gallery_image)),
+                  CachedNetworkImage(imageUrl: imgUrl),
                   AppSpacing.sm.height,
                   Text(
-                    "Image title",
+                    title,
                     style: kBody.copyWith(fontWeight: FontWeight.w600),
                   ),
                   AppSpacing.smh.height,
                   Text(
-                    "This is image description",
+                    Utils().getTimeFromTimeStamp(
+                        dateTime.toString(), kAppDateFormatWithDayMonth),
+                    style: kLabel.copyWith(
+                        color: AppColor.kGray700.withOpacity(.8)),
+                  ),
+                  AppSpacing.sm.height,
+                  Text(
+                    desc,
                     style: kBody,
                   ),
                 ],

@@ -52,7 +52,7 @@ class GalleryList {
     final String? lastPageUrl;
     final String? nextPageUrl;
     final String? path;
-    final String? perPage;
+    final int? perPage;
     final dynamic prevPageUrl;
     final int? to;
     final int? total;
@@ -81,7 +81,7 @@ class GalleryList {
         String? lastPageUrl,
         String? nextPageUrl,
         String? path,
-        String? perPage,
+        int? perPage,
         dynamic prevPageUrl,
         int? to,
         int? total,

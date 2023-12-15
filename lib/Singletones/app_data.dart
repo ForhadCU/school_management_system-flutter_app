@@ -10,8 +10,10 @@ class AppData {
   //code starts from here
   // String token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW1lZXNAYWN1dGVhbmdsZS5pbyIsInNjb3BlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJSwiaXNzIjoiaHR0cDovL2V6Ym90LmNvbSIsImlhdCI6MTcwMDEwNzgyOSwiZXhwIjoxNzMxNjQzODI5fQ.OodibBwm4CgzOBWqre2s70yHDjrizXaGbELUhRQoN1g';
   String token = '';
- static const String api_access_key = "api_app_access_254R68495324Y1W123";
-  static const String eduWorldHostname = "https://eduworld.theworld.com.bd";
+  static const String api_access_key = "api_app_access_254R68495324Y1W123";
+  static const String eduWorldTheworldHostname =
+      "https://eduworld.theworld.com.bd";
+  static const String eduWorldErpHostname = "https://eduworld.eduworlderp.com";
   List<String> userPrivileges = [];
   static Debouncer debouncer = Debouncer(milliseconds: 1500);
 

@@ -120,7 +120,8 @@ class SearchSchoolWidget {
                     _controller.mSetSiteListModel(sitelistModel);
                     Get.toNamed(AppRoutes.landing);
                   },
-                  imageUri: AppData.eduWorldHostname + sitelistModel.siteLogo!,
+                  imageUri: AppData.eduWorldTheworldHostname +
+                      sitelistModel.siteLogo!,
                   schoolName: sitelistModel.siteName ?? "N/A",
                   schoolAdress: sitelistModel.address ?? "N/A");
             },
