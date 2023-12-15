@@ -16,10 +16,6 @@ class NoticeController extends GetxController {
   static NoticeController get to => Get.find();
 
   var dropdownValue = Rxn<String>();
-  var noticeTitle = "Notice Tile".obs;
-  var noticeDate = "July 24, 2023".obs;
-  var noticeTag = "This is notice tag".obs;
-  var noticeBody = "This is notice Body".obs;
   var dateFrom = DateTime.now().obs;
   var dateTo = DateTime.now().subtract(Duration(days: 7)).obs;
   var numOfNoticesInRange = 0.obs;
@@ -47,8 +43,7 @@ class NoticeController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(
-        dateFrom.toString(), kAppDateFormat);
+    return Utils().getTimeFromTimeStamp(dateFrom.toString(), kAppDateFormat);
   }
 
   mGetNoticesInRange() async {

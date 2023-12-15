@@ -26,8 +26,8 @@ class AcademicCalanderWidget {
         children: [
           Text("Academic Group :",
               style: kBody.copyWith(
-                // color: AppColor.kGray700,
-              )),
+                  // color: AppColor.kGray700,
+                  )),
           AppSpacing.sm.width,
           DropdownButton<AcademicGroupModel>(
             value: controller.academicGrpDropdownValue.value,
@@ -91,7 +91,23 @@ class AcademicCalanderWidget {
             controller.eventDateListModelList.isEmpty
                 ? TableCalendar(
                     onPageChanged: (DateTime focusdate) {
-                      print(focusdate.toString());
+                      if (controller.toDay.value == focusdate) {
+                        controller.currentPageIndex.value = 0;
+                        controller.mGetEventDateList();
+                      } else if (controller.toDay.value.millisecondsSinceEpoch >
+                          focusdate.millisecondsSinceEpoch) {
+                        controller.toDay.value = focusdate;
+                        controller.currentPageIndex.value =
+                            controller.currentPageIndex.value - 1;
+                        controller.mGetEventDateList();
+                      } else {
+                        controller.toDay.value = focusdate;
+                        controller.currentPageIndex.value =
+                            controller.currentPageIndex.value + 1;
+                        controller.mGetEventDateList();
+                      }
+
+                      print(controller.currentPageIndex);
                     },
                     headerStyle: const HeaderStyle(
                         titleCentered: true,
@@ -103,7 +119,7 @@ class AcademicCalanderWidget {
                         isTodayHighlighted: false,
                         tableBorder: TableBorder.all(
                             color: AppColor.secondaryColor, width: 1)),
-                    focusedDay: controller.focusDay.value,
+                    focusedDay:controller.toDay.value,
                     firstDay: controller.firstDay,
                     lastDay: controller.lastDay,
                   )
@@ -135,7 +151,23 @@ class AcademicCalanderWidget {
                       },
                     ),
                     onPageChanged: (DateTime focusdate) {
-                      print(focusdate.toString());
+                      if (controller.toDay.value == focusdate) {
+                        controller.currentPageIndex.value = 0;
+                        controller.mGetEventDateList();
+                      } else if (controller.toDay.value.millisecondsSinceEpoch >
+                          focusdate.millisecondsSinceEpoch) {
+                        controller.toDay.value = focusdate;
+                        controller.currentPageIndex.value =
+                            controller.currentPageIndex.value - 1;
+                        controller.mGetEventDateList();
+                      } else {
+                        controller.toDay.value = focusdate;
+                        controller.currentPageIndex.value =
+                            controller.currentPageIndex.value + 1;
+                        controller.mGetEventDateList();
+                      }
+
+                      print(controller.currentPageIndex);
                     },
                     headerStyle: const HeaderStyle(
                         titleCentered: true,
@@ -147,7 +179,7 @@ class AcademicCalanderWidget {
                         isTodayHighlighted: false,
                         tableBorder: TableBorder.all(
                             color: AppColor.secondaryColor, width: 1)),
-                    focusedDay: controller.focusDay.value,
+                    focusedDay: controller.toDay.value,
                     firstDay: controller.firstDay,
                     lastDay: controller.lastDay,
                   ),
@@ -193,7 +225,7 @@ class AcademicCalanderWidget {
                   return _vEventCard(
                     title: eventDateList.title!,
                     color: Utils.mParseColorFromHexCode(
-                        hexCode: eventDateList.subheadColorId!),
+                        hexCode: eventDateList.academicCalendarHead!.colorId!),
                     date: Utils().getTimeFromTimeStamp(
                         eventDateList.startDate.toString(),
                         kAppDateFormatWithDayMonth),

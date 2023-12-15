@@ -11,7 +11,7 @@ import 'landing_controller.dart';
 class AcademicCalendarController extends GetxController {
   static AcademicCalendarController get to => Get.find();
 
-  var focusDay = DateTime.now().obs;
+  var toDay = DateTime.now().obs;
   var lastDay = DateTime.now().add(
     const Duration(
       days: 364,
@@ -50,8 +50,7 @@ class AcademicCalendarController extends GetxController {
     academicGroupModeList.isNotEmpty
         ? {
             selectedAcademicGroupModel.value = academicGroupModeList.first,
-            academicGrpDropdownValue.value =
-                selectedAcademicGroupModel.value,
+            academicGrpDropdownValue.value = selectedAcademicGroupModel.value,
             await mGetEventDateList()
           }
         : null;
@@ -59,8 +58,7 @@ class AcademicCalendarController extends GetxController {
 
   mUpdateAcademicGroupSelection(AcademicGroupModel model) async {
     selectedAcademicGroupModel.value = model;
-    academicGrpDropdownValue.value =
-        selectedAcademicGroupModel.value;
+    academicGrpDropdownValue.value = selectedAcademicGroupModel.value;
     await mGetEventDateList();
   }
 
