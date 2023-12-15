@@ -116,7 +116,6 @@ class CallAPI {
         body = json.decode(res.body);
         showSuccess("Completed");
       }
-
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       kLog(e.toString());

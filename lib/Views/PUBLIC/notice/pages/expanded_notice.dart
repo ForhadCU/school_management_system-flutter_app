@@ -36,7 +36,7 @@ class ExpandedNotice extends StatelessWidget {
             Text(
               Utils().getTimeFromTimeStamp(
                   controller.clickedNoticeModel.value.createdAt.toString(),
-                  kAppDateWithTimeFormat),
+                  kAppDateFormatWithTime12),
               style: kBody.copyWith(fontWeight: FontWeight.w500),
             ),
             AppSpacing.md.height,

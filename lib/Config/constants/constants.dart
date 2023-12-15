@@ -79,8 +79,13 @@ const String tSeeAll = "See All";
 const String tDots3 = "...";
 
 const String kAppDateFormat = "dd-MM-yyyy";
+
+/// 24 hours AM/PM
 // const String kAppDateWithTimeFormat = "dd-MM-yyyy kk:mm:a";
-const String kAppDateWithTimeFormat = "dd-MM-yyyy h:mm a";
+/// 12 hours AM/PM
+const String kAppDateFormatWithTime12 = "dd-MM-yyyy h:mm a";
+const String kAppDateFormatWithDayMonth = "d MMM";
+
 const String kApiDateFormat = "yyyy-MM-dd";
 
 ///**Bottom Navigation bar */

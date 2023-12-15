@@ -6,7 +6,7 @@ class PayLoads {
     return _singleton;
   }
   // codes start from here
-  // All methods should be static to maintain singleton instances
+  // All methods should be static to maStringain singleton instances
   static Map<String, dynamic> allNotice({
     required String api_access_key,
     required String site_id,
@@ -14,11 +14,11 @@ class PayLoads {
     // String? research_txt,
     required String date_range,
     required String status,/*  required String api_access_key,
-    required int site_id,
-    required int paginate,
+    required String site_id,
+    required String paginate,
     // String? research_txt,
     required Map<String, dynamic> date_range,
-    required int status, */
+    required String status, */
   }) {
     return {
       "api_access_key": api_access_key,
@@ -41,7 +41,7 @@ class PayLoads {
   }
 
   static Map<String, dynamic> aboutUs({
-    required int site_id,
+    required String site_id,
     required String api_access_key,
   }) {
     return {
@@ -52,8 +52,8 @@ class PayLoads {
 
   static Map<String, dynamic> imageGallery({
     required String api_access_key,
-    required int site_id,
-    required int paginate,
+    required String site_id,
+    required String paginate,
   }) {
     return {
       "api_access_key": api_access_key,
@@ -74,13 +74,13 @@ class PayLoads {
 
   static Map<String, dynamic> monthWiseCalendarList({
     required String api_access_key,
-    required int site_id,
-    required int academic_group_id,
-    required int monthIncrement,
+    required String site_id,
+    required String academic_group_id,
+    required String monthIncrement,
   }) {
     return {
       "api_access_key": api_access_key,
-      "key": site_id,
+      "site_id": site_id,
       "academic_group_id": academic_group_id,
       "monthIncrement": monthIncrement,
     };

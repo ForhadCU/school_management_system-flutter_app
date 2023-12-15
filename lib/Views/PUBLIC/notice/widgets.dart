@@ -32,7 +32,7 @@ class NoticeWidgets {
                 title: data.noticeTitle!,
                 desc: data.noticeDescription!,
                 date: Utils().getTimeFromTimeStamp(
-                    data.createdAt.toString(), kAppDateWithTimeFormat),
+                    data.createdAt.toString(), kAppDateFormatWithTime12),
                 color: AppColor.kNoticeListColorPlate[
                     index % (AppColor.kNoticeListColorPlate.length)],
                 onTap: () {
@@ -66,7 +66,6 @@ class NoticeWidgets {
             StaggeredGridTile.fit(
                 crossAxisCellCount: 6,
                 child: _vLeftPart(title, desc, color, () {
-
                   onTap();
                 }, date)),
             StaggeredGridTile.fit(crossAxisCellCount: 1, child: _vDownload()),

@@ -81,6 +81,10 @@ class Utils {
     return formattedString;
   }
 
+  static Color mParseColorFromHexCode({required String hexCode}) {
+    return Color(int.parse(hexCode.substring(1), radix: 16) + 0xFF000000);
+  }
+
   String convertToPmFormat(String time) {
     if (time.isEmpty) return '00:00 AM';
     DateTime dateTime = DateTime.parse('2000-01-01 $time');

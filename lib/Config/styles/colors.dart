@@ -33,6 +33,8 @@ class AppColor {
   static const Color topaz = Color(0xffFCC778);
   static const Color dollarBill = Color(0xff8CC864);
 
+  static const Color holiday = Color(0xffDB7093);
+
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);
   static const Color orange100 = Color(0xffffe0cc);

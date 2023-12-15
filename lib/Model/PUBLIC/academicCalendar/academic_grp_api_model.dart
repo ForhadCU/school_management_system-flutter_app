@@ -2,48 +2,7 @@
 //
 //     final academicGroupListApiModel = academicGroupListApiModelFromMap(jsonString);
 
-import 'dart:convert';
-
-AcademicGroupListApiModel academicGroupListApiModelFromMap(String str) => AcademicGroupListApiModel.fromMap(json.decode(str));
-
-String academicGroupListApiModelToMap(AcademicGroupListApiModel data) => json.encode(data.toMap());
-
-class AcademicGroupListApiModel {
-    final List<AcademicGroupList>? academicGroupList;
-    final String? mode;
-    final String? status;
-
-    AcademicGroupListApiModel({
-        this.academicGroupList,
-        this.mode,
-        this.status,
-    });
-
-    AcademicGroupListApiModel copyWith({
-        List<AcademicGroupList>? academicGroupList,
-        String? mode,
-        String? status,
-    }) => 
-        AcademicGroupListApiModel(
-            academicGroupList: academicGroupList ?? this.academicGroupList,
-            mode: mode ?? this.mode,
-            status: status ?? this.status,
-        );
-
-    factory AcademicGroupListApiModel.fromMap(Map<String, dynamic> json) => AcademicGroupListApiModel(
-        academicGroupList: json["academic_group_list"] == null ? [] : List<AcademicGroupList>.from(json["academic_group_list"]!.map((x) => AcademicGroupList.fromMap(x))),
-        mode: json["mode"],
-        status: json["status"],
-    );
-
-    Map<String, dynamic> toMap() => {
-        "academic_group_list": academicGroupList == null ? [] : List<dynamic>.from(academicGroupList!.map((x) => x.toMap())),
-        "mode": mode,
-        "status": status,
-    };
-}
-
-class AcademicGroupList {
+class AcademicGroupModel {
     final int? id;
     final String? academicGroupName;
     final String? academicKey;
@@ -52,7 +11,7 @@ class AcademicGroupList {
     final dynamic deletedAt;
     final dynamic serial;
 
-    AcademicGroupList({
+    AcademicGroupModel({
         this.id,
         this.academicGroupName,
         this.academicKey,
@@ -62,7 +21,7 @@ class AcademicGroupList {
         this.serial,
     });
 
-    AcademicGroupList copyWith({
+    AcademicGroupModel copyWith({
         int? id,
         String? academicGroupName,
         String? academicKey,
@@ -71,7 +30,7 @@ class AcademicGroupList {
         dynamic deletedAt,
         dynamic serial,
     }) => 
-        AcademicGroupList(
+        AcademicGroupModel(
             id: id ?? this.id,
             academicGroupName: academicGroupName ?? this.academicGroupName,
             academicKey: academicKey ?? this.academicKey,
@@ -81,7 +40,7 @@ class AcademicGroupList {
             serial: serial ?? this.serial,
         );
 
-    factory AcademicGroupList.fromMap(Map<String, dynamic> json) => AcademicGroupList(
+    factory AcademicGroupModel.fromMap(Map<String, dynamic> json) => AcademicGroupModel(
         id: json["id"],
         academicGroupName: json["academic_group_name"],
         academicKey: json["academic_key"],
