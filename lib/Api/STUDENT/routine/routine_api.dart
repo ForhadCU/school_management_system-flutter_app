@@ -1,8 +1,8 @@
-class HomeWidgets {
+class RoutineApis{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    RoutineApis._internal();
+    static final RoutineApis _singleton = RoutineApis._internal();
+    factory RoutineApis() {
       return _singleton;
     }
   // codes start from here

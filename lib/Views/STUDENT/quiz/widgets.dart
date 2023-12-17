@@ -1,8 +1,8 @@
-class HomeWidgets {
+class QuizWidgets {
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    QuizWidgets._internal();
+    static final QuizWidgets _singleton = QuizWidgets._internal();
+    factory QuizWidgets() {
       return _singleton;
     }
   // codes start from here

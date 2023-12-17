@@ -1,11 +1,10 @@
-class HomeWidgets {
+class WebsiteApis{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    WebsiteApis._internal();
+    static final WebsiteApis _singleton = WebsiteApis._internal();
+    factory WebsiteApis() {
       return _singleton;
     }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  
 }

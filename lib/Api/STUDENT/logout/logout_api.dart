@@ -1,8 +1,8 @@
-class HomeWidgets {
+class LogioutApis{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    LogioutApis._internal();
+    static final LogioutApis _singleton = LogioutApis._internal();
+    factory LogioutApis() {
       return _singleton;
     }
   // codes start from here

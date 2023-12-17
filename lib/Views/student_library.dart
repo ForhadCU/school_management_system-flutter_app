@@ -1,0 +1,20 @@
+library student;
+
+export 'STUDENT/attendance/attendance.dart';
+export 'STUDENT/calendar/calendar.dart';
+export 'STUDENT/classroom/classroom.dart';
+export 'STUDENT/dashboard/dashboard.dart';
+export 'STUDENT/exam/exam.dart';
+export 'STUDENT/helpdesk/helpdesk.dart';
+export 'STUDENT/home/home.dart';
+export 'STUDENT/liveClass/live_class.dart';
+// export 'STUDENT/logout/logout.dart';
+export 'STUDENT/notice/notice.dart';
+export 'STUDENT/notification/notification.dart';
+export 'STUDENT/payments/payments.dart';
+export 'STUDENT/profile/profile.dart';
+export 'STUDENT/quiz/quiz.dart';
+export 'STUDENT/result/result.dart';
+export 'STUDENT/routine/routine.dart';
+export 'STUDENT/subjects/subjects.dart';
+export 'STUDENT/website/website.dart';

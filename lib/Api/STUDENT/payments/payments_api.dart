@@ -1,8 +1,8 @@
-class HomeWidgets {
+class PaymentsApi{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    PaymentsApi._internal();
+    static final PaymentsApi _singleton = PaymentsApi._internal();
+    factory PaymentsApi() {
       return _singleton;
     }
   // codes start from here

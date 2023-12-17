@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Bindings/PUBLIC/academic_calendar.dart';
 import 'package:school_management_system/Bindings/PUBLIC/contact.dart';
-import 'package:school_management_system/Bindings/dashboard.dart';
+import 'package:school_management_system/Bindings/PUBLIC/dashboard.dart';
 import 'package:school_management_system/Bindings/PUBLIC/gallery.dart';
-import 'package:school_management_system/Bindings/home.dart';
-import 'package:school_management_system/Bindings/landing_binding.dart';
-import 'package:school_management_system/Bindings/launcher_slides.dart';
-import 'package:school_management_system/Bindings/login.dart';
+import 'package:school_management_system/Bindings/PUBLIC/home.dart';
+import 'package:school_management_system/Bindings/PUBLIC/landing_binding.dart';
+import 'package:school_management_system/Bindings/PUBLIC/launcher_slides.dart';
+import 'package:school_management_system/Bindings/PUBLIC/login.dart';
 import 'package:school_management_system/Bindings/PUBLIC/notice.dart';
-import 'package:school_management_system/Bindings/search_school.dart';
+import 'package:school_management_system/Bindings/PUBLIC/search_school.dart';
 import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
 import 'package:school_management_system/Bindings/test/test_binding.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
@@ -17,7 +17,7 @@ import 'package:school_management_system/Views/PUBLIC/contact/contact.dart';
 import 'package:school_management_system/Views/PUBLIC/landing/landing.dart';
 import 'package:school_management_system/Views/STUDENT/dashboard/dashboard.dart';
 import 'package:school_management_system/Views/PUBLIC/gallery/gallery.dart';
-import 'package:school_management_system/Views/STUDENT/home/home.dart';
+import 'package:school_management_system/Views/STUDENT/home_advanced_design/home.dart';
 import 'package:school_management_system/Views/PUBLIC/launcherSlides/launcher_slides.dart';
 import 'package:school_management_system/Views/PUBLIC/login/login.dart';
 import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
@@ -26,6 +26,8 @@ import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/test/test.dart';
+import 'package:school_management_system/Bindings/student_library.dart';
+import 'package:school_management_system/Views/student_library.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -89,7 +91,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.home,
       binding: HomeBinding(),
-      page: () => Home(),
+      page: () => HomeAdvancedDesign(),
     ),
 
     GetPage(
@@ -112,5 +114,95 @@ abstract class AppPages {
       binding: LandingBinding(),
       page: () => const Landing(),
     ),
+
+    /// STUDENT
+    GetPage(
+      name: AppRoutes.attendance,
+      binding: AttendanceBindings(),
+      page: () => const Attendance(),
+    ),
+    GetPage(
+      name: AppRoutes.calendar,
+      binding: CalendarBindings(),
+      page: () => const Calendar(),
+    ),
+    GetPage(
+      name: AppRoutes.classroom,
+      binding: ClassroomBindings(),
+      page: () => const Classroom(),
+    ),
+    GetPage(
+      name: AppRoutes.dashboard,
+      binding: DashboardBindings(),
+      page: () => const Dashboard(),
+    ),
+    GetPage(
+      name: AppRoutes.exam,
+      binding: ExamBindings(),
+      page: () => const Exam(),
+    ),
+    GetPage(
+      name: AppRoutes.helpdesk,
+      binding: HelpDeskBindings(),
+      page: () => const HelpDesk(),
+    ),
+    GetPage(
+      name: AppRoutes.studentHome,
+      binding: HomeBindings(),
+      page: () => const Home(),
+    ),
+    GetPage(
+      name: AppRoutes.liveClass,
+      binding: LiveClassBindings(),
+      page: () => const LiveClass(),
+    ),
+    GetPage(
+      name: AppRoutes.studentNotice,
+      binding: NoticeBindings(),
+      page: () => const StudentNotice(),
+    ),
+    GetPage(
+      name: AppRoutes.studentNotification,
+      binding: NotificationBindings(),
+      page: () => const Notification(),
+    ),
+    GetPage(
+      name: AppRoutes.payments,
+      binding: PaymentsBindings(),
+      page: () => const Payments(),
+    ),
+    GetPage(
+      name: AppRoutes.profile,
+      binding: ProfileBindings(),
+      page: () => const Profile(),
+    ),
+    GetPage(
+      name: AppRoutes.quiz,
+      binding: QuizBindings(),
+      page: () => const Quiz(),
+    ),
+    GetPage(
+      name: AppRoutes.result,
+      binding: ResultBindings(),
+      page: () => const Result(),
+    ),
+    GetPage(
+      name: AppRoutes.routine,
+      binding: RoutineBindings(),
+      page: () => const Routine(),
+    ),
+    GetPage(
+      name: AppRoutes.subjects,
+      binding: SubjectsBindings(),
+      page: () => const Subjects(),
+    ),
+    GetPage(
+      name: AppRoutes.website,
+      binding: WebsiteBindings(),
+      page: () => const Website(),
+    ),
+
+    /// TEACHER
+    ///
   ];
 }

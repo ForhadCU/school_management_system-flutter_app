@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+
+class Payments extends StatelessWidget {
+  const Payments({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BaseWidget(
-        title: "Home",
+        title: "Payments",
         child: BaseWidgetChild(
           child: Container(
-            child: Text("Home"),
+            child: Text("Payments"),
           ),
         ));
   }

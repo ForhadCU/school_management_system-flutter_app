@@ -1,8 +1,8 @@
-class HomeWidgets {
+class ProfileApis{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    ProfileApis._internal();
+    static final ProfileApis _singleton = ProfileApis._internal();
+    factory ProfileApis() {
       return _singleton;
     }
   // codes start from here

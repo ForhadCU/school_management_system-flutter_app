@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/dashboard.dart';
+import 'package:school_management_system/Controller/STUDENT/dashboard/dashboard_controller.dart';
 
 import '../../../Config/config.dart';
 

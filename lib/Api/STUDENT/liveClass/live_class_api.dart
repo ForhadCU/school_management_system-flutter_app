@@ -1,8 +1,8 @@
-class HomeWidgets {
+class LiveClassApis{
   // make this class singleton 
-    HomeWidgets._internal();
-    static final HomeWidgets _singleton = HomeWidgets._internal();
-    factory HomeWidgets() {
+    LiveClassApis._internal();
+    static final LiveClassApis _singleton = LiveClassApis._internal();
+    factory LiveClassApis() {
       return _singleton;
     }
   // codes start from here
