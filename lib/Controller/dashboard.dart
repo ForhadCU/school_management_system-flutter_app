@@ -9,7 +9,7 @@ class DashboardController extends GetxController {
   static DashboardController get to => Get.find();
 
   final List<Widget> screens = [
-     Home(),
+      Home(),
     const Notice(),
     const Notifications(),
     const Login(),

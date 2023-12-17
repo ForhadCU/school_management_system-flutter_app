@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/launcher_slides.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/custom_statusbar.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
@@ -51,10 +52,12 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    LauncherSlidesController launcherSlidesController =
+        LauncherSlidesController.to;
     return GestureDetector(
       // appBar: AppBar(systemOverlayStyle: SystemUiOverlayStyle()),
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+          extendBodyBehindAppBar: true,
           backgroundColor: Colors.white,
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -89,10 +92,7 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                   children: <Widget>[
                     AppButtons.vPrimaryButtonUnderlined(
                         onTap: () {
-                          /* controller.animateToPage(slideIndex - 1,
-                                duration: const Duration(milliseconds: 100),
-                                curve: Curves.linear); */
-                          Get.toNamed(AppRoutes.searchSchool);
+                          launcherSlidesController.mCheckSessionStatus();
                         },
                         text: "Skip"),
                     Row(
@@ -112,7 +112,7 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                                             dialogType: DialogType.warning,
                                             title: 'Saving..')
                                         .show(), */
-                                  Get.toNamed(AppRoutes.searchSchool),
+                                  launcherSlidesController.mCheckSessionStatus()
                                 }
                               : controller.animateToPage(slideIndex + 1,
                                   duration: const Duration(milliseconds: 100),

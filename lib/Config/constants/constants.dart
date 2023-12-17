@@ -20,6 +20,8 @@ const String kCustom = "custom";
 
 // Key
 const String kSiteListModel = "siteListModel";
+const String kToken = 'token';
+
 
 //appStrings
 const String kAppName = 'Freelancer app';

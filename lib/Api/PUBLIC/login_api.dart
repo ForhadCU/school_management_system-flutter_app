@@ -15,8 +15,7 @@ class LoginApi {
   // All methods should be static to maintain singleton instances
 
   static Future<LoginApiModel> mUserLogin(Map<String, dynamic> payLoad) async {
-    ResponseModel res =
-        await CallAPI.userLogin(ApiEndpoint.userLogin, payLoad);
+    ResponseModel res = await CallAPI.userLogin(ApiEndpoint.userLogin, payLoad);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200) {
       kLog("Successfully read data");
