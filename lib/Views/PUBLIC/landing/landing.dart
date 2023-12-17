@@ -51,16 +51,20 @@ class Landing extends StatelessWidget {
                     return Get.toNamed(AppRoutes.notice);
                   },
                   iconLoc: PublicAssetLocation.ic_notices,
-                  bgColor: Colors.orange.shade100,
-                  iconColor: Colors.orange,
+                  // bgColor: Colors.orange.shade100,
+                  bgColor: Colors.blue,
+
+                  // iconColor: Colors.orange,
                   label: "Notice"),
             ),
             Expanded(
                 child: vIconButton(
                     onTap: () => Get.toNamed(AppRoutes.academicCalendar),
                     iconLoc: PublicAssetLocation.ic_academicCalander,
-                    bgColor: Colors.green.shade100,
-                    iconColor: Colors.green,
+                    // bgColor: Colors.green.shade100,
+                    bgColor: Colors.pink,
+
+                    // iconColor: Colors.green,
                     label: "Academic Calendar")),
             Expanded(
                 child: Align(
@@ -68,8 +72,10 @@ class Landing extends StatelessWidget {
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.gallery),
                         iconLoc: PublicAssetLocation.ic_gallery,
-                        bgColor: Colors.blue.shade100,
-                        iconColor: Colors.blue,
+                        // bgColor: Colors.blue.shade100,
+                        bgColor: Colors.green,
+
+                        // iconColor: Colors.blue,
                         label: "Gallery"))),
           ],
         ),
@@ -83,8 +89,9 @@ class Landing extends StatelessWidget {
                 child: vIconButton(
                     onTap: () => Get.toNamed(AppRoutes.siteHistory),
                     iconLoc: PublicAssetLocation.ic_sitehistory,
-                    bgColor: Colors.purple.shade100,
-                    iconColor: Colors.purple,
+                    // bgColor: Colors.purple.shade100,
+                    bgColor: Colors.cyan,
+                    // iconColor: Colors.purple,
                     label: "Site History"),
               ),
             ),
@@ -94,8 +101,9 @@ class Landing extends StatelessWidget {
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.contact),
                         iconLoc: PublicAssetLocation.ic_contact_mail_us,
-                        bgColor: Colors.red.shade100,
-                        iconColor: Colors.red,
+                        // bgColor: Colors.red.shade100,
+                        // iconColor: Colors.red,
+                        bgColor: Colors.purple,
                         label: "Contact Us"))),
             Expanded(
                 child: Align(
@@ -103,8 +111,9 @@ class Landing extends StatelessWidget {
                     child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: PublicAssetLocation.ic_userLogin,
-                        bgColor: Colors.amber.shade100,
-                        iconColor: Colors.amber,
+                        // bgColor: Colors.amber.shade100,
+                        bgColor: Colors.red,
+                        // iconColor: Colors.amber,
                         label: "Login"))),
           ],
         ),
@@ -116,7 +125,7 @@ class Landing extends StatelessWidget {
       {required Function onTap,
       required String iconLoc,
       required Color bgColor,
-      required Color iconColor,
+      Color? iconColor,
       required String label}) {
     return GestureDetector(
       onTap: () {
@@ -125,7 +134,7 @@ class Landing extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             width: AppScreenSize.mGetWidth(kGlobContext, 20),
             decoration: BoxDecoration(
                 color: bgColor,
@@ -135,7 +144,7 @@ class Landing extends StatelessWidget {
                 iconLoc,
               ),
               color: iconColor,
-              width: 48,
+              width: 64,
             ),
           ),
           AppSpacing.sm.height,

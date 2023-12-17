@@ -85,4 +85,14 @@ class PayLoads {
       "monthIncrement": monthIncrement,
     };
   }
+
+  static Map<String, dynamic> mUserLogin({
+      required String username,
+      required String password,
+    }) {
+      return {
+        "username": username,
+        "password": password,
+      };
+    }
 }

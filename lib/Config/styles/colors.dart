@@ -47,6 +47,19 @@ class AppColor {
   static const Color orange800 = Color(0xffff8000);
   static const Color orange900 = Color(0xffe65800);
 
+  static const Color academic_calendar = Color(0xffB3E59E);
+  static const Color attendance = Color(0xff7983EA);
+  static const Color live_class = Color(0xff354FC5);
+  static const Color log_out = Color(0xffFD6097);
+  static const Color my_class = Color(0xffBFFE65);
+  static const Color my_exam = Color(0xffFEDF46);
+  static const Color my_payments = Color(0xff18C93A);
+  static const Color my_quiz = Color(0xffEAC05C);
+  static const Color my_result = Color(0xffFC3D80);
+  static const Color my_routine = Color(0xff19B5BA);
+  static const Color my_subject = Color(0xff3FEFEF);
+  static const Color website = Color(0xff44A2F9);
+
   /// gradiant color
   static const LinearGradient kBtnGradiantColor = LinearGradient(
     colors: [primaryColor, secondaryColor],

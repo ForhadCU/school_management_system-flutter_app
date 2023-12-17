@@ -87,7 +87,7 @@ class ContactWidget {
         _vSitebox(PublicAssetLocation.ic_web, Color(0xff667FB5),
             controller.siteListModel.value.googleLink),
         _vSitebox(PublicAssetLocation.ic_whatsapp, Color(0xff6FC556), ""),
-        _vSitebox(PublicAssetLocation.ic_x, Color(0xff111111), ""),
+        _vSitebox(PublicAssetLocation.ic_google, Color.fromARGB(255, 179, 179, 179), ""),
       ],
     );
   }

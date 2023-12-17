@@ -64,6 +64,67 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
+  static Future<ResponseModel> postPublicData(
+      String endPoint, Map<String, dynamic> payload) async {
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+
+      http.Response res = await http.post(
+        Uri.https(_get_host, endPoint),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Success");
+      }
+      ;
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> userLogin(
+      String endPoint, Map<String, dynamic> payload) async {
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+      http.Response res = await http.post(
+        Uri.https(_get_host, endPoint),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Success");
+      };
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
 ////////GET DATA/////////////////
   static Future<ResponseModel> getData(
       String endPoint, Map<String, dynamic>? params,
@@ -107,6 +168,7 @@ class CallAPI {
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
+
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {

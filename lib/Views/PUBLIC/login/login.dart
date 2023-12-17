@@ -4,6 +4,7 @@ import 'package:school_management_system/Controller/login.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 import '../../../Config/config.dart';
+import '../../../Routes/app_pages.dart';
 import '../../Widgets/base_widget.dart';
 
 class Login extends StatelessWidget {
@@ -120,9 +121,9 @@ class Login extends StatelessWidget {
         ),
         AppSpacing.xxl.height,
         AppButtons.vPrimaryButton(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                showSuccess("OK");
+            onTap: () async{
+              if (formKey.currentState!.validate())  {
+                await controller.mUserLogin();
               }
             },
             text: "Login"),
