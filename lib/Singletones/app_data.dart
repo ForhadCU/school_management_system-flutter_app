@@ -16,6 +16,8 @@ class AppData {
   static const String eduWorldErpHostname = "https://eduworld.eduworlderp.com";
   List<String> userPrivileges = [];
   static Debouncer debouncer = Debouncer(milliseconds: 1500);
+  static const String dummyUserid = "2315400002";
+  static const String dummyUserPass = "123456";
 
   //APPDATA GLOBAL DATA
 /*     RxList<ChargeStationModel> chargeStationModelList = RxList();

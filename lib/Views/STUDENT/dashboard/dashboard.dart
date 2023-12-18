@@ -4,20 +4,21 @@ import 'package:school_management_system/Controller/STUDENT/dashboard/dashboard_
 
 import '../../../Config/config.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class StuDashboard extends StatelessWidget {
+  const StuDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = DashboardController.to;
     return Scaffold(
-      
       bottomNavigationBar: Obx(() => vBtmNav(controller)),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
 
   vBtmNav(DashboardController controller) {
+    double iconWidth = 24;
+    double iconHeight = 24;
     return BottomNavigationBar(
         currentIndex: controller.selectedIndex.value,
         onTap: (value) => controller.mOnItemTapped(value),
@@ -26,15 +27,15 @@ class Dashboard extends StatelessWidget {
             backgroundColor: AppColor.primaryColor,
             icon: Image(
               image: const AssetImage(nav_home),
-              width: 16,
-              height: 16,
+              width: iconWidth ,
+              height: iconHeight ,
               color: Colors.grey.shade200,
             ),
             label: "Home",
-            activeIcon: const Image(
-              image: AssetImage(nav_home),
-              width: 16,
-              height: 16,
+            activeIcon:  Image(
+              image: const AssetImage(nav_home),
+              width: iconWidth ,
+              height: iconHeight ,
               color: AppColor.white,
             ),
           ),
@@ -42,15 +43,15 @@ class Dashboard extends StatelessWidget {
             backgroundColor: AppColor.primaryColor,
             icon: Image(
               image: const AssetImage(nav_notice),
-              width: 16,
-              height: 16,
+              width: iconWidth ,
+              height: iconHeight ,
               color: Colors.grey.shade200,
             ),
             label: "Notice",
-            activeIcon: const Image(
-              image: AssetImage(nav_notice),
-              width: 16,
-              height: 16,
+            activeIcon:  Image(
+              image: const AssetImage(nav_notice),
+              width: iconWidth ,
+              height: iconHeight ,
               color: AppColor.white,
             ),
           ),
@@ -58,31 +59,31 @@ class Dashboard extends StatelessWidget {
             backgroundColor: AppColor.primaryColor,
             icon: Image(
               image: const AssetImage(nav_notification),
-              width: 16,
-              height: 16,
+              width: iconWidth ,
+              height: iconHeight ,
               color: Colors.grey.shade200,
             ),
             label: "Notification",
-            activeIcon: const Image(
-              image: AssetImage(nav_notification),
-              width: 16,
-              height: 16,
+            activeIcon:  Image(
+              image: const AssetImage(nav_notification),
+              width: iconWidth ,
+              height: iconHeight ,
               color: AppColor.white,
             ),
           ),
           BottomNavigationBarItem(
             backgroundColor: AppColor.primaryColor,
             icon: Image(
-              image: const AssetImage(nav_user),
-              width: 16,
-              height: 16,
+              image:  const AssetImage(nav_user),
+              width: iconWidth ,
+              height: iconHeight ,
               color: Colors.grey.shade200,
             ),
-            label: "Login",
-            activeIcon: const Image(
-              image: AssetImage(nav_user),
-              width: 16,
-              height: 16,
+            label: "Profile",
+            activeIcon:  Image(
+              image: const AssetImage(nav_user),
+              width: iconWidth ,
+              height: iconHeight ,
               color: AppColor.white,
             ),
           ),

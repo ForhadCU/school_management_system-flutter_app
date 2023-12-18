@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Controller/login.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
+import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
 import '../../Widgets/base_widget.dart';
@@ -27,7 +28,11 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            vSchollNameBanner(controller),
+            Obx(() => InstitueBanaer(
+                iconUrl: controller.siteListModel.value.siteLogo,
+                title: controller.siteListModel.value.siteName ??
+                    tDemoSchoolName)),
+            // vSchollNameBanner(controller),
             (AppSpacing.xxl * 2).height,
             vBody(controller, formKey),
           ],
@@ -121,8 +126,8 @@ class Login extends StatelessWidget {
         ),
         AppSpacing.xxl.height,
         AppButtons.vPrimaryButton(
-            onTap: () async{
-              if (formKey.currentState!.validate())  {
+            onTap: () async {
+              if (formKey.currentState!.validate()) {
                 await controller.mUserLogin();
               }
             },

@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Views/STUDENT/home/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class StuHome extends StatelessWidget {
+  const StuHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget(
-        title: "Home",
-        child: BaseWidgetChild(
-          child: Container(
-            child: Text("Home"),
-          ),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home"),
+        elevation: 0,
+        backgroundColor: AppColor.white,
+      ),
+      endDrawer: StuHomeWidgets.vEndDrawer(),
+      body: BaseWidgetChild(
+        child: Column(
+          children: [
+            StuHomeWidgets.vBody(),
+          ],
+        ),
+      ),
+    );
   }
 }

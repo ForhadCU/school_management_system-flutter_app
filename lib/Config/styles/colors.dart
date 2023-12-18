@@ -65,7 +65,14 @@ class AppColor {
     colors: [primaryColor, secondaryColor],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-  ); static const LinearGradient kBtnGradiantColorReverse = LinearGradient(
+  );
+  static LinearGradient kVerticalCovexGradiant = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    stops: [0.9, 0.1],
+    colors: [primaryColor, secondaryColor],
+  );
+  static const LinearGradient kBtnGradiantColorReverse = LinearGradient(
     colors: [secondaryColor, primaryColor],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,

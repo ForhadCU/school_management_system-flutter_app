@@ -1,8 +1,8 @@
-class CalendarWidgets {
+class StuCalendarWidgets {
   // make this class singleton 
-    CalendarWidgets._internal();
-    static final CalendarWidgets _singleton = CalendarWidgets._internal();
-    factory CalendarWidgets() {
+    StuCalendarWidgets._internal();
+    static final StuCalendarWidgets _singleton = StuCalendarWidgets._internal();
+    factory StuCalendarWidgets() {
       return _singleton;
     }
   // codes start from here

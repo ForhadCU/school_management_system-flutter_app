@@ -5,9 +5,9 @@ import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/home.dart';
 import 'package:school_management_system/Utils/screen_size.dart';
 
-class HomeBottomNavBar extends StatelessWidget {
+class StuHomeBottomNavBar extends StatelessWidget {
   final HomeController controller;
-  const HomeBottomNavBar({
+  const StuHomeBottomNavBar({
     super.key,
     required this.controller,
   });

@@ -97,7 +97,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.dashboard,
       binding: DashboardBinding(),
-      page: () => const Dashboard(),
+      page: () => const StuDashboard(),
     ),
     GetPage(
       name: AppRoutes.login,
@@ -124,7 +124,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.calendar,
       binding: CalendarBindings(),
-      page: () => const Calendar(),
+      page: () => const StuCalendar(),
     ),
     GetPage(
       name: AppRoutes.classroom,
@@ -134,7 +134,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.dashboard,
       binding: DashboardBindings(),
-      page: () => const Dashboard(),
+      page: () => const StuDashboard(),
     ),
     GetPage(
       name: AppRoutes.exam,
@@ -149,7 +149,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentHome,
       binding: HomeBindings(),
-      page: () => const Home(),
+      page: () => const StuHome(),
     ),
     GetPage(
       name: AppRoutes.liveClass,

@@ -6,6 +6,7 @@ import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
+import 'package:school_management_system/Views/PUBLIC/landing/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:school_management_system/Views/Widgets/custom_textfield.dart';
@@ -19,7 +20,13 @@ class Landing extends StatelessWidget {
     final controller = LandingController.to;
     return SafeArea(
         child: Scaffold(
-      backgroundColor: AppColor.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColor.white,
+      ),
+      endDrawer: Obx(() => LandingWidgets.vEndDrawer(
+          iconUrl: controller.siteListModel.value.siteLogo,
+          title: controller.siteListModel.value.siteName ?? tDemoSchoolName)),
       body: BaseWidgetChild(
           child: Center(
         child: Column(
