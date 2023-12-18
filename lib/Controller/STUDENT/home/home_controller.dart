@@ -18,7 +18,7 @@ class StuHomeController extends GetxController {
     "My Quiz",
     "My subject",
     "Website",
-    "Log out",
+    "Logout",
   ];
 
   @override

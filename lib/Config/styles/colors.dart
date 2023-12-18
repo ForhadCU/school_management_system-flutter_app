@@ -29,9 +29,11 @@ class AppColor {
   static const Color nevy = Color(0xff2B3499);
 
   static const Color frenchSkyBlue = Color(0xff78ADFC);
+  static const Color frenchSkyBlue100 = Color(0xffBEDCFF);
   static const Color silverLakeBlue = Color(0xff587FCE);
   static const Color topaz = Color(0xffFCC778);
   static const Color dollarBill = Color(0xff8CC864);
+  static const Color fontUsername = Color(0xff3B3E69);
 
   static const Color holiday = Color(0xffDB7093);
 

@@ -29,7 +29,7 @@ class BaseWidget extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              title,
+              title.toUpperCase(),
             ),
             elevation: 0,
             backgroundColor: Colors.white,

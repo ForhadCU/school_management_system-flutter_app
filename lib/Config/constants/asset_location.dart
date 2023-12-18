@@ -81,6 +81,10 @@ class StudentAssetLocation {
   static const String my_routine = "assets/icons/my_routine.png";
   static const String my_subject = "assets/icons/my_subject.png";
   static const String website = "assets/icons/website.png";
+  static const String logout = "assets/icons/logout.png";
+  static const String admin = "assets/icons/admin.png";
+
+
 }
 
 class TeacherAssetLocation {

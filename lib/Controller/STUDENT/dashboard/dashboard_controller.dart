@@ -16,7 +16,7 @@ class DashboardController extends GetxController {
     const StuHome(),
     const Notice(),
     const Notifications(),
-    const Login(),
+    const Profile(),
   ];
   final RxInt selectedIndex = 0.obs;
 
