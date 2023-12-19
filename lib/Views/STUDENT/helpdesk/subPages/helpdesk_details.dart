@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:school_management_system/Views/STUDENT/helpdesk/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-class HelpDesk extends StatelessWidget {
-  const HelpDesk({super.key});
+class HelpDeskDetails extends StatelessWidget {
+  const HelpDeskDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BaseWidget(
-        title: "Help Desk",
+        title: "Tutorial",
         child: BaseWidgetChild(
-            child: HelpDeskWidgets.vParentList(),
+          child: SingleChildScrollView(
+            child: HelpDeskDetailsWidgets.vTutorialCard(),
           ),
-        );
+        ));
   }
 }
