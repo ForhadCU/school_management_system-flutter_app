@@ -6,6 +6,7 @@ import 'package:school_management_system/Views/PUBLIC/login/login.dart';
 import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/student_library.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../student_library.dart';
 
@@ -14,7 +15,7 @@ class DashboardController extends GetxController {
 
   final List<Widget> screens = [
     const StuHome(),
-    const Notice(),
+    const StudentNotice(),
     const Notifications(),
     const Profile(),
   ];
@@ -23,10 +24,14 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Get.put(StuHomeController());
-    Get.lazyPut(() => StuHomeController());
-    Get.lazyPut(() => LandingController());
-    Get.lazyPut(() => StuNoticeController());
+    // Get.lazyPut(() => StuHomeController());
+    // Get.lazyPut(() => LandingController());
+    // Get.lazyPut(() => StuNoticeController());
+    // Get.lazyPut(() => ProfileController());
+    Get.put(StuHomeController());
+    Get.put(StuNotificationController());
+    Get.put(StuNoticeController());
+    Get.put(ProfileController());
   }
 
   @override
@@ -37,4 +42,8 @@ class DashboardController extends GetxController {
   void mOnItemTapped(int index) {
     selectedIndex.value = index;
   }
+  
+  
+
+
 }

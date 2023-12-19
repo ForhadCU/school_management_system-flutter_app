@@ -36,6 +36,7 @@ class AppColor {
   static const Color fontUsername = Color(0xff3B3E69);
 
   static const Color holiday = Color(0xffDB7093);
+  static const Color helpDeskTopbar = Color(0xff1E90FF);
 
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);

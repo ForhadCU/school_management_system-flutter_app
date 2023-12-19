@@ -16,10 +16,12 @@ class StuHome extends StatelessWidget {
       ),
       endDrawer: StuHomeWidgets.vEndDrawer(),
       body: BaseWidgetChild(
-        child: Column(
-          children: [
-            StuHomeWidgets.vBody(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              StuHomeWidgets.vBody(),
+            ],
+          ),
         ),
       ),
     );

@@ -14,6 +14,7 @@ class AppRoutes {
   static String home = '/home';
   static String notice = '/notice';
   static String expandedNotice = '/expandedNotice';
+  static String expandedStuNotice = '/expandedStuNotice';
   static String gallery = '/gallery';
   static String siteHistory = '/siteHistory';
   static String contact = '/contact';
@@ -40,4 +41,5 @@ class AppRoutes {
   static const String routine = "/routine";
   static const String subjects = "/subjects";
   static const String website = "/website";
+  static const String helpdeskDetails = "/helpdeskDetails";
 }

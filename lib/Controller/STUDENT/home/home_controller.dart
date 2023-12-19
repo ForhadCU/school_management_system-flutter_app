@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:school_management_system/Routes/app_pages.dart';
 
 import '../../../Config/config.dart';
 
@@ -18,6 +19,7 @@ class StuHomeController extends GetxController {
     "My Quiz",
     "My subject",
     "Website",
+    "Help Desk",
     "Logout",
   ];
 
@@ -33,4 +35,36 @@ class StuHomeController extends GetxController {
   }
 
   /// code goes here
+  mNavigateTo(String drawerItem) {
+    "My exam" == drawerItem
+        ? Get.toNamed(AppRoutes.exam)
+        : "My result" == drawerItem
+            ? Get.toNamed(AppRoutes.result)
+            : "My Payment" == drawerItem
+                ? Get.toNamed(AppRoutes.payments)
+                : "My routine" == drawerItem
+                    ? Get.toNamed(AppRoutes.routine)
+                    : "My class" == drawerItem
+                        ? Get.toNamed(AppRoutes.classroom)
+                        : "Live Class" == drawerItem
+                            ? Get.toNamed(AppRoutes.liveClass)
+                            : "Calendar" == drawerItem
+                                ? Get.toNamed(AppRoutes.calendar)
+                                : "Attendance" == drawerItem
+                                    ? Get.toNamed(AppRoutes.attendance)
+                                    : "My Quiz" == drawerItem
+                                        ? Get.toNamed(AppRoutes.quiz)
+                                        : "My subject" == drawerItem
+                                            ? Get.toNamed(AppRoutes.subjects)
+                                            : "Website" == drawerItem
+                                                ? Get.toNamed(AppRoutes.website)
+                                                : "Help Desk" == drawerItem
+                                                    ? Get.toNamed(
+                                                        AppRoutes.helpdesk)
+                                                    : "Logout" == drawerItem
+                                                        ? mLogutUser()
+                                                        : null;
+  }
+
+  mLogutUser() {}
 }

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Bindings/PUBLIC/academic_calendar.dart';
 import 'package:school_management_system/Bindings/PUBLIC/contact.dart';
-import 'package:school_management_system/Bindings/PUBLIC/dashboard.dart';
+// import 'package:school_management_system/Bindings/PUBLIC/dashboard.dart';
 import 'package:school_management_system/Bindings/PUBLIC/gallery.dart';
 import 'package:school_management_system/Bindings/PUBLIC/home.dart';
 import 'package:school_management_system/Bindings/PUBLIC/landing_binding.dart';
@@ -24,7 +24,9 @@ import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
+import 'package:school_management_system/Views/STUDENT/notice/pages/expanded_notice.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
+import '../Views/STUDENT/helpdesk/subPages/helpdesk_details.dart';
 import '../Views/test/test.dart';
 import 'package:school_management_system/Bindings/student_library.dart';
 import 'package:school_management_system/Views/student_library.dart';
@@ -62,6 +64,10 @@ abstract class AppPages {
         name: AppRoutes.expandedNotice,
         binding: NoticeBinding(),
         page: () => ExpandedNotice()),
+    GetPage(
+        name: AppRoutes.expandedStuNotice,
+        binding: StuNoticeBindings(),
+        page: () => ExpandedStuNotice()),
 
     /// Gallery
     GetPage(
@@ -96,7 +102,7 @@ abstract class AppPages {
 
     GetPage(
       name: AppRoutes.dashboard,
-      binding: DashboardBinding(),
+      binding: DashboardBindings(),
       page: () => const StuDashboard(),
     ),
     GetPage(
@@ -131,11 +137,11 @@ abstract class AppPages {
       binding: ClassroomBindings(),
       page: () => const Classroom(),
     ),
-    GetPage(
+    /* GetPage(
       name: AppRoutes.dashboard,
       binding: DashboardBindings(),
       page: () => const StuDashboard(),
-    ),
+    ), */
     GetPage(
       name: AppRoutes.exam,
       binding: ExamBindings(),
@@ -145,6 +151,11 @@ abstract class AppPages {
       name: AppRoutes.helpdesk,
       binding: HelpDeskBindings(),
       page: () => const HelpDesk(),
+    ),
+    GetPage(
+      name: AppRoutes.helpdeskDetails,
+      binding: HelpDeskBindings(),
+      page: () => const HelpDeskDetails(),
     ),
     GetPage(
       name: AppRoutes.studentHome,
@@ -158,7 +169,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.studentNotice,
-      binding: NoticeBindings(),
+      binding: StuNoticeBindings(),
       page: () => const StudentNotice(),
     ),
     GetPage(

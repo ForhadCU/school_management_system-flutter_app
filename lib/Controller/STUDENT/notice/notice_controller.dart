@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/notice/notice_api.dart';
+import 'package:school_management_system/Utils/utils.dart';
 import '../../../Config/config.dart';
 import '../../../Model/PUBLIC/notice/notice_api_model.dart';
 import '../../../Model/PUBLIC/searchSchool/site_list_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/custom_utils.dart';
-import '../../PUBLIC/landing_controller.dart';
 
 class StuNoticeController extends GetxController {
   static StuNoticeController get to => Get.find();
@@ -20,11 +20,14 @@ class StuNoticeController extends GetxController {
   var siteListModel = SitelistModel().obs;
   var initialPagination = 10;
   Rx<Datum> clickedNoticeModel = Datum().obs;
+  var token = Rxn<String>();
 
   @override
   void onInit() async {
     super.onInit();
-    _mInitialization();
+    /*  _mInitialization();
+     */
+    await _mInitialization();
     await mGetNoticesInRange();
   }
 
@@ -32,9 +35,10 @@ class StuNoticeController extends GetxController {
     dropdownValue.value = s;
   }
 
-  void _mInitialization() {
-    siteListModel.value = LandingController.to.siteListModel.value;
-    kLog("siteListModel: ${siteListModel.value.id}");
+  _mInitialization() async {
+    token.value = await AppLocalDataFactory.mGetToken();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+    print("Current userid is: ${siteListModel.value.id}");
   }
 
   String mGetFormatDate(dynamic dateFrom) {

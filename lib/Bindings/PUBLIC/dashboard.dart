@@ -1,18 +1,17 @@
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/STUDENT/dashboard/dashboard_controller.dart';
 import 'package:school_management_system/Controller/home.dart';
 import 'package:school_management_system/Controller/login.dart';
-import 'package:school_management_system/Controller/notification.dart';
+import 'package:school_management_system/Controller/student_library.dart';
 
 import '../../Controller/PUBLIC/notice_controller.dart';
 
 class DashboardBinding extends Bindings {
   @override
-  void dependencies() {
+  void dependencies() {/* 
     Get.put(DashboardController());
     Get.put(HomeController());
     Get.put(NoticeController());
     Get.put(NotificationController());
     Get.put(LoginController());
-  }
+  */ }
 }

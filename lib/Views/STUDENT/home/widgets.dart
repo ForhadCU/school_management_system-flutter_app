@@ -166,7 +166,23 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.login),
+                        onTap: () => Get.toNamed(AppRoutes.helpdesk),
+                        iconLoc: StudentAssetLocation.help_desk,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.log_out,
+                        // iconColor: AppColor.amber,
+                        label: "Help Desk".toUpperCase()))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          children: [
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                      onTap: ()=> controller.mLogutUser(),
+                        // onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: StudentAssetLocation.log_out,
                         // bgColor: AppColor.amber.shade100,
                         bgColor: AppColor.log_out,
@@ -221,56 +237,63 @@ class StuHomeWidgets {
         child: ListView.separated(
           itemCount: controller.drawerItems.length,
           itemBuilder: (context, index) {
-            return controller.drawerItems.length - 1 == index
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.md, horizontal: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        gradient: AppColor.kVerticalCovexGradiant),
-                    child: Row(
-                      children: [
-                        Image(
-                          image: AssetImage(StudentAssetLocation.logout),
-                          width: 14,
-                          height: 14,
-                        ),
-                        AppSpacing.sm.width,
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            width: double.infinity,
-                            child: Text(
-                              controller.drawerItems[index].toUpperCase(),
-                              style: kSubTitle.copyWith(
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+            return GestureDetector(
+                onTap: () =>
+                    controller.mNavigateTo(controller.drawerItems[index]),
+                child: Container(
+                  child: controller.drawerItems.length - 1 == index
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppSpacing.md,
+                              horizontal: AppSpacing.sm),
+                          decoration: BoxDecoration(
+                              gradient: AppColor.kVerticalCovexGradiant),
+                          child: Row(
+                            children: [
+                              const Image(
+                                image: AssetImage(StudentAssetLocation.logout),
+                                width: 14,
+                                height: 14,
+                              ),
+                              AppSpacing.sm.width,
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  width: double.infinity,
+                                  child: Text(
+                                    controller.drawerItems[index].toUpperCase(),
+                                    style: kSubTitle.copyWith(
+                                        color: AppColor.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         )
-                      ],
-                    ),
-                  )
-                : Container(
-                    alignment: Alignment.centerLeft,
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.md, horizontal: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        gradient: AppColor.kVerticalCovexGradiant),
-                    child: Text(
-                      controller.drawerItems[index].toUpperCase(),
-                      style: kTitleLite.copyWith(
-                          color: AppColor.white, fontWeight: FontWeight.bold),
-                    ),
-                  );
+                      : Container(
+                          alignment: Alignment.centerLeft,
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppSpacing.md,
+                              horizontal: AppSpacing.sm),
+                          decoration: BoxDecoration(
+                              gradient: AppColor.kVerticalCovexGradiant),
+                          child: Text(
+                            controller.drawerItems[index].toUpperCase(),
+                            style: kTitleLite.copyWith(
+                                color: AppColor.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                ));
           },
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(
+            return const Divider(
               color: AppColor.kGray700,
               height: 1,
             );
           },
         ));
   }
-
 }
