@@ -31,7 +31,7 @@ class DashboardController extends GetxController {
     Get.put(StuHomeController());
     Get.put(StuNotificationController());
     Get.put(StuNoticeController());
-    Get.put(ProfileController());
+    Get.put(StuProfileController());
   }
 
   @override
@@ -42,8 +42,4 @@ class DashboardController extends GetxController {
   void mOnItemTapped(int index) {
     selectedIndex.value = index;
   }
-  
-  
-
-
 }

@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,7 +50,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.gallery),
+                        onTap: () => Get.toNamed(AppRoutes.payments),
                         iconLoc: StudentAssetLocation.my_payments,
                         // bgColor: AppColor.blue.shade100,
                         bgColor: AppColor.my_payments,
@@ -68,7 +67,7 @@ class StuHomeWidgets {
               child: Align(
                 alignment: Alignment.center,
                 child: _vIconButton(
-                    onTap: () => Get.toNamed(AppRoutes.siteHistory),
+                    onTap: () => Get.toNamed(AppRoutes.routine),
                     iconLoc: StudentAssetLocation.my_routine,
                     // bgColor: AppColor.purple.shade100,
                     bgColor: AppColor.my_routine,
@@ -80,7 +79,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.contact),
+                        onTap: () => Get.toNamed(AppRoutes.classroom),
                         iconLoc: StudentAssetLocation.my_class,
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,
@@ -90,7 +89,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.login),
+                        onTap: () => Get.toNamed(AppRoutes.liveClass),
                         iconLoc: StudentAssetLocation.live_class,
                         // bgColor: AppColor.amber.shade100,
                         bgColor: AppColor.live_class,
@@ -106,7 +105,7 @@ class StuHomeWidgets {
               child: Align(
                 alignment: Alignment.center,
                 child: _vIconButton(
-                    onTap: () => Get.toNamed(AppRoutes.siteHistory),
+                    onTap: () => Get.toNamed(AppRoutes.calendar),
                     iconLoc: StudentAssetLocation.academic_calendar,
                     // bgColor: AppColor.purple.shade100,
                     bgColor: AppColor.academic_calendar,
@@ -118,7 +117,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.contact),
+                        onTap: () => Get.toNamed(AppRoutes.attendance),
                         iconLoc: StudentAssetLocation.attendance,
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,
@@ -128,7 +127,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.login),
+                        onTap: () => Get.toNamed(AppRoutes.quiz),
                         iconLoc: StudentAssetLocation.my_quiz,
                         // bgColor: AppColor.amber.shade100,
                         bgColor: AppColor.my_quiz,
@@ -144,7 +143,7 @@ class StuHomeWidgets {
               child: Align(
                 alignment: Alignment.center,
                 child: _vIconButton(
-                    onTap: () => Get.toNamed(AppRoutes.siteHistory),
+                    onTap: () => Get.toNamed(AppRoutes.subjects),
                     iconLoc: StudentAssetLocation.my_subject,
                     // bgColor: AppColor.purple.shade100,
                     bgColor: AppColor.my_subject,
@@ -156,7 +155,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.contact),
+                        onTap: () => Get.toNamed(AppRoutes.website),
                         iconLoc: StudentAssetLocation.website,
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,

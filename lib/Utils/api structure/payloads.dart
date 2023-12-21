@@ -13,7 +13,8 @@ class PayLoads {
     required String paginate,
     // String? research_txt,
     required String date_range,
-    required String status,/*  required String api_access_key,
+    required String status,
+    /*  required String api_access_key,
     required String site_id,
     required String paginate,
     // String? research_txt,
@@ -87,12 +88,20 @@ class PayLoads {
   }
 
   static Map<String, dynamic> mUserLogin({
-      required String username,
-      required String password,
-    }) {
-      return {
-        "username": username,
-        "password": password,
-      };
-    }
+    required String username,
+    required String password,
+  }) {
+    return {
+      "username": username,
+      "password": password,
+    };
+  }
+
+  static Map<String, dynamic> mStuProfileInfo({
+    required String token,
+  }) {
+    return {
+      "token": token,
+    };
+  }
 }

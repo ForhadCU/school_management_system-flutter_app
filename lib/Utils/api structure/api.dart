@@ -187,6 +187,38 @@ class CallAPI {
 
     return ResponseModel(statusCode: 404, body: null);
   }
+  static Future<ResponseModel> getStudentData(
+      String endPoint, Map<String, dynamic>? params,  String token,
+      {String? url}) async {
+    dynamic body;
+    kLog('GET + $endPoint');
+    showLoading("Please wait...");
+    try {
+      http.Response res = await http.get(
+        Uri.https(_get_host, endPoint, params),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+
+          // 'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Completed");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
 
   static Future<ResponseModel> getSiteData(
       /* String endPoint, */ /* Map<String, dynamic>? params, */

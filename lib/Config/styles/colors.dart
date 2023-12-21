@@ -20,6 +20,7 @@ class AppColor {
   static const Color hintColor500 = Color.fromARGB(255, 230, 230, 230);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
+  static const Color documentItembg = Color(0xff68CA5B);
   // static const Color blue = Colors.blue;
   static const Color yellow = Colors.yellow;
   static const Color unselectedTab = Color(0xfff98da5);
@@ -37,6 +38,8 @@ class AppColor {
 
   static const Color holiday = Color(0xffDB7093);
   static const Color helpDeskTopbar = Color(0xff1E90FF);
+  static const Color classroomItemBg = Color(0xffEBEBEB);
+
 
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);

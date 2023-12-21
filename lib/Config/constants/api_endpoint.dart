@@ -16,4 +16,8 @@ class ApiEndpoint {
   static const String monthwise_calendar_list = "/api/web-app/monthwise-calendar-list";
   static const String userLogin = "/api/api-login";
 
+
+  static const String stuProfileInfo = "/api/student/get-student-profile";
+  static const String stuHelpDesk = "/api/student/get-student-helpdesk-list";
+
 }

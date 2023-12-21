@@ -15,6 +15,7 @@ import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_calendar.dart';
 import 'package:school_management_system/Views/PUBLIC/contact/contact.dart';
 import 'package:school_management_system/Views/PUBLIC/landing/landing.dart';
+import 'package:school_management_system/Views/STUDENT/classroom/subPages/classroom_details.dart';
 import 'package:school_management_system/Views/STUDENT/dashboard/dashboard.dart';
 import 'package:school_management_system/Views/PUBLIC/gallery/gallery.dart';
 import 'package:school_management_system/Views/STUDENT/home_advanced_design/home.dart';
@@ -136,6 +137,11 @@ abstract class AppPages {
       name: AppRoutes.classroom,
       binding: ClassroomBindings(),
       page: () => const Classroom(),
+    ),
+    GetPage(
+      name: AppRoutes.classroomDetails,
+      binding: ClassroomBindings(),
+      page: () => const ClassroomDetails(),
     ),
     /* GetPage(
       name: AppRoutes.dashboard,

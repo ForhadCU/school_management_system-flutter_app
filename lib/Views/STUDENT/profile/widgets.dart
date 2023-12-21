@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/student_library.dart';
+import 'package:school_management_system/Model/STUDENT/profile/stu_profile_info_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
@@ -13,6 +16,9 @@ class ProfileWidgets {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
+  static final controller = StuProfileController.to;
+  static final StudentProfileInfoModel studentProfileInfoModel =
+      controller.stuProfileInfoModel.value;
 
   static Container _vPlainBlueBox({required Widget child}) {
     return Container(
@@ -31,6 +37,7 @@ class ProfileWidgets {
       children: [
         Image(
           image: AssetImage(userLogin),
+          // image: CachedNetworkImage(imageUrl: controller.stuProfileInfoModel.value.),
           width: 64,
           height: 64,
           fit: BoxFit.fill,
@@ -41,13 +48,29 @@ class ProfileWidgets {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Your name".toUpperCase(),
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: AppColor.fontUsername,
-                fontSize: 20,
-              ),
+            Row(
+              children: [
+                Text(
+                  studentProfileInfoModel.firstName == null
+                      ? ""
+                      : studentProfileInfoModel.firstName!.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.fontUsername,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  studentProfileInfoModel.lastName == null
+                      ? ""
+                      : studentProfileInfoModel.lastName!.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.fontUsername,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
             AppSpacing.sm.height,
             Row(
@@ -56,28 +79,30 @@ class ProfileWidgets {
                   "UserName".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
                   " : ".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    "2234343489".toUpperCase(),
+                    studentProfileInfoModel.username == null
+                        ? ""
+                        : studentProfileInfoModel.username!.toUpperCase(),
                     softWrap: true,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ],
-            ),
+            ), /* 
             AppSpacing.smh.height,
             Row(
               children: [
@@ -85,28 +110,31 @@ class ProfileWidgets {
                   "Phone".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
                   " : ".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    "018197872373".toUpperCase(),
+                   studentProfileInfoModel. == null
+                      ? ""
+                      : studentProfileInfoModel.username!
+                          .toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ],
             ),
-            AppSpacing.smh.height,
+            AppSpacing.smh.height, */
           ],
         ))
       ],
@@ -123,7 +151,7 @@ class ProfileWidgets {
             "Parent's information".toUpperCase(),
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 16,
                 color: AppColor.fontUsername),
           ),
         ),
@@ -143,10 +171,10 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Father", value: "Value"),
-                  _vSingleColumTextPlate(key: "Phone", value: "Value"),
-                  _vSingleColumTextPlate(key: "Nid", value: "Value"),
-                  _vSingleColumTextPlate(key: "Bcn", value: "Value"),
+                  _vSingleColumTextPlate(key: "Father", value: studentProfileInfoModel.fatherName!),
+                  _vSingleColumTextPlate(key: "Phone", value: ""),
+                  _vSingleColumTextPlate(key: "Nid", value: ""),
+                  _vSingleColumTextPlate(key: "Bcn", value: ""),
                 ],
               ),
 
@@ -176,10 +204,10 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Mother", value: "Value"),
-                  _vSingleColumTextPlate(key: "Phone", value: "Value"),
-                  _vSingleColumTextPlate(key: "Nid", value: "Value"),
-                  _vSingleColumTextPlate(key: "Bcn", value: "Value"),
+                  _vSingleColumTextPlate(key: "Mother", value: studentProfileInfoModel.motherName!),
+                  _vSingleColumTextPlate(key: "Phone", value: ""),
+                  _vSingleColumTextPlate(key: "Nid", value: ""),
+                  _vSingleColumTextPlate(key: "Bcn", value: ""),
                 ],
               ),
 
@@ -210,7 +238,7 @@ class ProfileWidgets {
             "Guardian's information".toUpperCase(),
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 16,
                 color: AppColor.fontUsername),
           ),
         ),
@@ -227,11 +255,11 @@ class ProfileWidgets {
             crossAxisSpacing: 2,
             children: [
               /// Left part
-              Column(   
+              Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Name", value: "Value"),
-                  _vSingleColumTextPlate(key: "Home", value: "Value"),
+                  _vSingleColumTextPlate(key: "Name", value: ""),
+                  _vSingleColumTextPlate(key: "Home", value: ""),
                 ],
               ),
             ],
@@ -252,7 +280,7 @@ class ProfileWidgets {
             "Academic information".toUpperCase(),
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 16,
                 color: AppColor.fontUsername),
           ),
         ),
@@ -272,10 +300,17 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vDoubleColumTextPlate(key: "Year", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Class", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Section", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Gender", value: "Value"),
+                  _vDoubleColumTextPlate(
+                      key: "Year",
+                      value: studentProfileInfoModel.academicInfo!.year!),
+                  _vDoubleColumTextPlate(
+                      key: "Class",
+                      value: studentProfileInfoModel.academicInfo!.className!),
+                  _vDoubleColumTextPlate(
+                      key: "Section",
+                      value:
+                          studentProfileInfoModel.academicInfo!.sectionName!),
+                  _vDoubleColumTextPlate(key: "Gender", value: ""),
                 ],
               ),
 
@@ -283,10 +318,17 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vDoubleColumTextPlate(key: "Shift", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Roll", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Group", value: "Value"),
-                  _vDoubleColumTextPlate(key: "Religion", value: "Valdddd"),
+                  _vDoubleColumTextPlate(
+                      key: "Shift",
+                      value: studentProfileInfoModel.academicInfo!.shiftName!),
+                  _vDoubleColumTextPlate(
+                      key: "Roll",
+                      value: studentProfileInfoModel.id!.toString()),
+                  _vDoubleColumTextPlate(
+                      key: "Group",
+                      value: studentProfileInfoModel
+                          .academicInfo!.classGroupName!),
+                  _vDoubleColumTextPlate(key: "Religion", value: ""),
                 ],
               ),
             ],
@@ -314,7 +356,7 @@ class ProfileWidgets {
           Text(": ".toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 16,
               )),
           2.width,
           Expanded(
@@ -348,7 +390,7 @@ class ProfileWidgets {
           Text(": ".toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 16,
               )),
           2.width,
           Expanded(

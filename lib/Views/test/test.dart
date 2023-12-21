@@ -21,53 +21,40 @@ class Test extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Table(children: [
-            TableRow(children: [
-              /// column 1: follow column 2
-              TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.fill,
-                  child: Container(
-                    alignment: Alignment.center,
-                    color: Colors.orange,
-                    child: Text('Expandable widget'),
-                  )),
-
-              /// column 2: Independent in increasing height
-              Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    color: Colors.green,
-                    height: 200,
-                    child: Text('Widget 2'),
-                  ),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) => Container(
-                      alignment: Alignment.center,
-                      height: 100,
-                      color: Colors.blue,
-                      child: Text("Item $index", style: TextStyle(color: Colors.white),),
-                    ),
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.black.withOpacity(.5),
-                      height: 1,
+          child: ListTile(
+            leading: Stack(
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage("https://via.placeholder.com/150"),
                     ),
                   ),
-                ],
-              ),
-
-              /// column 3: follow column 2
-              TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.fill,
-                  child: Container(
-                    alignment: Alignment.center,
-                    color: Colors.red,
-                    child: Text('Expadable widget'),
-                  )),
-            ]),
-          ]),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Icon(
+                    Icons.access_time,
+                    color: Colors.grey,
+                    size: 16,
+                  ),
+                ),
+              ],
+            ),
+            title: Text("Tis is title"),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Subject: SubjectName"),
+                Text("12.03.2018"),
+              ],
+            ),
+          ),
         ),
       ),
     );

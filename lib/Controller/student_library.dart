@@ -5,7 +5,7 @@ export 'STUDENT/calendar/calendar_controller.dart';
 export 'STUDENT/classroom/classroom_controller.dart';
 export 'STUDENT/dashboard/dashboard_controller.dart';
 export 'STUDENT/exam/exam_controller.dart';
-export 'STUDENT/helpdesk/helpdesk_controller.dart';
+export 'STUDENT/helpdesk/stu_helpdesk_controller.dart';
 export 'STUDENT/home/home_controller.dart';
 export 'STUDENT/liveClass/live_class_controller.dart';
 export 'STUDENT/logout/logout_controller.dart';
