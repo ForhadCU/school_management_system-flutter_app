@@ -1,7 +1,7 @@
 library student;
 
 export 'STUDENT/attendance/attendance_bindings.dart';
-export 'STUDENT/calendar/calendar_bindings.dart';
+export 'STUDENT/calendar/stu_calendar_bindings.dart';
 export 'STUDENT/classroom/classroom_bindings.dart';
 export 'STUDENT/dashboard/dashboard_bindings.dart';
 export 'STUDENT/exam/exam_bindings.dart';

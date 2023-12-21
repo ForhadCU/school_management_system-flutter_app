@@ -19,5 +19,6 @@ class ApiEndpoint {
 
   static const String stuProfileInfo = "/api/student/get-student-profile";
   static const String stuHelpDesk = "/api/student/get-student-helpdesk-list";
+  static const String stuAcademicCalendar = "/api/student/get-student-calendar";
 
 }

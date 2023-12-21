@@ -34,6 +34,12 @@ class HelpDeskController extends GetxController {
   }
 
   @override
+  void dispose() {
+    youtubePlayerController.value.dispose();
+    super.dispose();
+  }
+
+  @override
   void onClose() {
     super.onClose();
   }

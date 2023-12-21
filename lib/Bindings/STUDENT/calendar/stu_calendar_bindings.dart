@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 import '../../../Controller/student_library.dart';
 
-class CalendarBindings extends Bindings {
+class StuCalendarBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(CalendarController());
+    Get.put(StuCalendarController());
   }
 }

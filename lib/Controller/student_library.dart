@@ -1,7 +1,7 @@
 library student;
 
 export 'STUDENT/attendance/attendance_controller.dart';
-export 'STUDENT/calendar/calendar_controller.dart';
+export 'STUDENT/calendar/stu_calendar_controller.dart';
 export 'STUDENT/classroom/classroom_controller.dart';
 export 'STUDENT/dashboard/dashboard_controller.dart';
 export 'STUDENT/exam/exam_controller.dart';

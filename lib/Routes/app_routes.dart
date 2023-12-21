@@ -130,7 +130,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.calendar,
-      binding: CalendarBindings(),
+      binding: StuCalendarBindings(),
       page: () => const StuCalendar(),
     ),
     GetPage(

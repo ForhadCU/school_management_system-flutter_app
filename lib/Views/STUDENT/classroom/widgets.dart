@@ -56,7 +56,7 @@ class ClassroomWidgets {
                       ),
                     ],
                     onChanged: (value) {},
-                    hint: const Text('Dropdown 1'),
+                    hint: const Text('Video Type'),
                   ),
                 ),
               ),
@@ -86,7 +86,7 @@ class ClassroomWidgets {
                       ),
                     ],
                     onChanged: (value) {},
-                    hint: const Text('Dropdown 2'),
+                    hint: const Text('Subject'),
                   ),
                 ),
               ),
@@ -140,7 +140,7 @@ class ClassroomWidgets {
 
   static _vItem() {
     return Container(
-      height: AppScreenSize.mGetHeight(kGlobContext, 14),
+      height: AppScreenSize.mGetHeight(kGlobContext, 12),
       width: double.infinity,
       decoration: BoxDecoration(
           color: AppColor.classroomItemBg,
@@ -159,7 +159,7 @@ class ClassroomWidgets {
             children: [
               Expanded(
                 child: Image(
-                  image: AssetImage("assets/images/sample_gallery_image.jpg"),
+                  image: AssetImage("assets/images/ytb_logo.png"),
                   width: 100,
                   fit: BoxFit.fill,
                 ),
@@ -173,7 +173,7 @@ class ClassroomWidgets {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "This is the title for this is the title for this tiletitle for this tileThis is the title for this tile",
+                kDummyBanglaText.substring(0,90),
                 style: kBody.copyWith(fontWeight: FontWeight.w500),
               ),
               Row(
