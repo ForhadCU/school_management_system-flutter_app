@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/student_library.dart';
@@ -57,12 +56,6 @@ class StuHomeWidgets {
 
                         // iconColor: AppColor.blue,
                         label: "My Payment".toUpperCase()))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             Expanded(
               child: Align(
                 alignment: Alignment.center,
@@ -75,6 +68,12 @@ class StuHomeWidgets {
                     label: "My routine".toUpperCase()),
               ),
             ),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -95,12 +94,6 @@ class StuHomeWidgets {
                         bgColor: AppColor.live_class,
                         // iconColor: AppColor.amber,
                         label: "Live Class".toUpperCase()))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             Expanded(
               child: Align(
                 alignment: Alignment.center,
@@ -123,6 +116,12 @@ class StuHomeWidgets {
                         // iconColor: AppColor.red,
                         bgColor: AppColor.attendance,
                         label: "Attendance".toUpperCase()))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -133,12 +132,6 @@ class StuHomeWidgets {
                         bgColor: AppColor.my_quiz,
                         // iconColor: AppColor.amber,
                         label: "My Quiz".toUpperCase()))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             Expanded(
               child: Align(
                 alignment: Alignment.center,
@@ -175,12 +168,13 @@ class StuHomeWidgets {
         ),
         AppSpacing.xl.height,
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                      onTap: ()=> controller.mLogutUser(),
+                        onTap: () => controller.mLogutUser(),
                         // onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: StudentAssetLocation.log_out,
                         // bgColor: AppColor.amber.shade100,
@@ -189,6 +183,10 @@ class StuHomeWidgets {
                         label: "Log out".toUpperCase()))),
           ],
         ),
+       /*  AppSpacing.xl.height,
+        Row(
+          children: [],
+        ), */
       ],
     );
   }
@@ -207,7 +205,7 @@ class StuHomeWidgets {
         children: [
           Container(
             padding: const EdgeInsets.all(AppSpacing.sm),
-            width: AppScreenSize.mGetWidth(kGlobContext, 20),
+            width: AppScreenSize.mGetWidth(kGlobContext, 14),
             decoration: BoxDecoration(
                 color: bgColor,
                 borderRadius: BorderRadius.circular(AppSpacing.sm)),
@@ -216,13 +214,13 @@ class StuHomeWidgets {
                 iconLoc,
               ),
               color: iconColor,
-              width: 64,
+              width: AppScreenSize.mGetWidth(kGlobContext, 8),
             ),
           ),
           AppSpacing.sm.height,
           Text(
             label,
-            style: kBody,
+            style: kBody.copyWith(fontSize: 11),
             overflow: TextOverflow.ellipsis,
           )
         ],
