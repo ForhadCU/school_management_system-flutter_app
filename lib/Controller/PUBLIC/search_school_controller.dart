@@ -25,6 +25,7 @@ class SearchSchoolController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    kLog("Search school init");
     sharedPreferences = await SharedPreferences.getInstance();
     await mGetAllSites();
   }
@@ -33,6 +34,10 @@ class SearchSchoolController extends GetxController {
     showLoading("Getting Site list");
 
     allSitesList.value = await SchoolSearchApi.mGetAllSites();
+
+    if (allSitesList.value!.length > 0) {
+      isAllSitesLoaded.value = true;
+    }
 
     print(allSitesList.value!.length);
   }

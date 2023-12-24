@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Utils/toast_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Config/config.dart';
 
@@ -66,5 +68,11 @@ class StuHomeController extends GetxController {
                                                         : null;
   }
 
-  mLogutUser() {}
+  mLogutUser() async {
+    // showLoading("Loggin Out...");
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    // hideLoading();
+    Get.offNamed(AppRoutes.searchSchool);
+  }
 }

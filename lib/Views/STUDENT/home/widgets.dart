@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 
@@ -174,7 +175,10 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => controller.mLogutUser(),
+                        onTap: ()  {
+                          vLogoutDialog();
+                          // controller.mLogutUser();
+                        },
                         // onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: StudentAssetLocation.log_out,
                         // bgColor: AppColor.amber.shade100,
@@ -183,7 +187,7 @@ class StuHomeWidgets {
                         label: "Log out".toUpperCase()))),
           ],
         ),
-       /*  AppSpacing.xl.height,
+        /*  AppSpacing.xl.height,
         Row(
           children: [],
         ), */
@@ -239,33 +243,41 @@ class StuHomeWidgets {
                     controller.mNavigateTo(controller.drawerItems[index]),
                 child: Container(
                   child: controller.drawerItems.length - 1 == index
-                      ? Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.md,
-                              horizontal: AppSpacing.sm),
-                          decoration: BoxDecoration(
-                              gradient: AppColor.kVerticalCovexGradiant),
-                          child: Row(
-                            children: [
-                              const Image(
-                                image: AssetImage(StudentAssetLocation.logout),
-                                width: 14,
-                                height: 14,
-                              ),
-                              AppSpacing.sm.width,
-                              Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  width: double.infinity,
-                                  child: Text(
-                                    controller.drawerItems[index].toUpperCase(),
-                                    style: kSubTitle.copyWith(
-                                        color: AppColor.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                      ? InkWell(
+                          onTap: () {
+                            Get.back();
+                            vLogoutDialog();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.md,
+                                horizontal: AppSpacing.sm),
+                            decoration: BoxDecoration(
+                                gradient: AppColor.kVerticalCovexGradiant),
+                            child: Row(
+                              children: [
+                                const Image(
+                                  image:
+                                      AssetImage(StudentAssetLocation.logout),
+                                  width: 14,
+                                  height: 14,
                                 ),
-                              )
-                            ],
+                                AppSpacing.sm.width,
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    width: double.infinity,
+                                    child: Text(
+                                      controller.drawerItems[index]
+                                          .toUpperCase(),
+                                      style: kSubTitle.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       : Container(
@@ -292,5 +304,81 @@ class StuHomeWidgets {
             );
           },
         ));
+  }
+
+  static void vLogoutDialog() {
+    Get.dialog(
+        AlertDialog(
+          backgroundColor: AppColor.white,
+          contentPadding: const EdgeInsets.all(0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.w)),
+          content: Container(
+            padding: EdgeInsets.all(10.w),
+            width: AppScreenSize.mGetWidth(kGlobContext, 80),
+            decoration: const BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Warning!",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500)),
+                AppSpacing.sm.height,
+                Text(
+                  "Do you really want to logout?",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                24.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.white,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md,
+                              vertical: AppSpacing.smh,
+                            )),
+                        child: Text(
+                          "Cancel".toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        )),
+                    AppSpacing.xxl.width,
+                    ElevatedButton(
+                        onPressed: () async {
+                          await controller.mLogutUser();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.red,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md,
+                              vertical: AppSpacing.smh,
+                            )),
+                        child: Text(
+                          "Logout".toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        )),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: false);
   }
 }
