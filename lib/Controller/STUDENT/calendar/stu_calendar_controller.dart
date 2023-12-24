@@ -49,7 +49,7 @@ class StuCalendarController extends GetxController {
     print("site id: ${siteListModel.value.id}");
   }
 
-  mGetAcademicGroupList() async {
+  /*  mGetAcademicGroupList() async {
     academicGroupModeList.value = await StuCalendarApis.mGetAcademicGroupList(
         PayLoads.stuAcademicGroupList(
             api_access_key: AppData.api_access_key,
@@ -69,14 +69,12 @@ class StuCalendarController extends GetxController {
     academicGrpDropdownValue.value = selectedAcademicGroupModel.value;
     await mGetEventDateList();
   }
-
+ */
   mGetEventDateList() async {
     eventDateListModelList.value = await StuCalendarApis.mGetEventDateList(
-      /*  PayLoads.stuCalendarList(
+      PayLoads.stuCalendarList(
           api_access_key: AppData.api_access_key,
-          site_id: siteListModel.value.id.toString(),
-          academic_group_id: selectedAcademicGroupModel.value.id.toString(),
-          monthIncrement: currentPageIndex.value.toString()), */
+          monthIncrement: currentPageIndex.value.toString()),
       token.value,
     );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_management_system/Views/STUDENT/result/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
-
 
 class Result extends StatelessWidget {
   const Result({super.key});
@@ -8,10 +8,14 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWidget(
-        title: "Result",
+        title: "My Result".toUpperCase(),
         child: BaseWidgetChild(
-          child: Container(
-            child: Text("Result"),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ResultWidgets.vTopbar(),
+              ],
+            ),
           ),
         ));
   }

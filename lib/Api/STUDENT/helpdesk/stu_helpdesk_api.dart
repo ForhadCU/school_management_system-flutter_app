@@ -17,7 +17,7 @@ class HelpdeskApi {
   static Future<List<StuHelpDeskModel>> mGetStuHelpDeskModelList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
-        await CallAPI.getStudentData(ApiEndpoint.stuHelpDesk, {}, token);
+        await CallAPI.getStudentData(ApiEndpoint.stuHelpDesk, payLoad, token);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");

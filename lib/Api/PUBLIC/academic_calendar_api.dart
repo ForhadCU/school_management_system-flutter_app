@@ -38,8 +38,8 @@ class AcademicCalendarApi {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");
       MonthWiseEventCalendarApiModel monthWiseEventCalendarApiModel =
-          MonthWiseEventCalendarApiModel.fromMap(
-              res.body);
+          MonthWiseEventCalendarApiModel.fromMap(res.body);
+      print(res.body);
       return monthWiseEventCalendarApiModel
           .monthWiseCalendarData!.eventDateList!;
     } else {

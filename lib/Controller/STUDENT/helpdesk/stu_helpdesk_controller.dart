@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/helpdesk/stu_helpdesk_api.dart';
 import 'package:school_management_system/Model/STUDENT/helpdesk/stu_helpdesk_model.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../Api/STUDENT/profile/stu_profile_api.dart';
@@ -57,8 +58,9 @@ class HelpDeskController extends GetxController {
   }
 
   _mGetProfileInfo() async {
-    stuHelpdeskModelList.value =
-        await HelpdeskApi.mGetStuHelpDeskModelList({}, token.value);
+    kLog("api key: ${AppData.api_access_key}   token: ${token.value}");
+    stuHelpdeskModelList.value = await HelpdeskApi.mGetStuHelpDeskModelList(
+        {kApi_access_key: AppData.api_access_key}, token.value);
     kLog("stuHelpdeskModelList Length: ${stuHelpdeskModelList.length}");
   }
 

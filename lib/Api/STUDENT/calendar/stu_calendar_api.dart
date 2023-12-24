@@ -31,9 +31,12 @@ class StuCalendarApis {
   }
 
   static Future<List<List<StuEventDateList>>> mGetEventDateList(
-      /* Map<String, dynamic> payLoad, */ String token) async {
+      Map<String, dynamic> payLoad, String token,
+     ) async {
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuAcademicCalendar, {}, token);
+        ApiEndpoint.stuAcademicCalendar,
+        payLoad,
+        token);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");

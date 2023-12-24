@@ -17,17 +17,19 @@ class AboutUs extends StatelessWidget {
       title: tAboutUs,
       child: BaseWidgetChild(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // vSchollNameBanner(),
-            InstitueBanaer(
-                iconUrl: controller.siteListModel.value.siteLogo,
-                title:
-                    controller.siteListModel.value.siteName ?? tDemoSchoolName),
-            (AppSpacing.md).height,
-            AboutUsWidgets.vBody(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // vSchollNameBanner(),
+              InstitueBanaer(
+                  iconUrl: controller.siteListModel.value.siteLogo,
+                  title: controller.siteListModel.value.siteName ??
+                      tDemoSchoolName),
+              (AppSpacing.md).height,
+              AboutUsWidgets.vBody(),
+            ],
+          ),
         ),
       )),
     );

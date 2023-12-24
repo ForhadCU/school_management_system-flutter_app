@@ -3,6 +3,7 @@ import 'package:school_management_system/Api/STUDENT/profile/stu_profile_api.dar
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:school_management_system/Model/STUDENT/profile/stu_profile_info_model.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
@@ -33,8 +34,8 @@ class StuProfileController extends GetxController {
   }
 
   _mGetProfileInfo() async {
-    stuProfileInfoModel.value =
-        await ProfileApis.mGetProfileInfo({}, token.value);
+    stuProfileInfoModel.value = await ProfileApis.mGetProfileInfo(
+        {"api_access_key": AppData.api_access_key}, token.value);
     kLog("stuProfileInfoModel username: ${stuProfileInfoModel.value.username}");
   }
 

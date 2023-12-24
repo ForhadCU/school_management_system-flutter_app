@@ -23,9 +23,11 @@ class LandingController extends GetxController {
   }
 
   _mSetSiteDetailsModel() {
-    final String encodedJsonString = sharedPreferences.getString(kSiteListModel)!;
+    final String encodedJsonString =
+        sharedPreferences.getString(kSiteListModel)!;
     Map<String, dynamic> decodedJson = jsonDecode(encodedJsonString);
     siteListModel.value = SitelistModel.fromMap(decodedJson);
     kLogger.w("selected school name: ${siteListModel.value.siteName}");
+    kLogger.w("Site Details Model : ${siteListModel.value.toMap()}");
   }
 }

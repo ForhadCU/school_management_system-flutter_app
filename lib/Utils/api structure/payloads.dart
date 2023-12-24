@@ -88,24 +88,28 @@ class PayLoads {
   }
 
   static Map<String, dynamic> mUserLogin({
+    required String api_access_key,
     required String username,
     required String password,
   }) {
     return {
       "username": username,
       "password": password,
+      "api_access_key": api_access_key,
     };
   }
 
   static Map<String, dynamic> mStuProfileInfo({
     required String token,
+    required String api_access_key,
   }) {
     return {
       "token": token,
+      "api_access_key": api_access_key,
     };
   }
 
-    static Map<String, dynamic> stuAcademicGroupList({
+  static Map<String, dynamic> stuAcademicGroupList({
     required String api_access_key,
     required String site_id,
   }) {
@@ -115,16 +119,13 @@ class PayLoads {
     };
   }
 
-    static Map<String, dynamic> stuCalendarList({
+  static Map<String, dynamic> stuCalendarList({
     required String api_access_key,
-    required String site_id,
-    required String academic_group_id,
     required String monthIncrement,
   }) {
     return {
       "api_access_key": api_access_key,
-      "site_id": site_id,
-      "academic_group_id": academic_group_id,
+
       "monthIncrement": monthIncrement,
     };
   }

@@ -16,7 +16,7 @@ class ProfileApis {
   static Future<StudentProfileInfoModel> mGetProfileInfo(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
-        await CallAPI.getStudentData(ApiEndpoint.stuProfileInfo, {}, token);
+        await CallAPI.getStudentData(ApiEndpoint.stuProfileInfo, payLoad, token);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");

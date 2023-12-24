@@ -47,7 +47,7 @@ class StuCalendarWidgets {
             onChanged: (StuAcademicGroupModel? selectedModel) {
               // int index = controller.academicGroupModeList.indexOf(newValue);
               // print(controller.academicGroupModeList[index]);
-              controller.mUpdateAcademicGroupSelection(selectedModel!);
+              // controller.mUpdateAcademicGroupSelection(selectedModel!);
             },
             items: /* <String>["Recent", "Older"] */
                 controller.academicGroupModeList

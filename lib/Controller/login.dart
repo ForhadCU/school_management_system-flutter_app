@@ -6,6 +6,7 @@ import 'package:school_management_system/Controller/PUBLIC/landing_controller.da
 import 'package:school_management_system/Model/PUBLIC/login/login_model.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,7 @@ class LoginController extends GetxController {
 
   mUserLogin() async {
     await LoginApi.mUserLogin(PayLoads.mUserLogin(
+            api_access_key: AppData.api_access_key,
             username: textEditingControllerUsernameOrEmail.text,
             password: textEditingControllerPassword.text))
         .then((LoginApiModel loginApiModel) {

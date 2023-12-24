@@ -21,6 +21,7 @@ const String kCustom = "custom";
 // Key
 const String kSiteListModel = "siteListModel";
 const String kToken = 'token';
+const String kApi_access_key = 'api_access_key';
 
 
 //appStrings
