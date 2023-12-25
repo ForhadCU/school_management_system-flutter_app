@@ -9,7 +9,7 @@ class AppDialogs {
     return _singleton;
   }
   AppDialogs._internal();
-
+/* 
     tariffPopUp() {
     Get.dialog(
         AlertDialog(
@@ -27,5 +27,5 @@ class AppDialogs {
           ),
         ),
         barrierDismissible: false);
-  }
+  } */
 }
