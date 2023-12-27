@@ -25,3 +25,17 @@ class AppData {
 }
 
 AppData appData = AppData();
+
+
+class PageOrientation {
+  // make this class singleton 
+    PageOrientation._internal();
+    static final PageOrientation _singleton = PageOrientation._internal();
+    factory PageOrientation() {
+      return _singleton;
+    }
+  // codes start from here
+  // All methods should be static to maintain singleton instances
+  static const String portrait = "portrate";
+  static const String landscape = "landscape";
+}

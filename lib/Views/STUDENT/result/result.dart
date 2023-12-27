@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/STUDENT/result/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
@@ -14,6 +16,10 @@ class Result extends StatelessWidget {
             child: Column(
               children: [
                 ResultWidgets.vTopbar(),
+                AppSpacing.xl.height,
+                ResultWidgets.vDownloadBtns(),
+                AppSpacing.md.height,
+                ResultWidgets.vResultPdf(),
               ],
             ),
           ),

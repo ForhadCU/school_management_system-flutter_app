@@ -116,7 +116,8 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
         showSuccess("Success");
-      };
+      }
+      ;
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       kLog(e.toString());
@@ -187,8 +188,9 @@ class CallAPI {
 
     return ResponseModel(statusCode: 404, body: null);
   }
+
   static Future<ResponseModel> getStudentData(
-      String endPoint, Map<String, dynamic>? params,  String token,
+      String endPoint, Map<String, dynamic>? params, String token,
       {String? url}) async {
     dynamic body;
     kLog('GET + $endPoint');
@@ -217,6 +219,44 @@ class CallAPI {
       showError('Failed to get data');
     }
 
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> postStudentData(
+      String endPoint, Map<String, dynamic> payload, String token,
+      [bool? isPdf]) async {
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+
+      http.Response res = await http.post(
+        Uri.https(_get_host, endPoint),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+
+      if (res.statusCode == 200) {
+        if (isPdf != null) {
+          body = res.bodyBytes;
+        } else {
+          body = json.decode(res.body);
+        }
+        showSuccess("Success");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError("Failed");
+    }
     return ResponseModel(statusCode: 404, body: null);
   }
 

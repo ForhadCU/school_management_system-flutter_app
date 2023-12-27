@@ -11,27 +11,81 @@ class AppButtons {
     return _singletone;
   }
 
-  static Widget vPrimaryButton(
-      {required Function onTap, required String text}) {
+  static Widget vPrimaryButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+  }) {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
           padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
-              // color: AppColor.primaryColor,
-              gradient: AppColor.kBtnGradiantColor,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              gradient: bgGradient ?? AppColor.kBtnGradiantColor,
               borderRadius: BorderRadius.circular(AppSpacing.smh)),
           child: Text(
             text,
             style: kTitle.copyWith(
-              color: AppColor.white,
+              color: textColor ?? AppColor.white,
             ),
           ),
         ));
   }
 
-  
+  static Widget vDownloadButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md, vertical: AppSpacing.smh),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              gradient: bgGradient ?? AppColor.kDonwloadBtnGradiantColor,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Row(
+            children: [
+              Icon(
+                Icons.download,
+                color: AppColor.white,
+                size: 16,
+              ),
+              AppSpacing.smh.width,
+              Text(
+                text,
+                style: kBody.copyWith(
+                  color: textColor ?? AppColor.white,
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
 
   static Widget vPrimaryButtonWithoutColor({
     required Function onTap,

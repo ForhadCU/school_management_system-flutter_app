@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 
 import '../../../Config/config.dart';
@@ -39,7 +40,28 @@ class StuHomeWidgets {
             ),
             Expanded(
                 child: _vIconButton(
-                    onTap: () => Get.toNamed(AppRoutes.academicCalendar),
+                    onTap: () async {
+                      Get.toNamed(AppRoutes.result);
+                      /* try {
+                        if (await Permission.storage.request().isGranted) {
+                          kLog('permission granted');
+
+                          /*     await file.writeAsBytes(response);
+          pdfFilePath.value = filePath; */
+                          /* pdfPath.set(file.path);
+            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+                        } else {
+                          Map<Permission, PermissionStatus> statuses = await [
+                            Permission.storage,
+                          ].request();
+                          kLog(statuses[Permission.storage].toString());
+                          await Permission.storage.request();
+                          kLog('request permission');
+                        }
+                      } catch (error) {
+                        kLog(error);
+                      } */
+                    },
                     iconLoc: StudentAssetLocation.my_result,
                     // bgColor: AppColor.green.shade100,
                     bgColor: AppColor.my_result,
@@ -175,7 +197,7 @@ class StuHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: ()  {
+                        onTap: () {
                           vLogoutDialog();
                           // controller.mLogutUser();
                         },

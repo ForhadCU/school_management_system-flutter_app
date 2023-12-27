@@ -40,7 +40,6 @@ class AppColor {
   static const Color helpDeskTopbar = Color(0xff1E90FF);
   static const Color classroomItemBg = Color(0xffEBEBEB);
 
-
   //** Orange */
   static const Color orange50 = Color.fromARGB(255, 255, 234, 220);
   static const Color orange100 = Color(0xffffe0cc);
@@ -60,6 +59,7 @@ class AppColor {
   static const Color my_class = Color(0xffBFFE65);
   static const Color my_exam = Color(0xffFEDF46);
   static const Color my_payments = Color(0xff18C93A);
+  static const Color my_paymentsDark = Color.fromARGB(255, 2, 155, 33);
   static const Color my_quiz = Color(0xffEAC05C);
   static const Color my_result = Color(0xffFC3D80);
   static const Color my_routine = Color(0xff19B5BA);
@@ -72,7 +72,12 @@ class AppColor {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
-  static LinearGradient kVerticalCovexGradiant = LinearGradient(
+  static LinearGradient kDonwloadBtnGradiantColor = const LinearGradient(
+    colors: [my_paymentsDark, my_payments],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+  static LinearGradient kVerticalCovexGradiant = const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     stops: [0.9, 0.1],
