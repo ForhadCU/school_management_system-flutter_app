@@ -21,7 +21,7 @@ class ResultWidgets {
   // All methods should be static to maintain singleton instances
   static final _controller = StuResultController.to;
 
-  static vTopbar() {
+  static vTopbar(M m) {
     return Container(
       decoration: BoxDecoration(
           // color: AppColor.helpDeskTopbar,
@@ -75,7 +75,9 @@ class ResultWidgets {
                       value: value,
                       child: Text(
                         value.stClass!.className!,
-                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        style: kBody.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     );
                   }).toList(),
@@ -84,7 +86,7 @@ class ResultWidgets {
         ),
         AppSpacing.sm.width,
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Obx(() => Container(
                 padding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.sm, vertical: AppSpacing.smh),

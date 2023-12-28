@@ -126,7 +126,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.attendance,
       binding: AttendanceBindings(),
-      page: () => const Attendance(),
+      page: () => const StuAttendance(),
     ),
     GetPage(
       name: AppRoutes.calendar,

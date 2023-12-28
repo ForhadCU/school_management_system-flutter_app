@@ -23,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final Color? cursorColor;
   final TextAlign? textAlign;
   final double? fontSize;
+  final bool? isDense;
 
   final List<TextInputFormatter>? inputFormatters;
   final bool? autofocus;
@@ -70,7 +71,7 @@ class CustomTextField extends StatelessWidget {
     this.marginBottom,
     this.maxLines,
     this.labelText,
-    this.labelBottomGap,
+    this.labelBottomGap, this.isDense,
   });
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
         TextFormField(
+          
           controller: controller,
           validator: validator,
           onChanged: onChange,
@@ -101,13 +103,14 @@ class CustomTextField extends StatelessWidget {
           onEditingComplete: onEditingComplete,
           keyboardType: keyboardType,
           decoration: InputDecoration(
+            isDense: isDense ?? false,
             errorStyle: kBody.copyWith(color: AppColor.kRed),
             // fillColor: const Color(0xff39383D),
             fillColor: AppColor.white,
             filled: true,
             errorText: errorText,
             contentPadding: padding ??
-                const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             // border: InputBorder.none,
