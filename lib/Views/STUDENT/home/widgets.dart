@@ -29,7 +29,7 @@ class StuHomeWidgets {
               child: _vIconButton(
                   onTap: () {
                     print("Click");
-                    return Get.toNamed(AppRoutes.notice);
+                    return Get.toNamed(AppRoutes.exam);
                   },
                   iconLoc: StudentAssetLocation.my_exam,
                   // bgColor: AppColor.orange.shade100,

@@ -175,129 +175,142 @@ class StuAttendanceWidgets {
     List list = [
       {"item": "item1"},
       {"item": "item1"},
-      {"item": "item1"}
+      {"item": "item1"},
+      {"item": "item1"},
+      {"item": "item1"},
+      {"item": "item1"},
     ];
-    return Container(
-        width: double.infinity,
-        child: ClipRRect(
-            // borderRadius: BorderRadius.circular(12),
-            child: Table(
-          /*  columnWidths: <int, TableColumnWidth>{
-                                      0: m.sm
-                                          ? const FlexColumnWidth()
-                                          : const IntrinsicColumnWidth(),
-                                      // 1: FlexColumnWidth(),
-                                      1: FixedColumnWidth(m.xl ? 200 : 364),
-                                      // 2: FlexColumnWidth(),
-                                      // 3: FlexColumnWidth(),
-                                      // 4: FlexColumnWidth(),
-                                    }, */
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: <TableRow>[
-            TableRow(
-              // table decoration
-              decoration: const BoxDecoration(color: AppColor.secondaryColor),
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Date',
-                      style: kBody.copyWith(
-                          color: AppColor.white, fontWeight: FontWeight.bold),
-                    ).marginAll(0),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Time',
-                      style: kBody.copyWith(
-                          color: AppColor.white, fontWeight: FontWeight.bold),
-                    ).marginAll(10),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Status',
-                      style: kBody.copyWith(
-                          color: AppColor.white, fontWeight: FontWeight.bold),
-                    ).marginAll(0),
-                  ],
-                ),
-              ],
-            ),
-            // for (var item in _controller.userInfoModelList) // correct
-
-            for (var item in list) // test
-
-              TableRow(
-                // table decoration
-                decoration: BoxDecoration(
-                    color:
-                        /* _controller.userInfoModelList.indexOf(item) */ list
-                                        .indexOf(item) %
-                                    2 ==
-                                0
-                            ? AppColor.secondaryColor.withOpacity(.4)
-                            : AppColor.secondaryColor.withOpacity(.2)),
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "23 Sep 2023",
-                        style: kBody.copyWith(
-                            color: AppColor.kBlack,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ).marginSymmetric(vertical: 0, horizontal: 0),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "08:45 AM \n-\n10:34 AM",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ).marginAll(10),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.sm,
-                            vertical: AppSpacing.smh / 2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: list.indexOf(item) % 2 == 0
-                              ? AppColor.green
-                              : AppColor.red,
-                        ),
-                        child: Text(
-                          list.indexOf(item) % 2 == 0 ? "In Time" : "Late",
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Container(
+            width: double.infinity,
+            child: ClipRRect(
+                // borderRadius: BorderRadius.circular(12),
+                child: Table(
+              /*  columnWidths: <int, TableColumnWidth>{
+                                              0: m.sm
+                                                  ? const FlexColumnWidth()
+                                                  : const IntrinsicColumnWidth(),
+                                              // 1: FlexColumnWidth(),
+                                              1: FixedColumnWidth(m.xl ? 200 : 364),
+                                              // 2: FlexColumnWidth(),
+                                              // 3: FlexColumnWidth(),
+                                              // 4: FlexColumnWidth(),
+                                            }, */
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              children: <TableRow>[
+                TableRow(
+                  // table decoration
+                  decoration:
+                      const BoxDecoration(color: AppColor.secondaryColor),
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Date'.toUpperCase(),
                           style: kBody.copyWith(
                               color: AppColor.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.bold),
                         ).marginAll(0),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Time'.toUpperCase(),
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.bold),
+                        ).marginAll(10),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Status'.toUpperCase(),
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.bold),
+                        ).marginAll(0),
+                      ],
+                    ),
+                  ],
+                ),
+                // for (var item in _controller.userInfoModelList) // correct
+
+                for (var item in list) // test
+
+                  TableRow(
+                    // table decoration
+                    decoration: BoxDecoration(
+                        color:
+                            /* _controller.userInfoModelList.indexOf(item) */ list
+                                            .indexOf(item) %
+                                        2 ==
+                                    0
+                                ? AppColor.secondaryColor.withOpacity(.4)
+                                : AppColor.secondaryColor.withOpacity(.2)),
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "23 Sep 2023",
+                            style: kBody.copyWith(
+                                color: AppColor.kBlack,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ).marginSymmetric(vertical: 0, horizontal: 0),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "08:45 AM \n-\n10:34 AM",
+                              textAlign: TextAlign.center,
+                              style: kBody.copyWith(
+                                  color: AppColor.kBlack,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ).marginSymmetric(
+                                horizontal: AppSpacing.smh,
+                                vertical: AppSpacing.sm),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: list.indexOf(item) % 2 == 0
+                                  ? AppColor.green.withOpacity(.9)
+                                  : AppColor.red.withOpacity(.9),
+                            ),
+                            child: Text(
+                              list.indexOf(item) % 2 == 0 ? "In Time" : "Late",
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ).marginAll(0),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-          ],
-        )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */);
+              ],
+            )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
+      ),
+    );
   }
 }

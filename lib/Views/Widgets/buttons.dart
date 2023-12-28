@@ -37,7 +37,7 @@ class AppButtons {
               borderRadius: BorderRadius.circular(AppSpacing.smh)),
           child: Text(
             text,
-            style: kTitle.copyWith(
+            style: kTitleLite.copyWith(
               color: textColor ?? AppColor.white,
             ),
           ),
@@ -51,12 +51,14 @@ class AppButtons {
     Color? textColor,
     LinearGradient? bgGradient,
     bool? isShadow,
+    double? horizontalPadding,
+    double? verticalPadding,
   }) {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md, vertical: AppSpacing.smh),
+          padding:  EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? AppSpacing.md, vertical: verticalPadding ?? AppSpacing.smh),
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -72,6 +74,49 @@ class AppButtons {
             children: [
               Icon(
                 Icons.download,
+                color: AppColor.white,
+                size: 16,
+              ),
+              AppSpacing.smh.width,
+              Text(
+                text,
+                style: kBody.copyWith(
+                  color: textColor ?? AppColor.white,
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
+  static Widget vViewButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              gradient: bgGradient ?? AppColor.kDonwloadBtnGradiantColor,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Row(
+            children: [
+              Icon(
+                Icons.insert_drive_file_outlined,
                 color: AppColor.white,
                 size: 16,
               ),

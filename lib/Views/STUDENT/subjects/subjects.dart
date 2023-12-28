@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_management_system/Views/STUDENT/subjects/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 
@@ -10,9 +11,9 @@ class Subjects extends StatelessWidget {
     return BaseWidget(
         title: "Subjects",
         child: BaseWidgetChild(
-          child: Container(
-            child: Text("Subjects"),
-          ),
+          child: Column(children: [
+            StuSubjectsWidgets.vExamDocumentsTable(),
+          ]),
         ));
   }
 }

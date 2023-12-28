@@ -76,7 +76,7 @@ class ResultWidgets {
                       child: Text(
                         value.stClass!.className!,
                         style: kBody.copyWith(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     );
@@ -120,7 +120,7 @@ class ResultWidgets {
                       value: value,
                       child: Text(
                         value.name!,
-                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        style: kBody.copyWith(fontWeight: FontWeight.w400),
                       ),
                     );
                   }).toList(),
