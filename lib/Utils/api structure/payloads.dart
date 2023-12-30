@@ -109,6 +109,12 @@ class PayLoads {
       "token": token,
       "api_access_key": api_access_key,
     };
+  }  static Map<String, dynamic> mStuSubjectList({
+    required String api_access_key,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+    };
   }
 
   static Map<String, dynamic> stuAcademicGroupList({

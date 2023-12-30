@@ -51,6 +51,7 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -79,6 +80,7 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -109,6 +111,7 @@ class CallAPI {
           'Accept': 'application/json',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -141,6 +144,7 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -173,6 +177,7 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -206,6 +211,8 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        hideLoading();
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -238,6 +245,7 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -276,6 +284,7 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -307,6 +316,7 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('PUT request end');
@@ -337,6 +347,7 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('delete request end');
@@ -369,7 +380,8 @@ class CallAPI {
         'Authorization': 'JWT-${appData.token}',
       },
     ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-      return http.Response('Error', 408);
+      hideLoading();
+        return http.Response('Error', 408);
     });
     dynamic body;
     // if (res.statusCode == 200) {
@@ -417,7 +429,8 @@ class CallAPI {
         'Authorization': 'JWT-${appData.token}',
       },
     ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-      return http.Response('Error', 408);
+      hideLoading();
+        return http.Response('Error', 408);
     });
 
     if (response.statusCode == 200) {

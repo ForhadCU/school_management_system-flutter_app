@@ -14,7 +14,7 @@ class StuAttendance extends StatelessWidget {
         child: BaseWidgetChild(
           child: Column(children: [
             StuAttendanceWidgets.vTopbar(),
-            AppSpacing.md.height,
+            // AppSpacing.md.height,
             StuAttendanceWidgets.vAttendanceTable(),
           ]),
         ));

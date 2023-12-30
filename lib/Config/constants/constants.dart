@@ -87,6 +87,7 @@ const String kAppDateFormat = "dd-MM-yyyy";
 // const String kAppDateWithTimeFormat = "dd-MM-yyyy kk:mm:a";
 /// 12 hours AM/PM
 const String kAppDateFormatWithTime12 = "dd-MM-yyyy h:mm a";
+const String kAppTimeFormat12 = "h:mm a";
 const String kAppDateFormatWithDayMonth = "d MMM";
 
 const String kApiDateFormat = "yyyy-MM-dd";

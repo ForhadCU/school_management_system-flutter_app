@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class StuExamModel {
+class StuExamTypeModel {
   static String get getDataListJsonKey => "examination_list";
 
   final int? id;
@@ -9,7 +9,7 @@ class StuExamModel {
   final dynamic deletedAt;
   final String? nameKey;
 
-  StuExamModel({
+  StuExamTypeModel({
     this.id,
     this.examinationName,
     this.status,
@@ -17,14 +17,14 @@ class StuExamModel {
     this.nameKey,
   });
 
-  StuExamModel copyWith({
+  StuExamTypeModel copyWith({
     int? id,
     String? examinationName,
     String? status,
     dynamic deletedAt,
     String? nameKey,
   }) =>
-      StuExamModel(
+      StuExamTypeModel(
         id: id ?? this.id,
         examinationName: examinationName ?? this.examinationName,
         status: status ?? this.status,
@@ -32,12 +32,13 @@ class StuExamModel {
         nameKey: nameKey ?? this.nameKey,
       );
 
-  factory StuExamModel.fromJson(String str) =>
-      StuExamModel.fromMap(json.decode(str));
+  factory StuExamTypeModel.fromJson(String str) =>
+      StuExamTypeModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory StuExamModel.fromMap(Map<String, dynamic> json) => StuExamModel(
+  factory StuExamTypeModel.fromMap(Map<String, dynamic> json) =>
+      StuExamTypeModel(
         id: json["id"],
         examinationName: json["examination_name"],
         status: json["status"],

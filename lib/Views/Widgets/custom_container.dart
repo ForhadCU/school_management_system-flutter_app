@@ -11,24 +11,31 @@ class CommonContainers {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static vTabItemContainer({required String text, required bool isActive}) {
-    return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-        decoration: BoxDecoration(
-          color: isActive
-              ? AppColor.primaryColor
-              : AppColor.secondaryColor.withOpacity(.8),
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(5), topLeft: Radius.circular(5)),
-        ),
-        child: Text(
-          text,
-          style: kBody.copyWith(
-            fontWeight: FontWeight.bold,
-            color: AppColor.white,
+  static vTabItemContainer({
+    required String text,
+    required bool isActive,
+    Null Function()? onTap,
+  }) {
+    return GestureDetector(
+      onTap: () => onTap!(),
+      child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
+          decoration: BoxDecoration(
+            color: isActive
+                ? AppColor.primaryColor
+                : AppColor.secondaryColor.withOpacity(.8),
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(5), topLeft: Radius.circular(5)),
           ),
-        ));
+          child: Text(
+            text,
+            style: kBody.copyWith(
+              fontWeight: FontWeight.bold,
+              color: AppColor.white,
+            ),
+          )),
+    );
   }
 }

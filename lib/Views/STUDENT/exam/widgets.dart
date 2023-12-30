@@ -3,6 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/student_library.dart';
+import 'package:school_management_system/Model/STUDENT/exam/exam_model.dart';
+import 'package:school_management_system/Model/STUDENT/result/history_model.dart';
+import 'package:school_management_system/Model/STUDENT/result/result_details_model.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
@@ -26,18 +29,28 @@ class StuExamWidgets {
       mainAxisSize: MainAxisSize.min,
       children: [
         /// tab buttons
-        Row(
-          children: [
-            Expanded(
-              child: CommonContainers.vTabItemContainer(
-                  text: "Exam Details", isActive: true),
-            ),
-            (AppSpacing.smh / 2).width,
-            Expanded(
-                child: CommonContainers.vTabItemContainer(
-                    text: "Exam (Online)", isActive: false)),
-          ],
-        ),
+
+        Obx(() => Row(
+              children: [
+                Expanded(
+                  child: CommonContainers.vTabItemContainer(
+                      text: "Exam Details",
+                      isActive: _controller.isExamDetailsActive.value,
+                      onTap: () {
+                        _controller.mUpdateExamDetailsTabItem();
+                      }),
+                ),
+                (AppSpacing.smh / 2).width,
+                Expanded(
+                    child: CommonContainers.vTabItemContainer(
+                  text: "Exam (Online)",
+                  isActive: _controller.isExamOnlineActive.value,
+                  onTap: () {
+                    _controller.mUpdateExamOnlineTabItem();
+                  },
+                )),
+              ],
+            )),
 
         /// DropDowns and Get-Button
         Container(
@@ -73,99 +86,88 @@ class StuExamWidgets {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        /// Classname Dropdown
         Expanded(
           flex: 1,
           child: Container(
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
             color: AppColor.frenchSkyBlue100,
-            /*  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-            child: DropdownButton<String>(
-              // value: controller.academicGrpDropdownValue.value,
-              // value: _controller.selectedStudentHistory.value,
-              hint: Text(
-                "Class",
-                style: kBody.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              icon: const Icon(Icons.keyboard_arrow_down),
-              iconSize: 12,
-              elevation: 10,
-              // style: kBody.copyWith(fontWeight: FontWeight.w500),
-              focusColor: AppColor.white,
-              dropdownColor: AppColor.frenchSkyBlue100,
-              isDense: true,
-              isExpanded: true,
-              underline: Container(),
-              // onChanged: (AcademicGroupModel? selectedModel) {
-              onChanged: (String? selectedModel) {
-                // _controller.mUpdateSelectedStuHistory(selectedModel);
-              },
-              items: <String>["Recent", "Older"]
-                  /* _controller.stuHistoryList */ .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
+            child: Obx(() => DropdownButton<StuHistoryModel>(
+                  // value: controller.academicGrpDropdownValue.value,
+                  value: _controller.selectedStudentHistory.value,
+                  hint: Text(
+                    "Class",
                     style: kBody.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                );
-              }).toList(),
-            ),
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  iconSize: 12,
+                  elevation: 10,
+                  focusColor: AppColor.white,
+                  dropdownColor: AppColor.frenchSkyBlue100,
+                  isDense: true,
+                  isExpanded: true,
+                  underline: Container(),
+                  onChanged: (StuHistoryModel? selectedModel) {
+                    // onChanged: (String? selectedModel) {
+                    _controller.mChangeClassDropdownValue(selectedModel!);
+                  },
+                  items: /* <String>["Recent", "Older"] */
+                      _controller.stuHistoryList.map((StuHistoryModel value) {
+                    return DropdownMenuItem<StuHistoryModel>(
+                      value: value,
+                      child: Text(
+                        value.stClass!.className!,
+                        style: kBody.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                )),
           ),
         ),
         AppSpacing.sm.width,
+
+        /// Exam name Dropdown
         Expanded(
           flex: 2,
           child: Container(
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
             color: AppColor.frenchSkyBlue100,
-            /*  decoration:
-                                      BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-            child: DropdownButton<String>(
-              // value: controller.academicGrpDropdownValue.value,
-
-              // value: _controller.selectedResultModel.value,
-              // value: _controller.selectedResultModel.value,
-              hint: Text(
-                "Select Exam",
-                style: kBody.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              icon: const Icon(Icons.keyboard_arrow_down),
-              iconSize: 12,
-              elevation: 10,
-              // style: kBody.copyWith(fontWeight: FontWeight.w500),
-              focusColor: AppColor.white,
-              dropdownColor: AppColor.frenchSkyBlue100,
-              isDense: true,
-              isExpanded: true,
-              underline: Container(
-                  /*        height: 1,
-                                      color: AppColor.kGray700.withOpacity(.5), */
+            child: Obx(() => DropdownButton<StuExamTypeModel>(
+                  value: _controller.selectedExamTypeModel.value,
+                  hint: Text(
+                    "Select Exam",
+                    style: kBody.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-              // onChanged: (AcademicGroupModel? selectedModel) {
-              onChanged: (String? selectedModel) {
-                // _controller.mUpdateSelectedStuExam(selectedModel);
-              },
-              items: <String>["Recent", "Older"]
-                  /*     _controller.stuResultModelList */
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: kBody.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                );
-              }).toList(),
-            ),
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  iconSize: 12,
+                  elevation: 10,
+                  focusColor: AppColor.white,
+                  dropdownColor: AppColor.frenchSkyBlue100,
+                  isDense: true,
+                  isExpanded: true,
+                  underline: Container(),
+                  onChanged: (StuExamTypeModel? selectedModel) {
+                    _controller.mChangeExamTypeDropdownValue(selectedModel!);
+                  },
+                  items:
+                      _controller.stuExamTypeList.map((StuExamTypeModel value) {
+                    return DropdownMenuItem<StuExamTypeModel>(
+                      value: value,
+                      child: Text(
+                        value.examinationName!,
+                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                    );
+                  }).toList(),
+                )),
           ),
         ),
       ],
@@ -175,7 +177,8 @@ class StuExamWidgets {
   static _vGetResultBtn() {
     return AppButtons.vPrimaryButton(
       onTap: () async {
-        // await _controller.mGetResultPdf();
+        await _controller.mGetExamRoutinePdf();
+        await _controller.mGetExamAdmitCardPdf();
       },
       text: "Get Document",
     );
@@ -183,12 +186,12 @@ class StuExamWidgets {
 
   static vExamDocumentsTable() {
     List list = [
+      {"name": "Examination Routine Pdf"},
+      {"name": "Your Admit Card Pdf"},
+      /* {"item": "item1"},
       {"item": "item1"},
       {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
+      {"item": "item1"}, */
     ];
     return Expanded(
         child: SingleChildScrollView(
@@ -198,10 +201,9 @@ class StuExamWidgets {
             // borderRadius: BorderRadius.circular(12),
             child: Table(
               columnWidths: <int, TableColumnWidth>{
-                0: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 8)),
+                0: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 60)),
                 // 1: IntrinsicColumnWidth(),
-                1: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 32)),
-                2: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 20)),
+                1: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 40)),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
@@ -211,18 +213,7 @@ class StuExamWidgets {
                       const BoxDecoration(color: AppColor.secondaryColor),
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '#',
-                          style: kBody.copyWith(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.bold),
-                        ).marginAll(0),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           'Document'.toUpperCase(),
@@ -249,6 +240,8 @@ class StuExamWidgets {
 
                 for (var item in list) // test
 
+                  /*  list.indexOf(item) == 0
+                      ? */
                   TableRow(
                     // table decoration
                     decoration: BoxDecoration(
@@ -261,23 +254,11 @@ class StuExamWidgets {
                                 : AppColor.secondaryColor.withOpacity(.2)),
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "123",
-                            style: kBody.copyWith(
-                                color: AppColor.kBlack,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ).marginSymmetric(vertical: 2, horizontal: 2),
-                        ],
-                      ),
-                      Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Text(
-                              "Test Exam Routine 2023",
+                              item['name'],
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.clip,
                               style: kBody.copyWith(
@@ -291,6 +272,131 @@ class StuExamWidgets {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          AppButtons.vDownloadButton(
+                                  onTap: () {
+                                    // _controller.mDownloadPortraitResult();
+                                    list.indexOf(item) == 0
+                                        ? _controller.mDownloadRoutinePdf()
+                                        : list.indexOf(item) == 1
+                                            ? _controller
+                                                .mDownloadAdmitCardPdf()
+                                            : null;
+                                  },
+                                  horizontalPadding: AppSpacing.sm,
+                                  text: "Download")
+                              .marginSymmetric(
+                                  horizontal: AppSpacing.smh,
+                                  vertical: AppSpacing.md),
+                        ],
+                      ),
+                    ],
+                  )
+                /* : TableRow(
+                          // table decoration
+                          decoration: BoxDecoration(
+                              color:
+                                  /* _controller.userInfoModelList.indexOf(item) */ list
+                                                  .indexOf(item) %
+                                              2 ==
+                                          0
+                                      ? AppColor.secondaryColor.withOpacity(.4)
+                                      : AppColor.secondaryColor
+                                          .withOpacity(.2)),
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    item['name'],
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.clip,
+                                    style: kBody.copyWith(
+                                        color: AppColor.kBlack,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ).marginAll(8),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppButtons.vDownloadButton(
+                                        onTap: () {
+                                          // _controller.mDownloadPortraitResult();
+                                        },
+                                        horizontalPadding: AppSpacing.sm,
+                                        text: "Download")
+                                    .marginSymmetric(
+                                        horizontal: AppSpacing.smh,
+                                        vertical: AppSpacing.md),
+                              ],
+                            ),
+                          ],
+                        ), */
+              ],
+            ),
+          ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
+    ));
+  }
+}
+
+/// Table for later use
+/* TableRow(
+                          // table decoration
+                          decoration: BoxDecoration(
+                              color:
+                                  /* _controller.userInfoModelList.indexOf(item) */ list
+                                                  .indexOf(item) %
+                                              2 ==
+                                          0
+                                      ? AppColor.secondaryColor.withOpacity(.4)
+                                      : AppColor.secondaryColor
+                                          .withOpacity(.2)),
+                          children: <Widget>[
+                             Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "123",
+                            style: kBody.copyWith(
+                                color: AppColor.kBlack,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ).marginSymmetric(vertical: 2, horizontal: 2),
+                        ],
+                      ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    item['name'],
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.clip,
+                                    style: kBody.copyWith(
+                                        color: AppColor.kBlack,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ).marginAll(8),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppButtons.vDownloadButton(
+                                        onTap: () {
+                                          // _controller.mDownloadPortraitResult();
+                                        },
+                                        horizontalPadding: AppSpacing.sm,
+                                        text: "Download")
+                                    .marginSymmetric(
+                                        horizontal: AppSpacing.smh,
+                                        vertical: AppSpacing.md),
+
+                                
                           list.indexOf(item) % 5 == 0
                               ? AppButtons.vDownloadButton(
                                       onTap: () {
@@ -309,13 +415,8 @@ class StuExamWidgets {
                                   .marginSymmetric(
                                       horizontal: AppSpacing.smh,
                                       vertical: AppSpacing.md)
-                        ],
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-          ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
-    ));
-  }
-}
+                       
+                              ],
+                            ),
+                          ],
+                        ) */

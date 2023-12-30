@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:school_management_system/Views/STUDENT/subjects/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-
-class Subjects extends StatelessWidget {
-  const Subjects({super.key});
+class StuSubjects extends StatelessWidget {
+  const StuSubjects({super.key});
 
   @override
   Widget build(BuildContext context) {

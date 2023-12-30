@@ -7,7 +7,7 @@ class StuAttendanceModel {
   final int? userId;
   final String? fullName;
   final String? contactNumber;
-  final DateTime? date;
+  final String? date;
   final String? inTime;
   final dynamic outTime;
   final String? status;
@@ -26,7 +26,7 @@ class StuAttendanceModel {
     int? userId,
     String? fullName,
     String? contactNumber,
-    DateTime? date,
+    String? date,
     String? inTime,
     dynamic outTime,
     String? status,
@@ -51,7 +51,7 @@ class StuAttendanceModel {
         userId: json["user_id"],
         fullName: json["full_name"],
         contactNumber: json["contact_number"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        date: json["date"],
         inTime: json["in_time"],
         outTime: json["out_time"],
         status: json["status"],
@@ -61,8 +61,8 @@ class StuAttendanceModel {
         "user_id": userId,
         "full_name": fullName,
         "contact_number": contactNumber,
-        "date":
-            "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+        "date": date,
+            // "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
         "in_time": inTime,
         "out_time": outTime,
         "status": status,

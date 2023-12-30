@@ -211,7 +211,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.subjects,
       binding: SubjectsBindings(),
-      page: () => const Subjects(),
+      page: () => const StuSubjects(),
     ),
     GetPage(
       name: AppRoutes.website,
