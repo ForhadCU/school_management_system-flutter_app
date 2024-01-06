@@ -186,7 +186,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.payments,
       binding: PaymentsBindings(),
-      page: () => const Payments(),
+      page: () => const StuPayments(),
     ),
     GetPage(
       name: AppRoutes.profile,

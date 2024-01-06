@@ -21,7 +21,7 @@ class LandingWidgets {
   static Widget vEndDrawer({String? iconUrl, required String title}) {
     return Drawer(
         child: Column(
-            children: [
+      children: [
         DrawerHeader(
             child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -44,7 +44,7 @@ class LandingWidgets {
               title,
               style: kTitleLite,
             ),
-            (AppSpacing.smh+2).height,
+            (AppSpacing.smh + 2).height,
             Divider(
               thickness: .3,
               height: .5,
@@ -55,14 +55,14 @@ class LandingWidgets {
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: AppButtons.vPrimaryButton(
+            child: AppButtons.vPrimaryButtonWithGradient(
                 onTap: () {
                   Get.toNamed(AppRoutes.login);
                 },
                 text: "Log in"),
           ),
         ),
-            ],
-          ));
+      ],
+    ));
   }
 }

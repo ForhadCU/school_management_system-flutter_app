@@ -175,7 +175,7 @@ class StuExamWidgets {
   }
 
   static _vGetResultBtn() {
-    return AppButtons.vPrimaryButton(
+    return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
         await _controller.mGetExamRoutinePdf();
         await _controller.mGetExamAdmitCardPdf();

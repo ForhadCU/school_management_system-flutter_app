@@ -248,7 +248,7 @@ class _HomeAdvancedDesignState extends State<HomeAdvancedDesign> {
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: AppButtons.vPrimaryButton(
+            child: AppButtons.vPrimaryButtonWithGradient(
                 onTap: () {
                   print("Click on Login");
                 },

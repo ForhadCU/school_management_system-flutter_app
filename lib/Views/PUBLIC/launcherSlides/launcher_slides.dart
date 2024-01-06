@@ -103,7 +103,7 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                               : _buildPageIndicator(false),
                       ],
                     ),
-                    AppButtons.vPrimaryButton(
+                    AppButtons.vPrimaryButtonWithGradient(
                         onTap: () {
                           slideIndex == 4
                               ? {

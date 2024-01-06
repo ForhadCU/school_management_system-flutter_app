@@ -20,7 +20,8 @@ class StuAttendanceController extends GetxController {
   var isDailyAttendaceActive = true.obs;
   var isPeriodicAttendaceActive = false.obs;
   var numOfNoticesInRange = 0.obs;
-  RxList<StuAttendanceModel> stuAttendanceList = <StuAttendanceModel>[].obs;
+  // RxList<StuAttendanceModel> stuAttendanceList = <StuAttendanceModel>[].obs;
+  var stuAttendanceList = Rxn<List<StuAttendanceModel>>();
   var token = "".obs;
 
   @override
@@ -81,7 +82,7 @@ class StuAttendanceController extends GetxController {
   mGetAttendanceInRange() async {
     /* kLog(
         "start: ${mGetFormatDate(dateFrom, kApiDateFormat)} end: ${mGetFormatDate(dateTo, kApiDateFormat)}"); */
-    stuAttendanceList.clear();
+    stuAttendanceList.value != null ? stuAttendanceList.value!.clear() : null;
     stuAttendanceList.value = await StuAttendanceApis.mGetStuAttendanceList(
       PayLoads.stuDateWiseAttendanceList(
         api_access_key: AppData.api_access_key,
@@ -89,11 +90,14 @@ class StuAttendanceController extends GetxController {
             start: mGetFormatDate(dateFrom, kApiDateFormat),
             // start: mGetFormatDate("2019-10-15", kApiDateFormat),
             end: mGetFormatDate(dateTo, kApiDateFormat))),
-            // end: mGetFormatDate("2023-11-14", kApiDateFormat))),
+        // end: mGetFormatDate("2023-11-14", kApiDateFormat))),
       ),
       token.value,
     );
-    numOfNoticesInRange.value =
-        stuAttendanceList.isEmpty ? 0 : stuAttendanceList.length;
+    if (stuAttendanceList.value == null) {
+      numOfNoticesInRange.value = stuAttendanceList.value!.isEmpty
+          ? 0
+          : stuAttendanceList.value!.length;
+    }
   }
 }

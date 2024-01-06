@@ -125,7 +125,7 @@ class Login extends StatelessWidget {
           ),
         ),
         AppSpacing.xxl.height,
-        AppButtons.vPrimaryButton(
+        AppButtons.vPrimaryButtonWithGradient(
             onTap: () async {
               if (formKey.currentState!.validate()) {
                 await controller.mUserLogin();
@@ -172,7 +172,7 @@ class Login extends StatelessWidget {
               ),
             )),
         AppSpacing.xxl.height,
-        AppButtons.vPrimaryButton(
+        AppButtons.vPrimaryButtonWithGradient(
             onTap: () {
               if (formKey.currentState!.validate()) {
                 showSuccess("Send");

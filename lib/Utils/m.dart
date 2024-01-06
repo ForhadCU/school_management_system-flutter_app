@@ -16,6 +16,8 @@ class M {
   bool get xl => constraints.maxWidth <= 1080;
   bool get xxl => constraints.maxWidth <= 1440;
 
+  bool get small => constraints.maxWidth <= 400;
+
   /// For Web
   /*   bool get xs => constraints.maxWidth < 556;
   bool get sm => constraints.maxWidth <=556;

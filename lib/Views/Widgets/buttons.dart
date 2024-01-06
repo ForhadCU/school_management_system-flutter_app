@@ -11,7 +11,7 @@ class AppButtons {
     return _singletone;
   }
 
-  static Widget vPrimaryButton({
+  static Widget vPrimaryButtonWithGradient({
     required Function onTap,
     required String text,
     Color? bg,
@@ -44,6 +44,37 @@ class AppButtons {
         ));
   }
 
+  static Widget vPrimaryButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    bool? isShadow,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Text(
+            text,
+            style: kTitleLite.copyWith(
+              color: textColor ?? AppColor.white,
+            ),
+          ),
+        ));
+  }
+
   static Widget vDownloadButton({
     required Function onTap,
     required String text,
@@ -57,8 +88,9 @@ class AppButtons {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          padding:  EdgeInsets.symmetric(
-              horizontal: horizontalPadding ?? AppSpacing.md, vertical: verticalPadding ?? AppSpacing.smh),
+          padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? AppSpacing.md,
+              vertical: verticalPadding ?? AppSpacing.smh),
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -81,6 +113,46 @@ class AppButtons {
               Text(
                 text,
                 style: kBody.copyWith(
+                  color: textColor ?? AppColor.white,
+                ),
+              ),
+            ],
+          ),
+        ));
+  } 
+  static Widget vNarrowButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+    double? horizontalPadding,
+    double? verticalPadding,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? AppSpacing.sm,
+              vertical: verticalPadding ?? AppSpacing.smh),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Row(
+            children: [
+              
+              Text(
+                text,
+                style: kBody.copyWith(
+                  fontWeight: FontWeight.w500,
                   color: textColor ?? AppColor.white,
                 ),
               ),

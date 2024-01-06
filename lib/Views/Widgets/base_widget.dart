@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_management_system/Config/config.dart';
 
 import '../../Config/styles/spacing.dart';
 
@@ -10,7 +11,7 @@ class BaseWidgetChild extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.sm, vertical: AppSpacing.md),
+          horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
       child: child,
     );
   }
@@ -19,20 +20,26 @@ class BaseWidgetChild extends StatelessWidget {
 class BaseWidget extends StatelessWidget {
   final Widget child;
   final String title;
-  const BaseWidget({super.key,  required this.title, required this.child,});
+  const BaseWidget({
+    super.key,
+    required this.title,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async => true,
+      onWillPop: () async => true,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            
             title: Text(
               title.toUpperCase(),
+              style: TextStyle(color: Colors.white),
             ),
             elevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColor.primaryColor,
           ),
           body: child,
         ),

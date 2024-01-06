@@ -132,7 +132,7 @@ class ResultWidgets {
   }
 
   static _vGetResultBtn() {
-    return AppButtons.vPrimaryButton(
+    return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
         await _controller.mGetResultPdf();
       },

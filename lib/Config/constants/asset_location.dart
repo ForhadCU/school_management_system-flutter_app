@@ -86,6 +86,12 @@ class StudentAssetLocation {
   static const String help_desk = "assets/icons/help_desk.png";
 
 
+  static const String icLauncher = "assets/logos/ic_launcher.png";
+  static const String cellfin = "assets/logos/cellfin.png";
+  static const String bkash = "assets/logos/bksh.png";
+  static const String nagad = "assets/logos/nagad.png";
+
+
 }
 
 class TeacherAssetLocation {

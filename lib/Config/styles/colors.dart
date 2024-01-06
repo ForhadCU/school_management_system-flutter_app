@@ -9,6 +9,8 @@ class AppColor {
 
   static const Color primaryColor = Color(0xff587FCE);
   static const Color secondaryColor = Color(0xff78ADFC);
+  static const Color inactiveTab = Color(0xff8C93C9);
+  static const Color activeTab = Color(0xff696EAF);
   /*   static const Color primaryColor = Color(0xffFF6000);
   static const Color secondaryColor = Color(0xff27292F); */
   static const Color primaryDarkColor = Color(0xff27292F);
@@ -66,6 +68,8 @@ class AppColor {
   static const Color my_subject = Color(0xff3FEFEF);
   static const Color website = Color(0xff44A2F9);
 
+  static const Color paymentMethodCard = Color(0xffE1E7F5);
+
   /// gradiant color
   static const LinearGradient kBtnGradiantColor = LinearGradient(
     colors: [primaryColor, secondaryColor],
@@ -82,6 +86,12 @@ class AppColor {
     end: Alignment.bottomCenter,
     stops: [0.9, 0.1],
     colors: [primaryColor, secondaryColor],
+  );
+  static LinearGradient kVerticalCovexGradiantPink = const LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    stops: [0.9, 0.1],
+    colors: [Color(0xffF2B0C5), Color(0xffE8CED1)],
   );
   static const LinearGradient kBtnGradiantColorReverse = LinearGradient(
     colors: [secondaryColor, primaryColor],

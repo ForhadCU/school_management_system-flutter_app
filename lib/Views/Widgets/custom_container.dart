@@ -24,8 +24,9 @@ class CommonContainers {
               horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
             color: isActive
-                ? AppColor.primaryColor
-                : AppColor.secondaryColor.withOpacity(.8),
+                ? AppColor.activeTab
+                // : AppColor.secondaryColor.withOpacity(.8),
+                : AppColor.inactiveTab,
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(5), topLeft: Radius.circular(5)),
           ),
