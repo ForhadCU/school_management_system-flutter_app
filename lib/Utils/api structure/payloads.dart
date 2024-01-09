@@ -109,7 +109,9 @@ class PayLoads {
       "token": token,
       "api_access_key": api_access_key,
     };
-  }  static Map<String, dynamic> mStuSubjectList({
+  }
+
+  static Map<String, dynamic> mStuSubjectList({
     required String api_access_key,
   }) {
     return {
@@ -314,7 +316,8 @@ class PayLoads {
       "api_access_key": api_access_key,
     };
   }
-static Map<String, dynamic> stuQuizAnswerEndSave({
+
+  static Map<String, dynamic> stuQuizAnswerEndSave({
     required String api_access_key,
   }) {
     return {
@@ -323,23 +326,30 @@ static Map<String, dynamic> stuQuizAnswerEndSave({
   }
 
   static Map<String, dynamic> stuPreviewsQuizReportList({
-      required String api_access_key,
-      required String paginate,
-    }) {
-      return {
-        "api_access_key": api_access_key,
-        "paginate": paginate,
-      };
-    }
+    required String api_access_key,
+    required String paginate,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "paginate": paginate,
+    };
+  }
 
-    static Map<String, dynamic> stuActiveQuizRoutineList({
-        required String api_access_key,
-        required String paginate,
-      }) {
-        return {
-          "api_access_key": api_access_key,
-          "paginate": paginate,
-        };
-      }
+  static Map<String, dynamic> stuActiveQuizRoutineList({
+    required String api_access_key,
+    required String paginate,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "paginate": paginate,
+    };
+  }
 
+  static Map<String, dynamic> stuPaymentDemandSlip({
+    required String api_access_key,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+    };
+  }
 }

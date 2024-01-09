@@ -46,7 +46,9 @@ static const String stuExamSubjectRoutineList = "/api/student/get-exam-subject-r
       "/api/student/get-student-demand-slip-pdf";  
       
       static const String stuDemandSlipPdf =
-      "/api/student/get-student-demand-slip-pdf";
+      "/api/student/get-student-demand-slip-pdf"; 
+       static const String stuDemandSlip =
+      "/api/student/get-student-demand-slip";
 
   static const String stuPaymentMethodList =
       "/api/student/get-payment-method-list";

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:school_management_system/Api/STUDENT/payments/payments_api.dart';
+import 'package:school_management_system/Model/STUDENT/payments/fee_details.dart';
+import 'package:school_management_system/Singletones/app_data.dart';
+import 'package:school_management_system/Utils/api%20structure/payloads.dart';
+import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
 import '../../../Utils/custom_utils.dart';
@@ -24,11 +29,16 @@ class StuPaymentsController extends GetxController {
   var paymentHistoryList = Rxn<List<Map<String, dynamic>>>();
   var dateFrom = DateTime.now().obs;
   var dateTo = DateTime.now().subtract(const Duration(days: 7)).obs;
+  var token = "";
+
+  var feeDetailsModel = Rxn<StuFeeDetailsModel>();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    mGetPaymentHistory();
+    await mGetPaymentHistory();
+    token = await AppLocalDataFactory.mGetToken();
+    await mGetFeeDetails();
   }
 
   @override
@@ -54,10 +64,10 @@ class StuPaymentsController extends GetxController {
     isCellFinBtnClicked.value = true;
   }
 
-  void mGetPaymentHistory() {
+  mGetPaymentHistory() async {
     paymentHistoryList.value = [
       {"item": "item1"},
-    /*   {"item": "item1"},
+      /*   {"item": "item1"},
       {"item": "item1"},
       {"item": "item1"},
       {"item": "item1"},
@@ -109,6 +119,12 @@ class StuPaymentsController extends GetxController {
   void mUpdatePaymentHistoryTabItem() {
     isMakePaymentTabActive.value = false;
     isPaymentHistoryTabActive.value = true;
+  }
+
+  mGetFeeDetails() async {
+    feeDetailsModel.value = await PaymentsApi.mGetFeeDetails(
+        PayLoads.stuPaymentDemandSlip(api_access_key: AppData.api_access_key),
+        token);
   }
 
   /// code goes here

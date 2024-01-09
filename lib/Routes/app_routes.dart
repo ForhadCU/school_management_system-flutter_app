@@ -196,7 +196,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.quiz,
       binding: QuizBindings(),
-      page: () => const Quiz(),
+      page: () => const StuQuiz(),
     ),
     GetPage(
       name: AppRoutes.result,

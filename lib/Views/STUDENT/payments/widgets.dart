@@ -22,6 +22,7 @@ class StuPaymentsWidgets {
   // All methods should be static to maintain singleton instances
 
   static final _controller = StuPaymentsController.to;
+  static final _feeDetailsModel = _controller.feeDetailsModel.value;
 
   static vTopbar({required M m}) {
     return Column(
@@ -684,14 +685,31 @@ class StuPaymentsWidgets {
           decoration: BoxDecoration(
             border: Border.all(color: AppColor.activeTab, width: .2),
           ),
-          child: Column(
-            children: [
-              /// Personal Info
-              _vPersonalInfo(),
-              AppSpacing.md.height,
-              _vFeeDetailsTable(),
-            ],
-          ),
+          child: _controller.feeDetailsModel.value == null
+              ? Center(
+                  child: Text(
+                    "Fetching data...",
+                    style: kLabel.copyWith(
+                        fontStyle: FontStyle.italic, color: Colors.black45),
+                  ),
+                )
+              : Column(
+                  children: [
+                    /// Personal Info
+                    _vPersonalInfo(),
+                    AppSpacing.md.height,
+                    _vFeeDetailsTable(),
+                    AppSpacing.sm.height,
+
+                    Divider(
+                      height: 0,
+                      color: Colors.black12,
+                      thickness: .5,
+                    ),
+                    AppSpacing.md.height,
+                    _vFeeDetailsFooter(),
+                  ],
+                ),
         )
       ],
     );
@@ -933,7 +951,7 @@ class StuPaymentsWidgets {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text("Sayed Nur Tasrif"),
+              child: Text(_feeDetailsModel!.studentDetails!.fullName ?? "N/A"),
             ),
           ],
         ),
@@ -951,7 +969,29 @@ class StuPaymentsWidgets {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text("XI"),
+              child: Text(
+                  _feeDetailsModel!.studentDetails!.stClass!.className ??
+                      "N/A"),
+            ),
+          ],
+        ),
+        StaggeredGrid.count(
+          crossAxisCount: 10,
+          crossAxisSpacing: 4,
+          children: [
+            StaggeredGridTile.fit(
+              crossAxisCellCount: 2,
+              child: Text("Group"),
+            ),
+            StaggeredGridTile.fit(
+              crossAxisCellCount: 1,
+              child: Text(":"),
+            ),
+            StaggeredGridTile.fit(
+              crossAxisCellCount: 7,
+              child: Text(
+                  _feeDetailsModel!.studentDetails!.accGroup!.groupName ??
+                      "N/A"),
             ),
           ],
         ),
@@ -969,7 +1009,7 @@ class StuPaymentsWidgets {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text("N/A"),
+              child: Text(_feeDetailsModel!.studentDetails!.section ?? "N/A"),
             ),
           ],
         ),
@@ -987,7 +1027,9 @@ class StuPaymentsWidgets {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text("10023"),
+              child: Text(
+                  (_feeDetailsModel!.studentDetails!.studentRollNumber ?? 00)
+                      .toString()),
             ),
           ],
         ),
@@ -998,534 +1040,628 @@ class StuPaymentsWidgets {
   static _vFeeDetailsTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
-    return Obx(() => SingleChildScrollView(
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                    // width: double.infinity,
-                    /* width:
+    return /*  Obx(() => */ SingleChildScrollView(
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+                // width: double.infinity,
+                /* width:
                       AppScreenSize.mGetWidth(kGlobContext, 100) +
                           50, */
-                    child: ClipRRect(
-                        // borderRadius: BorderRadius.circular(12),
-                        child: Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    /*  0: m.sm
+                child: ClipRRect(
+                    // borderRadius: BorderRadius.circular(12),
+                    child: Table(
+              columnWidths: const <int, TableColumnWidth>{
+                /*  0: m.sm
                                           ? const FlexColumnWidth()
                                           : const IntrinsicColumnWidth(), */
-                    // 1: FlexColumnWidth(),
-                    /*  1: FixedColumnWidth(AppScreenSize.mGetWidth(
+                // 1: FlexColumnWidth(),
+                /*  1: FixedColumnWidth(AppScreenSize.mGetWidth(
                           kGlobContext, 30)), */
-                    0: IntrinsicColumnWidth(),
-                    1: IntrinsicColumnWidth(),
-                    2: IntrinsicColumnWidth(),
-                    3: IntrinsicColumnWidth(),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  border: TableBorder.all(color: AppColor.white),
-                  children: <TableRow>[
-                    TableRow(
-                      // table decoration
-                      decoration: const BoxDecoration(
-                          // color: AppColor.secondaryColor),
-                          color: AppColor.inactiveTab),
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Head',
-                              style: kBody.copyWith(
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.w500),
-                            ).marginSymmetric(
-                                vertical: cellVerMargin,
-                                horizontal: cellHorMargin),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Type',
-                              style: kBody.copyWith(
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.w500),
-                            ).marginSymmetric(
-                                vertical: cellVerMargin,
-                                horizontal: cellHorMargin),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Items',
-                              style: kBody.copyWith(
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.w500),
-                            ).marginSymmetric(
-                                vertical: cellVerMargin,
-                                horizontal: cellHorMargin),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Amount',
-                              style: kBody.copyWith(
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.w500),
-                            ).marginSymmetric(
-                                vertical: cellVerMargin,
-                                horizontal: cellHorMargin),
-                          ],
-                        ),
+                0: IntrinsicColumnWidth(),
+                1: IntrinsicColumnWidth(),
+                2: IntrinsicColumnWidth(),
+                3: IntrinsicColumnWidth(),
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              border: TableBorder.all(color: AppColor.white),
+              children: <TableRow>[
+                TableRow(
+                  // table decoration
+                  decoration: const BoxDecoration(
+                      // color: AppColor.secondaryColor),
+                      color: AppColor.inactiveTab),
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Head',
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w500),
+                        ).marginSymmetric(
+                            vertical: cellVerMargin, horizontal: cellHorMargin),
                       ],
                     ),
-                    // for (var item in _controller.userInfoModelList) // correct
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Type',
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w500),
+                        ).marginSymmetric(
+                            vertical: cellVerMargin, horizontal: cellHorMargin),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Items',
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w500),
+                        ).marginSymmetric(
+                            vertical: cellVerMargin, horizontal: cellHorMargin),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Amount',
+                          style: kBody.copyWith(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w500),
+                        ).marginSymmetric(
+                            vertical: cellVerMargin, horizontal: cellHorMargin),
+                      ],
+                    ),
+                  ],
+                ),
+                // for (var item in _controller.userInfoModelList) // correct
 
-                    for (var item in _controller.paymentHistoryList.value!)
-                      TableRow(
-                        // table decoration
-                        decoration: BoxDecoration(
-                            color: /* _controller.userInfoModelList.indexOf(item) */
-                                _controller.paymentHistoryList.value!
-                                                .indexOf(item) %
-                                            2 ==
-                                        0
-                                    ? AppColor.secondaryColor.withOpacity(.4)
-                                    : AppColor.secondaryColor.withOpacity(.2)),
-                        children: <Widget>[
-                          /// Head
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                // _controller.mGetFormatDate(item.date),
-                                "Examination",
-                                style: kBody.copyWith(
-                                    color: AppColor.kBlack,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
-                              ).marginSymmetric(
-                                  vertical: cellVerMargin,
-                                  horizontal: cellHorMargin),
-                            ],
-                          ),
-
-                          /// Type
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "HSC",
-                                  textAlign: TextAlign.start,
-                                  style: kBody.copyWith(
-                                      color: AppColor.kBlack,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
-                                ).marginSymmetric(
-                                    vertical: cellVerMargin,
-                                    horizontal: cellHorMargin),
-                              ),
-                            ],
-                          ),
-
-                          /// Items
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "Mid Term Exam",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "Mid Term Exam",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "Mid Term Exam",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )),
-                            ],
-                          ) /* .marginSymmetric(
+                for (var item in _feeDetailsModel!.feeAllocationDetails!)
+                  TableRow(
+                    // table decoration
+                    decoration: BoxDecoration(
+                        color: /* _controller.userInfoModelList.indexOf(item) */
+                            _feeDetailsModel!.feeAllocationDetails!
+                                            .indexOf(item) %
+                                        2 ==
+                                    0
+                                ? AppColor.secondaryColor.withOpacity(.4)
+                                : AppColor.secondaryColor.withOpacity(.2)),
+                    children: <Widget>[
+                      /// Head
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            // _controller.mGetFormatDate(item.date),
+                            item.academicFeeHead!.name ?? "",
+                            style: kBody.copyWith(
+                                color: AppColor.kBlack,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ).marginSymmetric(
                               vertical: cellVerMargin,
-                              horizontal: cellHorMargin) */
-                          ,
-
-                          /// fee
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "1254.00",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "1254.00",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: .5,
-                                                  color: Colors.white)),
-                                          child: Text(
-                                            "1254.00",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )),
-                            ],
-                          ) /* .marginSymmetric(
-                              vertical: cellVerMargin,
-                              horizontal: cellHorMargin) */
-                          ,
+                              horizontal: cellHorMargin),
                         ],
                       ),
 
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Fee (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
+                      /// Type
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              item.feeTypeName ?? "",
+                              textAlign: TextAlign.start,
+                              style: kBody.copyWith(
+                                  color: AppColor.kBlack,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ),
+                        ],
                       ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Weiver (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Special Weiver (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Previous Due (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Extra Payment/Fine (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Previous Paid (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "12540.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ]),
-                    TableRow(children: <Widget>[
-                      Container(),
-                      Container(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "Total (Tk)",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.white)),
-                        child: Text(
-                          "1254450.00",
-                          textAlign: TextAlign.center,
-                          style: kBody.copyWith(
-                              color: AppColor.kBlack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      )
-                    ]),
-                  ],
-                )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
-              ),
-            ],
+
+                      /// Items
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        item.academicFeeSubHead!.name ?? "",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ] /* List.generate(7, (index) =>  Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "Mid Term Exam",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),) */ /* [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "Mid Term Exam",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "Mid Term Exam",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "Mid Term Exam",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ] */
+                            ,
+                          )),
+                        ],
+                      ) /* .marginSymmetric(
+                              vertical: cellVerMargin,
+                              horizontal: cellHorMargin) */
+                      ,
+
+                      /// fee
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        (item.amount ?? 0.00).toString(),
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ), /* 
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "1254.00",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: .5, color: Colors.white)),
+                                      child: Text(
+                                        "1254.00",
+                                        textAlign: TextAlign.center,
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ), */
+                            ],
+                          )),
+                        ],
+                      ) /* .marginSymmetric(
+                              vertical: cellVerMargin,
+                              horizontal: cellHorMargin) */
+                      ,
+                    ],
+                  ),
+
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Total (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.demandSlipDetails!.feeAmount ?? 0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Due (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.demandSlipDetails!.previousDue ?? 0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Total With Due (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.totalWithDue ?? 0.00).toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Weiver (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.demandSlipDetails!.waiverAmount ??
+                              0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Special Weiver (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!
+                                  .demandSlipDetails!.specialWaiverAmount ??
+                              0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Offer (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.demandSlipDetails!.offerAmount ?? 0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ]),
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Pay (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (_feeDetailsModel!.demandSlipDetails!.totalAmount ?? 0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ]),
+              ],
+            )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
           ),
-        ));
+        ],
+      ),
+    );
+  }
+
+  static _vFeeDetailsFooter() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Text(
+                  "In Word",
+                  textAlign: TextAlign.left,
+                  style: kBody,
+                )),
+            Text(
+              " : ",
+              style: kBody,
+            ),
+            Expanded(
+                flex: 6,
+                child: Text(
+                  (_feeDetailsModel!.total ?? "").toUpperCase().trim(),
+                  textAlign: TextAlign.left,
+                  style: kBody,
+                ))
+          ],
+        ),
+        AppSpacing.sm.height,
+        Row(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Text(
+                  "Created by",
+                  textAlign: TextAlign.left,
+                  style: kBody,
+                )),
+            Text(
+              " : ",
+              style: kBody,
+            ),
+            Expanded(
+                flex: 6,
+                child: Text(
+                  _feeDetailsModel!.userName ?? "",
+                  textAlign: TextAlign.left,
+                  style: kBody,
+                ))
+          ],
+        ),
+      ],
+    );
   }
 }
