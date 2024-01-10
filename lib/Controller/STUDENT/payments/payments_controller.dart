@@ -16,8 +16,8 @@ class StuPaymentsController extends GetxController {
   var isBkashBtnClicked = false.obs;
   var isNagadBtnClicked = false.obs;
   var isCellFinBtnClicked = false.obs;
-  // var isFeeDetails = false.obs;
-  var isFeeDetails = true.obs;
+  var isFeeDetails = false.obs;
+  // var isFeeDetails = true.obs;
 
   var isMakePaymentTabActive = true.obs;
   var isPaymentHistoryTabActive = false.obs;

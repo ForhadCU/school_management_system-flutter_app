@@ -55,7 +55,7 @@ static const String stuExamSubjectRoutineList = "/api/student/get-exam-subject-r
 
   static const String stuPaymentTransactionByTransactionId =
       "/api/student/payment-transaction-by-transaction-id";
-  static const String stuActiveQuizList =
+  static const String stuActiveQuizInfo =
       "/api/student/get-active-quiz-list-for-student";
 
   static const String stuQuizStart = "/api/student/student-quiz-start";

@@ -1,7 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
+import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 
@@ -91,162 +91,273 @@ class StuQuizWidgets {
 
   static vLiveQuiz() {
     return Obx(() => Visibility(
-          visible: _controller.isLiveQuizActive.value,
-          child: Column(
-            children: [
-              /// Top header
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: AppSpacing.md,
-                ),
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: AppColor.activeTab,
-                  /*  borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(AppSpacing.smh),
-                  topRight: Radius.circular(AppSpacing.smh),
-                ) */
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ///left right
-                    Text("Quiz Title",
-                        style: kBody.copyWith(
-                          color: AppColor.kWhite,
-                          fontWeight: FontWeight.w500,
-                        )),
+        visible: _controller.isLiveQuizActive.value,
+        child: _controller.quizInfoModel.value == null
+            ? Container()
+            : _controller.isQuizMissed.value
+                ? _vQuizMissedMessage()
+                : _controller.isQuizStart.value
+                    ? _vQuizPart()
+                    : _vQuizLaunchingPart()));
+  }
 
-                    ///right part
-                    Row(
-                      children: [
-                        /// timer
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.smh,
-                              horizontal: AppSpacing.sm),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                Icons.timer_outlined,
-                                color: AppColor.red,
-                                size: 16,
-                              ),
-                              AppSpacing.smh.width,
-                              Text("00:59:34",
-                                  style: kBody.copyWith(
-                                      color: AppColor.red,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ),
+  static _vQuizLaunchingPart() {
+    return Expanded(
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColor.activeTab, width: .5)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Quiz will start",
+                // Text("Before Quiz",
+                style: kTitleLite.copyWith(
+                  color: AppColor.primaryColor,
+                  fontWeight: FontWeight.w500,
+                )),
+            AppSpacing.md.height,
 
-                        AppSpacing.md.width,
-
-                        /// close
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.smh,
-                              horizontal: AppSpacing.sm),
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text("Close",
-                                  style: kBody.copyWith(
-                                    color: AppColor.white,
-                                  )),
-                              AppSpacing.smh.width,
-                              const Icon(
-                                Icons.highlight_remove_outlined,
-                                color: AppColor.white,
-                                size: 16,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+            /// Countdown part
+            TimerCountdown(
+              format: CountDownTimerFormat.daysHoursMinutesSeconds,
+              endTime: DateTime.now().add(
+                Duration(
+                  /*  days: _controller.daysRemainingBeforeStart.value,
+                      hours: _controller.hoursRemainingBeforeStart.value,
+                      minutes: _controller.minsRemainingBeforeStart.value,
+                      seconds: _controller.secsRemainingBeforeStart.value,
+                      */
+                  days: 0,
+                  hours: 0,
+                  minutes: 0,
+                  seconds: _controller.testTimer.value,
                 ),
               ),
+              onEnd: () {
+                print("Timer finished");
+                _controller.isQuizStart.value = true;
+              },
+              onTick: (remainingTime) {
+                /* kLog(Utils()
+                    .mCalculateSecsFromSecs(secs: remainingTime.inSeconds)); */
+                if (remainingTime.inSeconds == 10) {
+                  _controller.isShownReady.value = true;
+                  _controller.mGetRemainingTimeBeforeStart();
+                  _controller.testTimer.value = remainingTime.inSeconds;
+                }
+                if (remainingTime.inSeconds == 0) {
+                  if (_controller.isReady.value) {
+                    _controller.isQuizStart.value = true;
+                  } else {
+                    _controller.isQuizMissed.value = true;
+                    _controller.isShownReady.value = false;
+                  }
+                }
+              },
+              descriptionTextStyle: kBody.copyWith(color: AppColor.kBlack),
+              timeTextStyle: kTitle.copyWith(color: AppColor.kBlack),
+            ),
+            AppSpacing.xxl.height,
 
-              /// Body
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: BoxDecoration(
-                  color: AppColor.liveQuizBg,
-                  border: Border.all(color: AppColor.activeTab, width: .2),
-                ),
-                child: Column(
-                  children: [
-                    /// Quiz info
-                    Column(
+            /// Ready Button
+            _controller.isShownReady.value
+                ? AppButtons.vPrimaryButton(
+                    onTap: () {
+                      _controller.isShownReady.value = false;
+                      _controller.isReady.value = true;
+                    },
+                    text: "Ready",
+                    textColor: Colors.white,
+                    bg: const Color.fromARGB(255, 13, 160, 18))
+                : Container(),
+
+            /// After Clicking on Ready Button
+            _controller.isReady.value
+                ? Column(
+                    children: [
+                      Text("Registration successful!",
+                          // Text("Before Quiz",
+                          style: kBody.copyWith(
+                            fontSize: 16,
+                            color: AppColor.green,
+                            fontWeight: FontWeight.w500,
+                          )),
+                      AppSpacing.smh.height,
+                      Text("Please wait here...",
+                          // Text("Before Quiz",
+                          style: kBody.copyWith(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w500,
+                          )),
+                    ],
+                  )
+                : Container(),
+           /*  _controller.isQuizMissed.value
+                ? Text("You have missed this quiz!",
+                    // Text("Before Quiz",
+                    style: kBody.copyWith(
+                      fontSize: 16,
+                      color: AppColor.red,
+                      fontWeight: FontWeight.w500,
+                    ))
+                : Container(), */
+          ],
+        ),
+      ),
+    );
+  }
+
+  static _vQuizPart() {
+    return Column(
+      children: [
+        /// Top heade
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: AppSpacing.md,
+          ),
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: AppColor.activeTab,
+            /*  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(AppSpacing.smh),
+                      top)Right: Radius.circular(AppSpacing.smh),
+                ) */
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ///left right
+              Text("Quiz Title",
+                  style: kBody.copyWith(
+                    color: AppColor.kWhite,
+                    fontWeight: FontWeight.w500,
+                  )),
+
+              ///right part
+              Row(
+                children: [
+                  /// timer
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Type : "),
-                            Text("MCQ"),
-                          ],
+                        const Icon(
+                          Icons.timer_outlined,
+                          color: AppColor.red,
+                          size: 16,
                         ),
-                        AppSpacing.sm.height,
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Total Questions : "),
-                            Text("40"),
-                          ],
-                        ),
+                        AppSpacing.smh.width,
+                        Text("00:59:34",
+                            style: kBody.copyWith(
+                                color: AppColor.red,
+                                fontWeight: FontWeight.w500)),
                       ],
                     ),
-                    AppSpacing.md.height,
+                  ),
 
-                    /// Quiz ProgressLoader
-                    Row(
+                  AppSpacing.md.width,
+
+                  /// close
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        vQuizCounterProgressbar(),
-                        AppSpacing.md.width,
-                        Row(
-                          children: [
-                            Text(
-                              _controller.quizNumber.value.toString(),
-                              style:
-                                  kBody.copyWith(fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              "/",
-                              style:
-                                  kBody.copyWith(fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              "20",
-                              style:
-                                  kBody.copyWith(fontWeight: FontWeight.w500),
-                            ),
-                          ],
+                        Text("Close",
+                            style: kBody.copyWith(
+                              color: AppColor.white,
+                            )),
+                        AppSpacing.smh.width,
+                        const Icon(
+                          Icons.highlight_remove_outlined,
+                          color: AppColor.white,
+                          size: 16,
                         )
                       ],
                     ),
-                    AppSpacing.xl.height,
-                    _vQuizQuestion(),
-                    AppSpacing.sm.height,
-                    _vQuizAnswers(),
-                    AppSpacing.xxl.height,
-                    vNextAndPreviousButtons(),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
             ],
           ),
-        ));
+        ),
+
+        /// Body
+        Container(
+          padding: const EdgeInsets.all(AppSpacing.sm),
+          decoration: BoxDecoration(
+            color: AppColor.liveQuizBg,
+            border: Border.all(color: AppColor.activeTab, width: .2),
+          ),
+          child: Column(
+            children: [
+              /// Quiz info
+              Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Type : "),
+                      Text("MCQ"),
+                    ],
+                  ),
+                  AppSpacing.sm.height,
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Total Questions : "),
+                      Text("40"),
+                    ],
+                  ),
+                ],
+              ),
+              AppSpacing.md.height,
+
+              /// Quiz ProgressLoader
+              Row(
+                children: [
+                  vQuizCounterProgressbar(),
+                  AppSpacing.md.width,
+                  Row(
+                    children: [
+                      Text(
+                        _controller.quizNumber.value.toString(),
+                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "/",
+                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "20",
+                        style: kBody.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              AppSpacing.xl.height,
+              _vQuizQuestion(),
+              AppSpacing.sm.height,
+              _vQuizAnswers(),
+              AppSpacing.xxl.height,
+              vNextAndPreviousButtons(),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   static vQuizSchedule() {
@@ -991,6 +1102,28 @@ class StuQuizWidgets {
                       ),
                     ),
         ));
+  }
+
+  static _vQuizMissedMessage() {
+    return Expanded(
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColor.activeTab, width: .5)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("You missed this quiz!",
+                // Text("Before Quiz",
+                style: kBody.copyWith(
+                  fontSize: 16,
+                  color: AppColor.red,
+                  fontWeight: FontWeight.w500,
+                ))
+          ],
+        ),
+      ),
+    );
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
