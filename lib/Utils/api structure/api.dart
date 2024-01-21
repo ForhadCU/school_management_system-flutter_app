@@ -212,7 +212,6 @@ class CallAPI {
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
         hideLoading();
-        hideLoading();
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -237,7 +236,10 @@ class CallAPI {
       showLoading("Please wait...");
 
       http.Response res = await http.post(
-        Uri.https(_get_host, endPoint),
+        Uri.https(
+          _get_host,
+          endPoint,
+        ),
         body: jsonEncode(payload),
         headers: {
           'Content-type': 'application/json',
@@ -257,6 +259,89 @@ class CallAPI {
         } else {
           body = json.decode(res.body);
         }
+        showSuccess("Success");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError("Failed");
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> postStudentDataSaveQuiz(String endPoint,
+      Map<String, dynamic> payload, String token, String params) async {
+    try {
+      kLog('POST $endPoint');
+      // showLoading("Please wait...");
+
+      Map<String, dynamic> paramMap = {"api_access_key": params};
+      // String urlWithParams = Uri.parse('$_get_host$endPoint')
+      String urlWithParams = Uri.parse('https://fccdc.theworld.com.bd$endPoint')
+          .replace(queryParameters: paramMap)
+          .toString();
+      kLog(urlWithParams);
+      http.Response res = await http.post(
+        // Uri.https(_get_host, endPoint),
+        Uri.parse(urlWithParams),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        // hideLoading();
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+
+        // showSuccess("Success");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError("Failed");
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+  static Future<ResponseModel> postStudentDataSaveQuizFinallEnd(String endPoint,
+      Map<String, dynamic> payload, String token, String params) async {
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+
+      Map<String, dynamic> paramMap = {"api_access_key": params};
+      // String urlWithParams = Uri.parse('$_get_host$endPoint')
+      String urlWithParams = Uri.parse('https://fccdc.theworld.com.bd$endPoint')
+          .replace(queryParameters: paramMap)
+          .toString();
+      kLog(urlWithParams);
+      http.Response res = await http.post(
+        // Uri.https(_get_host, endPoint),
+        Uri.parse(urlWithParams),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+
         showSuccess("Success");
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
@@ -381,7 +466,7 @@ class CallAPI {
       },
     ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
       hideLoading();
-        return http.Response('Error', 408);
+      return http.Response('Error', 408);
     });
     dynamic body;
     // if (res.statusCode == 200) {

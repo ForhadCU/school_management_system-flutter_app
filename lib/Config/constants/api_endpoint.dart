@@ -31,7 +31,8 @@ class ApiEndpoint {
   static const String stuHistoryList = "/api/student/get-student-history-list";
 
   static const String stuExamTypeList = "/api/student/get-exam-type-list";
-static const String stuExamSubjectRoutineList = "/api/student/get-exam-subject-routine-list";
+  static const String stuExamSubjectRoutineList =
+      "/api/student/get-exam-subject-routine-list";
   static const String stuExamAdmitCard = "/api/student/get-exam-admit-card";
 
   static const String stuPrimaryResultList =
@@ -43,12 +44,11 @@ static const String stuExamSubjectRoutineList = "/api/student/get-exam-subject-r
       "/api/student/get-student-api-primary-result-details-pdf";
 
   static const String stuBankSlipPdf =
-      "/api/student/get-student-demand-slip-pdf";  
-      
-      static const String stuDemandSlipPdf =
-      "/api/student/get-student-demand-slip-pdf"; 
-       static const String stuDemandSlip =
-      "/api/student/get-student-demand-slip";
+      "/api/student/get-student-demand-slip-pdf";
+
+  static const String stuDemandSlipPdf =
+      "/api/student/get-student-demand-slip-pdf";
+  static const String stuDemandSlip = "/api/student/get-student-demand-slip";
 
   static const String stuPaymentMethodList =
       "/api/student/get-payment-method-list";
@@ -65,13 +65,27 @@ static const String stuExamSubjectRoutineList = "/api/student/get-exam-subject-r
 
   static const String stuQuizAnswerSilentSave =
       "/api/student/quiz-answer-silent-save-for-student";
-  
-  static const String stuQuizAnswerEndSave = "/api/student/quiz-answer-end-save-for-student";
 
-  static const String stuPreviewsQuizReportList = "/api/student/get-previews-quiz-report-list";
+  static const String stuQuizAnswerEndSave =
+      "/api/student/quiz-answer-end-save-for-student";
 
-  static const String stuActiveQuizRoutineList = "/api/student/get-active-quiz-routine-list";
+  static const String stuPreviewsQuizReportList =
+      "/api/student/get-previews-quiz-report-list";
 
+  static const String stuActiveQuizRoutineList =
+      "/api/student/get-active-quiz-routine-list";
 
-  
+  static const String academic_version_year_shift_list =
+      "/api/employee/get-academic-version-year-shift-list";
+  static const String version_year_shift_based_department_class =
+      "/api/employee/get-version-year-shift-based-department-class";
+  static const String
+      version_year_shift_based_section_or_class_group_session_by_class =
+      "/api/employee/get-version-year-shift-based-section-or-class-group-session-by-class";
+       static const String
+      site_class_base_section =
+      "/api/employee/get-site-class-base-section";
+ static const String
+      site_class_base_group =
+      "/api/employee/get-site-class-base-section";
 }

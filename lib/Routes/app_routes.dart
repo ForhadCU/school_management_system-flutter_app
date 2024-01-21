@@ -10,6 +10,12 @@ import 'package:school_management_system/Bindings/PUBLIC/login.dart';
 import 'package:school_management_system/Bindings/PUBLIC/notice.dart';
 import 'package:school_management_system/Bindings/PUBLIC/search_school.dart';
 import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
+import 'package:school_management_system/Bindings/TEACHER/dashboard/dashboard_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/examAttandence/exam_attandence_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/examMarksEntry/exam_marks_entry_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/home/home_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/notice/notice_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/profile/profile_bindings.dart';
 import 'package:school_management_system/Bindings/test/test_binding.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_calendar.dart';
@@ -26,6 +32,12 @@ import 'package:school_management_system/Views/PUBLIC/notification/notifications
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
 import 'package:school_management_system/Views/STUDENT/notice/pages/expanded_notice.dart';
+import 'package:school_management_system/Views/TEACHER/dashboard/dashboard.dart';
+import 'package:school_management_system/Views/TEACHER/examAttandence/exam_attandence.dart';
+import 'package:school_management_system/Views/TEACHER/examMarksEntry/exam_marks_entry.dart';
+import 'package:school_management_system/Views/TEACHER/home/home.dart';
+import 'package:school_management_system/Views/TEACHER/notice/notice.dart';
+import 'package:school_management_system/Views/TEACHER/profile/profile.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/STUDENT/helpdesk/subPages/helpdesk_details.dart';
 import '../Views/test/test.dart';
@@ -220,6 +232,29 @@ abstract class AppPages {
     ),
 
     /// TEACHER
-    ///
+    GetPage(
+        name: AppRoutes.teachHome,
+        page: () => const TeachHome(),
+        binding: TeachHomeBindings()),
+    GetPage(
+        name: AppRoutes.teachDashboard,
+        page: () => const TeachDashboard(),
+        binding: TeachDashboardBindings()),
+    GetPage(
+        name: AppRoutes.teachProfile,
+        page: () => const TeachProfile(),
+        binding: TeachProfileBindings()),
+    GetPage(
+        name: AppRoutes.teachNotice,
+        page: () => const TeachNotice(),
+        binding: TeachNoticeBindings()),
+    GetPage(
+        name: AppRoutes.examMarksEntry,
+        page: () => const ExamMarksEntry(),
+        binding: ExamMarksEntryBindings()),
+    GetPage(
+        name: AppRoutes.examAttendance,
+        page: () => const ExamAttendance(),
+        binding: ExamAttendanceBindings()),
   ];
 }

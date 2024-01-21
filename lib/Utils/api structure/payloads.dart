@@ -317,6 +317,24 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> stuPeriodicType({
+    required String api_access_key,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+    };
+  }
+
+  static Map<String, dynamic> stuRoutine({
+    required String api_access_key,
+    required String academic_period_type_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_period_type_id": academic_period_type_id,
+    };
+  }
+
   static Map<String, dynamic> stuQuizAnswerEndSave({
     required String api_access_key,
   }) {
@@ -350,6 +368,95 @@ class PayLoads {
   }) {
     return {
       "api_access_key": api_access_key,
+    };
+  }
+
+  static Map<String, dynamic> site_class_base_section({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String academic_department_id,
+    required String academic_class_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+      "academic_class_group_id": academic_class_group_id,
+    };
+  }
+
+  static Map<String, dynamic> site_class_base_group({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String academic_department_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+    };
+  }
+
+  static Map<String, dynamic>
+      version_year_shift_based_section_or_class_group_session_by_class({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String academic_department_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+    };
+  }
+
+  static Map<String, dynamic> version_year_shift_based_department_class({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+    };
+  }
+
+  static Map<String, dynamic> academic_version_year_shift_list({
+    required String api_access_key,
+    required String academic_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
     };
   }
 }

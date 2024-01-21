@@ -43,4 +43,13 @@ class AppRoutes {
   static const String website = "/website";
   static const String helpdeskDetails = "/helpdeskDetails";
   static const String classroomDetails = "/classroomDetails";
+
+  ///TEACHER
+  static const String teachHome = "/teachHome";
+  static const String teachDashboard = "/teachDashboard";
+  static const String teachProfile = "/teachProfile";
+  static const String teachNotice = "/teachNotice";
+  static const String examMarksEntry = "/examMarksEntry";
+  static const String examAttendance = "/examAttendance";
+  static const String teachNotification = "/teachNotification";
 }

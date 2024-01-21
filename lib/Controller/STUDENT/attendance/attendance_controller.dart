@@ -12,13 +12,15 @@ import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/custom_utils.dart';
 
 class StuAttendanceController extends GetxController {
+  var selectedAttendanceStatus = "Present".obs;
+
   static StuAttendanceController get to => Get.find();
 
   /// variable declaration
   var dateFrom = DateTime.now().obs;
   var dateTo = DateTime.now().subtract(const Duration(days: 7)).obs;
-  var isDailyAttendaceActive = true.obs;
-  var isPeriodicAttendaceActive = false.obs;
+  var isDailyAttendaceTabActive = true.obs;
+  // var isPeriodicAttendaceActive = false.obs;
   var numOfNoticesInRange = 0.obs;
   // RxList<StuAttendanceModel> stuAttendanceList = <StuAttendanceModel>[].obs;
   var stuAttendanceList = Rxn<List<StuAttendanceModel>>();
@@ -70,13 +72,12 @@ class StuAttendanceController extends GetxController {
   }
 
   void mUpdateDailyAttendanceTabItem() {
-    isDailyAttendaceActive.value = true;
-    isPeriodicAttendaceActive.value = false;
+    mResetValues();
+    isDailyAttendaceTabActive.value = !isDailyAttendaceTabActive.value;
   }
 
   void mUpdatePeriodicAttendanceTabItem() {
-    isDailyAttendaceActive.value = false;
-    isPeriodicAttendaceActive.value = true;
+    isDailyAttendaceTabActive.value = !isDailyAttendaceTabActive.value;
   }
 
   mGetAttendanceInRange() async {
@@ -99,5 +100,9 @@ class StuAttendanceController extends GetxController {
           ? 0
           : stuAttendanceList.value!.length;
     }
+  }
+
+  void mResetValues() {
+    dateFrom = DateTime.now().obs;
   }
 }

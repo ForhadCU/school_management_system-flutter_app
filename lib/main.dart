@@ -18,7 +18,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
@@ -36,6 +35,7 @@ class MyApp extends StatelessWidget {
             builder: EasyLoading.init(),
             theme: themeData,
             initialRoute: AppRoutes.launcherSlides,
+            // initialRoute: AppRoutes.teachDashboard,
             // initialRoute: AppRoutes.test,
             getPages: AppPages.pages,
             // home: const BasePage(),

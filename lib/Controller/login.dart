@@ -40,7 +40,11 @@ class LoginController extends GetxController {
     if (userModel.value != null) {
       await _mSaveSessionToLocal();
       // route to user
-      Get.offAllNamed(AppRoutes.dashboard);
+      if (userModel.value!.userType == student) {
+        Get.offAllNamed(AppRoutes.dashboard);
+      } else {
+        Get.offAllNamed(AppRoutes.teachDashboard);
+      }
     } else {
       kLog("userModel null");
     }

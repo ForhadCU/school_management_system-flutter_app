@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
+import 'package:school_management_system/Model/STUDENT/quiz/quiz_questions_model.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
@@ -18,40 +19,11 @@ class StuQuizWidgets {
   }
 
   static final _controller = StuQuizController.to;
-
-  static vQuizCounterProgressbar() {
-    return Obx(() => Expanded(
-            child: LinearProgressIndicator(
-          value: _controller.progress.value,
-          color: AppColor.white,
-          borderRadius: BorderRadius.circular(5),
-          valueColor: const AlwaysStoppedAnimation<Color>(AppColor.green),
-
-          // color: AppColor.green,
-        )));
-  }
-
-  static vNextAndPreviousButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        AppButtons.vPrimaryButton(
-            onTap: () {
-              _controller.decrementProgress();
-            },
-            bg: AppColor.activeTab,
-            text: "Previous",
-            textColor: Colors.white),
-        AppButtons.vPrimaryButton(
-            onTap: () {
-              _controller.incrementProgress();
-            },
-            bg: AppColor.activeTab,
-            text: "Next",
-            textColor: Colors.white),
-      ],
-    );
-  }
+  static final List<QuizQuestionsModel> _quizQuestionsModelList =
+      _controller.quizQuestionsModelList;
+  static QuizQuestionsModel _quizQuestionsModel =
+      _quizQuestionsModelList[_controller.quizQuestionIndex.value] ??
+          QuizQuestionsModel();
 
   static vTabBar() {
     return Row(
@@ -68,7 +40,8 @@ class StuQuizWidgets {
         (AppSpacing.smh / 2).width,
         Expanded(
             child: Obx(() => CommonContainers.vTabItemContainer(
-                  text: "Quiz Schedule",
+                  // text: "Quiz Schedule",
+                  text: "Schedule",
                   isActive: _controller.isQuizScheduleActive.value,
                   // isActive: false,
                   onTap: () {
@@ -78,7 +51,8 @@ class StuQuizWidgets {
         (AppSpacing.smh / 2).width,
         Expanded(
             child: Obx(() => CommonContainers.vTabItemContainer(
-                  text: "Quiz Result",
+                  // text: "Quiz Result",
+                  text: "Result",
                   isActive: _controller.isQuizResultActive.value,
                   // isActive: false,
                   onTap: () {
@@ -92,13 +66,76 @@ class StuQuizWidgets {
   static vLiveQuiz() {
     return Obx(() => Visibility(
         visible: _controller.isLiveQuizActive.value,
-        child: _controller.quizInfoModel.value == null
+        child: _controller.isLoading.value
             ? Container()
-            : _controller.isQuizMissed.value
-                ? _vQuizMissedMessage()
-                : _controller.isQuizStart.value
-                    ? _vQuizPart()
-                    : _vQuizLaunchingPart()));
+            : _controller.isQuizNotFound.value
+                ? _vQuizNotfoundMessage()
+                : _controller.isQuizMissed.value
+                    ? _vQuizMissedMessage()
+                    : _controller.isQuizStart.value
+                        ? _controller.quizQuestionsModel.value == null
+                            ? Container()
+                            : _vQuizPart()
+                        : _vQuizLaunchingPart()));
+  }
+
+  static vQuizCounterProgressbar() {
+    return Obx(() => Expanded(
+            child: LinearProgressIndicator(
+          value: _controller.progress.value,
+          color: AppColor.white,
+          borderRadius: BorderRadius.circular(5),
+          valueColor: const AlwaysStoppedAnimation<Color>(AppColor.green),
+
+          // color: AppColor.green,
+        )));
+  }
+
+  static vNextAndPreviousButtons() {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _controller.quizQuestionIndex.value <= 0
+                  ? Container()
+                  : AppButtons.vPrimaryButton(
+                      onTap: () {
+                        _controller.mGotoPreviousQuiz();
+                      },
+                      bg: AppColor.inactiveTab,
+                      text: "Previous",
+                      textColor: Colors.white),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _controller.quizQuestionIndex.value ==
+                      _quizQuestionsModel.questionList!.length - 1
+                  ? AppButtons.vPrimaryButton(
+                      onTap: () {
+                        _controller.mSubmitQuiz();
+                      },
+                      bg: AppColor.green,
+                      text: "Submit Answer",
+                      textColor: Colors.white)
+                  : AppButtons.vPrimaryButton(
+                      onTap: () {
+                        _controller.mGotoNextQuiz();
+                      },
+                      bg: AppColor.activeTab,
+                      text: "Next",
+                      textColor: Colors.white),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   static _vQuizLaunchingPart() {
@@ -123,25 +160,27 @@ class StuQuizWidgets {
               format: CountDownTimerFormat.daysHoursMinutesSeconds,
               endTime: DateTime.now().add(
                 Duration(
-                  /*  days: _controller.daysRemainingBeforeStart.value,
-                      hours: _controller.hoursRemainingBeforeStart.value,
-                      minutes: _controller.minsRemainingBeforeStart.value,
-                      seconds: _controller.secsRemainingBeforeStart.value,
-                      */
-                  days: 0,
+                  days: _controller.daysRemainingBeforeStart.value,
+                  hours: _controller.hoursRemainingBeforeStart.value,
+                  minutes: _controller.minsRemainingBeforeStart.value,
+                  seconds: _controller.secsRemainingBeforeStart.value,
+
+                  /*   days: 0,
                   hours: 0,
                   minutes: 0,
-                  seconds: _controller.testTimer.value,
+                  seconds: _controller.testTimer.value, */
                 ),
               ),
               onEnd: () {
                 print("Timer finished");
                 _controller.isQuizStart.value = true;
               },
-              onTick: (remainingTime) {
+              onTick: (remainingTime) async {
                 /* kLog(Utils()
                     .mCalculateSecsFromSecs(secs: remainingTime.inSeconds)); */
-                if (remainingTime.inSeconds == 10) {
+                if (remainingTime.inSeconds <= (60 * 4) &&
+                    remainingTime.inSeconds > 0 &&
+                    !_controller.isReady.value) {
                   _controller.isShownReady.value = true;
                   _controller.mGetRemainingTimeBeforeStart();
                   _controller.testTimer.value = remainingTime.inSeconds;
@@ -149,6 +188,7 @@ class StuQuizWidgets {
                 if (remainingTime.inSeconds == 0) {
                   if (_controller.isReady.value) {
                     _controller.isQuizStart.value = true;
+                    await _controller.mGetQuizQuestions();
                   } else {
                     _controller.isQuizMissed.value = true;
                     _controller.isShownReady.value = false;
@@ -164,8 +204,7 @@ class StuQuizWidgets {
             _controller.isShownReady.value
                 ? AppButtons.vPrimaryButton(
                     onTap: () {
-                      _controller.isShownReady.value = false;
-                      _controller.isReady.value = true;
+                      _controller.mRegisterToQuiz();
                     },
                     text: "Ready",
                     textColor: Colors.white,
@@ -193,7 +232,7 @@ class StuQuizWidgets {
                     ],
                   )
                 : Container(),
-           /*  _controller.isQuizMissed.value
+            /*  _controller.isQuizMissed.value
                 ? Text("You have missed this quiz!",
                     // Text("Before Quiz",
                     style: kBody.copyWith(
@@ -212,86 +251,7 @@ class StuQuizWidgets {
     return Column(
       children: [
         /// Top heade
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm,
-            vertical: AppSpacing.md,
-          ),
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: AppColor.activeTab,
-            /*  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(AppSpacing.smh),
-                      top)Right: Radius.circular(AppSpacing.smh),
-                ) */
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ///left right
-              Text("Quiz Title",
-                  style: kBody.copyWith(
-                    color: AppColor.kWhite,
-                    fontWeight: FontWeight.w500,
-                  )),
-
-              ///right part
-              Row(
-                children: [
-                  /// timer
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.timer_outlined,
-                          color: AppColor.red,
-                          size: 16,
-                        ),
-                        AppSpacing.smh.width,
-                        Text("00:59:34",
-                            style: kBody.copyWith(
-                                color: AppColor.red,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ),
-
-                  AppSpacing.md.width,
-
-                  /// close
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Close",
-                            style: kBody.copyWith(
-                              color: AppColor.white,
-                            )),
-                        AppSpacing.smh.width,
-                        const Icon(
-                          Icons.highlight_remove_outlined,
-                          color: AppColor.white,
-                          size: 16,
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+        _vQuizPartHeading(),
 
         /// Body
         Container(
@@ -305,19 +265,21 @@ class StuQuizWidgets {
               /// Quiz info
               Column(
                 children: [
-                  const Row(
+                  /*  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Type : "),
                       Text("MCQ"),
                     ],
                   ),
-                  AppSpacing.sm.height,
-                  const Row(
+                  AppSpacing.sm.height, */
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Total Questions : "),
-                      Text("40"),
+                      Text(_controller
+                          .quizQuestionsModel.value.questionList!.length
+                          .toString()),
                     ],
                   ),
                 ],
@@ -332,7 +294,7 @@ class StuQuizWidgets {
                   Row(
                     children: [
                       Text(
-                        _controller.quizNumber.value.toString(),
+                        (_controller.quizQuestionIndex.value + 1).toString(),
                         style: kBody.copyWith(fontWeight: FontWeight.w500),
                       ),
                       Text(
@@ -340,7 +302,7 @@ class StuQuizWidgets {
                         style: kBody.copyWith(fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        "20",
+                        _quizQuestionsModel.questionList!.length.toString(),
                         style: kBody.copyWith(fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -357,6 +319,123 @@ class StuQuizWidgets {
           ),
         )
       ],
+    );
+  }
+
+  static Container _vQuizPartHeading() {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.md,
+      ),
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: AppColor.activeTab,
+        /*  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(AppSpacing.smh),
+                    top)Right: Radius.circular(AppSpacing.smh),
+              ) */
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ///left right
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                    _controller.quizQuestionsModel.value.quizDetails!.quizName!,
+                    softWrap: true,
+                    style: kBody.copyWith(
+                      color: AppColor.kWhite,
+                      fontWeight: FontWeight.w500,
+                    )),
+              ],
+            ),
+          ),
+
+          ///right part
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                /// timer
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.timer_outlined,
+                        color: AppColor.red,
+                        size: 16,
+                      ),
+                      AppSpacing.sm.width,
+                      /* Text("00:59:34",
+                            style: kBody.copyWith(
+                                color: AppColor.red,
+                                fontWeight: FontWeight.w500)), */
+                      TimerCountdown(
+                        spacerWidth: AppSpacing.smh,
+                        format: CountDownTimerFormat.hoursMinutesSeconds,
+                        endTime: DateTime.now().add(
+                          Duration(
+                            hours: _controller.hoursRemainingBeforeStart.value,
+                            minutes: _controller.minsRemainingBeforeStart.value,
+                            seconds: _controller.secsRemainingBeforeStart.value,
+                          ),
+                        ),
+                        onEnd: () {
+                          kLog("Timer finished");
+                        },
+                        onTick: (remainingTime) async {
+                          if (remainingTime.inSeconds == 0) {
+                            await _controller.mSubmitQuiz();
+                          }
+                        },
+                        enableDescriptions: false,
+                        timeTextStyle: kBody.copyWith(
+                            color: AppColor.red, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ),
+
+                AppSpacing.md.width,
+
+                /// close
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Close",
+                          style: kBody.copyWith(
+                            color: AppColor.white,
+                          )),
+                      AppSpacing.smh.width,
+                      const Icon(
+                        Icons.highlight_remove_outlined,
+                        color: AppColor.white,
+                        size: 16,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -389,7 +468,10 @@ class StuQuizWidgets {
           color: AppColor.kBlack.withOpacity(.5)),
       alignment: Alignment.center,
       child: Text(
-        "What is the name of our country, can you tell us the shortform of the name?",
+        // "What is the name of our country, can you tell us the shortform of the name?",
+        _quizQuestionsModel
+            .questionList![_controller.quizQuestionIndex.value].question
+            .toString(),
         style:
             kBody.copyWith(color: AppColor.white, fontWeight: FontWeight.w500),
       ),
@@ -397,39 +479,197 @@ class StuQuizWidgets {
   }
 
   static _vQuizAnswers() {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.symmetric(
-              vertical: AppSpacing.sm, horizontal: 8),
-          decoration: BoxDecoration(
-            // color: AppColor.quizAnsItemBg,
-            border: Border.all(color: AppColor.inactiveTab, width: .5),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            children: [
-              Text(
-                "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
-                style: kBody.copyWith(color: Colors.black87),
-              ),
-              Text(
-                "Option ${index + 1}",
-                style: kBody.copyWith(color: Colors.black87),
-              ),
-            ],
-          ),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
-          height: AppSpacing.sm,
-          color: Colors.transparent,
-        );
-      },
-    );
+    return Obx(() => ListView.separated(
+          shrinkWrap: true,
+          itemCount: _quizQuestionsModel
+              .questionList![_controller.quizQuestionIndex.value]
+              .siteQuizQuestionDetailsForStudent!
+              .length,
+          itemBuilder: (context, index) {
+            final optionsModel = _quizQuestionsModel
+                .questionList![_controller.quizQuestionIndex.value]
+                .siteQuizQuestionDetailsForStudent![index];
+
+            return _quizQuestionsModel
+                        .questionList![_controller.quizQuestionIndex.value]
+                        .answerCount ==
+                    1
+                ? Obx(
+                    () => GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.sm, horizontal: 8),
+                        decoration: BoxDecoration(
+                          // color: AppColor.quizAnsItemBg,
+                          border: Border.all(
+                              color: AppColor.inactiveTab, width: .5),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          children: [
+                            Radio(
+                              value: optionsModel.id,
+                              groupValue: _controller.selectedOption.value,
+                              onChanged: (value) {
+                                _controller.selectedOption.value = value;
+
+                                /// save answer id into parent model
+                                if (_controller
+                                        .quizQuestionsModelList[
+                                            _controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            _controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .isNotEmpty &&
+                                    _controller
+                                        .quizQuestionsModelList[
+                                            _controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            _controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .contains(optionsModel.id)) {
+                                  _controller
+                                      .quizQuestionsModelList[
+                                          _controller.quizQuestionIndex.value]
+                                      .questionList![
+                                          _controller.quizQuestionIndex.value]
+                                      .studentAnswerIds!
+                                      .removeWhere((element) =>
+                                          element == optionsModel.id);
+                                } else {
+                                  _controller
+                                      .quizQuestionsModelList[
+                                          _controller.quizQuestionIndex.value]
+                                      .questionList![
+                                          _controller.quizQuestionIndex.value]
+                                      .studentAnswerIds!
+                                      .add(optionsModel.id);
+                                }
+                              },
+                              activeColor: AppColor.activeTab,
+                            ),
+                            Text(
+                              "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
+                              style: kBody.copyWith(color: Colors.black87),
+                            ),
+                            Text(
+                              optionsModel.option!,
+                              style: kBody.copyWith(color: Colors.black87),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      _controller.isModified.value =
+                          !_controller.isModified.value;
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: AppSpacing.sm, horizontal: 8),
+                      decoration: BoxDecoration(
+                        // color: AppColor.quizAnsItemBg,
+                        border:
+                            Border.all(color: AppColor.inactiveTab, width: .5),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        children: [
+                          Obx(() => Checkbox(
+                                value: _controller.answerIdList[index]
+                                    ["selected"]
+                                /* _controller
+                                                .quizQuestionsModelList[
+                                                    _controller
+                                                        .quizQuestionIndex
+                                                        .value]
+                                                .questionList![_controller
+                                                    .quizQuestionIndex.value]
+                                                .studentAnswerIds!
+                                                .isNotEmpty &&
+                                            _controller
+                                                .quizQuestionsModelList[
+                                                    _controller
+                                                        .quizQuestionIndex
+                                                        .value]
+                                                .questionList![_controller
+                                                    .quizQuestionIndex.value]
+                                                .studentAnswerIds!
+                                                .contains(optionsModel.id)
+                                        ? true
+                                        : false */
+                                ,
+                                onChanged: (value) {
+                                  // _controller.selectedOption.value = value!;
+                                  _controller.answerIdList[index] = {
+                                    "id": optionsModel.id,
+                                    "selected": value
+                                  };
+
+                                  if (_controller
+                                          .quizQuestionsModelList[_controller
+                                              .quizQuestionIndex.value]
+                                          .questionList![_controller
+                                              .quizQuestionIndex.value]
+                                          .studentAnswerIds!
+                                          .isNotEmpty &&
+                                      _controller
+                                          .quizQuestionsModelList[_controller
+                                              .quizQuestionIndex.value]
+                                          .questionList![_controller
+                                              .quizQuestionIndex.value]
+                                          .studentAnswerIds!
+                                          .contains(optionsModel.id)) {
+                                    _controller
+                                        .quizQuestionsModelList[
+                                            _controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            _controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .removeWhere((element) =>
+                                            element == optionsModel.id);
+                                  } else {
+                                    _controller
+                                        .quizQuestionsModelList[
+                                            _controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            _controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .add(optionsModel.id);
+                                  }
+
+                                  kLog(_controller
+                                      .quizQuestionsModelList[
+                                          _controller.quizQuestionIndex.value]
+                                      .questionList![
+                                          _controller.quizQuestionIndex.value]
+                                      .studentAnswerIds!);
+                                },
+                                activeColor: AppColor.activeTab,
+                              )),
+                          Text(
+                            "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
+                            style: kBody.copyWith(color: Colors.black87),
+                          ),
+                          Text(
+                            optionsModel.option!,
+                            style: kBody.copyWith(color: Colors.black87),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: AppSpacing.sm,
+              color: Colors.transparent,
+            );
+          },
+        ));
   }
 
   static _vResultTable() {
@@ -1124,6 +1364,18 @@ class StuQuizWidgets {
         ),
       ),
     );
+  }
+
+  static _vQuizNotfoundMessage() {
+    return Expanded(
+        child: Center(
+      child: Text(
+        "No active quiz. Please check again later.",
+        style: kBody.copyWith(
+          color: Colors.amber.shade700,
+        ),
+      ),
+    ));
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
