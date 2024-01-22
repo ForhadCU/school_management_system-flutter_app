@@ -66,7 +66,7 @@ class RoutineWidgets {
                     underline: Container(),
                     // onChanged: (AcademicGroupModel? selectedModel) {
                     onChanged: (StuPeriodicTypeModel? selectedModel) {
-                      // _controller.mUpdateSelectedStuHistory(selectedModel);
+                      _controller.mUpdateSelectedPeriodicType(selectedModel);
                     },
                     items: /* <String>["Recent", "Older"] */
                         _controller.periodicTypeList
@@ -90,7 +90,7 @@ class RoutineWidgets {
   static _vGetRoutineBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
-        // await _controller.mGetResultPdf();
+        await _controller.mGetRoutinePdf();
       },
       text: "Get Routine",
     );
@@ -99,9 +99,16 @@ class RoutineWidgets {
   static vRoutinePdf() {
     return Obx(() => _controller.isRoutineFound.value
         ? _controller.pdfFilePath.isEmpty
-            ? Container()
+            ? Container(/* 
+                alignment: Alignment.center,
+                height: AppScreenSize.mGetHeight(kGlobContext, 50),
+                child: Text(
+                  "No Routine Found!",
+                  style: kBody.copyWith(color: Colors.amber),
+                ),
+               */)
             : SizedBox(
-                height: AppScreenSize.mGetHeight(kGlobContext, 65),
+                height: AppScreenSize.mGetHeight(kGlobContext, 50),
                 width: double.infinity,
                 child: PDFView(
                   filePath: _controller.pdfFilePath.value,
@@ -174,10 +181,9 @@ class RoutineWidgets {
           children: [
             AppButtons.vDownloadButton(
                 onTap: () {
-                  // _controller.mDownloadPortraitResult();
+                  _controller.mDownload();
                 },
                 text: "Save as PDF"),
-            AppSpacing.md.width,
             /*   AppButtons.vDownloadButton(
                 onTap: () {
                   // _controller.mDownloadLandscapeResult();

@@ -13,7 +13,7 @@ class Routine extends StatelessWidget {
     return BaseWidget(
         title: "Routine",
         child: BaseWidgetChild(
-          child: Container(
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 RoutineWidgets.vTopbar(),
