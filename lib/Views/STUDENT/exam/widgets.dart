@@ -56,7 +56,7 @@ class StuExamWidgets {
         Container(
           decoration: BoxDecoration(
             // color: AppColor.helpDeskTopbar,
-            color: AppColor.primaryColor,
+            color: AppColor.activeTab,
             // borderRadius: BorderRadius.circular(5.0),
           ),
           padding: const EdgeInsets.symmetric(
@@ -185,117 +185,66 @@ class StuExamWidgets {
   }
 
   static vExamDocumentsTable() {
-    List list = [
-      {"name": "Examination Routine Pdf"},
-      {"name": "Your Admit Card Pdf"},
-      /* {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"}, */
-    ];
-    return Expanded(
-        child: SingleChildScrollView(
-      child: Container(
-          width: double.infinity,
-          child: ClipRRect(
-            // borderRadius: BorderRadius.circular(12),
-            child: Table(
-              columnWidths: <int, TableColumnWidth>{
-                0: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 60)),
-                // 1: IntrinsicColumnWidth(),
-                1: FlexColumnWidth(AppScreenSize.mGetWidth(kGlobContext, 40)),
-              },
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: <TableRow>[
-                TableRow(
-                  // table decoration
-                  decoration:
-                      const BoxDecoration(color: AppColor.secondaryColor),
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Document'.toUpperCase(),
-                          style: kBody.copyWith(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.bold),
-                        ).marginAll(10),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Download'.toUpperCase(),
-                          style: kBody.copyWith(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.bold),
-                        ).marginAll(0),
-                      ],
-                    ),
-                  ],
-                ),
-                // for (var item in _controller.userInfoModelList) // correct
-
-                for (var item in list) // test
-
-                  /*  list.indexOf(item) == 0
-                      ? */
-                  TableRow(
-                    // table decoration
-                    decoration: BoxDecoration(
-                        color:
-                            /* _controller.userInfoModelList.indexOf(item) */ list
-                                            .indexOf(item) %
-                                        2 ==
-                                    0
-                                ? AppColor.secondaryColor.withOpacity(.4)
-                                : AppColor.secondaryColor.withOpacity(.2)),
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              item['name'],
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.clip,
-                              style: kBody.copyWith(
-                                  color: AppColor.kBlack,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ).marginAll(8),
+    return Obx(() => Visibility(
+          visible: _controller.isFoundRoutinePdf.value ||
+              _controller.isFoundAdmitCardPdf.value,
+          child: Expanded(
+              child: SingleChildScrollView(
+            child: Container(
+                width: double.infinity,
+                child: ClipRRect(
+                  // borderRadius: BorderRadius.circular(12),
+                  child: Table(
+                    columnWidths: <int, TableColumnWidth>{
+                      0: FlexColumnWidth(
+                          AppScreenSize.mGetWidth(kGlobContext, 60)),
+                      // 1: IntrinsicColumnWidth(),
+                      1: FlexColumnWidth(
+                          AppScreenSize.mGetWidth(kGlobContext, 40)),
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: <TableRow>[
+                      TableRow(
+                        // table decoration
+                        decoration:
+                            const BoxDecoration(color: AppColor.secondaryColor),
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Document'.toUpperCase(),
+                                style: kBody.copyWith(
+                                    color: AppColor.white,
+                                    fontWeight: FontWeight.bold),
+                              ).marginAll(10),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Download'.toUpperCase(),
+                                style: kBody.copyWith(
+                                    color: AppColor.white,
+                                    fontWeight: FontWeight.bold),
+                              ).marginAll(0),
+                            ],
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppButtons.vDownloadButton(
-                                  onTap: () {
-                                    // _controller.mDownloadPortraitResult();
-                                    list.indexOf(item) == 0
-                                        ? _controller.mDownloadRoutinePdf()
-                                        : list.indexOf(item) == 1
-                                            ? _controller
-                                                .mDownloadAdmitCardPdf()
-                                            : null;
-                                  },
-                                  horizontalPadding: AppSpacing.sm,
-                                  text: "Download")
-                              .marginSymmetric(
-                                  horizontal: AppSpacing.smh,
-                                  vertical: AppSpacing.md),
-                        ],
-                      ),
-                    ],
-                  )
-                /* : TableRow(
+                      // for (var item in _controller.userInfoModelList) // correct
+
+                      for (var item in _controller.documentList) // test
+
+                        /*  list.indexOf(item) == 0
+                            ? */
+                        TableRow(
                           // table decoration
                           decoration: BoxDecoration(
                               color:
-                                  /* _controller.userInfoModelList.indexOf(item) */ list
+                                  /* _controller.userInfoModelList.indexOf(item) */ _controller
+                                                  .documentList
                                                   .indexOf(item) %
                                               2 ==
                                           0
@@ -308,7 +257,7 @@ class StuExamWidgets {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    item['name'],
+                                    item,
                                     textAlign: TextAlign.start,
                                     overflow: TextOverflow.clip,
                                     style: kBody.copyWith(
@@ -325,6 +274,13 @@ class StuExamWidgets {
                                 AppButtons.vDownloadButton(
                                         onTap: () {
                                           // _controller.mDownloadPortraitResult();
+                                          item == "Examination Routine Pdf"
+                                              ? _controller
+                                                  .mDownloadRoutinePdf()
+                                              : item == "Your Admit Card Pdf"
+                                                  ? _controller
+                                                      .mDownloadAdmitCardPdf()
+                                                  : null;
                                         },
                                         horizontalPadding: AppSpacing.sm,
                                         text: "Download")
@@ -334,11 +290,56 @@ class StuExamWidgets {
                               ],
                             ),
                           ],
-                        ), */
-              ],
-            ),
-          ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
-    ));
+                        )
+                      /* : TableRow(
+                                // table decoration
+                                decoration: BoxDecoration(
+                                    color:
+                                        /* _controller.userInfoModelList.indexOf(item) */ list
+                                                        .indexOf(item) %
+                                                    2 ==
+                                                0
+                                            ? AppColor.secondaryColor.withOpacity(.4)
+                                            : AppColor.secondaryColor
+                                                .withOpacity(.2)),
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          item['name'],
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.clip,
+                                          style: kBody.copyWith(
+                                              color: AppColor.kBlack,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        ).marginAll(8),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      AppButtons.vDownloadButton(
+                                              onTap: () {
+                                                // _controller.mDownloadPortraitResult();
+                                              },
+                                              horizontalPadding: AppSpacing.sm,
+                                              text: "Download")
+                                          .marginSymmetric(
+                                              horizontal: AppSpacing.smh,
+                                              vertical: AppSpacing.md),
+                            )        ],
+                              ),
+                            ],
+                          ), */
+                    ],
+                  ),
+                ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
+          )),
+        ));
   }
 }
 
