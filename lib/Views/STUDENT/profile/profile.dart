@@ -13,9 +13,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Profile"),
+          title: const Text("My Profile"),
           elevation: 0,
-          backgroundColor: AppColor.white,
+          backgroundColor: AppColor.primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         endDrawer: StuHomeWidgets.vEndDrawer(),
         body: BaseWidgetChild(
