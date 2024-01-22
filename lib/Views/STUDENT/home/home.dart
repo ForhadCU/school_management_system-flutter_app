@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/STUDENT/home/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
@@ -10,15 +11,20 @@ class StuHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text(
+          "Home",
+          style: TextStyle(color: Colors.white),
+        ),
         elevation: 0,
-        backgroundColor: AppColor.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: AppColor.primaryColor,
       ),
       endDrawer: StuHomeWidgets.vEndDrawer(),
       body: BaseWidgetChild(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              AppSpacing.md.height,
               StuHomeWidgets.vBody(),
             ],
           ),
