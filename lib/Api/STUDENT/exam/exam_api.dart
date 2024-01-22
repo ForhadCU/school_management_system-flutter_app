@@ -59,7 +59,7 @@ class ExamApis {
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetExamRoutinePdf data");
-      // kLog(res.body);
+      kLog(res.body);
       return res.body;
     } else {
       kLog("status code is: ${res.statusCode}");
@@ -72,7 +72,7 @@ class ExamApis {
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetExamAdmitCardPdf data");
-      // kLog(res.body);
+      kLog(res.body);
       return res.body;
     } else {
       kLog("status code is: ${res.statusCode}");

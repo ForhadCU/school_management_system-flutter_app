@@ -11,7 +11,12 @@ class CustomStatusBar {
 
   static mDarkStatusBar([bool? isTransparent]) {
     isTransparent == null
-        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark)
+        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+           systemNavigationBarIconBrightness: Brightness.light,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.light,
+                statusBarColor: AppColor.primaryColor,
+        ))
         : isTransparent
             ? SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
                 // systemNavigationBarColor: Color(0xFF000000),

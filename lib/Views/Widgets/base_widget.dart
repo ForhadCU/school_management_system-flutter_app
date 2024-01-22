@@ -30,19 +30,17 @@ class BaseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => true,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            
-            title: Text(
-              title.toUpperCase(),
-              style: TextStyle(color: Colors.white),
-            ),
-            elevation: 0,
-            backgroundColor: AppColor.primaryColor,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            title.toUpperCase(),
+            style: TextStyle(color: Colors.white),
           ),
-          body: child,
+          elevation: 0,
+          backgroundColor: AppColor.primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
+        body: child,
       ),
     );
   }

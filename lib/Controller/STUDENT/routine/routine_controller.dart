@@ -61,6 +61,7 @@ class StuRoutineController extends GetxController {
 
   /// code goes here
   mGetRoutinePdf() async {
+    mResetPdfFilePath();
     Uint8List? response = await RoutineApis.mGetRoutinePdf(
         PayLoads.stuRoutinePdf(
           api_access_key: AppData.api_access_key,
@@ -121,7 +122,7 @@ class StuRoutineController extends GetxController {
   mDownload() async {
     showLoading("Downloading...");
 
-    Uint8List? response = await ResultApis.mGetResultPdf(
+    Uint8List? response = await RoutineApis.mGetRoutinePdf(
         PayLoads.stuRoutine(
           api_access_key: AppData.api_access_key,
           academic_period_type_id:
@@ -145,7 +146,7 @@ class StuRoutineController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedPeriodicTypeModel.value!.typeName} ${selectedPeriodicTypeModel.value!.typeName}.pdf";
+          "${downloadDirectory.path}/${selectedPeriodicTypeModel.value!.typeName} Routine.pdf";
 
       File file = File(filePath);
       /*    await file.writeAsBytes(response);
@@ -219,5 +220,18 @@ class StuRoutineController extends GetxController {
       }
     }
   */
+  }
+
+  void mUpdateSelectedPeriodicType(StuPeriodicTypeModel? selectedModel) {
+    selectedPeriodicTypeModel.value = selectedModel;
+  }
+
+  void mResetPdfFilePath() {
+    pdfFilePath.value = '';
+    if (pdfFilePath.value.isEmpty) {
+      kLog("Empty");
+    } else {
+      kLog("Not Empty");
+    }
   }
 }

@@ -228,6 +228,45 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
+  static Future<ResponseModel> getStudentRoutineData(
+      String endPoint, Map<String, dynamic>? params, String token, bool? isPdf,
+      {String? url}) async {
+    dynamic body;
+    kLog('GET + $endPoint');
+    showLoading("Please wait...");
+    try {
+      http.Response res = await http.get(
+        Uri.https(_get_host, endPoint, params),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+
+          // 'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+
+      if (res.statusCode == 200) {
+        if (isPdf != null) {
+          body = res.bodyBytes;
+        } else {
+          body = json.decode(res.body);
+        }
+        showSuccess("Success");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
   static Future<ResponseModel> postStudentData(
       String endPoint, Map<String, dynamic> payload, String token,
       [bool? isPdf]) async {
@@ -311,6 +350,7 @@ class CallAPI {
     }
     return ResponseModel(statusCode: 404, body: null);
   }
+
   static Future<ResponseModel> postStudentDataSaveQuizFinallEnd(String endPoint,
       Map<String, dynamic> payload, String token, String params) async {
     try {

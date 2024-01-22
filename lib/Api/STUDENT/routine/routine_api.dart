@@ -35,8 +35,8 @@ class RoutineApis {
 
   static Future<Uint8List?> mGetRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
-        ///////get request hobe//////
-    ResponseModel res = await CallAPI.postStudentData(
+    ///////get request hobe//////
+    ResponseModel res = await CallAPI.getStudentRoutineData(
         ApiEndpoint.stuRoutinePdf, payLoad, token, true);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {

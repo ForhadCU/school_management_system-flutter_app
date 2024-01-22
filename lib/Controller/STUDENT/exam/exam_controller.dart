@@ -13,9 +13,15 @@ import '../../../Config/config.dart';
 import '../../../Model/STUDENT/result/history_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
+import '../../../Utils/custom_statusbar.dart';
 import '../../../Utils/utils.dart';
 
 class StuExamController extends GetxController {
+  var isFoundDocuments = false.obs;
+  var isFoundRoutinePdf = false.obs;
+  var isFoundAdmitCardPdf = false.obs;
+  var documentList = <String>[].obs;
+
   static StuExamController get to => Get.find();
 
   /// variable declaration
@@ -32,6 +38,8 @@ class StuExamController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    // CustomStatusBar.mDarkStatusBar();
+
     token.value = await AppLocalDataFactory.mGetToken();
     await mGetStudentHistoryList();
     await mGetExamTypeList();
@@ -47,6 +55,7 @@ class StuExamController extends GetxController {
   /// code goes here
   mChangeClassDropdownValue(StuHistoryModel value) async {
     if (selectedStudentHistory.value != value) {
+      mResetPreviousDocs();
       selectedStudentHistory.value = value;
       await mGetExamTypeList();
     }
@@ -63,8 +72,11 @@ class StuExamController extends GetxController {
   }
 
   mChangeExamTypeDropdownValue(StuExamTypeModel value) {
-    kLog(value.id!);
-    selectedExamTypeModel.value = value;
+    if (selectedExamTypeModel.value != value) {
+      mResetPreviousDocs();
+      kLog(value.id!);
+      selectedExamTypeModel.value = value;
+    }
   }
 
   mGetStudentHistoryList() async {
@@ -102,6 +114,14 @@ class StuExamController extends GetxController {
           // examination_id: 9.toString(),
         ),
         token.value);
+
+    routinePdfResponse.value.value != null &&
+            routinePdfResponse.value.value!.isNotEmpty
+        ? {
+            isFoundRoutinePdf.value = true,
+            documentList.add("Examination Routine Pdf")
+          }
+        : false;
   }
 
   mGetExamAdmitCardPdf() async {
@@ -114,11 +134,19 @@ class StuExamController extends GetxController {
           // examination_id: 9.toString(),
         ),
         token.value);
+
+    admitCardPdfResponse.value.value != null &&
+            admitCardPdfResponse.value.value!.isNotEmpty
+        ? {
+            isFoundAdmitCardPdf.value = true,
+            documentList.add("Your Admit Card Pdf")
+          }
+        : false;
   }
 
   mDownloadRoutinePdf() async {
     if (routinePdfResponse.value.value != null) {
-      Directory downloadDirectory;
+      /*  Directory downloadDirectory;
       if (Platform.isIOS) {
         downloadDirectory = await getApplicationDocumentsDirectory();
       } else {
@@ -126,9 +154,21 @@ class StuExamController extends GetxController {
         if (!await downloadDirectory.exists()) {
           downloadDirectory = (await getExternalStorageDirectory())!;
         }
+      } */
+      Directory downloadDirectory;
+      if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = (await getExternalStorageDirectory())!;
+        } else {
+          kLog("Download Dir already existed");
+        }
       }
+
       final filePath =
-          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Routine ${selectedStudentHistory.value.studentRollNumber}.pdf";
+          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Routine.pdf";
 
       File file = File(filePath);
 
@@ -171,7 +211,7 @@ class StuExamController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Admit card ${selectedStudentHistory.value.studentRollNumber}.pdf";
+          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Admit card.pdf";
 
       File file = File(filePath);
 
@@ -200,5 +240,11 @@ class StuExamController extends GetxController {
       kLog("Response Null");
       showError("Not Found");
     }
+  }
+
+  void mResetPreviousDocs() {
+    documentList.clear();
+    isFoundRoutinePdf.value = false;
+    isFoundAdmitCardPdf.value = false;
   }
 }

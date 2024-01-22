@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/toast_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Config/config.dart';
+import '../../../Utils/custom_statusbar.dart';
 
 class StuHomeController extends GetxController {
   static StuHomeController get to => Get.find();
@@ -29,6 +31,7 @@ class StuHomeController extends GetxController {
   void onInit() {
     super.onInit();
     kLog("Called Home init");
+    CustomStatusBar.mDarkStatusBar();
   }
 
   @override

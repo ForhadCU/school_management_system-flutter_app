@@ -141,7 +141,7 @@ class StuResultController extends GetxController {
     }
   }
 
-  mDownload() async {
+  mDownloadPortraitResult() async {
     showLoading("Downloading...");
 
     Uint8List? response = await ResultApis.mGetResultPdf(
