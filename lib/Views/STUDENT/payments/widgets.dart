@@ -25,63 +25,63 @@ class StuPaymentsWidgets {
   static final _feeDetailsModel = _controller.feeDetailsModel.value;
 
   static vTopbar({required M m}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        /// tab buttons
-
-        Row(
+    return Obx(() => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              child: CommonContainers.vTabItemContainer(
-                  text: "Make Payment",
-                  isActive: _controller.isMakePaymentTabActive.value,
-                  // isActive: true,
-                  onTap: () {
-                    _controller.mUpdateMakePaymentTabItem();
-                  }),
-            ),
-            (AppSpacing.smh / 2).width,
-            Expanded(
-                child: CommonContainers.vTabItemContainer(
-              text: "Payment History",
-              isActive: _controller.isPaymentHistoryTabActive.value,
-              // isActive: false,
-              onTap: () {
-                _controller.mUpdatePaymentHistoryTabItem();
-              },
-            )),
-          ],
-        ),
+            /// tab buttons
 
-        /// DropDowns and Get-Button
-        _controller.isPaymentHistoryTabActive.value
-            ? Container()
-            : Container(
-                decoration: const BoxDecoration(
-                  // color: AppColor.helpDeskTopbar,
-                  color: AppColor.activeTab,
-                  // borderRadius: BorderRadius.circular(5.0),
+            Row(
+              children: [
+                Expanded(
+                  child: CommonContainers.vTabItemContainer(
+                      text: "Make Payment",
+                      isActive: _controller.isMakePaymentTabActive.value,
+                      // isActive: true,
+                      onTap: () {
+                        _controller.mUpdateMakePaymentTabItem();
+                      }),
                 ),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: AppSpacing.md),
-                child: m.small
-                    ? Column(
-                        children: [
-                          _vDropdowns(),
-                          AppSpacing.md.height,
-                          _vGetResultBtn(),
-                        ],
-                      )
-                    : Row(
-                        children: [
-                          Expanded(child: _vDropdowns()),
-                          AppSpacing.sm.width,
-                          _vGetResultBtn(),
-                        ],
-                      ),
-              ),
-        /* Container(
+                (AppSpacing.smh / 2).width,
+                Expanded(
+                    child: CommonContainers.vTabItemContainer(
+                  text: "Payment History",
+                  isActive: _controller.isPaymentHistoryTabActive.value,
+                  // isActive: false,
+                  onTap: () {
+                    _controller.mUpdatePaymentHistoryTabItem();
+                  },
+                )),
+              ],
+            ),
+
+            /// DropDowns and Get-Button
+            _controller.isPaymentHistoryTabActive.value
+                ? Container()
+                : Container(
+                    decoration: const BoxDecoration(
+                      // color: AppColor.helpDeskTopbar,
+                      color: AppColor.activeTab,
+                      // borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: AppSpacing.md),
+                    child: m.small
+                        ? Column(
+                            children: [
+                              _vDropdowns(),
+                              AppSpacing.md.height,
+                              _vGetResultBtn(),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: _vDropdowns()),
+                              AppSpacing.sm.width,
+                              _vGetResultBtn(),
+                            ],
+                          ),
+                  ),
+            /* Container(
           padding: const EdgeInsets.symmetric(
               vertical: AppSpacing.md / 2, horizontal: AppSpacing.sm),
           decoration: const BoxDecoration(
@@ -89,8 +89,8 @@ class StuPaymentsWidgets {
               color: AppColor.primaryColor),
           alignment: Alignment.centerLeft,
         ) */
-      ],
-    );
+          ],
+        ));
   }
 
   static _vGetResultBtn() {
@@ -121,43 +121,53 @@ class StuPaymentsWidgets {
         Expanded(
           flex: 1,
           child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-              color: AppColor.frenchSkyBlue100,
-              child: DropdownButton<String>(
-                // value: _controller.selectedStudentHistory.value,
-                hint: Text(
-                  "Academic Payment (by Transaction id)",
-                  style: kBody.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                icon: const Icon(Icons.keyboard_arrow_down),
-                iconSize: 12,
-                elevation: 10,
-                focusColor: AppColor.white,
-                dropdownColor: AppColor.frenchSkyBlue100,
-                isDense: true,
-                isExpanded: true,
-                underline: Container(),
-                onChanged: (String? selectedModel) {
-                  // _controller.mChangeClassDropdownValue(selectedModel!);
-                },
-                items: <String>[
-                  "Academic Payment (by Walet)",
-                  "Academic Payment (by Transaction id)"
-                ].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: kBody.copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
+            color: AppColor.frenchSkyBlue100,
+            child: Obx(() => DropdownButton<String>(
+                  value: _controller.selectedPaymentMethod.value,
+                  /*  hint: Text(
+                    "Academic Payment (by Transaction id)",
+                    style: kBody.copyWith(
+                      fontWeight: FontWeight.w400,
                     ),
-                  );
-                }).toList(),
-              ) /*  Obx(() => DropdownButton<StuHistoryModel>(
+                  ), */
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  iconSize: 12,
+                  elevation: 10,
+                  focusColor: AppColor.white,
+                  dropdownColor: AppColor.frenchSkyBlue100,
+                  isDense: true,
+                  isExpanded: true,
+                  underline: Container(),
+                  onChanged: (String? selectedPaymentMethod) {
+                    // _controller.mChangeClassDropdownValue(selectedModel!);
+                    _controller.selectedPaymentMethod.value =
+                        selectedPaymentMethod!;
+                    if (selectedPaymentMethod ==
+                        "Academic Payment (by Transaction id)") {
+                      _controller.isPaymentByTransactionId.value = true;
+                      _controller.isPaymentByWalet.value = false;
+                    } else {
+                      _controller.isPaymentByTransactionId.value = false;
+                      _controller.isPaymentByWalet.value = true;
+                    }
+                  },
+                  items: <String>[
+                    "Academic Payment (by Walet)",
+                    "Academic Payment (by Transaction id)"
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: kBody.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                )), /*  Obx(() => DropdownButton<StuHistoryModel>(
                   // value: controller.academicGrpDropdownValue.value,
                   value: _controller.selectedStudentHistory.value,
                   hint: Text(
@@ -191,7 +201,7 @@ class StuPaymentsWidgets {
                     );
                   }).toList(),
                 ) */
-              ),
+          ),
         ),
       ],
     );
@@ -283,7 +293,7 @@ class StuPaymentsWidgets {
   }
 
   static vPaymentByWalet({required M m}) {
-    return Obx(() => _controller.isByWalet.value
+    return Obx(() => _controller.isPaymentByWalet.value
         ? Column(
             children: [
               Row(
@@ -315,7 +325,7 @@ class StuPaymentsWidgets {
                                 height:
                                     AppScreenSize.mGetWidth(kGlobContext, 20),
                                 child: _vPaymentMethodBtn(
-                                  bg: AppColor.inactiveTab,
+                                  bg: AppColor.frenchSkyBlue100,
                                   logo: StudentAssetLocation.bkash,
                                   onTap: () async {
                                     _controller.mClickedBkashBtn();
@@ -365,7 +375,7 @@ class StuPaymentsWidgets {
                                 height:
                                     AppScreenSize.mGetWidth(kGlobContext, 20),
                                 child: _vPaymentMethodBtn(
-                                  bg: AppColor.inactiveTab,
+                                  bg: AppColor.frenchSkyBlue100,
                                   logo: StudentAssetLocation.nagad,
                                   onTap: () async {
                                     _controller.mClickedNagadBtn();
@@ -419,7 +429,7 @@ class StuPaymentsWidgets {
                                 height:
                                     AppScreenSize.mGetWidth(kGlobContext, 20),
                                 child: _vPaymentMethodBtn(
-                                  bg: AppColor.inactiveTab,
+                                  bg: AppColor.frenchSkyBlue100,
                                   logo: StudentAssetLocation.cellfin,
                                   onTap: () async {
                                     _controller.mClickedCellfinBtn();

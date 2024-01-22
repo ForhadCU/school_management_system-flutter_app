@@ -26,7 +26,7 @@ class StuPayments extends StatelessWidget {
                       AppSpacing.smh.height,
 
                       /// tab1: Make Payment
-                      _controller.isMakePaymentTabActive.value
+                   Obx(() =>    _controller.isMakePaymentTabActive.value
                           ? StuPaymentsWidgets.vMakePayment(
                               child: Column(
                               children: [
@@ -35,22 +35,22 @@ class StuPayments extends StatelessWidget {
                                     : StuPaymentsWidgets.vPayableAmountBanner(
                                         m: m),
                                 AppSpacing.md.height,
-                                _controller.isByWalet.value
+                                _controller.isPaymentByWalet.value
                                     ? StuPaymentsWidgets.vPaymentByWalet(m: m)
                                     : Container(),
-                                _controller.isByTransactionId.value
+                                _controller.isPaymentByTransactionId.value
                                     ? StuPaymentsWidgets.vPaymentByTransId(m: m)
                                     : Container(),
                               ],
                             ))
-                          : Container(),
+                          : Container()),
 
                       ///tab2: Payment History
-                      _controller.isPaymentHistoryTabActive.value
+                    Obx(() =>   _controller.isPaymentHistoryTabActive.value
                           ? StuPaymentsWidgets.vPaymentHistory(
                               child: StuPaymentsWidgets.vTransHistoryTable(),
                             )
-                          : Container(),
+                          : Container()),
                     ],
                   )),
           ));

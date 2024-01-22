@@ -19,7 +19,7 @@ class PaymentsApi {
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuDemandSlip, payLoad, token);
     if (res.statusCode == 200) {
-      kLogger.d(res.body);
+      // kLogger.d(res.body);
 
       kLog("Successfully fetch mGetFeeDetails data");
       return StuFeeDetailsModel.fromMap(res.body);

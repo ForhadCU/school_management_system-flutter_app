@@ -18,14 +18,15 @@ class StuPaymentsController extends GetxController {
   var isCellFinBtnClicked = false.obs;
   var isFeeDetails = false.obs;
   // var isFeeDetails = true.obs;
+  var selectedPaymentMethod = "Academic Payment (by Transaction id)".obs;
 
   var isMakePaymentTabActive = true.obs;
   var isPaymentHistoryTabActive = false.obs;
 
   var isFeeDetailsActive = false.obs;
-  var isByTransactionId = true.obs;
+  var isPaymentByTransactionId = true.obs;
   // var isByWalet = true.obs;
-  var isByWalet = false.obs;
+  var isPaymentByWalet = false.obs;
   var paymentHistoryList = Rxn<List<Map<String, dynamic>>>();
   var dateFrom = DateTime.now().obs;
   var dateTo = DateTime.now().subtract(const Duration(days: 7)).obs;
@@ -36,6 +37,8 @@ class StuPaymentsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    kLog("Payments View");
+
     await mGetPaymentHistory();
     token = await AppLocalDataFactory.mGetToken();
     await mGetFeeDetails();
@@ -66,6 +69,8 @@ class StuPaymentsController extends GetxController {
 
   mGetPaymentHistory() async {
     paymentHistoryList.value = [
+      {"item": "item1"},
+      {"item": "item1"},
       {"item": "item1"},
       /*   {"item": "item1"},
       {"item": "item1"},
