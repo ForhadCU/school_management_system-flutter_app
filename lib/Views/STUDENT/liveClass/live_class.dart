@@ -10,8 +10,11 @@ class LiveClass extends StatelessWidget {
     return BaseWidget(
         title: "LiveClass",
         child: BaseWidgetChild(
-          child: Container(
-            child: Text("LiveClass"),
+          child: Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: Text("Comming soon..."),
+            ),
           ),
         ));
   }

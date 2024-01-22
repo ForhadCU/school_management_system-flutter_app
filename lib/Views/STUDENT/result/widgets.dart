@@ -218,7 +218,7 @@ class ResultWidgets {
           children: [
             AppButtons.vDownloadButton(
                 onTap: () {
-                  // _controller.mDownloadPortraitResult();
+                  _controller.mDownloadPortraitResult();
                 },
                 text: "Portrait"),
             AppSpacing.md.width,
