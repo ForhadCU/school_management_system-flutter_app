@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/quiz/quiz_api.dart';
 import 'package:school_management_system/Config/config.dart';
@@ -10,6 +11,8 @@ import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
+
+import '../../../Model/STUDENT/quiz/quiz_result.dart';
 
 class StuQuizController extends GetxController {
   static StuQuizController get to => Get.find();
@@ -45,6 +48,40 @@ class StuQuizController extends GetxController {
   var isLoading = false.obs;
   var isQuizNotFound = true.obs;
   int timeRemainingBeforeStart = 0;
+
+  var quizResultModel = StuQuizResultModel().obs;
+  var quizResultList = <QuizData>[].obs;
+  var quizResultListScrlCtrlr = ScrollController().obs;
+  var pageNumber = 1.obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+
+    mGetScheduleList();
+    token = await AppLocalDataFactory.mGetToken();
+    await mGetQuizInfo();
+    await mGetQuizResultList();
+
+    /// Scroll Listener for quizResult List
+    quizResultListScrlCtrlr.value.addListener(() {
+      if (quizResultListScrlCtrlr.value.offset ==
+          quizResultListScrlCtrlr.value.position.maxScrollExtent) {
+        if (quizResultModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(quizResultModel.value.currentPage!);
+          pageNumber.value++;
+          mGetQuizResultList();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
+
+    // progress.value = progressStratingPoint.value;
+  }
 
   /// code goes here
   mGetQuizInfo() async {
@@ -123,7 +160,6 @@ class StuQuizController extends GetxController {
         /// take questions
         await mGetQuizQuestions();
         isLoading.value = false;
-
       } else {
         kLog("Quiz not started");
 
@@ -392,7 +428,7 @@ class StuQuizController extends GetxController {
     }
   }
 
-   mSubmitQuiz() async {
+  mSubmitQuiz() async {
     Map<String, dynamic> params = PayLoads.stuQuizAnswerSilentSave(
         api_access_key: AppData.api_access_key);
     Map<String, dynamic> additionalKeys = {
@@ -460,17 +496,6 @@ class StuQuizController extends GetxController {
     super.onClose();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-
-    mGetScheduleList();
-    token = await AppLocalDataFactory.mGetToken();
-    await mGetQuizInfo();
-
-    // progress.value = progressStratingPoint.value;
-  }
-
   mSaveQuizAnswer() async {
     Map<String, dynamic> params = PayLoads.stuQuizAnswerSilentSave(
         api_access_key: AppData.api_access_key);
@@ -496,12 +521,22 @@ class StuQuizController extends GetxController {
         token);
   }
 
-   mRegisterToQuiz() async {
+  mRegisterToQuiz() async {
     isReady.value = await QuizApis.mRegisterToQuiz(
         PayLoads.stuQuizStart(
             api_access_key: AppData.api_access_key,
             quiz_declare_id: quizInfoModel.value.quizDeclareId.toString()),
         token);
     isShownReady.value = !isReady.value;
+  }
+
+  mGetQuizResultList() async {
+    quizResultModel.value = await QuizApis.mGetQuizReportList(
+        PayLoads.stuPreviewsQuizReportList(
+            page: pageNumber.value.toString(),
+            api_access_key: AppData.api_access_key,
+            paginate: 10.toString()),
+        token);
+    quizResultList.addAll(quizResultModel.value.data!);
   }
 }

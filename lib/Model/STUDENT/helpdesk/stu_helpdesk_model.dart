@@ -1,7 +1,6 @@
-
 import 'dart:convert';
 
-class StuHelpDeskModel {
+class HelpDeskModel {
   final int? id;
   final String? name;
   final int? menuSerial;
@@ -10,7 +9,7 @@ class StuHelpDeskModel {
   final DateTime? updatedAt;
   final List<EduSiteHelpDeskSetting>? eduSiteHelpDeskSetting;
 
-  StuHelpDeskModel({
+  HelpDeskModel({
     this.id,
     this.name,
     this.menuSerial,
@@ -20,7 +19,7 @@ class StuHelpDeskModel {
     this.eduSiteHelpDeskSetting,
   });
 
-  StuHelpDeskModel copyWith({
+  HelpDeskModel copyWith({
     int? id,
     String? name,
     int? menuSerial,
@@ -29,7 +28,7 @@ class StuHelpDeskModel {
     DateTime? updatedAt,
     List<EduSiteHelpDeskSetting>? eduSiteHelpDeskSetting,
   }) =>
-      StuHelpDeskModel(
+      HelpDeskModel(
         id: id ?? this.id,
         name: name ?? this.name,
         menuSerial: menuSerial ?? this.menuSerial,
@@ -40,13 +39,12 @@ class StuHelpDeskModel {
             eduSiteHelpDeskSetting ?? this.eduSiteHelpDeskSetting,
       );
 
-  factory StuHelpDeskModel.fromJson(String str) =>
-      StuHelpDeskModel.fromMap(json.decode(str));
+  factory HelpDeskModel.fromJson(String str) =>
+      HelpDeskModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory StuHelpDeskModel.fromMap(Map<String, dynamic> json) =>
-      StuHelpDeskModel(
+  factory HelpDeskModel.fromMap(Map<String, dynamic> json) => HelpDeskModel(
         id: json["id"],
         name: json["name"],
         menuSerial: json["menu_serial"],

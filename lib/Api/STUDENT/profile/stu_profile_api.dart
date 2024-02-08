@@ -13,18 +13,18 @@ class ProfileApis {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static Future<StudentProfileInfoModel> mGetProfileInfo(
+  static Future<ProfileInfoModel> mGetProfileInfo(
       Map<String, dynamic> payLoad, String token) async {
-    ResponseModel res =
-        await CallAPI.getStudentData(ApiEndpoint.stuProfileInfo, payLoad, token);
+    ResponseModel res = await CallAPI.getStudentData(
+        ApiEndpoint.stuProfileInfo, payLoad, token);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
-      print("Successfully read data");
+      print("Successfully mGetProfileInfo read data");
       // kLog(res.body);
-      return StudentProfileInfoModel.fromMap(res.body['student_profile']);
+      return ProfileInfoModel.fromMap(res.body['student_profile']);
     } else {
       kLog("StatusCode: " + res.statusCode.toString());
-      return StudentProfileInfoModel();
+      return ProfileInfoModel();
     }
   }
 }

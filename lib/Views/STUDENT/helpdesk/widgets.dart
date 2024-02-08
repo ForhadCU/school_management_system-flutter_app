@@ -18,7 +18,7 @@ class HelpDeskWidgets {
   // codes start from here
   // All methods should be static to maintain singleton instances
   static final _controller = HelpDeskController.to;
-  static final List<StuHelpDeskModel> stuHelpDeskModelList =
+  static final List<HelpDeskModel> stuHelpDeskModelList =
       _controller.stuHelpdeskModelList;
 
   static vParentList() {

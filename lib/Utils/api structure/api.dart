@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Config/constants/constants.dart';
+import '../../Controller/common/common_controller.dart';
 import '../../Model/response_model.dart';
 import '../../Singletones/app_data.dart';
 import '../toast_utils.dart';
@@ -33,7 +37,9 @@ class CallAPI {
 
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
   static const String _host = 'https://cms.goecworld.com';
-  static const String _get_host = 'fccdc.theworld.com.bd';
+  static const String _https = 'https://';
+  static const String _get_host = '.theworld.com.bd';
+  // static const String _getHostForSubmition = 'https://fccdc.theworld.com.bd';
   static const String _url = 'https://cms.goecworld.com/Chargetron/api/';
   static const String _get_middle_point = '/Chargetron/api/';
 
@@ -67,12 +73,17 @@ class CallAPI {
 
   static Future<ResponseModel> postPublicData(
       String endPoint, Map<String, dynamic> payload) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       kLog('POST $endPoint');
       showLoading("Please wait...");
 
       http.Response res = await http.post(
-        Uri.https(_get_host, endPoint),
+        Uri.https(siteAlias! + _get_host, endPoint),
         body: jsonEncode(payload),
         headers: {
           'Content-type': 'application/json',
@@ -100,11 +111,17 @@ class CallAPI {
 
   static Future<ResponseModel> userLogin(
       String endPoint, Map<String, dynamic> payload) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+    // kLog("Site Alis is ${sitelistModel.siteAlias}");
     try {
       kLog('POST $endPoint');
       showLoading("Please wait...");
       http.Response res = await http.post(
-        Uri.https(_get_host, endPoint),
+        Uri.https(siteAlias! + _get_host, endPoint),
         body: jsonEncode(payload),
         headers: {
           'Content-type': 'application/json',
@@ -167,9 +184,16 @@ class CallAPI {
     dynamic body;
     kLog('GET + $endPoint');
     showLoading("Please wait...");
+
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+
     try {
       http.Response res = await http.get(
-        Uri.https(_get_host, endPoint, params),
+        Uri.https(siteAlias! + _get_host, endPoint, params),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -200,9 +224,15 @@ class CallAPI {
     dynamic body;
     kLog('GET + $endPoint');
     showLoading("Please wait...");
+
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       http.Response res = await http.get(
-        Uri.https(_get_host, endPoint, params),
+        Uri.https(siteAlias! + _get_host, endPoint, params),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -228,15 +258,61 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
-  static Future<ResponseModel> getStudentRoutineData(
+  static Future<ResponseModel> getTeacherData(
+      String endPoint, Map<String, dynamic>? params, String token,
+      {String? url}) async {
+    dynamic body;
+    kLog('GET + $endPoint');
+    showLoading("Please wait...");
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+    try {
+      http.Response res = await http.get(
+        Uri.https(siteAlias! + _get_host, endPoint, params),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+
+          // 'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+        showSuccess("Completed");
+      }
+      hideLoading();
+
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> getRoutineData(
       String endPoint, Map<String, dynamic>? params, String token, bool? isPdf,
       {String? url}) async {
     dynamic body;
     kLog('GET + $endPoint');
     showLoading("Please wait...");
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       http.Response res = await http.get(
-        Uri.https(_get_host, endPoint, params),
+        Uri.https(siteAlias! + _get_host, endPoint, params),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -257,6 +333,7 @@ class CallAPI {
         }
         showSuccess("Success");
       }
+      hideLoading();
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       kLog(e.toString());
@@ -270,13 +347,18 @@ class CallAPI {
   static Future<ResponseModel> postStudentData(
       String endPoint, Map<String, dynamic> payload, String token,
       [bool? isPdf]) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       kLog('POST $endPoint');
       showLoading("Please wait...");
 
       http.Response res = await http.post(
         Uri.https(
-          _get_host,
+          siteAlias! + _get_host,
           endPoint,
         ),
         body: jsonEncode(payload),
@@ -311,13 +393,18 @@ class CallAPI {
 
   static Future<ResponseModel> postStudentDataSaveQuiz(String endPoint,
       Map<String, dynamic> payload, String token, String params) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       kLog('POST $endPoint');
       // showLoading("Please wait...");
 
       Map<String, dynamic> paramMap = {"api_access_key": params};
       // String urlWithParams = Uri.parse('$_get_host$endPoint')
-      String urlWithParams = Uri.parse('https://fccdc.theworld.com.bd$endPoint')
+      String urlWithParams = Uri.parse('$_https$siteAlias$_get_host$endPoint')
           .replace(queryParameters: paramMap)
           .toString();
       kLog(urlWithParams);
@@ -353,13 +440,18 @@ class CallAPI {
 
   static Future<ResponseModel> postStudentDataSaveQuizFinallEnd(String endPoint,
       Map<String, dynamic> payload, String token, String params) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
     try {
       kLog('POST $endPoint');
       showLoading("Please wait...");
 
       Map<String, dynamic> paramMap = {"api_access_key": params};
       // String urlWithParams = Uri.parse('$_get_host$endPoint')
-      String urlWithParams = Uri.parse('https://fccdc.theworld.com.bd$endPoint')
+      String urlWithParams = Uri.parse('$_https$siteAlias$_get_host$endPoint')
           .replace(queryParameters: paramMap)
           .toString();
       kLog(urlWithParams);
@@ -424,6 +516,56 @@ class CallAPI {
       showError('Failed to get data');
     }
 
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> postTeacherData(
+      {required String endPoint,
+      required Map<String, dynamic> bodyData,
+      required String token,
+      required Map<String, dynamic> payload}) async {
+            final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+
+      // Map<String, dynamic> paramMap = {"api_access_key": params};
+      // String urlWithParams = Uri.parse('$_get_host$endPoint')
+      String urlWithParams = Uri.parse('$_https$siteAlias$_get_host$endPoint')
+          .replace(queryParameters: payload)
+          .toString();
+      kLog(urlWithParams);
+      http.Response res = await http.post(
+        // Uri.https(_get_host, endPoint),
+        Uri.parse(urlWithParams),
+        body: jsonEncode(bodyData),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+
+        showSuccess("Saved");
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError("Failed");
+    }
     return ResponseModel(statusCode: 404, body: null);
   }
 

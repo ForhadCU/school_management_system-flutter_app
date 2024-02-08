@@ -84,6 +84,23 @@ class StudentAssetLocation {
   static const String logout = "assets/icons/logout.png";
   static const String admin = "assets/icons/admin.png";
   static const String help_desk = "assets/icons/help_desk.png";
+  static const String user = "assets/icons/user.png";
+
+
+  static const String dashboard_base_ic = "assets/icons/ic_dashboard.png";
+  static const String academic_calendar_base_ic = "assets/icons/ic_calendar.png";
+  static const String attendance_base_ic  = "assets/icons/ic_attendance.png";
+  static const String live_class_base_ic = "assets/icons/ic_live_meeting.png";
+  static const String my_class_base_ic = "assets/icons/ic_classroom.png";
+  static const String my_exam_base_ic = "assets/icons/ic_my_exam.png";
+  static const String my_payments_base_ic = "assets/icons/ic_payment.png";
+  static const String my_quiz_base_ic = "assets/icons/ic_quiz.png";
+  static const String my_result_base_ic = "assets/icons/ic_result.png";
+  static const String my_routine_base_ic = "assets/icons/my_routine.png";
+  static const String website_base_ic = "assets/icons/website.png";
+  static const String help_desk_base_ic = "assets/icons/ic_helpdesk.png";
+  static const String notice_base_ic = "assets/icons/ic_notice.png";
+  static const String message_ic = "assets/icons/message.png";
 
 
   static const String icLauncher = "assets/logos/ic_launcher.png";

@@ -22,6 +22,7 @@ class AppButtons {
     return GestureDetector(
         onTap: () => onTap(),
         child: Container(
+          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
@@ -37,6 +38,7 @@ class AppButtons {
               borderRadius: BorderRadius.circular(AppSpacing.smh)),
           child: Text(
             text,
+            overflow: TextOverflow.ellipsis,
             style: kTitleLite.copyWith(
               color: textColor ?? AppColor.white,
             ),
@@ -119,7 +121,55 @@ class AppButtons {
             ],
           ),
         ));
-  } 
+  }
+
+  static Widget vUpdateButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+    double? horizontalPadding,
+    double? verticalPadding,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? AppSpacing.md,
+              vertical: verticalPadding ?? AppSpacing.sm),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              gradient: bgGradient ?? AppColor.kDonwloadBtnGradiantColor,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.upload,
+                color: AppColor.white,
+                size: 16,
+              ),
+              AppSpacing.smh.width,
+              Text(
+                text,
+                style: kBody.copyWith(
+                  color: textColor ?? AppColor.white,
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
   static Widget vNarrowButton({
     required Function onTap,
     required String text,
@@ -148,7 +198,6 @@ class AppButtons {
               borderRadius: BorderRadius.circular(AppSpacing.smh)),
           child: Row(
             children: [
-              
               Text(
                 text,
                 style: kBody.copyWith(

@@ -178,7 +178,7 @@ class StuQuizWidgets {
               onTick: (remainingTime) async {
                 /* kLog(Utils()
                     .mCalculateSecsFromSecs(secs: remainingTime.inSeconds)); */
-                if (remainingTime.inSeconds <= (60 * 4) &&
+                if (remainingTime.inSeconds <= (60 * 20) &&
                     remainingTime.inSeconds > 0 &&
                     !_controller.isReady.value) {
                   _controller.isShownReady.value = true;
@@ -553,9 +553,17 @@ class StuQuizWidgets {
                               "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
                               style: kBody.copyWith(color: Colors.black87),
                             ),
-                            Text(
-                              optionsModel.option!,
-                              style: kBody.copyWith(color: Colors.black87),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    optionsModel.option!,
+                                    style:
+                                        kBody.copyWith(color: Colors.black87),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -676,7 +684,7 @@ class StuQuizWidgets {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Obx(() => Expanded(
-          child: _controller.scheduleList.value == null
+          child: /*  _controller.quizResultList.value == null
               ? Container(
                   alignment: Alignment.center,
                   child: const Text(
@@ -684,7 +692,8 @@ class StuQuizWidgets {
                     style: kLabel,
                   ),
                 )
-              : _controller.scheduleList.value!.isEmpty
+              :  */
+              _controller.quizResultList.isEmpty
                   ? Container(
                       alignment: Alignment.center,
                       child: Text(
@@ -722,6 +731,7 @@ class StuQuizWidgets {
                                 8: IntrinsicColumnWidth(),
                                 9: IntrinsicColumnWidth(),
                                 10: IntrinsicColumnWidth(),
+                                11: IntrinsicColumnWidth(),
                               },
                               defaultVerticalAlignment:
                                   TableCellVerticalAlignment.middle,
@@ -766,7 +776,21 @@ class StuQuizWidgets {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Quiz Date & Time',
+                                          'Quiz Date',
+                                          style: kBody.copyWith(
+                                              color: AppColor.white,
+                                              fontWeight: FontWeight.w500),
+                                        ).marginSymmetric(
+                                            vertical: cellVerMargin,
+                                            horizontal: cellHorMargin),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Quiz Time',
                                           style: kBody.copyWith(
                                               color: AppColor.white,
                                               fontWeight: FontWeight.w500),
@@ -892,13 +916,13 @@ class StuQuizWidgets {
                                 // for (var item in _controller.userInfoModelList) // correct
 
                                 for (var item
-                                    in _controller.scheduleList.value!) // test
+                                    in _controller.quizResultList) // test
 
                                   TableRow(
                                     // table decoration
                                     decoration: BoxDecoration(
                                         color: /* _controller.userInfoModelList.indexOf(item) */
-                                            _controller.scheduleList.value!
+                                            _controller.quizResultList
                                                             .indexOf(item) %
                                                         2 ==
                                                     0
@@ -927,7 +951,8 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Quiz Test 1',
+                                            item.quizDeclare!.quiz!.quizName ??
+                                                "",
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -942,7 +967,12 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '12 Sep 2024',
+                                            Utils().getTimeFromTimeStamp(
+                                                item
+                                                    .quizDeclare!
+                                                    .quizDeclareSettings!
+                                                    .startDateTime!,
+                                                kAppDateFormat),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -957,7 +987,12 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '02:45 PM',
+                                            Utils().getTimeFromTimeStamp(
+                                                item
+                                                    .quizDeclare!
+                                                    .quizDeclareSettings!
+                                                    .startDateTime!,
+                                                kAppTimeFormat12),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -972,7 +1007,9 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '45',
+                                            item.quizDeclare!
+                                                .quizDeclareSettings!.duration
+                                                .toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -987,7 +1024,7 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'AWS',
+                                            item.totalQuestion.toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1002,7 +1039,7 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'AWS',
+                                            item.quizTime.toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1017,7 +1054,7 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'AWS',
+                                            item.totalAnswer.toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1032,7 +1069,7 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'AWS',
+                                            item.totalRightAnswer.toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1047,7 +1084,7 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'AWS',
+                                            item.totalWrongAnswer.toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1061,14 +1098,42 @@ class StuQuizWidgets {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          AppButtons.vNarrowButton(
-                                                  onTap: () {},
-                                                  text: "Present",
-                                                  bg: AppColor.green,
-                                                  textColor: AppColor.white)
-                                              .marginSymmetric(
-                                                  vertical: cellVerMargin,
-                                                  horizontal: cellHorMargin),
+                                          Text(
+                                            double.parse(
+                                                    item.rightAnsPercentage ??
+                                                        "0")
+                                                .toStringAsFixed(2),
+                                            style: kBody.copyWith(
+                                                color: AppColor.kBlack,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400),
+                                          ).marginSymmetric(
+                                              vertical: cellVerMargin,
+                                              horizontal: cellHorMargin),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          item.quizDeclare!.quiz!.status == 1
+                                              ? AppButtons.vNarrowButton(
+                                                      onTap: () {},
+                                                      text: "Present",
+                                                      bg: AppColor.green,
+                                                      textColor: AppColor.white)
+                                                  .marginSymmetric(
+                                                      vertical: cellVerMargin,
+                                                      horizontal: cellHorMargin)
+                                              : AppButtons.vNarrowButton(
+                                                      onTap: () {},
+                                                      text: "Absent",
+                                                      bg: AppColor.red,
+                                                      textColor: AppColor.white)
+                                                  .marginSymmetric(
+                                                      vertical: cellVerMargin,
+                                                      horizontal:
+                                                          cellHorMargin),
                                         ],
                                       ),
                                     ],

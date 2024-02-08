@@ -5,7 +5,6 @@ import 'package:school_management_system/Controller/PUBLIC/landing_controller.da
 import 'package:school_management_system/Controller/TEACHER/home/home_controller.dart';
 import 'package:school_management_system/Controller/TEACHER/notice/notice_controller.dart';
 import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
-import 'package:school_management_system/Controller/teach_home.dart';
 import 'package:school_management_system/Views/PUBLIC/login/login.dart';
 import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';

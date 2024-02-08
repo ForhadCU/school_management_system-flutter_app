@@ -21,6 +21,8 @@ const String kCustom = "custom";
 // Key
 const String kSiteListModel = "siteListModel";
 const String kToken = 'token';
+const String kUserType = 'userType';
+const String kAcademicGroup = 'academicGroup';
 const String kApi_access_key = 'api_access_key';
 const  String student = "student";
 const  String teacher = "teacher";

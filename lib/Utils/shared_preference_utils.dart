@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:school_management_system/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Model/PUBLIC/login/academic_group_model.dart';
 import '../Model/PUBLIC/searchSchool/site_list_model.dart';
 
 SharedPreferences? prefs;
@@ -44,10 +45,25 @@ class AppLocalDataFactory {
     return SitelistModel.fromMap(decodedJson);
   }
 
+  static Future<AcademicGroup> mGetAcademicGroupModel() async {
+    final SharedPreferences sharedPreference =
+        await SharedPreferences.getInstance();
+    Map<String, dynamic> decodedJson =
+        jsonDecode(sharedPreference.getString(kAcademicGroup)!);
+    return AcademicGroup.fromMap(decodedJson);
+  }
+
   static Future<String> mGetToken() async {
     final SharedPreferences sharedPreference =
         await SharedPreferences.getInstance();
-    String str = sharedPreference.getString(kToken)!;
+    String str = sharedPreference.getString(kToken) ?? "";
+    return str;
+  }
+
+  static Future<String> mGetUserType() async {
+    final SharedPreferences sharedPreference =
+        await SharedPreferences.getInstance();
+    String str = sharedPreference.getString(kUserType) ?? "";
     return str;
   }
 }

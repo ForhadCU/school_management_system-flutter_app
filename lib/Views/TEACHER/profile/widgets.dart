@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/TEACHER/home/home_controller.dart';
+import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/STUDENT/profile/stu_profile_info_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
@@ -16,9 +19,8 @@ class TeachProfileWidgets {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static final controller = StuProfileController.to;
-  static final StudentProfileInfoModel studentProfileInfoModel =
-      controller.stuProfileInfoModel.value;
+  static final controller = TeachProfileController.to;
+  static final homeController = TeachHomeController.to;
 
   static Container _vPlainBlueBox({required Widget child}) {
     return Container(
@@ -35,12 +37,15 @@ class TeachProfileWidgets {
     return _vPlainBlueBox(
         child: Row(
       children: [
-        Image(
-          image: AssetImage(userLogin),
+        const Image(
+          image: AssetImage(
+            StudentAssetLocation.user,
+          ),
+          color: Colors.black45,
           // image: CachedNetworkImage(imageUrl: controller.stuProfileInfoModel.value.),
           width: 64,
-          height: 64,
-          fit: BoxFit.fill,
+          height: 70,
+          fit: BoxFit.cover,
         ),
         AppSpacing.md.width,
         Expanded(
@@ -51,23 +56,53 @@ class TeachProfileWidgets {
             Row(
               children: [
                 Text(
-                  studentProfileInfoModel.firstName == null
+                  homeController.profileInfoModel.value.firstName == null
                       ? ""
-                      : studentProfileInfoModel.firstName!.toUpperCase(),
-                  style: TextStyle(
+                      : homeController.profileInfoModel.value.firstName!
+                          .toUpperCase(),
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     color: AppColor.fontUsername,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  homeController.profileInfoModel.value.lastName == null
+                      ? ""
+                      : " ${homeController.profileInfoModel.value.lastName!.toUpperCase()}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.fontUsername,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            AppSpacing.sm.height,
+            Row(
+              children: [
+                /* Text(
+                  "UserName".toUpperCase(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
                 ),
                 Text(
-                  studentProfileInfoModel.lastName == null
-                      ? ""
-                      : studentProfileInfoModel.lastName!.toUpperCase(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.fontUsername,
-                    fontSize: 20,
+                  " : ".toUpperCase(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ), */
+                Expanded(
+                  child: Text(
+                    controller.userDesignition.value.capitalizeFirst ?? "",
+                    softWrap: true,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ],
@@ -76,28 +111,29 @@ class TeachProfileWidgets {
             Row(
               children: [
                 Text(
-                  "UserName".toUpperCase(),
-                  style: TextStyle(
+                  "UserName".capitalizeFirst ?? "",
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 Text(
                   " : ".toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    studentProfileInfoModel.username == null
+                    homeController.profileInfoModel.value.username == null
                         ? ""
-                        : studentProfileInfoModel.username!.toUpperCase(),
+                        : homeController.profileInfoModel.value.username!
+                            .toUpperCase(),
                     softWrap: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -122,9 +158,9 @@ class TeachProfileWidgets {
                 ),
                 Expanded(
                   child: Text(
-                   studentProfileInfoModel. == null
+                   controller.stuProfileInfoModel.value. == null
                       ? ""
-                      : studentProfileInfoModel.username!
+                      : controller.stuProfileInfoModel.value.username!
                           .toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -141,15 +177,15 @@ class TeachProfileWidgets {
     ));
   }
 
-  static vParentsInfo() {
+  static vPersonalInfo() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         ///heading
         _vPlainBlueBox(
           child: Text(
-            "Parent's information".toUpperCase(),
-            style: TextStyle(
+            "Personal information".toUpperCase(),
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColor.fontUsername),
@@ -160,7 +196,7 @@ class TeachProfileWidgets {
 
         ///body
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
@@ -171,95 +207,32 @@ class TeachProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Father", value: studentProfileInfoModel.fatherName!),
-                  _vSingleColumTextPlate(key: "Phone", value: ""),
-                  _vSingleColumTextPlate(key: "Nid", value: ""),
-                  _vSingleColumTextPlate(key: "Bcn", value: ""),
-                ],
-              ),
-
-              /*   /// Right part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vInfoTextPlate(key: "Shift", value: "Value"),
-                  _vInfoTextPlate(key: "Roll", value: "Value"),
-                  _vInfoTextPlate(key: "Group", value: "Value"),
-                  _vInfoTextPlate(key: "Religion", value: "Valdddd"),
-                ],
-              ), */
-            ],
-          ),
-        ),
-        AppSpacing.sm.height,
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 4,
-          ),
-          child: StaggeredGrid.count(
-            crossAxisCount: 1,
-            crossAxisSpacing: 2,
-            children: [
-              /// Left part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vSingleColumTextPlate(key: "Mother", value: studentProfileInfoModel.motherName!),
-                  _vSingleColumTextPlate(key: "Phone", value: ""),
-                  _vSingleColumTextPlate(key: "Nid", value: ""),
-                  _vSingleColumTextPlate(key: "Bcn", value: ""),
-                ],
-              ),
-
-              /*   /// Right part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vInfoTextPlate(key: "Shift", value: "Value"),
-                  _vInfoTextPlate(key: "Roll", value: "Value"),
-                  _vInfoTextPlate(key: "Group", value: "Value"),
-                  _vInfoTextPlate(key: "Religion", value: "Valdddd"),
-                ],
-              ), */
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  static vGaurdianInfo() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ///heading
-        _vPlainBlueBox(
-          child: Text(
-            "Guardian's information".toUpperCase(),
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: AppColor.fontUsername),
-          ),
-        ),
-
-        AppSpacing.sm.height,
-
-        ///body
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 4,
-          ),
-          child: StaggeredGrid.count(
-            crossAxisCount: 1,
-            crossAxisSpacing: 2,
-            children: [
-              /// Left part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vSingleColumTextPlate(key: "Name", value: ""),
-                  _vSingleColumTextPlate(key: "Home", value: ""),
+                  _vSingleColumTextPlate(
+                      key: "Name",
+                      value:
+                          "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}"),
+                  _vSingleColumTextPlate(
+                      key: "Father ",
+                      value:
+                          "${homeController.profileInfoModel.value.fatherName}"),
+                  _vSingleColumTextPlate(
+                      key: "Mother ",
+                      value:
+                          "${homeController.profileInfoModel.value.motherName}"),
+                  _vSingleColumTextPlate(
+                      key: "Present Address",
+                      value: homeController.profileInfoModel.value.address!
+                                  .presentAddress!.districtName ==
+                              ""
+                          ? ""
+                          : "${homeController.profileInfoModel.value.address!.presentAddress!.districtName} , ${homeController.profileInfoModel.value.address!.presentAddress!.divisionName}"),
+                  _vSingleColumTextPlate(
+                      key: "Permanent Address",
+                      value: homeController.profileInfoModel.value.address!
+                                  .permanentAddress!.districtName ==
+                              ""
+                          ? ""
+                          : "${homeController.profileInfoModel.value.address!.permanentAddress!.districtName}, ${homeController.profileInfoModel.value.address!.permanentAddress!.divisionName}"),
                 ],
               ),
             ],
@@ -267,7 +240,6 @@ class TeachProfileWidgets {
         ),
       ],
     );
-    ;
   }
 
   static vAcademicInfo() {
@@ -278,7 +250,7 @@ class TeachProfileWidgets {
         _vPlainBlueBox(
           child: Text(
             "Academic information".toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColor.fontUsername),
@@ -289,51 +261,30 @@ class TeachProfileWidgets {
 
         ///body
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
-            crossAxisCount: 2,
+            crossAxisCount: 1,
             crossAxisSpacing: 2,
             children: [
               /// Left part
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vDoubleColumTextPlate(
-                      key: "Year",
-                      value: studentProfileInfoModel.academicInfo!.year!),
-                  _vDoubleColumTextPlate(
-                      key: "Class",
-                      value: studentProfileInfoModel.academicInfo!.className!),
-                  _vDoubleColumTextPlate(
-                      key: "Section",
+                  _vSingleColumTextPlate(
+                      key: "Office Id",
                       value:
-                          studentProfileInfoModel.academicInfo!.sectionName!),
-                  _vDoubleColumTextPlate(key: "Gender", value: ""),
-                ],
-              ),
-
-              /// Right part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vDoubleColumTextPlate(
-                      key: "Shift",
-                      value: studentProfileInfoModel.academicInfo!.shiftName!),
-                  _vDoubleColumTextPlate(
-                      key: "Roll",
-                      value: studentProfileInfoModel.id!.toString()),
-                  _vDoubleColumTextPlate(
-                      key: "Group",
-                      value: studentProfileInfoModel
-                          .academicInfo!.classGroupName!),
-                  _vDoubleColumTextPlate(key: "Religion", value: ""),
+                          homeController.profileInfoModel.value.username ?? ""),
+                  _vSingleColumTextPlate(
+                      key: "Blood Group",
+                      value: homeController.profileInfoModel.value.bladeGroup ??
+                          ""),
                 ],
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -347,24 +298,24 @@ class TeachProfileWidgets {
           Expanded(
             flex: 2,
             child: Text(key.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 14,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 14,
               )),
           2.width,
           Expanded(
             flex: 2,
             child: Text(value.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 16,
+                  fontSize: 14,
                 )),
           )
         ],
@@ -379,26 +330,26 @@ class TeachProfileWidgets {
       child: Row(
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Text(key.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 14,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 14,
               )),
           2.width,
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Text(value.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 16,
+                  fontSize: 14,
                 )),
           )
         ],

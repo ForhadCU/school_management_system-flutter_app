@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:school_management_system/Controller/TEACHER/examAttandence/exam_attandence_controller.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/TEACHER/examAttandence/widgets.dart';
 
@@ -14,16 +16,18 @@ class ExamAttendance extends StatelessWidget {
     return BaseWidget(
         title: "Exam Attendance",
         child: BaseWidgetChild(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ExamAttendanceWidgets.vTabBar(),
-                ExamAttendanceWidgets.vExamAttendanceTopbar(),
-                AppSpacing.sm.height,
-                ExamAttendanceWidgets.vExamAttendanceTable(),
-              ],
-            ),
+          child: Column(
+            children: [
+              // ExamAttendanceWidgets.vTabBar(),
+              ExamAttendanceWidgets.vExamAttendanceTopbar(),
+              AppSpacing.sm.height,
+              ExamAttendanceWidgets.vExamAttendanceTab(),
+              
+              /*  AppSpacing.md.height,
+              ExamAttendanceWidgets.vUpdateButton(), */
+            ],
           ),
         ));
+    // );
   }
 }

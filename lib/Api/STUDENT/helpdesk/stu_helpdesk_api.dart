@@ -14,7 +14,7 @@ class HelpdeskApi {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static Future<List<StuHelpDeskModel>> mGetStuHelpDeskModelList(
+  static Future<List<HelpDeskModel>> mGetStuHelpDeskModelList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuHelpDesk, payLoad, token);
@@ -23,11 +23,11 @@ class HelpdeskApi {
       print("Successfully read data");
       // print(res.body);
       return res.body['help_desk_list']
-          .map<StuHelpDeskModel>((e) => StuHelpDeskModel.fromMap(e))
+          .map<HelpDeskModel>((e) => HelpDeskModel.fromMap(e))
           .toList();
     } else {
       // return List<StuHelpDeskModel>();
-      return <StuHelpDeskModel>[];
+      return <HelpDeskModel>[];
     }
   }
 }

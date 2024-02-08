@@ -17,7 +17,7 @@ class ProfileWidgets {
   // codes start from here
   // All methods should be static to maintain singleton instances
   static final controller = StuProfileController.to;
-  static final StudentProfileInfoModel studentProfileInfoModel =
+  static final ProfileInfoModel studentProfileInfoModel =
       controller.stuProfileInfoModel.value;
 
   static Container _vPlainBlueBox({required Widget child}) {
@@ -35,12 +35,15 @@ class ProfileWidgets {
     return _vPlainBlueBox(
         child: Row(
       children: [
-        Image(
-          image: AssetImage(userLogin),
+        const Image(
+          image: AssetImage(
+            StudentAssetLocation.user,
+          ),
+          color: Colors.black45,
           // image: CachedNetworkImage(imageUrl: controller.stuProfileInfoModel.value.),
           width: 64,
-          height: 64,
-          fit: BoxFit.fill,
+          height: 70,
+          fit: BoxFit.cover,
         ),
         AppSpacing.md.width,
         Expanded(
@@ -67,7 +70,7 @@ class ProfileWidgets {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: AppColor.fontUsername,
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
               ],
@@ -79,14 +82,14 @@ class ProfileWidgets {
                   "UserName".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 Text(
                   " : ".toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 Expanded(
@@ -97,7 +100,7 @@ class ProfileWidgets {
                     softWrap: true,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -171,7 +174,9 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Father", value: studentProfileInfoModel.fatherName!),
+                  _vSingleColumTextPlate(
+                      key: "Father",
+                      value: studentProfileInfoModel.fatherName!),
                   _vSingleColumTextPlate(key: "Phone", value: ""),
                   _vSingleColumTextPlate(key: "Nid", value: ""),
                   _vSingleColumTextPlate(key: "Bcn", value: ""),
@@ -204,7 +209,9 @@ class ProfileWidgets {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Mother", value: studentProfileInfoModel.motherName!),
+                  _vSingleColumTextPlate(
+                      key: "Mother",
+                      value: studentProfileInfoModel.motherName!),
                   _vSingleColumTextPlate(key: "Phone", value: ""),
                   _vSingleColumTextPlate(key: "Nid", value: ""),
                   _vSingleColumTextPlate(key: "Bcn", value: ""),
@@ -349,14 +356,14 @@ class ProfileWidgets {
             child: Text(key.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 13,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 13,
               )),
           2.width,
           Expanded(
@@ -364,7 +371,7 @@ class ProfileWidgets {
             child: Text(value.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 16,
+                  fontSize: 13,
                 )),
           )
         ],
@@ -383,14 +390,14 @@ class ProfileWidgets {
             child: Text(key.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 13,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 13,
               )),
           2.width,
           Expanded(
@@ -398,7 +405,7 @@ class ProfileWidgets {
             child: Text(value.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 16,
+                  fontSize: 13,
                 )),
           )
         ],

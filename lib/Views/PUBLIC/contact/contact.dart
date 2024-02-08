@@ -17,15 +17,9 @@ class Contact extends StatelessWidget {
       onWillPop: () async {
         return true;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Contact Us",
-          ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-        ),
-        body: BaseWidgetChild(
+      child: BaseWidget(
+        title: "Contact Us",
+        child: BaseWidgetChild(
             child: SingleChildScrollView(
           child: Column(
             children: [

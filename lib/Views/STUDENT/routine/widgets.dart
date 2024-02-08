@@ -52,7 +52,7 @@ class RoutineWidgets {
                   color: AppColor.frenchSkyBlue100,
                   /*  decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: DropdownButton<StuPeriodicTypeModel>(
+                  child: DropdownButton<PeriodicTypeModel>(
                     // value: controller.academicGrpDropdownValue.value,
                     value: _controller.selectedPeriodicTypeModel.value,
                     icon: const Icon(Icons.keyboard_arrow_down),
@@ -65,13 +65,13 @@ class RoutineWidgets {
                     isExpanded: true,
                     underline: Container(),
                     // onChanged: (AcademicGroupModel? selectedModel) {
-                    onChanged: (StuPeriodicTypeModel? selectedModel) {
+                    onChanged: (PeriodicTypeModel? selectedModel) {
                       _controller.mUpdateSelectedPeriodicType(selectedModel);
                     },
                     items: /* <String>["Recent", "Older"] */
                         _controller.periodicTypeList
-                            .map((StuPeriodicTypeModel value) {
-                      return DropdownMenuItem<StuPeriodicTypeModel>(
+                            .map((PeriodicTypeModel value) {
+                      return DropdownMenuItem<PeriodicTypeModel>(
                         value: value,
                         child: Text(
                           value.typeName!,
@@ -99,14 +99,16 @@ class RoutineWidgets {
   static vRoutinePdf() {
     return Obx(() => _controller.isRoutineFound.value
         ? _controller.pdfFilePath.isEmpty
-            ? Container(/* 
+            ? Container(
+                /* 
                 alignment: Alignment.center,
                 height: AppScreenSize.mGetHeight(kGlobContext, 50),
                 child: Text(
                   "No Routine Found!",
                   style: kBody.copyWith(color: Colors.amber),
                 ),
-               */)
+               */
+                )
             : SizedBox(
                 height: AppScreenSize.mGetHeight(kGlobContext, 50),
                 width: double.infinity,

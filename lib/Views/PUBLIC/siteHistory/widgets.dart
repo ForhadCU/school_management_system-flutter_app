@@ -32,16 +32,15 @@ class AboutUsWidgets {
                         child: CachedNetworkImage(
                           imageUrl: AppData.eduWorldErpHostname +
                               controller.aboutUsData.value.image,
-                          width:
-                              AppScreenSize.mGetWidth(kGlobContext, 95),
-                          height:
-                              AppScreenSize.mGetWidth(kGlobContext, 35),
+                          width: AppScreenSize.mGetWidth(kGlobContext, 95),
+                          height: AppScreenSize.mGetWidth(kGlobContext, 35),
                           fit: BoxFit.fill,
                         ),
                       )
                     : Container(),
                 Html(
-                    data: controller.aboutUsData.value.description),
+                  data: controller.aboutUsData.value.description,
+                ),
               ],
             ),
           ));

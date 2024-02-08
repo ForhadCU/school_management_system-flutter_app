@@ -69,6 +69,7 @@ class AppColor {
   static const Color website = Color(0xff44A2F9);
   static const Color liveQuizBg = Color(0xffDAE0F1);
   static const Color quizAnsItemBg = Color(0xff8B93C9);
+  static const Color messages = Color.fromARGB(255, 2, 155, 33);
 
   static const Color paymentMethodCard = Color(0xffE1E7F5);
 

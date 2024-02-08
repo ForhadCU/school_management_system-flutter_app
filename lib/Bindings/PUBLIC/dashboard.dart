@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/home.dart';
-import 'package:school_management_system/Controller/login.dart';
+import 'package:school_management_system/Controller/login_controller.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 
 import '../../Controller/PUBLIC/notice_controller.dart';

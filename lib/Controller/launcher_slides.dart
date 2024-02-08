@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Utils/custom_statusbar.dart';
@@ -24,10 +25,16 @@ class LauncherSlidesController extends GetxController {
     sharedPrefarence = await SharedPreferences.getInstance();
     final currentUserToken = sharedPrefarence.getString(kToken);
     final currentSiteModel = sharedPrefarence.getString(kSiteListModel);
+    final currentUserType = sharedPrefarence.getString(kUserType);
+    // AppLocalDataFactory.mGetAcademicGroupModel();
 
     if (currentSiteModel != null) {
       if (currentUserToken != null) {
-        Get.offAllNamed(AppRoutes.dashboard);
+        if (currentUserType == student) {
+          Get.offAllNamed(AppRoutes.dashboard);
+        } else {
+          Get.offAllNamed(AppRoutes.teachDashboard);
+        }
       } else {
         Get.offAllNamed(AppRoutes.landing);
       }

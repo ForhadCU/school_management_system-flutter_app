@@ -75,6 +75,10 @@ class ApiEndpoint {
   static const String stuActiveQuizRoutineList =
       "/api/student/get-active-quiz-routine-list";
 
+  static const String stuMessage = "/api/student/get-student-message-list";
+
+  static const String academic_group_list_employee =
+      "/api/employee/get-academic-group-list";
   static const String academic_version_year_shift_list =
       "/api/employee/get-academic-version-year-shift-list";
   static const String version_year_shift_based_department_class =
@@ -82,10 +86,35 @@ class ApiEndpoint {
   static const String
       version_year_shift_based_section_or_class_group_session_by_class =
       "/api/employee/get-version-year-shift-based-section-or-class-group-session-by-class";
-       static const String
-      site_class_base_section =
+  static const String site_class_base_section =
       "/api/employee/get-site-class-base-section";
- static const String
-      site_class_base_group =
+  static const String site_class_base_group =
       "/api/employee/get-site-class-base-section";
+
+  static const String department_class_base_examination_list_by_employee =
+      "/api/employee/get-site-department-class-base-examination-list-by-employee";
+  static const String examination_base_subject_list_by_employee =
+      "/api/employee/get-site-examination-base-subject-list-by-employee";
+  static const String attendance_paper_list_by_employee =
+      "/api/employee/get-site-base-attendance-paper-list-by-employee";
+  static const String student_list_for_attendance_by_employ =
+      "/api/employee/get-site-student-list-for-attendance-by-employee";
+  static const String student_exam_attendance_submit_by_employee =
+      "/api/employee/site-student-exam-attendance-submit-by-employee";
+  static const String employee_base_student_marks_entry_list =
+      "/api/employee/get-site-employee-base-student-marks-entry-list";
+  static const String student_marks_entry_submit_by_employee =
+      "/api/employee/site-student-marks-entry-submit-by-employee";
+  static const String teach_period_type_list =
+      "/api/employee/get-period-type-list";
+  static const String employee_routine_report_pdf =
+      "/api/employee/get-employee-routine-report-pdf";
+  static const String employee_profile = "/api/employee/get-employee-profile";
+  static const String employee_helpdesk_list =
+      "/api/employee/get-employee-helpdesk-list";
+  static const String teachMessage = "/api/employee/get-employee-message-list";
+  
+  static const String teachPeriodList = "/api/employee/get-site-periodic-list";
+  static const String teachPeriodicAttend = "/api/employee/get-student-list-by-periodic-allocation";
+  static const String teachSavePeriodicAttend = "/api/employee/save-student-periodic-attendance";
 }

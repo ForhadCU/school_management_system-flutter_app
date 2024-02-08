@@ -13,7 +13,7 @@ class StuProfileController extends GetxController {
   /// variable declaration
   var token = "".obs;
   var siteListModel = SitelistModel().obs;
-  var stuProfileInfoModel = StudentProfileInfoModel().obs;
+  var stuProfileInfoModel = ProfileInfoModel().obs;
 
   @override
   void onInit() async {

@@ -20,8 +20,12 @@ class ExpandedNotice extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Notice Details"),
+          title: const Text(
+            "Notice Details",
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: AppColor.primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
           elevation: 0,
         ),
         body: BaseWidgetChild(

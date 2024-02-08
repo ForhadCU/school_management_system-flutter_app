@@ -11,6 +11,7 @@ class PayLoads {
   // All methods should be static to maStringain singleton instances
   static Map<String, dynamic> allNotice({
     required String api_access_key,
+    required String page,
     required String site_id,
     required String paginate,
     // String? research_txt,
@@ -25,6 +26,7 @@ class PayLoads {
   }) {
     return {
       "api_access_key": api_access_key,
+      "page": page,
       "site_id": site_id,
       "paginate": paginate,
       // "research_txt": research_txt,
@@ -157,12 +159,36 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> teachPeriodType({
+    required String api_access_key,
+    required String academic_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+    };
+  }
+
   static Map<String, dynamic> stuRoutinePdf({
     required String api_access_key,
     required String academic_period_type_id,
   }) {
     return {
       "api_access_key": api_access_key,
+      "academic_period_type_id": academic_period_type_id,
+    };
+  }
+
+  static Map<String, dynamic> teachRoutinePdf({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_year_id,
+    required String academic_period_type_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_year_id": academic_year_id,
       "academic_period_type_id": academic_period_type_id,
     };
   }
@@ -346,10 +372,12 @@ class PayLoads {
   static Map<String, dynamic> stuPreviewsQuizReportList({
     required String api_access_key,
     required String paginate,
+    required String page,
   }) {
     return {
       "api_access_key": api_access_key,
       "paginate": paginate,
+      "page": page,
     };
   }
 
@@ -371,6 +399,38 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> stuMessage(
+      {required String api_access_key,
+      required String paginate,
+      required String page}) {
+    return {
+      "api_access_key": api_access_key,
+      "paginate": paginate,
+      "page": page,
+    };
+  }
+
+  static Map<String, dynamic> teachMessage(
+      {required String api_access_key,
+      required String paginate,
+      required String academic_group_id,
+      required String page}) {
+    return {
+      "api_access_key": api_access_key,
+      "paginate": paginate,
+      "page": page,
+      "academic_group_id": academic_group_id,
+    };
+  }
+
+  static Map<String, dynamic> employAcademicGroupList({
+    required String api_access_key,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+    };
+  }
+
   static Map<String, dynamic> site_class_base_section({
     required String api_access_key,
     required String academic_group_id,
@@ -378,7 +438,7 @@ class PayLoads {
     required String academic_year_id,
     required String academic_shift_id,
     required String academic_class_id,
-    required String academic_department_id,
+    required String? academic_department_id,
     required String academic_class_group_id,
   }) {
     return {
@@ -393,6 +453,79 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> exanList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String? academic_department_id,
+    required String academic_class_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+      "academic_class_group_id": academic_class_group_id,
+    };
+  }
+
+  static Map<String, dynamic> examSubjectList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String? academic_department_id,
+    required String academic_class_group_id,
+    required String examination_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+      "academic_class_group_id": academic_class_group_id,
+      "examination_id": examination_id,
+    };
+  }
+
+  static Map<String, dynamic> examDistributionList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String? academic_department_id,
+    required String academic_class_group_id,
+    required String examination_id,
+    required String site_subject_group_condition_setting_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+      "academic_class_group_id": academic_class_group_id,
+      "examination_id": examination_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+    };
+  }
+
   static Map<String, dynamic> site_class_base_group({
     required String api_access_key,
     required String academic_group_id,
@@ -400,7 +533,7 @@ class PayLoads {
     required String academic_year_id,
     required String academic_shift_id,
     required String academic_class_id,
-    required String academic_department_id,
+    required String? academic_department_id,
   }) {
     return {
       "api_access_key": api_access_key,
@@ -421,7 +554,7 @@ class PayLoads {
     required String academic_year_id,
     required String academic_shift_id,
     required String academic_class_id,
-    required String academic_department_id,
+    required String? academic_department_id,
   }) {
     return {
       "api_access_key": api_access_key,
@@ -457,6 +590,138 @@ class PayLoads {
     return {
       "api_access_key": api_access_key,
       "academic_group_id": academic_group_id,
+    };
+  }
+
+  static Map<String, dynamic> examAttendanceList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String site_subject_group_condition_setting_id,
+    required String answer_paper_distribution_detail_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+      "answer_paper_distribution_detail_id":
+          answer_paper_distribution_detail_id,
+    };
+  }
+
+  static Map<String, dynamic> examAttendanceListSubmit({
+    required String api_access_key,
+    required String academic_group_id,
+    required String site_subject_group_condition_setting_id,
+    required String answer_paper_distribution_detail_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+      "answer_paper_distribution_detail_id":
+          answer_paper_distribution_detail_id,
+    };
+  }
+
+  static Map<String, dynamic> examMarkEntry({
+    required String api_access_key,
+    required String academic_group_id,
+    required String site_subject_group_condition_setting_id,
+    required String answer_paper_distribution_detail_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+      "answer_paper_distribution_detail_id":
+          answer_paper_distribution_detail_id,
+    };
+  }
+
+  static Map<String, dynamic> examMarkEntrySubmit({
+    required String api_access_key,
+    required String academic_group_id,
+    required String site_subject_group_condition_setting_id,
+    required String answer_paper_distribution_detail_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+      "answer_paper_distribution_detail_id":
+          answer_paper_distribution_detail_id,
+    };
+  }
+
+  static Map<String, dynamic> teachProfileInfo({
+    required String api_access_key,
+    required String academic_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+    };
+  }
+
+  static Map<String, dynamic> teachHelpDesk({
+    required String api_access_key,
+    required String academic_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+    };
+  }
+
+  static Map<String, dynamic> teachPeriodList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String att_date,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "att_date": att_date,
+    };
+  }
+
+  static Map<String, dynamic> teachPeriodicAttend({
+    required String api_access_key,
+    required String academic_group_id,
+    required String routine_allocation_id,
+    required String att_date,
+    required String present,
+    required String leave,
+    required String absent,
+    required String paginate,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "routine_allocation_id": routine_allocation_id,
+      "att_date": att_date,
+      "present": present,
+      "leave": leave,
+      "absent": absent,
+      "paginate": paginate,
+    };
+  }
+
+  static Map<String, dynamic> teachSavePeriodicAttend({
+    required String api_access_key,
+    required String academic_group_id,
+    required String routine_allocation_id,
+    required String att_date,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "routine_allocation_id": routine_allocation_id,
+      "att_date": att_date,
     };
   }
 }

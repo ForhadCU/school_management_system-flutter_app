@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Controller/student_library.dart';
-import 'package:school_management_system/Controller/teach_home.dart';
+import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
+import 'package:school_management_system/Model/PUBLIC/login/academic_group_model.dart';
 
 import '../../../Config/config.dart';
 import '../../../Controller/TEACHER/home/home_controller.dart';
+import '../../../Model/TEACHER/version_year_shift_model.dart';
 import '../../../Routes/app_pages.dart';
 import '../../../Utils/utils.dart';
 import '../../Widgets/buttons.dart';
@@ -20,7 +22,7 @@ class TeachHomeWidgets {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static final controller = TeachHomeController.to;
+  static final _controller = TeachHomeController.to;
   static Widget vBody() {
     return Column(
       children: [
@@ -51,15 +53,18 @@ class TeachHomeWidgets {
                         bgColor: AppColor.attendance,
                         label: "Exam Attendance".toUpperCase()))),
             Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.website),
-                        iconLoc: StudentAssetLocation.website,
-                        // bgColor: AppColor.red.shade100,
-                        // iconColor: AppColor.red,
-                        bgColor: AppColor.website,
-                        label: "Website".toUpperCase()))),
+              child: Align(
+                alignment: Alignment.center,
+                child: _vIconButton(
+                    onTap: () => Get.toNamed(AppRoutes.teachRoutine),
+                    iconLoc: StudentAssetLocation.my_routine,
+                    // bgColor: AppColor.purple.shade100,
+                    bgColor: AppColor.my_routine,
+                    // iconColor: AppColor.purple,
+                    label: "My routine".toUpperCase()),
+              ),
+            ),
+
             /*  Expanded(
                 child: _vIconButton(
                     onTap: () async {
@@ -219,12 +224,52 @@ class TeachHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.helpdesk),
+                        onTap: () => Get.toNamed(AppRoutes.website),
+                        iconLoc: StudentAssetLocation.website,
+                        // bgColor: AppColor.red.shade100,
+                        // iconColor: AppColor.red,
+                        bgColor: AppColor.website,
+                        label: "Website".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.teachHelpdesk),
                         iconLoc: StudentAssetLocation.help_desk,
                         // bgColor: AppColor.amber.shade100,
                         bgColor: AppColor.log_out,
                         // iconColor: AppColor.amber,
                         label: "Help Desk".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.teachPeriodicAttnd);
+                        },
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.attendance,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.attendance,
+                        // iconColor: AppColor.amber,
+                        label: "Periodic Attendance".toUpperCase()))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.teachMessage),
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.message_ic,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.messages,
+                        // iconColor: AppColor.amber,
+                        label: "Messages".toUpperCase()))),
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -280,7 +325,7 @@ class TeachHomeWidgets {
           Text(
             label,
             style: kBody.copyWith(fontSize: 11),
-            overflow: TextOverflow.clip,
+            overflow: TextOverflow.ellipsis,
           )
         ],
       ),
@@ -288,77 +333,195 @@ class TeachHomeWidgets {
   }
 
   static Widget vEndDrawer() {
-    return Drawer(
-        backgroundColor: AppColor.secondaryColor,
-        child: ListView.separated(
-          itemCount: controller.drawerItems.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () =>
-                    controller.mNavigateTo(controller.drawerItems[index]),
-                child: Container(
-                  child: controller.drawerItems.length - 1 == index
-                      ? InkWell(
-                          onTap: () {
-                            Get.back();
-                            vLogoutDialog();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: AppSpacing.md,
-                                horizontal: AppSpacing.sm),
+    return Obx(() => Drawer(
+        backgroundColor: AppColor.inactiveTab,
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      // width: AppScreenSize.mGetWidth(kGlobContext, 10),
+                      // height: AppScreenSize.mGetHeight(kGlobContext, 10),
+                      margin: EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: Image(
+                        image: AssetImage(StudentAssetLocation.user),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${_controller.profileInfoModel.value.firstName} ${_controller.profileInfoModel.value.lastName}",
+                            style: kBody.copyWith(
+                                color: const Color.fromARGB(255, 2, 2, 2),
+                                fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 4),
                             decoration: BoxDecoration(
-                                gradient: AppColor.kVerticalCovexGradiant),
-                            child: Row(
-                              children: [
-                                const Image(
-                                  image:
-                                      AssetImage(StudentAssetLocation.logout),
-                                  width: 14,
-                                  height: 14,
-                                ),
-                                AppSpacing.sm.width,
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.centerLeft,
-                                    width: double.infinity,
-                                    child: Text(
-                                      controller.drawerItems[index]
-                                          .toUpperCase(),
-                                      style: kSubTitle.copyWith(
-                                          color: AppColor.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                )
-                              ],
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(2)),
+                            child: Text(
+                              _controller.designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                        )
-                      : Container(
-                          alignment: Alignment.centerLeft,
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.md,
-                              horizontal: AppSpacing.sm),
-                          decoration: BoxDecoration(
-                              gradient: AppColor.kVerticalCovexGradiant),
-                          child: Text(
-                            controller.drawerItems[index].toUpperCase(),
-                            style: kTitleLite.copyWith(
-                                color: AppColor.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                ));
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              color: AppColor.kGray700,
-              height: 1,
-            );
-          },
-        ));
+                          AppSpacing.smh.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.inactiveTab,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: DropdownButton<AcademicGroup>(
+                              // child: DropdownButton<String>(
+                              value: _controller.selectedAcademicGroup.value,
+
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 12,
+                              elevation: 10,
+                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                              focusColor: AppColor.white,
+                              dropdownColor: AppColor.inactiveTab,
+                              isDense: true,
+                              isExpanded: true,
+                              underline: Container(),
+                              onChanged: (AcademicGroup? selectedModel) {
+                                _controller.mChangeSelectedAcademicGroup(
+                                    selectedModel);
+                              },
+
+                              items: _controller.academicGroupList
+                                  .map((AcademicGroup value) {
+                                return DropdownMenuItem<AcademicGroup>(
+                                  value: value,
+                                  child: Text(
+                                    value.academicGroupName ?? "",
+                                    style: kBody.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            ListView.separated(
+              itemCount: _controller.drawerItems.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                    onTap: () => _controller
+                        .mNavigateTo(_controller.drawerItems[index]["name"]!),
+                    child: Container(
+                      child: _controller.drawerItems.length - 1 == index
+                          ? InkWell(
+                              onTap: () {
+                                Get.back();
+                                vLogoutDialog();
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: AppSpacing.md,
+                                    horizontal: AppSpacing.sm),
+                                decoration: BoxDecoration(
+                                    // gradient: AppColor.kVerticalCovexGradiant
+                                    color: AppColor.activeTab),
+                                child: Row(
+                                  children: [
+                                    Image(
+                                      image: AssetImage(_controller
+                                          .drawerItems[index]["iconUri"]!),
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                                    AppSpacing.sm.width,
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        width: double.infinity,
+                                        child: Text(
+                                          _controller.drawerItems[index]
+                                                  ["name"]!
+                                              .toUpperCase(),
+                                          style: kSubTitle.copyWith(
+                                              color: AppColor.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: AppSpacing.md,
+                                  horizontal: AppSpacing.sm),
+                              decoration: BoxDecoration(
+                                  // gradient: AppColor.kVerticalCovexGradiant),
+                                  color: AppColor.activeTab),
+                              child: Row(
+                                children: [
+                                  Image(
+                                    image: AssetImage(_controller
+                                        .drawerItems[index]["iconUri"]!),
+                                    width: 16,
+                                    height: 16,
+                                    color: Colors.white,
+                                  ),
+                                  AppSpacing.sm.width,
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      width: double.infinity,
+                                      child: Text(
+                                        _controller.drawerItems[index]["name"]!
+                                            .toUpperCase(),
+                                        style: kSubTitle.copyWith(
+                                            color: AppColor.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                    ));
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  color: Colors.transparent,
+                  height: 1,
+                );
+              },
+            ),
+          ],
+        )));
   }
 
   static void vLogoutDialog() {
@@ -413,7 +576,7 @@ class TeachHomeWidgets {
                     AppSpacing.xxl.width,
                     ElevatedButton(
                         onPressed: () async {
-                          await controller.mLogutUser();
+                          await _controller.mLogutUser();
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.red,

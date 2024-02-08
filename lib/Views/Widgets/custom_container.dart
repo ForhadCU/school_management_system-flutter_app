@@ -32,6 +32,7 @@ class CommonContainers {
           ),
           child: Text(
             text,
+            overflow: TextOverflow.ellipsis,
             style: kBody.copyWith(
               fontWeight: FontWeight.bold,
               color: AppColor.white,

@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
 import 'package:school_management_system/Model/STUDENT/quiz/quiz_info_model.dart';
 import 'package:school_management_system/Model/STUDENT/quiz/quiz_questions_model.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 
 import '../../../Config/config.dart';
+import '../../../Model/STUDENT/quiz/quiz_result.dart';
 import '../../../Model/response_model.dart';
 import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/utils.dart';
@@ -35,6 +37,32 @@ class QuizApis {
       kLog("mGetQuizInfo status code is: ${res.statusCode}");
       showError("Server failure");
       return QuizInfoModel();
+    }
+  }
+
+  static Future<StuQuizResultModel> mGetQuizReportList(
+      Map<String, dynamic> payLoad, token) async {
+    ResponseModel res = await CallAPI.getStudentData(
+        ApiEndpoint.stuPreviewsQuizReportList, payLoad, token);
+    if (res.statusCode == 200) {
+      // kLogger.d(res.body[StuQuizResultModel.getParentJsonKey]);
+
+      if (res.body[StuQuizResultModel.getParentJsonKey] != null) {
+        kLog("Successfully fetch mGetQuizReportList data");
+        StuQuizResultModel stuQuizResultModel = StuQuizResultModel.fromMap(
+            res.body[StuQuizResultModel.getParentJsonKey]);
+        stuQuizResultModel.isBlank!
+            ? {kLog("Empty Result")}
+            : {kLog("Not Empty Result")};
+        return stuQuizResultModel;
+      } else {
+        return StuQuizResultModel();
+      }
+      // return QuizInfoModel();
+    } else {
+      kLog("mGetQuizReportList status code is: ${res.statusCode}");
+      showError("Server failure");
+      return StuQuizResultModel();
     }
   }
 

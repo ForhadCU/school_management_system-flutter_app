@@ -1,36 +1,38 @@
 import 'dart:convert';
 
-class StuPeriodicTypeModel {
-    final int? id;
-    final String? typeName;
+class PeriodicTypeModel {
+  final int? id;
+  final String? typeName;
 
   static String get getDataListJsonKey => "academic_period_type_list";
 
-    StuPeriodicTypeModel({
-        this.id,
-        this.typeName,
-    });
+  PeriodicTypeModel({
+    this.id,
+    this.typeName,
+  });
 
-    StuPeriodicTypeModel copyWith({
-        int? id,
-        String? typeName,
-    }) => 
-        StuPeriodicTypeModel(
-            id: id ?? this.id,
-            typeName: typeName ?? this.typeName,
-        );
+  PeriodicTypeModel copyWith({
+    int? id,
+    String? typeName,
+  }) =>
+      PeriodicTypeModel(
+        id: id ?? this.id,
+        typeName: typeName ?? this.typeName,
+      );
 
-    factory StuPeriodicTypeModel.fromJson(String str) => StuPeriodicTypeModel.fromMap(json.decode(str));
+  factory PeriodicTypeModel.fromJson(String str) =>
+      PeriodicTypeModel.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory StuPeriodicTypeModel.fromMap(Map<String, dynamic> json) => StuPeriodicTypeModel(
+  factory PeriodicTypeModel.fromMap(Map<String, dynamic> json) =>
+      PeriodicTypeModel(
         id: json["id"],
         typeName: json["type_name"],
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "type_name": typeName,
-    };
+      };
 }

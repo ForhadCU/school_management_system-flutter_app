@@ -117,7 +117,7 @@ class SearchSchoolWidget {
               return SchoolResultListItem(
                   onTap: () {
                     _controller.mSetSiteListModel(sitelistModel);
-                    Get.offAllNamed(AppRoutes.landing);
+                   
                   },
                   imageUri: AppData.eduWorldTheworldHostname +
                       sitelistModel.siteLogo!,

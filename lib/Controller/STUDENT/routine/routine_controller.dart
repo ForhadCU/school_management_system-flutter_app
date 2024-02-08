@@ -17,8 +17,8 @@ import '../../../Utils/utils.dart';
 class StuRoutineController extends GetxController {
   static StuRoutineController get to => Get.find();
 
-  var periodicTypeList = <StuPeriodicTypeModel>[].obs;
-  var selectedPeriodicTypeModel = Rxn(StuPeriodicTypeModel());
+  var periodicTypeList = <PeriodicTypeModel>[].obs;
+  var selectedPeriodicTypeModel = Rxn(PeriodicTypeModel());
 
   RxString token = "".obs;
   // RxString pageOrientation = PageOrientation.portrait.obs;
@@ -42,7 +42,7 @@ class StuRoutineController extends GetxController {
     super.onClose();
   }
 
-  mChangeResultTypeDropdownValue(StuPeriodicTypeModel value) {
+  mChangeResultTypeDropdownValue(PeriodicTypeModel value) {
     selectedPeriodicTypeModel.value = value;
   }
 
@@ -222,7 +222,7 @@ class StuRoutineController extends GetxController {
   */
   }
 
-  void mUpdateSelectedPeriodicType(StuPeriodicTypeModel? selectedModel) {
+  void mUpdateSelectedPeriodicType(PeriodicTypeModel? selectedModel) {
     selectedPeriodicTypeModel.value = selectedModel;
   }
 

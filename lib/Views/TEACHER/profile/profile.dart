@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/STUDENT/profile/widgets.dart';
+import 'package:school_management_system/Views/TEACHER/profile/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../home/widgets.dart';
@@ -13,24 +14,23 @@ class TeachProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Profile"),
+          title: const Text("My Profile", style: TextStyle(color: Colors.white),),
           elevation: 0,
-          backgroundColor: AppColor.white,
+          backgroundColor: AppColor.primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         endDrawer: TeachHomeWidgets.vEndDrawer(),
         body: BaseWidgetChild(
           child: SingleChildScrollView(
             child: Column(
-              children: [/* 
-                ProfileWidgets.vYourInfo(),
+              children: [
+                TeachProfileWidgets.vYourInfo(),
                 AppSpacing.xl.height,
-                ProfileWidgets.vAcademicInfo(),
+                TeachProfileWidgets.vAcademicInfo(),
                 AppSpacing.md.height,
-                ProfileWidgets.vParentsInfo(),
+                TeachProfileWidgets.vPersonalInfo(),
                 AppSpacing.md.height,
-                ProfileWidgets.vGaurdianInfo(),
-                AppSpacing.md.height,
-              */ ],
+              ],
             ),
           ),
         ));

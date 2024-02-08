@@ -13,17 +13,21 @@ class ExamMarksEntry extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         M m = M(constraints);
-        return BaseWidget(title: "Exam Marks Entry",
+        return BaseWidget(
+            title: "Exam Marks Entry",
             // endDrawer: TeachHomeWidgets.vEndDrawer(),
             child: BaseWidgetChild(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ExamMarksEntryWidgets.vTabBar(),
-                    ExamMarksEntryWidgets.vSubjectBasedMarkEntry(),
-                    // ExamMarksEntryWidgets.vStudentBasedMarkEntry(),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  // ExamMarksEntryWidgets.vTabBar(),
+                  ExamMarksEntryWidgets.vSubjectBasedMarkEntry(),
+                  /*   ExamMarksEntryWidgets.vSubjectBasedMarksEntryTopbar(),
+        AppSpacing.md.height,
+        ExamMarksEntryWidgets.vSubjectBasedMarksEntryTable(),
+        AppSpacing.sm.height,
+         ExamMarksEntryWidgets.vUpdateBtn(), */
+                  // ExamMarksEntryWidgets.vStudentBasedMarkEntry(),
+                ],
               ),
             ));
       },

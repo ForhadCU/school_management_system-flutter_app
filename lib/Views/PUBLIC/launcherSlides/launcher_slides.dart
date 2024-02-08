@@ -33,7 +33,7 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
       height: isCurrentPage ? 10.0 : 6.0,
       width: isCurrentPage ? 10.0 : 6.0,
       decoration: BoxDecoration(
-        color: isCurrentPage ? AppColor.orange800 : AppColor.orange300,
+        color: isCurrentPage ? const Color.fromARGB(255, 87, 84, 81) : AppColor.orange300,
         borderRadius: BorderRadius.circular(12),
       ),
     );

@@ -15,7 +15,7 @@ class RoutineApis {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static Future<List<StuPeriodicTypeModel>> mGetPeriodicTypeList(
+  static Future<List<PeriodicTypeModel>> mGetPeriodicTypeList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuPeriodType, payLoad, token);
@@ -24,19 +24,19 @@ class RoutineApis {
       kLog("Successfully read mGetPeriodicTypeList data");
       // kLog(res.body[StuHistoryModel.getDataListJsonKey]);
 
-      return res.body[StuPeriodicTypeModel.getDataListJsonKey]
-          .map<StuPeriodicTypeModel>((e) => StuPeriodicTypeModel.fromMap(e))
+      return res.body[PeriodicTypeModel.getDataListJsonKey]
+          .map<PeriodicTypeModel>((e) => PeriodicTypeModel.fromMap(e))
           .toList();
     } else {
       //  return List<StuHistoryModel>();
-      return <StuPeriodicTypeModel>[];
+      return <PeriodicTypeModel>[];
     }
   }
 
   static Future<Uint8List?> mGetRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
     ///////get request hobe//////
-    ResponseModel res = await CallAPI.getStudentRoutineData(
+    ResponseModel res = await CallAPI.getRoutineData(
         ApiEndpoint.stuRoutinePdf, payLoad, token, true);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {

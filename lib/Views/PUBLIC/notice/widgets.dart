@@ -7,6 +7,7 @@ import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
+import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_textfield.dart';
 
 class NoticeWidgets {
@@ -20,33 +21,43 @@ class NoticeWidgets {
   // All methods should be static to maintain singleton instances
   static final controller = NoticeController.to;
 
-  static Widget vNoticeList() {
-    return Obx(() => ListView.separated(
-          shrinkWrap: true,
-          itemCount: controller.noticeApiModel.value.data == null
-              ? 0
-              : controller.noticeApiModel.value.data!.length,
-          itemBuilder: (context, index) {
-            final data = controller.noticeApiModel.value.data![index];
-            return _vNoticeCard(
-                title: data.noticeTitle!,
-                desc: data.noticeDescription!,
-                date: Utils().getTimeFromTimeStamp(
-                    data.createdAt.toString(), kAppDateFormatWithTime12),
-                color: AppColor.kNoticeListColorPlate[
-                    index % (AppColor.kNoticeListColorPlate.length)],
-                onTap: () {
-                  controller.mUpdateClickedNoticeModel(data);
-                  print("clicked: $index");
-                  Get.toNamed(AppRoutes.expandedNotice);
-                });
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              color: Colors.white,
-            );
-          },
-        ));
+  static vNoticeList() {
+    return Obx(() => controller.noticeApiModel.value.data == null ||
+            controller.noticeApiModel.value.data!.isEmpty
+        ? Container(
+            alignment: Alignment.center,
+            child: Text(
+              "No notice found!",
+              style: kBody.copyWith(color: Colors.amber),
+            ),
+          )
+        : ListView.separated(
+            controller: controller.noticeListScrollCntrlr.value,
+            shrinkWrap: true,
+            itemCount: controller.noticeApiModel.value.data == null
+                ? 0
+                : controller.noticeList.length,
+            itemBuilder: (context, index) {
+              final data = controller.noticeList[index];
+              return _vNoticeCard(
+                  title: data.noticeTitle!,
+                  desc: data.noticeDescription!,
+                  date: Utils().getTimeFromTimeStamp(
+                      data.createdAt.toString(), kAppDateFormatWithTime12),
+                  color: AppColor.kNoticeListColorPlate[
+                      index % (AppColor.kNoticeListColorPlate.length)],
+                  onTap: () {
+                    controller.mUpdateClickedNoticeModel(data);
+                    print("clicked: $index");
+                    Get.toNamed(AppRoutes.expandedNotice);
+                  });
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(
+                color: Colors.white,
+              );
+            },
+          ));
   }
 
   static Widget _vNoticeCard(
@@ -55,67 +66,44 @@ class NoticeWidgets {
       required String date,
       required Color color,
       required Function onTap}) {
-    return Container(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: kContainerPrimary.copyWith(
-          color: color.withOpacity(.15),
-        ),
-        child: StaggeredGrid.count(
-          crossAxisCount: 7,
-          children: [
-            StaggeredGridTile.fit(
-                crossAxisCellCount: 6,
-                child: _vLeftPart(title, desc, color, () {
-                  onTap();
-                }, date)),
-            StaggeredGridTile.fit(crossAxisCellCount: 1, child: _vDownload()),
-          ],
-        ));
-  }
-
-  Widget _vDropdown(NoticeController controller) {
-    return Obx(
-      () => DropdownButton<String>(
-        value: controller.dropdownValue.value,
-        icon: const Icon(Icons.arrow_drop_down),
-        iconSize: 12,
-        elevation: 10,
-        // style: kBody.copyWith(fontWeight: FontWeight.w500),
-        focusColor: AppColor.white,
-        dropdownColor: Colors.white,
-        isDense: true,
-        underline: Container(
-          height: 2,
-          color: Colors.white,
-        ),
-        onChanged: (String? newValue) {
-          controller.mUpdateDropdownValue(newValue!);
-        },
-        items: <String>["Recent", "Older"]
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(
-              value,
-              style: kBody.copyWith(fontWeight: FontWeight.w500),
-            ),
-          );
-        }).toList(),
-      ),
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: kContainerPrimary.copyWith(
+            color: color.withOpacity(.15),
+          ),
+          child: StaggeredGrid.count(
+            crossAxisCount: 7,
+            children: [
+              StaggeredGridTile.fit(
+                  crossAxisCellCount: 6,
+                  child: _vLeftPart(title, desc, color, () {
+                    onTap();
+                  }, date)),
+              StaggeredGridTile.fit(
+                  crossAxisCellCount: 1,
+                  child: _vGoInside(() {
+                    onTap();
+                  }, color) /* _vDownload() */),
+            ],
+          )),
     );
   }
 
-  static Widget vTopbar(NoticeController controller) {
+  static Widget vTopbar() {
     return Container(
       padding: const EdgeInsets.symmetric(
-          vertical: AppSpacing.md / 2, horizontal: AppSpacing.md),
+          vertical: AppSpacing.md, horizontal: AppSpacing.sm),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8), color: AppColor.primaryColor),
+          borderRadius: BorderRadius.circular(8), color: AppColor.activeTab),
       alignment: Alignment.centerLeft,
       child: StaggeredGrid.count(
         crossAxisCount: 7,
         crossAxisSpacing: AppSpacing.sm,
-        mainAxisSpacing: AppSpacing.sm + 2,
+        mainAxisSpacing: AppSpacing.md,
         children: [
           StaggeredGridTile.fit(
             crossAxisCellCount: 1,
@@ -143,7 +131,9 @@ class NoticeWidgets {
                   color: AppColor.topaz,
                   borderRadius: BorderRadius.circular(5)),
               child: Obx(() => GestureDetector(
-                    onTap: () => controller.mSelectDateFrom(),
+                    onTap: () async {
+                      await controller.mSelectDateFrom();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -182,7 +172,9 @@ class NoticeWidgets {
                   color: AppColor.topaz,
                   borderRadius: BorderRadius.circular(5)),
               child: Obx(() => GestureDetector(
-                    onTap: () => controller.mSelectDateTo(),
+                    onTap: () async {
+                      await controller.mSelectDateTo();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -202,7 +194,12 @@ class NoticeWidgets {
                   )),
             ),
           ),
+
+          /// Searchbar
           StaggeredGridTile.fit(
+            crossAxisCellCount: 7,
+            child: _vGetResultBtn(),
+          ) /*   StaggeredGridTile.fit(
             crossAxisCellCount: 7,
             child: CustomTextField(
               style: kBody,
@@ -211,8 +208,8 @@ class NoticeWidgets {
                 horizontal: AppSpacing.sm,
               ),
               prefixIcon: Container(
-                alignment: Alignment.centerLeft,
-                width: 64,
+                alignment: Alignment.center,
+                width: 80,
                 margin: const EdgeInsets.only(right: AppSpacing.sm),
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                 decoration: const BoxDecoration(
@@ -229,9 +226,19 @@ class NoticeWidgets {
                 color: AppColor.kGray500,
               ),
             ),
-          )
+          ) */
         ],
       ),
+    );
+  }
+
+  static _vGetResultBtn() {
+    return AppButtons.vPrimaryButtonWithGradient(
+      onTap: () async {
+        controller.mResetList();
+        await controller.mGetNoticesInRange();
+      },
+      text: "Get",
     );
   }
 
@@ -243,7 +250,8 @@ class NoticeWidgets {
       },
       child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,14 +269,15 @@ class NoticeWidgets {
                       onTap();
                     },
                     controller: TextEditingController(text: title),
-                    maxLines: 3,
-                    style: kTitle.copyWith(
+                    maxLines: 1,
+                    style: kBody.copyWith(
                       fontWeight: FontWeight.w500,
                       color: color,
                     ),
                     readOnly: true,
                     textAlign: TextAlign.left,
                     decoration: const InputDecoration(
+                        isDense: true,
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.all(0)),
                   ),
@@ -299,7 +308,7 @@ class NoticeWidgets {
                     Text(
                       date,
                       style: kBody.copyWith(
-                          fontWeight: FontWeight.w500, color: color),
+                          fontWeight: FontWeight.w300, color: color),
                     ),
                     /* (AppSpacing.smh).width,
                     Text(
@@ -320,7 +329,26 @@ class NoticeWidgets {
     return const Icon(
       Icons.download,
       color: AppColor.dollarBill,
-      size: 48,
+      size: 32,
+    );
+  }
+
+  static _vGoInside(Null Function() onTap, Color icColor) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Icon(
+            Icons.arrow_forward_ios,
+            color: icColor.withOpacity(.4),
+            // color: AppColor.activeTab,
+            size: 24,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -13,7 +13,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("My Profile"),
+          title: const Text(
+            "My Profile",
+            style: TextStyle(color: Colors.white),
+          ),
           elevation: 0,
           backgroundColor: AppColor.primaryColor,
           iconTheme: IconThemeData(color: Colors.white),

@@ -12,33 +12,57 @@ import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 
+import '../../Api/STUDENT/notice/notice_api.dart';
+import '../../Utils/utils.dart';
+
 class NoticeController extends GetxController {
   static NoticeController get to => Get.find();
 
   var dropdownValue = Rxn<String>();
-  var dateFrom = DateTime.now().obs;
-  var dateTo = DateTime.now().subtract(Duration(days: 7)).obs;
+  var dateTo = DateTime.now().obs;
+  var dateFrom = DateTime.now().subtract(const Duration(days: 7)).obs;
   var numOfNoticesInRange = 0.obs;
   Rx<NoticeApiModel> noticeApiModel = NoticeApiModel().obs;
+  var noticeList = <Datum>[].obs;
   var siteListModel = SitelistModel().obs;
   var initialPagination = 10;
   Rx<Datum> clickedNoticeModel = Datum().obs;
+  var token = Rxn<String>();
+  var noticeListScrollCntrlr = ScrollController().obs;
+  var pageNumber = 1.obs;
 
   @override
   void onInit() async {
-    // TODO: implement onInit
     super.onInit();
-    _mInitialization();
+    /*  _mInitialization();
+     */
+    await _mInitialization();
     await mGetNoticesInRange();
+    noticeListScrollCntrlr.value.addListener(() {
+      if (noticeListScrollCntrlr.value.offset ==
+          noticeListScrollCntrlr.value.position.maxScrollExtent) {
+        if (noticeApiModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(noticeApiModel.value.currentPage!);
+          /*  pageNumber.value =  */ pageNumber.value++;
+          mGetNoticesInRange();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
   }
 
   void mUpdateDropdownValue(String s) {
     dropdownValue.value = s;
   }
 
-  void _mInitialization() {
-    siteListModel.value = LandingController.to.siteListModel.value;
-    print("siteListModel: ${siteListModel.value.id}");
+  _mInitialization() async {
+    token.value = await AppLocalDataFactory.mGetToken();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+    print("Current userid is: ${siteListModel.value.id}");
   }
 
   String mGetFormatDate(dynamic dateFrom) {
@@ -46,25 +70,35 @@ class NoticeController extends GetxController {
     return Utils().getTimeFromTimeStamp(dateFrom.toString(), kAppDateFormat);
   }
 
+  String mGetFormatDateForApi(dynamic date) {
+    return Utils().getTimeFromTimeStamp(date.toString(), kApiDateFormat);
+  }
+
   mGetNoticesInRange() async {
-    noticeApiModel.value = await NoticeApi.mGetNoticeApiModeldata(
+    kLog("Date From: ${mGetFormatDate(dateFrom)}");
+    kLog("Date to: ${mGetFormatDate(dateTo)}");
+    noticeApiModel.value = await StuNoticeApi.mGetNoticeApiModeldata(
         PayLoads.allNotice(
             api_access_key: AppData.api_access_key,
+            page: pageNumber.value.toString(),
             site_id: siteListModel.value.id!.toString(),
             paginate: initialPagination.toString(),
             date_range: jsonEncode(PayLoads.dateRange(
-                start: mGetFormatDate(dateFrom), end: mGetFormatDate(dateTo))),
+                start: mGetFormatDateForApi(dateFrom),
+                end: mGetFormatDateForApi(dateTo))),
             status: 1.toString()));
-    numOfNoticesInRange.value = noticeApiModel.value.data == null
-        ? 0
-        : noticeApiModel.value.data!.length;
+
+    if (noticeApiModel.value.data != null) {
+      noticeList.addAll(noticeApiModel.value.data!);
+      numOfNoticesInRange.value = noticeList.length;
+    }
   }
 
   mSelectDateFrom() async {
     DateTime? pickedDate = await showDatePicker(
       context: kGlobContext,
       initialDate: dateFrom.value,
-      firstDate: DateTime.now().subtract(Duration(days: 364)),
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
       lastDate: DateTime.now(),
     );
 
@@ -77,7 +111,7 @@ class NoticeController extends GetxController {
     DateTime? pickedDate = await showDatePicker(
       context: kGlobContext,
       initialDate: dateTo.value,
-      firstDate: DateTime.now().subtract(Duration(days: 364)),
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
       lastDate: DateTime.now(),
     );
 
@@ -88,5 +122,11 @@ class NoticeController extends GetxController {
 
   void mUpdateClickedNoticeModel(Datum data) {
     clickedNoticeModel.value = data;
+  }
+
+  void mResetList() {
+    noticeList.clear();
+    pageNumber.value = 1;
+    numOfNoticesInRange.value = 0;
   }
 }

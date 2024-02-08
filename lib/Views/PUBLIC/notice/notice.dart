@@ -17,23 +17,17 @@ class Notice extends StatelessWidget {
   Widget build(BuildContext context) {
     NoticeController controller = Get.find();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Notice Board"),
-          elevation: 0,
-          backgroundColor: AppColor.white,
-        ),
-        body: BaseWidgetChild(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            NoticeWidgets.vTopbar(controller),
-            AppSpacing.xl.height,
-            Expanded(child: NoticeWidgets.vNoticeList())
-          ],
-        )),
-      ),
+    return BaseWidget(
+      title: "Notice Board",
+      child: BaseWidgetChild(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          NoticeWidgets.vTopbar(),
+          AppSpacing.xl.height,
+          Expanded(child: NoticeWidgets.vNoticeList())
+        ],
+      )),
     );
   }
 }

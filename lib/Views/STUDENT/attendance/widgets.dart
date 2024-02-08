@@ -30,7 +30,7 @@ class StuAttendanceWidgets {
               vertical: AppSpacing.md, horizontal: AppSpacing.sm),
           decoration: const BoxDecoration(
               // borderRadius: BorderRadius.circular(8),
-              color: AppColor.primaryColor),
+              color: AppColor.activeTab),
           child: Column(
             children: [
               Container(
@@ -180,14 +180,7 @@ class StuAttendanceWidgets {
   }
 
   static vDailyAttendanceTable() {
-    List list = [
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-    ];
+ 
     return Obx(() => _controller.stuAttendanceList.value == null
         ? Container(
             alignment: Alignment.center,
@@ -454,7 +447,7 @@ class StuAttendanceWidgets {
     );
   }
 
-  static vPeriodicAttendanceTopbar() {
+  static vPeriodicAttendanceTopbar() {   
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

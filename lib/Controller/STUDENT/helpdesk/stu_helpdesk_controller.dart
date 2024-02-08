@@ -16,7 +16,7 @@ class HelpDeskController extends GetxController {
   /// variable declaration
   var token = "".obs;
   var siteListModel = SitelistModel().obs;
-  var stuHelpdeskModelList = <StuHelpDeskModel>[].obs;
+  var stuHelpdeskModelList = <HelpDeskModel>[].obs;
   var clickedEduSiteHelpDeskSetting = EduSiteHelpDeskSetting().obs;
   late Rx<YoutubePlayerController> youtubePlayerController;
 

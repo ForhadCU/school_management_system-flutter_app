@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/login.dart';
+import 'package:school_management_system/Controller/login_controller.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';

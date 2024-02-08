@@ -39,7 +39,7 @@ class ContactWidget {
       child: Column(
         children: [
           vTextFieldWithIcon(
-            text: controller.siteListModel.value.address.toString(),
+            text:  controller.siteListModel.value.address.toString(),
             icon: Icon(
               Icons.location_pin,
               size: 24,
@@ -86,13 +86,13 @@ class ContactWidget {
             controller.siteListModel.value.youtubeLink),
         _vSitebox(PublicAssetLocation.ic_web, Color(0xff667FB5),
             controller.siteListModel.value.googleLink),
-        _vSitebox(PublicAssetLocation.ic_whatsapp, Color(0xff6FC556), ""),
-        _vSitebox(PublicAssetLocation.ic_google, Color.fromARGB(255, 179, 179, 179), ""),
+        _vSitebox(PublicAssetLocation.ic_whatsapp, Color(0xff6FC556), null),
+        _vSitebox(PublicAssetLocation.ic_google, Color.fromARGB(255, 179, 179, 179), null),
       ],
     );
   }
 
-  _vSitebox(String imageLoc, Color bgColor, String url) {
+  _vSitebox(String imageLoc, Color bgColor, String? url) {
     return Container(
       width: AppScreenSize.mGetWidth(kGlobContext, 14),
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),

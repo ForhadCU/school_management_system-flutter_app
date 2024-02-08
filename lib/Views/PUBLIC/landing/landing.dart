@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/PUBLIC/landing_controller.dart';
@@ -23,10 +26,24 @@ class Landing extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.white,
+        actions: [
+          IconButton(
+            // size: 24,
+            color: Colors.red,
+            onPressed: () {
+              vExitDialog();
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              size: 24,
+            ),
+          ),
+          // AppSpacing.md.width,
+        ],
       ),
-      endDrawer: Obx(() => LandingWidgets.vEndDrawer(
+      /*  endDrawer: Obx(() => LandingWidgets.vEndDrawer(
           iconUrl: controller.siteListModel.value.siteLogo,
-          title: controller.siteListModel.value.siteName ?? tDemoSchoolName)),
+          title: controller.siteListModel.value.siteName ?? tDemoSchoolName)), */
       body: BaseWidgetChild(
           child: Center(
         child: Column(
@@ -163,5 +180,82 @@ class Landing extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  static void vExitDialog() {
+    Get.dialog(
+        AlertDialog(
+          backgroundColor: AppColor.white,
+          contentPadding: const EdgeInsets.all(0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          content: Container(
+            padding: EdgeInsets.all(10),
+            width: AppScreenSize.mGetWidth(kGlobContext, 80),
+            decoration: const BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Warning!",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500)),
+                AppSpacing.sm.height,
+                Text(
+                  "Do you really want to exit?",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                24.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.white,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md,
+                              vertical: AppSpacing.smh,
+                            )),
+                        child: Text(
+                          "Cancel".toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        )),
+                    AppSpacing.xxl.width,
+                    ElevatedButton(
+                        onPressed: () async {
+                          // exit(0);  // both Android and Ios
+                          SystemChannels.platform
+                              .invokeMethod('SystemNavigator.pop');
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.red,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md,
+                              vertical: AppSpacing.smh,
+                            )),
+                        child: Text(
+                          "Exit".toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        )),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: false);
   }
 }

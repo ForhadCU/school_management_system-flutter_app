@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-
-class StudentProfileInfoModel {
+class ProfileInfoModel {
   final int? id;
   final String? username;
   final String? firstName;
@@ -12,7 +11,7 @@ class StudentProfileInfoModel {
   final AcademicInfo? academicInfo;
   final Address? address;
 
-  StudentProfileInfoModel({
+  ProfileInfoModel({
     this.id,
     this.username,
     this.firstName,
@@ -24,7 +23,7 @@ class StudentProfileInfoModel {
     this.address,
   });
 
-  StudentProfileInfoModel copyWith({
+  ProfileInfoModel copyWith({
     int? id,
     String? username,
     String? firstName,
@@ -35,7 +34,7 @@ class StudentProfileInfoModel {
     AcademicInfo? academicInfo,
     Address? address,
   }) =>
-      StudentProfileInfoModel(
+      ProfileInfoModel(
         id: id ?? this.id,
         username: username ?? this.username,
         firstName: firstName ?? this.firstName,
@@ -47,13 +46,13 @@ class StudentProfileInfoModel {
         address: address ?? this.address,
       );
 
-  factory StudentProfileInfoModel.fromJson(String str) =>
-      StudentProfileInfoModel.fromMap(json.decode(str));
+  factory ProfileInfoModel.fromJson(String str) =>
+      ProfileInfoModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory StudentProfileInfoModel.fromMap(Map<String, dynamic> json) =>
-      StudentProfileInfoModel(
+  factory ProfileInfoModel.fromMap(Map<String, dynamic> json) =>
+      ProfileInfoModel(
         id: json["id"],
         username: json["username"],
         firstName: json["first_name"],
@@ -239,4 +238,3 @@ class EntAddress {
         "address_name": addressName,
       };
 }
-

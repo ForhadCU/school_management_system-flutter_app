@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/TEACHER/notice/notice_controller.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
@@ -12,16 +13,19 @@ class ExpandedTeachNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StuNoticeController controller = Get.find();
-    kLog(controller.clickedNoticeModel.value.createdAt.toString());
+    final TeachNoticeController controller = Get.find();
     return WillPopScope(
       onWillPop: () async {
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Notice Details"),
+          title: const Text(
+            "Notice Details",
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: AppColor.primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
           elevation: 0,
         ),
         body: BaseWidgetChild(

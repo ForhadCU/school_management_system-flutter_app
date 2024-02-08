@@ -14,16 +14,18 @@ class AppData {
   static const String eduWorldTheworldHostname =
       "https://eduworld.theworld.com.bd";
   static const String eduWorldErpHostname = "https://eduworld.eduworlderp.com";
+  static const String websiteUrl = "https://eduworld.com.bd";
   List<String> userPrivileges = [];
   static Debouncer debouncer = Debouncer(milliseconds: 1500);
-  static const String dummyUserid = "2315400002 ";
+  static const String dummyUserid = "2315400002";
+  static const String dummyEmployeeId = "e211540016";
   static const String dummyUserPass = "123456";
   static const Map<String, dynamic> dummyQuizQuestionsModel = {
     "QuestionList": [
       {
         "id": 10061,
         "question_no": 115,
-        "site_exam_question_info_id": 9652, 
+        "site_exam_question_info_id": 9652,
         "mark": 1,
         "question_level": "easy",
         "site_id": 154,
