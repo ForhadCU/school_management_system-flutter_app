@@ -12,8 +12,8 @@ class SlideTile0 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SlideBody(
         bgImageLoc: PublicAssetLocation.slide_bg_1,
-        imageLoc: multiple_login,
+        imageLoc: mark_sheet,
         title: tLauncherSlide1title,
-        subtitle: tLauncherSlide1Subtitle);
+        subtitleList: tLauncherSlide1SubtitleList);
   }
 }

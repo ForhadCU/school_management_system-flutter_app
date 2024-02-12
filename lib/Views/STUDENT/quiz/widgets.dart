@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Model/STUDENT/quiz/quiz_questions_model.dart';
@@ -248,31 +249,23 @@ class StuQuizWidgets {
   }
 
   static _vQuizPart() {
-    return Column(
-      children: [
-        /// Top heade
-        _vQuizPartHeading(),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            /// Top heade
+            _vQuizPartHeading(),
 
-        /// Body
-        Container(
-          padding: const EdgeInsets.all(AppSpacing.sm),
-          decoration: BoxDecoration(
-            color: AppColor.liveQuizBg,
-            border: Border.all(color: AppColor.activeTab, width: .2),
-          ),
-          child: Column(
-            children: [
-              /// Quiz info
-              Column(
+            /// Body
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.sm),
+              decoration: BoxDecoration(
+                color: AppColor.liveQuizBg,
+                border: Border.all(color: AppColor.activeTab, width: .2),
+              ),
+              child: Column(
                 children: [
-                  /*  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Type : "),
-                      Text("MCQ"),
-                    ],
-                  ),
-                  AppSpacing.sm.height, */
+                  /// Quiz info
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -282,43 +275,44 @@ class StuQuizWidgets {
                           .toString()),
                     ],
                   ),
-                ],
-              ),
-              AppSpacing.md.height,
+                  AppSpacing.md.height,
 
-              /// Quiz ProgressLoader
-              Row(
-                children: [
-                  vQuizCounterProgressbar(),
-                  AppSpacing.md.width,
+                  /// Quiz ProgressLoader
                   Row(
                     children: [
-                      Text(
-                        (_controller.quizQuestionIndex.value + 1).toString(),
-                        style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        "/",
-                        style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        _quizQuestionsModel.questionList!.length.toString(),
-                        style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      ),
+                      vQuizCounterProgressbar(),
+                      AppSpacing.md.width,
+                      Row(
+                        children: [
+                          Text(
+                            (_controller.quizQuestionIndex.value + 1)
+                                .toString(),
+                            style: kBody.copyWith(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "/",
+                            style: kBody.copyWith(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            _quizQuestionsModel.questionList!.length.toString(),
+                            style: kBody.copyWith(fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      )
                     ],
-                  )
+                  ),
+                  AppSpacing.xl.height,
+                  _vQuizQuestion(),
+                  AppSpacing.sm.height,
+                  _vQuizAnswers(),
+                  AppSpacing.xxl.height,
+                  vNextAndPreviousButtons()
                 ],
               ),
-              AppSpacing.xl.height,
-              _vQuizQuestion(),
-              AppSpacing.sm.height,
-              _vQuizAnswers(),
-              AppSpacing.xxl.height,
-              vNextAndPreviousButtons(),
-            ],
-          ),
-        )
-      ],
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -465,16 +459,20 @@ class StuQuizWidgets {
       decoration: BoxDecoration(
           border: Border.all(width: .5, color: Colors.black12),
           borderRadius: BorderRadius.circular(4),
-          color: AppColor.kBlack.withOpacity(.5)),
+          color: AppColor.kBlack.withOpacity(.2)),
       alignment: Alignment.center,
-      child: Text(
+      child: Html(
+        data: _quizQuestionsModel
+            .questionList![_controller.quizQuestionIndex.value].question
+            .toString(),
+      ), /* Text(
         // "What is the name of our country, can you tell us the shortform of the name?",
         _quizQuestionsModel
             .questionList![_controller.quizQuestionIndex.value].question
             .toString(),
         style:
             kBody.copyWith(color: AppColor.white, fontWeight: FontWeight.w500),
-      ),
+      ), */
     );
   }
 
@@ -936,7 +934,10 @@ class StuQuizWidgets {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '1',
+                                            (_controller.quizResultList
+                                                        .indexOf(item) +
+                                                    1)
+                                                .toString(),
                                             style: kBody.copyWith(
                                                 color: AppColor.kBlack,
                                                 fontSize: 14,
@@ -1151,261 +1152,257 @@ class StuQuizWidgets {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Obx(() => Expanded(
-          child: _controller.scheduleList.value == null
+          child: _controller.quizScheduleList.isEmpty
               ? Container(
                   alignment: Alignment.center,
-                  child: const Text(
-                    "Please wait...",
-                    style: kLabel,
-                  ),
-                )
-              : _controller.scheduleList.value!.isEmpty
-                  ? Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "No Data!",
-                        style: kLabel.copyWith(color: AppColor.red),
-                      ))
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: SizedBox(
-                                // width: double.infinity,
-                                /* width:
+                  child: Text(
+                    "No Data!",
+                    style: kLabel.copyWith(color: AppColor.red),
+                  ))
+              : SingleChildScrollView(
+                  controller: _controller.quizScheduleListScrlCtrlr.value,
+                  child: Column(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                            // width: double.infinity,
+                            /* width:
                                     AppScreenSize.mGetWidth(kGlobContext, 100) +
                                         50, */
-                                child: ClipRRect(
-                                    // borderRadius: BorderRadius.circular(12),
-                                    child: Table(
-                              columnWidths: const <int, TableColumnWidth>{
-                                /*  0: m.sm
+                            child: ClipRRect(
+                                // borderRadius: BorderRadius.circular(12),
+                                child: Table(
+                          columnWidths: const <int, TableColumnWidth>{
+                            /*  0: m.sm
                                                         ? const FlexColumnWidth()
                                                         : const IntrinsicColumnWidth(), */
-                                // 1: FlexColumnWidth(),
-                                /*  1: FixedColumnWidth(AppScreenSize.mGetWidth(
+                            // 1: FlexColumnWidth(),
+                            /*  1: FixedColumnWidth(AppScreenSize.mGetWidth(
                                         kGlobContext, 30)), */
-                                0: IntrinsicColumnWidth(),
-                                1: IntrinsicColumnWidth(),
-                                2: IntrinsicColumnWidth(),
-                                3: IntrinsicColumnWidth(),
-                                4: IntrinsicColumnWidth(),
-                                5: IntrinsicColumnWidth(),
-                                6: IntrinsicColumnWidth(),
-                              },
-                              defaultVerticalAlignment:
-                                  TableCellVerticalAlignment.middle,
-                              border: TableBorder.all(color: AppColor.white),
-                              children: <TableRow>[
-                                TableRow(
-                                  // table decoration
-                                  decoration: const BoxDecoration(
-                                      // color: AppColor.secondaryColor),
-                                      color: AppColor.activeTab),
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '#',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Quiz Title',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Exam Date',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Start Time',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Duration (Min)',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Quiz By',
-                                          style: kBody.copyWith(
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.w500),
-                                        ).marginSymmetric(
-                                            vertical: cellVerMargin,
-                                            horizontal: cellHorMargin),
-                                      ],
-                                    ),
+                            0: IntrinsicColumnWidth(),
+                            1: IntrinsicColumnWidth(),
+                            2: IntrinsicColumnWidth(),
+                            3: IntrinsicColumnWidth(),
+                            4: IntrinsicColumnWidth(),
+                            5: IntrinsicColumnWidth(),
+                            6: IntrinsicColumnWidth(),
+                          },
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          border: TableBorder.all(color: AppColor.white),
+                          children: <TableRow>[
+                            TableRow(
+                              // table decoration
+                              decoration: const BoxDecoration(
+                                  // color: AppColor.secondaryColor),
+                                  color: AppColor.activeTab),
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '#',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
                                   ],
                                 ),
-                                // for (var item in _controller.userInfoModelList) // correct
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Quiz Title',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Exam Date',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Start Time',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Duration (Min)',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
+                                  ],
+                                ),
+                                /*  Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Quiz By',
+                                      style: kBody.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.w500),
+                                    ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
+                                  ],
+                                ), */
+                              ],
+                            ),
+                            // for (var item in _controller.userInfoModelList) // correct
 
-                                for (var item
-                                    in _controller.scheduleList.value!) // test
+                            for (var item
+                                in _controller.quizScheduleList) // test
 
-                                  TableRow(
-                                    // table decoration
-                                    decoration: BoxDecoration(
-                                        color: /* _controller.userInfoModelList.indexOf(item) */
-                                            _controller.scheduleList.value!
-                                                            .indexOf(item) %
-                                                        2 ==
-                                                    0
-                                                ? AppColor.secondaryColor
-                                                    .withOpacity(.4)
-                                                : AppColor.secondaryColor
-                                                    .withOpacity(.2)),
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '1',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Quiz Test 1',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '12 Sep 2024',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '02:45 PM',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '45',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'AWS',
-                                            style: kBody.copyWith(
-                                                color: AppColor.kBlack,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ).marginSymmetric(
-                                              vertical: cellVerMargin,
-                                              horizontal: cellHorMargin),
-                                        ],
-                                      ),
+                              TableRow(
+                                // table decoration
+                                decoration: BoxDecoration(
+                                    color: /* _controller.userInfoModelList.indexOf(item) */
+                                        _controller.quizScheduleList
+                                                        .indexOf(item) %
+                                                    2 ==
+                                                0
+                                            ? AppColor.secondaryColor
+                                                .withOpacity(.4)
+                                            : AppColor.secondaryColor
+                                                .withOpacity(.2)),
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        (_controller.quizScheduleList
+                                                    .indexOf(item) +
+                                                1)
+                                            .toString(),
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
                                     ],
                                   ),
-                              ],
-                            )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
-                          ),
-                        ],
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        item.quizDeclare!.quiz!.quizName ?? "",
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        Utils().getTimeFromTimeStamp(
+                                            item
+                                                .quizDeclare!
+                                                .quizDeclareSettings!
+                                                .startDateTime!,
+                                            kAppDateFormat),
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        Utils().getTimeFromTimeStamp(
+                                            item
+                                                .quizDeclare!
+                                                .quizDeclareSettings!
+                                                .startDateTime!,
+                                            kAppTimeFormat12),
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        item.quizDeclare!.quizDeclareSettings!
+                                            .duration
+                                            .toString(),
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
+                                    ],
+                                  ),
+                                  /* Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'AWS',
+                                        style: kBody.copyWith(
+                                            color: AppColor.kBlack,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ).marginSymmetric(
+                                          vertical: cellVerMargin,
+                                          horizontal: cellHorMargin),
+                                    ],
+                                  ), */
+                                ],
+                              ),
+                          ],
+                        )) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
         ));
   }
 

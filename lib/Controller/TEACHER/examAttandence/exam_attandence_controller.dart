@@ -127,7 +127,7 @@ class ExamAttendanceController extends GetxController {
     await _commonController.mUpdateSelectedAcademicClass(selectedModel);
   }
 
-  mUpdateSelectedAcademicGroup(AcademicGroup? selectedModel) async {
+  mUpdateSelectedAcademicGroup(TeachAcademicGroup? selectedModel) async {
     await _commonController.mUpdateSelectedAcademicGroup(selectedModel);
   }
 

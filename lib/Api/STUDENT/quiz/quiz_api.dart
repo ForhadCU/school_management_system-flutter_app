@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:school_management_system/Model/STUDENT/quiz/quiz_info_model.dart';
 import 'package:school_management_system/Model/STUDENT/quiz/quiz_questions_model.dart';
+import 'package:school_management_system/Model/STUDENT/quiz/quiz_schedule_model.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 
 import '../../../Config/config.dart';
@@ -190,6 +191,30 @@ class QuizApis {
       kLog("mStartQuiz status code is: ${res.statusCode}");
       showError("Server failure");
       return false;
+    }
+  }
+
+  static Future<QuizScheduleModel> mGetQuizScheduleModel(
+      Map<String, dynamic> payLoad, token) async {
+    ResponseModel res = await CallAPI.getStudentData(
+        ApiEndpoint.stuActiveQuizRoutineList, payLoad, token);
+    if (res.statusCode == 200) {
+      // kLogger.d(res.body[StuQuizResultModel.getParentJsonKey]);
+
+      if (res.body[QuizScheduleModel.getParentJsonKey] != null) {
+        kLog("Successfully fetch mGetQuizScheduleModel data");
+        QuizScheduleModel quizScheduleModel = QuizScheduleModel.fromMap(
+            res.body[QuizScheduleModel.getParentJsonKey]);
+
+        return quizScheduleModel;
+      } else {
+        return QuizScheduleModel();
+      }
+      // return QuizInfoModel();
+    } else {
+      kLog("mGetQuizScheduleModel status code is: ${res.statusCode}");
+      showError("Server failure");
+      return QuizScheduleModel();
     }
   }
 }

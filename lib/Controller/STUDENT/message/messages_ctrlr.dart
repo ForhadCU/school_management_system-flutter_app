@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/message/messages_api.dart';
+import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:school_management_system/Model/STUDENT/message/message_model.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
@@ -14,12 +17,18 @@ class StuMessageController extends GetxController {
   var messageList = <MessageData>[].obs;
   var messageModel = MessageModel().obs;
   var token = '';
+  var siteListModel = SitelistModel().obs;
   var messageListScrollCntrlr = ScrollController().obs;
   var pageNumber = 1.obs;
+  var test = '1'.obs;
 
   @override
   void onInit() async {
     token = await AppLocalDataFactory.mGetToken();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+    kLog("SiteAlis: ${siteListModel.value.siteAlias}");
+    test.value = "2";
+    kLog(test);
     await mGetMessageModel();
     messageListScrollCntrlr.value.addListener(() {
       if (messageListScrollCntrlr.value.offset ==
@@ -41,9 +50,20 @@ class StuMessageController extends GetxController {
   }
 
   @override
-  void onClose() {
-    // TODO: implement onClose
+  void onClose() async {
+    kLog("Called close");
+    /* DefaultCacheManager manager = DefaultCacheManager();
+    await manager.emptyCache();
+    kLog(manager.isBlank!); */
+    // Get.reset();
     super.onClose();
+    await _deleteImageFromCache();
+  }
+
+  Future _deleteImageFromCache() async {
+    String url =
+        AppData.eduWorldTheworldHostname + siteListModel.value.siteLogo!;
+    await CachedNetworkImage.evictFromCache(url);
   }
 
   mGetMessageModel() async {

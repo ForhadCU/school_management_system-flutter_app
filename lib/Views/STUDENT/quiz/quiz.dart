@@ -19,7 +19,7 @@ class StuQuiz extends StatelessWidget {
           // AppSpacing.smh.height,
           StuQuizWidgets.vLiveQuiz(),
           StuQuizWidgets.vQuizSchedule(),
-          StuQuizWidgets.vQuizResult(),
+          StuQuizWidgets.vQuizResult()
           /*   StuQuizWidgets.vQuizCounterProgressbar(),
               SizedBox(height: 20),
               StuQuizWidgets.vNextAndPreviousButtons() */

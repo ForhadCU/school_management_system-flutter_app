@@ -33,8 +33,8 @@ class CommonController extends GetxController {
   var selectedAcademicVersion = AcademicVersion().obs;
   var selectedAcademicClass = AcademicClass().obs;
   var academicClassList = <AcademicClass>[].obs;
-  var selectedAcademicGroup = AcademicGroup().obs;
-  var academicGroupList = <AcademicGroup>[].obs;
+  var selectedAcademicGroup = TeachAcademicGroup().obs;
+  var academicGroupList = <TeachAcademicGroup>[].obs;
   var selectedAcademicSection = AcademicSection().obs;
   var academicSectionList = <AcademicSection>[].obs;
   var selectedAcademicSession = AcademicSession().obs;
@@ -138,7 +138,7 @@ class CommonController extends GetxController {
   } */
       ) async {
     academicGroupList.value = [];
-    selectedAcademicGroup.value = AcademicGroup();
+    selectedAcademicGroup.value = TeachAcademicGroup();
     canContinue.value
         ? await CommonApis.mGetClassGroupModel(
                 PayLoads
@@ -390,7 +390,7 @@ class CommonController extends GetxController {
     }
   }
 
-  mUpdateSelectedAcademicGroup(AcademicGroup? selectedModel) async {
+  mUpdateSelectedAcademicGroup(TeachAcademicGroup? selectedModel) async {
     if (selectedAcademicGroup.value != selectedModel) {
       selectedAcademicGroup.value = selectedModel!;
       canContinue.value = true;

@@ -10,9 +10,9 @@ class SlideTile2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SlideBody(
-      bgImageLoc: PublicAssetLocation.slide_bg_3,
-        imageLoc: routines,
+        bgImageLoc: PublicAssetLocation.slide_bg_3,
+        imageLoc: mark_sheet,
         title: tLauncherSlide3Title,
-        subtitle: tLauncherSlide3SubTitle);
+        subtitleList: tLauncherSlide3SubTitleList);
   }
 }

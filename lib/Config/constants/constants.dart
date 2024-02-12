@@ -24,9 +24,8 @@ const String kToken = 'token';
 const String kUserType = 'userType';
 const String kAcademicGroup = 'academicGroup';
 const String kApi_access_key = 'api_access_key';
-const  String student = "student";
-const  String teacher = "teacher";
-
+const String student = "student";
+const String teacher = "teacher";
 
 //appStrings
 const String kAppName = 'Freelancer app';
@@ -49,14 +48,28 @@ const String kLoginButtonPhone = 'Login with Phone';
 const String kLoginTermsAndPrivay = 'Login with Phone';
 
 ///***4 Launcher Slides*/
-const String tLauncherSlide1title = 'Multiple Logins';
+const String tLauncherSlide1title = 'As a employee';
 const String tLauncherSlide1Subtitle =
     'Multiple Login Facility for Convinence of multiple users';
-const String tLauncherSlide2Title = 'Notice Board';
+const List<String> tLauncherSlide1SubtitleList = [
+  'Attendance monitoring',
+  'Online fee payment record',
+  'Exam & result maintaining and many more'
+];
+const String tLauncherSlide2Title = 'Multiple Logins';
 const String tLauncherSlide2SubTitle = 'Easy Notice Exchange between Parties';
-const String tLauncherSlide3Title = 'Routines';
+const List<String> tLauncherSlide2SubTitleList = [
+  'Different types of user can easily access',
+  'Easy to use, fast and easy access'
+];
+const String tLauncherSlide3Title = 'As a student';
 const String tLauncherSlide3SubTitle =
     'Assigning and Viewing are just a Tap away';
+const List<String> tLauncherSlide3SubTitleList = [
+  'All updated information as per last announcement',
+  'View latest attendance info',
+  'View informations including daily routines, notices, exam results and much more'
+];
 const String tLauncherSlide4Title = 'Attendance';
 const String tLauncherSlide4SubTitle =
     'Attendance can now be taken with few simple taps';

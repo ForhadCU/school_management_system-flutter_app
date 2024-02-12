@@ -4,7 +4,9 @@ import 'package:school_management_system/Config/config.dart';
 
 import '../../../Controller/TEACHER/message/messages_ctrlr.dart';
 import '../../../Model/STUDENT/message/message_model.dart';
+import '../../../Singletones/app_data.dart';
 import '../../../Utils/custom_utils.dart';
+import '../../Widgets/cached_network_image.dart';
 
 class TeachMessageWidgets {
   // make this class singleton
@@ -40,11 +42,17 @@ class TeachMessageWidgets {
             color: Colors.black12,
             shape: BoxShape.circle,
           ),
-          child: const Icon(
+          child: cachedNetworkImage(
+              AppData.eduWorldTheworldHostname +
+                  _controller.siteListModel.value.siteLogo!,
+              width: 48,
+              fit: BoxFit
+                  .contain) /* const Icon(
             Icons.person,
             size: 48,
             color: Colors.white,
-          )),
+          ) */
+          ),
       title: Text(message.title ?? ""),
       subtitle: Text(message.message ?? ""),
       trailing: message.createdAt == null

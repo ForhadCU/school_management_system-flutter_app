@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/PUBLIC/search_school_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
+import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
@@ -26,7 +27,15 @@ class SchoolResultListItem extends StatelessWidget {
     return ListTile(
       onTap: () => onTap(),
       leading: imageUri != null
-          ? CachedNetworkImage(
+          ? cachedNetworkImage(
+              imageUri!,
+              width: 48,
+              fit: BoxFit.fill,
+            )
+          : const CircleAvatar(
+              radius: AppSpacing.logoSizeDemoSchool,
+              backgroundImage: AssetImage(logoDemoSchool)),
+      /*     CachedNetworkImage(
               imageUrl: imageUri!,
               width: 48,
               height: 48,
@@ -34,7 +43,7 @@ class SchoolResultListItem extends StatelessWidget {
             )
           : const CircleAvatar(
               radius: AppSpacing.logoSizeDemoSchool,
-              backgroundImage: AssetImage(logoDemoSchool)),
+              backgroundImage: AssetImage(logoDemoSchool)), */
       title: Text(
         schoolName,
         style: kTitleLite,
@@ -117,7 +126,6 @@ class SearchSchoolWidget {
               return SchoolResultListItem(
                   onTap: () {
                     _controller.mSetSiteListModel(sitelistModel);
-                   
                   },
                   imageUri: AppData.eduWorldTheworldHostname +
                       sitelistModel.siteLogo!,

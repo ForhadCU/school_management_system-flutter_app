@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ClassGroupModel {
-    final List<AcademicGroup>? academicGroupList;
+    final List<TeachAcademicGroup>? academicGroupList;
     final List<dynamic>? academicSectionList;
     final List<AcademicSessionBasedOnGroup>? academicSessionList;
     final List<dynamic>? academicBatchList;
@@ -18,7 +18,7 @@ class ClassGroupModel {
     });
 
     ClassGroupModel copyWith({
-        List<AcademicGroup>? academicGroupList,
+        List<TeachAcademicGroup>? academicGroupList,
         List<dynamic>? academicSectionList,
         List<AcademicSessionBasedOnGroup>? academicSessionList,
         List<dynamic>? academicBatchList,
@@ -39,7 +39,7 @@ class ClassGroupModel {
     String toJson() => json.encode(toMap());
 
     factory ClassGroupModel.fromMap(Map<String, dynamic> json) => ClassGroupModel(
-        academicGroupList: json["academic_group_list"] == null ? [] : List<AcademicGroup>.from(json["academic_group_list"]!.map((x) => AcademicGroup.fromMap(x))),
+        academicGroupList: json["academic_group_list"] == null ? [] : List<TeachAcademicGroup>.from(json["academic_group_list"]!.map((x) => TeachAcademicGroup.fromMap(x))),
         academicSectionList: json["academic_section_list"] == null ? [] : List<dynamic>.from(json["academic_section_list"]!.map((x) => x)),
         academicSessionList: json["academic_session_list"] == null ? [] : List<AcademicSessionBasedOnGroup>.from(json["academic_session_list"]!.map((x) => AcademicSessionBasedOnGroup.fromMap(x))),
         academicBatchList: json["academic_batch_list"] == null ? [] : List<dynamic>.from(json["academic_batch_list"]!.map((x) => x)),
@@ -57,29 +57,29 @@ class ClassGroupModel {
     };
 }
 
-class AcademicGroup {
+class TeachAcademicGroup {
     final int? id;
     final String? groupName;
 
-    AcademicGroup({
+    TeachAcademicGroup({
         this.id,
         this.groupName,
     });
 
-    AcademicGroup copyWith({
+    TeachAcademicGroup copyWith({
         int? id,
         String? groupName,
     }) => 
-        AcademicGroup(
+        TeachAcademicGroup(
             id: id ?? this.id,
             groupName: groupName ?? this.groupName,
         );
 
-    factory AcademicGroup.fromJson(String str) => AcademicGroup.fromMap(json.decode(str));
+    factory TeachAcademicGroup.fromJson(String str) => TeachAcademicGroup.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory AcademicGroup.fromMap(Map<String, dynamic> json) => AcademicGroup(
+    factory TeachAcademicGroup.fromMap(Map<String, dynamic> json) => TeachAcademicGroup(
         id: json["id"],
         groupName: json["group_name"],
     );

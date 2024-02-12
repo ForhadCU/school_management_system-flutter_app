@@ -13,9 +13,13 @@ class AppData {
   static const String api_access_key = "api_app_access_254R68495324Y1W123";
   static const String eduWorldTheworldHostname =
       "https://eduworld.theworld.com.bd";
+  static const String hostNameTheWorld =
+      "theworld.com.bd";
   static const String eduWorldErpHostname = "https://eduworld.eduworlderp.com";
   static const String websiteUrl = "https://eduworld.com.bd";
+  static const String https = "https://";
   List<String> userPrivileges = [];
+
   static Debouncer debouncer = Debouncer(milliseconds: 1500);
   static const String dummyUserid = "2315400002";
   static const String dummyEmployeeId = "e211540016";

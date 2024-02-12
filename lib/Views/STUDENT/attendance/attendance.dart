@@ -16,9 +16,10 @@ class StuAttendance extends StatelessWidget {
         title: "My Attendance".toUpperCase(),
         child: BaseWidgetChild(
           child: Column(children: [
-            Obx(() => _controller.isDailyAttendaceTabActive.value
+           /*  Obx(() => _controller.isDailyAttendaceTabActive.value
                 ? Expanded(child: StuAttendanceWidgets.vDailyAttendance())
-                : Expanded(child: StuAttendanceWidgets.vPeriodicAttendance())),
+                : Expanded(child: StuAttendanceWidgets.vPeriodicAttendance())), */
+            Expanded(child: StuAttendanceWidgets.vDailyAttendance())
           ]),
         ));
   }

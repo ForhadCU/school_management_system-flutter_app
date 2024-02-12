@@ -13,6 +13,7 @@ import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Model/STUDENT/quiz/quiz_result.dart';
+import '../../../Model/STUDENT/quiz/quiz_schedule_model.dart';
 
 class StuQuizController extends GetxController {
   static StuQuizController get to => Get.find();
@@ -50,9 +51,13 @@ class StuQuizController extends GetxController {
   int timeRemainingBeforeStart = 0;
 
   var quizResultModel = StuQuizResultModel().obs;
+  var quizScheduleModel = QuizScheduleModel().obs;
   var quizResultList = <QuizData>[].obs;
+  var quizScheduleList = <QuizScheduleData>[].obs;
   var quizResultListScrlCtrlr = ScrollController().obs;
-  var pageNumber = 1.obs;
+  var quizScheduleListScrlCtrlr = ScrollController().obs;
+  var pageNumberForResultList = 1.obs;
+  var pageNumberForScheduleList = 1.obs;
 
   @override
   void onInit() async {
@@ -61,6 +66,7 @@ class StuQuizController extends GetxController {
     mGetScheduleList();
     token = await AppLocalDataFactory.mGetToken();
     await mGetQuizInfo();
+    await mGetQuizScheduleList();
     await mGetQuizResultList();
 
     /// Scroll Listener for quizResult List
@@ -70,8 +76,25 @@ class StuQuizController extends GetxController {
         if (quizResultModel.value.nextPageUrl != null) {
           kLog("go next page");
           kLog(quizResultModel.value.currentPage!);
-          pageNumber.value++;
+          pageNumberForResultList.value++;
           mGetQuizResultList();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
+
+    /// Scroll Listener for quizSchedul List
+    quizScheduleListScrlCtrlr.value.addListener(() {
+      if (quizScheduleListScrlCtrlr.value.offset ==
+          quizScheduleListScrlCtrlr.value.position.maxScrollExtent) {
+        if (quizScheduleModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(quizScheduleModel.value.currentPage!);
+          pageNumberForScheduleList.value++;
+          mGetQuizScheduleList();
         } else {
           kLog("end");
         }
@@ -465,6 +488,9 @@ class StuQuizController extends GetxController {
     isLiveQuizActive.value = true;
     isQuizScheduleActive.value = false;
     isQuizResultActive.value = false;
+
+    // isLoading.value = false;
+
     if (isQuizStart.value) {
       mCalcualteQuizTime();
     } else if (!isQuizNotFound.value) {
@@ -483,12 +509,16 @@ class StuQuizController extends GetxController {
     isLiveQuizActive.value = false;
     isQuizScheduleActive.value = false;
     isQuizResultActive.value = true;
+
+    // isLoading.value = true;
   }
 
   void mUpdateQuizSchedule() {
     isLiveQuizActive.value = false;
     isQuizScheduleActive.value = true;
     isQuizResultActive.value = false;
+
+    // isLoading.value = true;
   }
 
   @override
@@ -533,10 +563,22 @@ class StuQuizController extends GetxController {
   mGetQuizResultList() async {
     quizResultModel.value = await QuizApis.mGetQuizReportList(
         PayLoads.stuPreviewsQuizReportList(
-            page: pageNumber.value.toString(),
+            page: pageNumberForResultList.value.toString(),
             api_access_key: AppData.api_access_key,
             paginate: 10.toString()),
         token);
     quizResultList.addAll(quizResultModel.value.data!);
+    // isLoading.value = false;
+  }
+
+  mGetQuizScheduleList() async {
+    quizScheduleModel.value = await QuizApis.mGetQuizScheduleModel(
+        PayLoads.stuActiveQuizRoutineList(
+            page: pageNumberForScheduleList.value.toString(),
+            api_access_key: AppData.api_access_key,
+            paginate: 10.toString()),
+        token);
+    quizScheduleList.addAll(quizScheduleModel.value.data!);
+    // isLoading.value = false;
   }
 }

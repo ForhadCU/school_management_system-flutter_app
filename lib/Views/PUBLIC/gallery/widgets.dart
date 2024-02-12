@@ -114,13 +114,13 @@ class GalleryWidget {
             child: Divider(
           color: AppColor.secondaryColor,
         )),
-        AppSpacing.md.width,
+        /* AppSpacing.md.width,
         const Text(
           "Sort by",
           style: kLabel,
         ),
         AppSpacing.sm.width,
-        _vDropdown(controler),
+        _vDropdown(controler), */
       ],
     );
   }
@@ -128,7 +128,7 @@ class GalleryWidget {
   static _vDropdown(GalleryController controler) {
     return Obx(
       () => Container(
-        padding:  const EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm, vertical: AppSpacing.smh / 2),
         color: AppColor.secondaryColor,
         child: DropdownButton<String>(
@@ -188,6 +188,16 @@ class GalleryWidget {
                           controler.fileElementList[gridViewIndex].path!,
                       height: 100,
                       fit: BoxFit.fill,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                                color: AppColor.activeTab,
+                              )),
+                      errorWidget: (context, url, error) => const Align(
+                          alignment: Alignment.center,
+                          child: Icon(Icons.error, color: Colors.black26,)),
                     ) /* const Image(
                               image: AssetImage(
                                   PublicAssetLocation.sample_gallery_image),
@@ -227,8 +237,7 @@ class GalleryWidget {
                         style: kLabel.copyWith(
                             color: AppColor.kGray700.withOpacity(.8)),
                       ),
-                                            AppSpacing.sm.height,
-
+                      AppSpacing.sm.height,
                       StaggeredGrid.count(
                         crossAxisCount: 2,
                         mainAxisSpacing: AppSpacing.md,

@@ -36,7 +36,6 @@ class ExamMarksEntryController extends GetxController {
 
   @override
   void onClose() async {
-    
     await Get.delete<ExamMarksEntryController>();
   }
 
@@ -127,7 +126,7 @@ class ExamMarksEntryController extends GetxController {
     await _commonController.mUpdateSelectedAcademicClass(selectedModel);
   }
 
-  mUpdateSelectedAcademicGroup(AcademicGroup? selectedModel) async {
+  mUpdateSelectedAcademicGroup(TeachAcademicGroup? selectedModel) async {
     await _commonController.mUpdateSelectedAcademicGroup(selectedModel);
   }
 

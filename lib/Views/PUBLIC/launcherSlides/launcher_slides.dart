@@ -33,7 +33,8 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
       height: isCurrentPage ? 10.0 : 6.0,
       width: isCurrentPage ? 10.0 : 6.0,
       decoration: BoxDecoration(
-        color: isCurrentPage ? const Color.fromARGB(255, 87, 84, 81) : AppColor.orange300,
+        // color: isCurrentPage ? const Color.fromARGB(255, 87, 84, 81) : AppColor.orange300,
+        color: isCurrentPage ? AppColor.activeTab : AppColor.inactiveTab,
         borderRadius: BorderRadius.circular(12),
       ),
     );
@@ -70,11 +71,15 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
               },
               children: const <Widget>[
                 // SlideTile1(scrNo: mySLides[0].scrNo),
-                SlideTile0(),
+                /*  SlideTile0(),
                 SlideTile1(),
                 SlideTile2(),
                 SlideTile3(),
-                SlideTile4(),
+                SlideTile4(), */
+
+                SlideTile0(),
+                SlideTile1(),
+                SlideTile2(),
               ],
             ),
           ),
@@ -97,7 +102,8 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                         text: "Skip"),
                     Row(
                       children: [
-                        for (int i = 0; i <= 4; i++)
+                        // for (int i = 0; i <= 4; i++)
+                        for (int i = 0; i <= 2; i++)
                           i == slideIndex
                               ? _buildPageIndicator(true)
                               : _buildPageIndicator(false),
@@ -105,7 +111,8 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                     ),
                     AppButtons.vPrimaryButtonWithGradient(
                         onTap: () {
-                          slideIndex == 4
+                          // slideIndex == 4
+                          slideIndex == 2
                               ? {
                                   /* AwesomeDialog(
                                             context: context,
@@ -118,7 +125,8 @@ class _LauncherSlidesScreenState extends State<LauncherSlidesScreen> {
                                   duration: const Duration(milliseconds: 100),
                                   curve: Curves.linear);
                         },
-                        text: slideIndex == 4 ? "Finish" : "Next"),
+                        // text: slideIndex == 4 ? "Finish" : "Next"),
+                        text: slideIndex == 2 ? "Finish" : "Next"),
                   ],
                 ),
               ),

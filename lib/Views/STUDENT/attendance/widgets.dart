@@ -82,7 +82,7 @@ class StuAttendanceWidgets {
                               (AppSpacing.smh / 2).width,
                               Obx(() => Text(
                                     _controller
-                                        .mGetFormatDate(_controller.dateFrom),
+                                        .mGetFormatDate(_controller.startDate),
                                     // "23-09-2023",
                                     style: kBody.copyWith(
                                         fontWeight: FontWeight.w500,
@@ -116,7 +116,7 @@ class StuAttendanceWidgets {
                               (AppSpacing.smh / 2).width,
                               Obx(() => Text(
                                     _controller
-                                        .mGetFormatDate(_controller.dateTo),
+                                        .mGetFormatDate(_controller.endDate),
                                     style: kBody.copyWith(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
@@ -173,15 +173,17 @@ class StuAttendanceWidgets {
   static _vGetResultBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
+        _controller.isLoading.value = true;
+        _controller.mResetValues();
         await _controller.mGetAttendanceInRange();
+        _controller.isLoading.value = false;
       },
       text: "Get Attendance",
     );
   }
 
   static vDailyAttendanceTable() {
- 
-    return Obx(() => _controller.stuAttendanceList.value == null
+    return Obx(() => _controller.isLoading.value
         ? Container(
             alignment: Alignment.center,
             child: const Text(
@@ -189,7 +191,7 @@ class StuAttendanceWidgets {
               style: kLabel,
             ),
           )
-        : _controller.stuAttendanceList.value!.isEmpty
+        : _controller.stuAttendanceList.value.isEmpty
             ? Container(
                 alignment: Alignment.center,
                 child: Text(
@@ -197,6 +199,7 @@ class StuAttendanceWidgets {
                   style: kLabel.copyWith(color: AppColor.red),
                 ))
             : SingleChildScrollView(
+                controller: _controller.attendanceListScrollCntrlr.value,
                 child: Column(
                   children: [
                     SingleChildScrollView(
@@ -315,9 +318,10 @@ class StuAttendanceWidgets {
                                         Expanded(
                                           child: Text(
                                             item.inTime != null
-                                                ? Utils().getTimeFromTimeStamp(
+                                                ? item
+                                                    .inTime! /* Utils().getTimeFromTimeStamp(
                                                     "${item.date} ${item.inTime}",
-                                                    kAppTimeFormat12)
+                                                    kAppTimeFormat12) */
                                                 : "--",
                                             textAlign: TextAlign.center,
                                             style: kBody.copyWith(
@@ -339,9 +343,10 @@ class StuAttendanceWidgets {
                                         Expanded(
                                           child: Text(
                                             item.outTime != null
-                                                ? Utils().getTimeFromTimeStamp(
+                                                ? item
+                                                    .outTime! /* Utils().getTimeFromTimeStamp(
                                                     "${item.date} ${item.outTime}",
-                                                    kAppTimeFormat12)
+                                                    kAppTimeFormat12) */
                                                 : "--",
                                             textAlign: TextAlign.center,
                                             style: kBody.copyWith(
@@ -422,7 +427,7 @@ class StuAttendanceWidgets {
   static vDailyAttendance() {
     return Column(
       children: [
-        StuAttendanceWidgets.vTabBar(),
+        // StuAttendanceWidgets.vTabBar(),
         StuAttendanceWidgets.vDailyAttendanceTopbar(),
         // AppSpacing.md.height,
         Expanded(child: StuAttendanceWidgets.vDailyAttendanceTable()),
@@ -447,7 +452,7 @@ class StuAttendanceWidgets {
     );
   }
 
-  static vPeriodicAttendanceTopbar() {   
+  static vPeriodicAttendanceTopbar() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -503,7 +508,7 @@ class StuAttendanceWidgets {
                     ),
                     (AppSpacing.sm).width,
                     Obx(() => Text(
-                          _controller.mGetFormatDate(_controller.dateFrom),
+                          _controller.mGetFormatDate(_controller.startDate),
                           style: kBody.copyWith(
                               fontWeight: FontWeight.w500, color: Colors.black),
                         )),

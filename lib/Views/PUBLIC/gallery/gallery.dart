@@ -18,9 +18,9 @@ class Gallery extends StatelessWidget {
           child: Column(
             children: [
               GalleryWidget.vTopBar(controler),
-              AppSpacing.md.height,
+              AppSpacing.sm.height,
               GalleryWidget.vDividerAndFilter(controler),
-              AppSpacing.xl.height,
+              AppSpacing.md.height,
               GalleryWidget.vPhotos(controler),
             ],
           ),

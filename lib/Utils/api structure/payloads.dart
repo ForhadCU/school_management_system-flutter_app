@@ -144,10 +144,13 @@ class PayLoads {
   static Map<String, dynamic> stuDateWiseAttendanceList({
     required String date_range,
     required String api_access_key,
+    required String page,
+    
   }) {
     return {
       "date_range": date_range,
       "api_access_key": api_access_key,
+      "page": page,
     };
   }
 
@@ -384,10 +387,12 @@ class PayLoads {
   static Map<String, dynamic> stuActiveQuizRoutineList({
     required String api_access_key,
     required String paginate,
+    required String page,
   }) {
     return {
       "api_access_key": api_access_key,
       "paginate": paginate,
+      "page": page,
     };
   }
 
@@ -722,6 +727,21 @@ class PayLoads {
       "academic_group_id": academic_group_id,
       "routine_allocation_id": routine_allocation_id,
       "att_date": att_date,
+    };
+  }
+  static Map<String, dynamic> teachAttendance({
+    required String api_access_key,
+    required String academic_group_id,
+    required String date_range,
+    required String page,
+  
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "date_range": date_range,
+      "page": page,
+     
     };
   }
 }

@@ -22,6 +22,7 @@ class AppRoutes {
   static String academicCalendar = '/academicCalendar';
   static String notification = '/notification';
   static String landing = '/landing';
+  static String splashScreen = '/splashScreen';
 
   ///STUDENT
   static const String classroom = "/classroom";
@@ -52,12 +53,12 @@ class AppRoutes {
   static const String teachProfile = "/teachProfile";
   static const String teachNotice = "/teachNotice";
   static const String teachHelpdesk = "/teachHelpdesk";
-  static String expandedTeachNotice = '/expandedTeachNotice';
-
+  static const String expandedTeachNotice = '/expandedTeachNotice';
   static const String examMarksEntry = "/examMarksEntry";
   static const String examAttendance = "/examAttendance";
   static const String teachNotification = "/teachNotification";
   static const String teachRoutine = "/teachRoutine";
   static const String teachMessage = "/teachMessage";
   static const String teachPeriodicAttnd = "/teachPeriodicAttnd";
+  static const String teachAttendance = "/teachAttendance";
 }

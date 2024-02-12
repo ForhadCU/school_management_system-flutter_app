@@ -5,9 +5,11 @@ import 'package:school_management_system/Api/TEACHER/profile_api.dart';
 import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
 import 'package:school_management_system/Controller/common/common_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
+import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Api/PUBLIC/login_api.dart';
 import '../../../Api/STUDENT/profile/stu_profile_api.dart';
@@ -30,6 +32,16 @@ class TeachHomeController extends GetxController {
       "name": "Exam Attendance",
       "iconUri": StudentAssetLocation.attendance_base_ic
     },
+    {
+      "name": "My Attendance",
+      "iconUri": TeacherAssetLocation.attendance_base_ic
+    },
+    {
+      "name": "Periodic Attendance",
+      "iconUri": StudentAssetLocation.periodic_attend_base_ic
+    },
+    {"name": "My Routine", "iconUri": StudentAssetLocation.routine_base_ic},
+    {"name": "Messages", "iconUri": StudentAssetLocation.message_ic},
     {"name": "Help Desk", "iconUri": StudentAssetLocation.help_desk_base_ic},
     {"name": "Logout", "iconUri": StudentAssetLocation.logout},
   ];
@@ -42,6 +54,7 @@ class TeachHomeController extends GetxController {
   var academicGroupList = <AcademicGroup>[].obs;
 
   var token = '';
+  var siteListModel = SitelistModel().obs;
 
   @override
   void onInit() async {
@@ -62,6 +75,9 @@ class TeachHomeController extends GetxController {
   _mInitialization() async {
     token = await AppLocalDataFactory.mGetToken();
     designition.value = await AppLocalDataFactory.mGetUserType();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+    kLog("SiteAlis: ${siteListModel.value.siteAlias}");
+    kLog("Designition: ${designition.value}");
 
     // siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
   }
@@ -117,15 +133,22 @@ class TeachHomeController extends GetxController {
                                         ? Get.toNamed(AppRoutes.quiz)
                                         : "My subject" == drawerItem
                                             ? Get.toNamed(AppRoutes.subjects) */
-            : "My routine" == drawerItem
+            : "My Routine" == drawerItem
                 ? Get.toNamed(AppRoutes.teachRoutine)
-                : "Website" == drawerItem
+                /*  : "Website" == drawerItem
                     ? Get.toNamed(AppRoutes.website)
-                    : "Help Desk" == drawerItem
-                        ? Get.toNamed(AppRoutes.helpdesk)
-                        : "Logout" == drawerItem
-                            ? mLogutUser()
-                            : null;
+                    */
+                : "My Attendance" == drawerItem
+                    ? Get.toNamed(AppRoutes.teachAttendance)
+                    : "Periodic Attendance" == drawerItem
+                        ? Get.toNamed(AppRoutes.teachPeriodicAttnd)
+                        : "Messages" == drawerItem
+                            ? Get.toNamed(AppRoutes.teachMessage)
+                            : "Help Desk" == drawerItem
+                                ? Get.toNamed(AppRoutes.teachHelpdesk)
+                                : "Logout" == drawerItem
+                                    ? mLogutUser()
+                                    : null;
   }
 
   mLogutUser() async {
@@ -146,5 +169,20 @@ class TeachHomeController extends GetxController {
     // await Get.delete<CommonController>();
 
     // await _mGetProfileInfo();
+  }
+
+  mGotoWebsite() async {
+    if (siteListModel.value.domainName != null) {
+      if (!await launchUrl(
+          Uri.parse(AppData.https + siteListModel.value.domainName))) {
+        throw Exception('Could not launch ${siteListModel.value.domainName}');
+      }
+    } else {
+        if (!await launchUrl(Uri.parse(
+            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
+          throw Exception(
+              'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
+        }
+      }
   }
 }

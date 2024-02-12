@@ -1,32 +1,25 @@
-// To parse this JSON data, do
-//
-//     final sitelistModel = sitelistModelFromMap(jsonString);
-
 import 'dart:convert';
 
-SitelistModel sitelistModelFromMap(String str) => SitelistModel.fromMap(json.decode(str));
-
-String sitelistModelToMap(SitelistModel data) => json.encode(data.toMap());
-
 class SitelistModel {
-    final int? id;
-    final dynamic siteNameNativeLanguage;
-    final String? siteAlias;
-    final String? siteLogo;
-    final String? siteEmail;
-    final String? sitePhone;
-    final int? eiin;
-    final dynamic collegeCode;
-    final dynamic nuCode;
-    final dynamic googleMapAddress;
-    final dynamic facebookLink;
-    final dynamic twitterLink;
-    final dynamic googleLink;
-    final dynamic youtubeLink;
-    final String? siteName;
-    final String? shortName;
-    final String? address;
-    final List<Translation>? translations;
+    int? id;
+    dynamic siteNameNativeLanguage;
+    String? siteAlias;
+    String? siteLogo;
+    String? siteEmail;
+    String? sitePhone;
+    int? eiin;
+    dynamic collegeCode;
+    dynamic nuCode;
+    dynamic googleMapAddress;
+    dynamic facebookLink;
+    dynamic twitterLink;
+    dynamic googleLink;
+    dynamic youtubeLink;
+    dynamic domainName;
+    String? siteName;
+    String? shortName;
+    String? address;
+    List<Translation>? translations;
 
     SitelistModel({
         this.id,
@@ -43,6 +36,7 @@ class SitelistModel {
         this.twitterLink,
         this.googleLink,
         this.youtubeLink,
+        this.domainName,
         this.siteName,
         this.shortName,
         this.address,
@@ -64,6 +58,7 @@ class SitelistModel {
         dynamic twitterLink,
         dynamic googleLink,
         dynamic youtubeLink,
+        dynamic domainName,
         String? siteName,
         String? shortName,
         String? address,
@@ -84,11 +79,16 @@ class SitelistModel {
             twitterLink: twitterLink ?? this.twitterLink,
             googleLink: googleLink ?? this.googleLink,
             youtubeLink: youtubeLink ?? this.youtubeLink,
+            domainName: domainName ?? this.domainName,
             siteName: siteName ?? this.siteName,
             shortName: shortName ?? this.shortName,
             address: address ?? this.address,
             translations: translations ?? this.translations,
         );
+
+    factory SitelistModel.fromJson(String str) => SitelistModel.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
 
     factory SitelistModel.fromMap(Map<String, dynamic> json) => SitelistModel(
         id: json["id"],
@@ -105,6 +105,7 @@ class SitelistModel {
         twitterLink: json["twitter_link"],
         googleLink: json["google_link"],
         youtubeLink: json["youtube_link"],
+        domainName: json["domain_name"],
         siteName: json["site_name"],
         shortName: json["short_name"],
         address: json["address"],
@@ -126,6 +127,7 @@ class SitelistModel {
         "twitter_link": twitterLink,
         "google_link": googleLink,
         "youtube_link": youtubeLink,
+        "domain_name": domainName,
         "site_name": siteName,
         "short_name": shortName,
         "address": address,
@@ -134,12 +136,12 @@ class SitelistModel {
 }
 
 class Translation {
-    final int? id;
-    final int? siteInfoId;
-    final String? siteName;
-    final String? shortName;
-    final String? address;
-    final String? locale;
+    int? id;
+    int? siteInfoId;
+    String? siteName;
+    String? shortName;
+    String? address;
+    String? locale;
 
     Translation({
         this.id,
@@ -166,6 +168,10 @@ class Translation {
             address: address ?? this.address,
             locale: locale ?? this.locale,
         );
+
+    factory Translation.fromJson(String str) => Translation.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
 
     factory Translation.fromMap(Map<String, dynamic> json) => Translation(
         id: json["id"],

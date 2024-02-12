@@ -73,6 +73,11 @@ class Utils {
 //   return [trailing, available];
 // }
 
+  static String mMakeUserImageUrl(
+      {required String imageLoc, required String alisName}) {
+    return "${alisName}.${AppData.hostNameTheWorld}${imageLoc}";
+  }
+
   int mCalculateDaysFromSecs({required int secs}) {
     return int.parse((secs / (3600 * 24)).floor().toString());
   }

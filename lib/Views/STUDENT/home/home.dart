@@ -14,52 +14,55 @@ class StuHome extends StatelessWidget {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     final controller = StuHomeController.to;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text(
-          "Home",
-          style: TextStyle(color: Colors.white),
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text(
+            "Home",
+            style: TextStyle(color: Colors.white),
+          ),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: AppColor.primaryColor,
+          actions: [
+            /* 
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(vertical: 14),
+              padding: EdgeInsets.symmetric(
+                  vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+              // color: Colors.red,
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: Colors.white, width: .5),
+                  borderRadius: BorderRadius.circular(4)),
+              child: Obx(() => Text(
+                    controller.selectedAcademicGroup.value.academicGroupName ??
+                        "",
+                    style: kBody.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  )),
+            ), */
+            /* SizedBox(
+              width: 48,
+            ), */
+            IconButton(
+                icon: new Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  _scaffoldKey.currentState!.openEndDrawer();
+                }),
+          ],
         ),
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: AppColor.primaryColor,
-        actions: [/* 
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(vertical: 14),
-            padding: EdgeInsets.symmetric(
-                vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
-            // color: Colors.red,
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(color: Colors.white, width: .5),
-                borderRadius: BorderRadius.circular(4)),
-            child: Obx(() => Text(
-                  controller.selectedAcademicGroup.value.academicGroupName ??
-                      "",
-                  style: kBody.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w500),
-                )),
-          ), */
-          /* SizedBox(
-            width: 48,
-          ), */
-          IconButton(
-              icon: new Icon(Icons.menu, color: Colors.white),
-              onPressed: () {
-                _scaffoldKey.currentState!.openEndDrawer();
-              }),
-        ],
-      ),
-      endDrawer: StuHomeWidgets.vEndDrawer(),
-      body: BaseWidgetChild(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppSpacing.md.height,
-              StuHomeWidgets.vBody(),
-            ],
+        endDrawer: StuHomeWidgets.vEndDrawer(),
+        body: BaseWidgetChild(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppSpacing.md.height,
+                StuHomeWidgets.vBody(),
+              ],
+            ),
           ),
         ),
       ),

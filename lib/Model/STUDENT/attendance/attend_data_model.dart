@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class StuAttendanceModel {
+class StuAttendanceDataModel {
   static String get getParentJsonKey => "attendance_list";
   static String get getDataListJsonKey => "data";
 
@@ -12,7 +12,7 @@ class StuAttendanceModel {
   final dynamic outTime;
   final String? status;
 
-  StuAttendanceModel({
+  StuAttendanceDataModel({
     this.userId,
     this.fullName,
     this.contactNumber,
@@ -22,7 +22,7 @@ class StuAttendanceModel {
     this.status,
   });
 
-  StuAttendanceModel copyWith({
+  StuAttendanceDataModel copyWith({
     int? userId,
     String? fullName,
     String? contactNumber,
@@ -31,7 +31,7 @@ class StuAttendanceModel {
     dynamic outTime,
     String? status,
   }) =>
-      StuAttendanceModel(
+      StuAttendanceDataModel(
         userId: userId ?? this.userId,
         fullName: fullName ?? this.fullName,
         contactNumber: contactNumber ?? this.contactNumber,
@@ -41,13 +41,13 @@ class StuAttendanceModel {
         status: status ?? this.status,
       );
 
-  factory StuAttendanceModel.fromJson(String str) =>
-      StuAttendanceModel.fromMap(json.decode(str));
+  factory StuAttendanceDataModel.fromJson(String str) =>
+      StuAttendanceDataModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory StuAttendanceModel.fromMap(Map<String, dynamic> json) =>
-      StuAttendanceModel(
+  factory StuAttendanceDataModel.fromMap(Map<String, dynamic> json) =>
+      StuAttendanceDataModel(
         userId: json["user_id"],
         fullName: json["full_name"],
         contactNumber: json["contact_number"],
@@ -62,7 +62,7 @@ class StuAttendanceModel {
         "full_name": fullName,
         "contact_number": contactNumber,
         "date": date,
-            // "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+        // "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
         "in_time": inTime,
         "out_time": outTime,
         "status": status,

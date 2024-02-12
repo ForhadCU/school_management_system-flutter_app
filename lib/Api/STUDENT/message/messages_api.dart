@@ -18,7 +18,7 @@ class StuMessageApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuMessage, payLoad, token);
-    kLogger.d(res.body[MessageModel.getDataListJsonKey]);
+    // kLogger.d(res.body[MessageModel.getDataListJsonKey]);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetMessageModel data");
       return MessageModel.fromMap(res.body[MessageModel.getDataListJsonKey]);

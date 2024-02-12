@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/attendance/attendance_api.dart';
-import 'package:school_management_system/Model/STUDENT/attendance/attendance_model.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
+import '../../../Model/STUDENT/attendance/attend_list_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/custom_utils.dart';
@@ -17,20 +17,41 @@ class StuAttendanceController extends GetxController {
   static StuAttendanceController get to => Get.find();
 
   /// variable declaration
-  var dateFrom = DateTime.now().obs;
-  var dateTo = DateTime.now().subtract(const Duration(days: 7)).obs;
+  var endDate = DateTime.now().obs;
+  var startDate = DateTime.now().subtract( Duration(days: (DateTime.now().day))).obs;
   var isDailyAttendaceTabActive = true.obs;
   // var isPeriodicAttendaceActive = false.obs;
   var numOfNoticesInRange = 0.obs;
   // RxList<StuAttendanceModel> stuAttendanceList = <StuAttendanceModel>[].obs;
-  var stuAttendanceList = Rxn<List<StuAttendanceModel>>();
+  var stuAttendanceListModel = AttendanceListModel().obs;
+  var stuAttendanceList = <AttendanceListModelData>[].obs;
   var token = "".obs;
+  var pageNumber = 1.obs;
+  var attendanceListScrollCntrlr = ScrollController().obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
     token.value = await AppLocalDataFactory.mGetToken();
+    isLoading.value = true;
     await mGetAttendanceInRange();
+    isLoading.value = false;
+    attendanceListScrollCntrlr.value.addListener(() {
+      if (attendanceListScrollCntrlr.value.offset ==
+          attendanceListScrollCntrlr.value.position.maxScrollExtent) {
+        if (stuAttendanceListModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(stuAttendanceListModel.value.currentPage!);
+          /*  pageNumber.value =  */ pageNumber.value++;
+          mGetAttendanceInRange();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
   }
 
   @override
@@ -42,13 +63,13 @@ class StuAttendanceController extends GetxController {
   mSelectDateFrom() async {
     DateTime? pickedDate = await showDatePicker(
       context: kGlobContext,
-      initialDate: dateFrom.value,
-      firstDate: DateTime.now().subtract(const Duration(days: 364)),
+      initialDate: startDate.value,
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
       lastDate: DateTime.now(),
     );
 
     if (pickedDate != null) {
-      dateFrom.value = pickedDate;
+      startDate.value = pickedDate;
     }
   }
 
@@ -61,13 +82,13 @@ class StuAttendanceController extends GetxController {
   mSelectDateTo() async {
     DateTime? pickedDate = await showDatePicker(
       context: kGlobContext,
-      initialDate: dateTo.value,
-      firstDate: DateTime.now().subtract(const Duration(days: 364)),
+      initialDate: endDate.value,
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
       lastDate: DateTime.now(),
     );
 
     if (pickedDate != null) {
-      dateTo.value = pickedDate;
+      endDate.value = pickedDate;
     }
   }
 
@@ -83,26 +104,28 @@ class StuAttendanceController extends GetxController {
   mGetAttendanceInRange() async {
     /* kLog(
         "start: ${mGetFormatDate(dateFrom, kApiDateFormat)} end: ${mGetFormatDate(dateTo, kApiDateFormat)}"); */
-    stuAttendanceList.value != null ? stuAttendanceList.value!.clear() : null;
-    stuAttendanceList.value = await StuAttendanceApis.mGetStuAttendanceList(
+    // stuAttendanceList != null ? stuAttendanceList.clear() : null;
+    stuAttendanceListModel.value =
+        await StuAttendanceApis.mGetStuAttendanceListModel(
       PayLoads.stuDateWiseAttendanceList(
+        page: pageNumber.value.toString(),
         api_access_key: AppData.api_access_key,
         date_range: jsonEncode(PayLoads.dateRange(
-            start: mGetFormatDate(dateFrom, kApiDateFormat),
+            start: mGetFormatDate(startDate, kApiDateFormat),
             // start: mGetFormatDate("2019-10-15", kApiDateFormat),
-            end: mGetFormatDate(dateTo, kApiDateFormat))),
+            end: mGetFormatDate(endDate, kApiDateFormat))),
         // end: mGetFormatDate("2023-11-14", kApiDateFormat))),
       ),
       token.value,
     );
-    if (stuAttendanceList.value == null) {
-      numOfNoticesInRange.value = stuAttendanceList.value!.isEmpty
-          ? 0
-          : stuAttendanceList.value!.length;
-    }
+    stuAttendanceList.addAll(stuAttendanceListModel.value.data!);
+    numOfNoticesInRange.value =
+        stuAttendanceList.isEmpty ? 0 : stuAttendanceList.length;
   }
 
   void mResetValues() {
-    dateFrom = DateTime.now().obs;
+    stuAttendanceList.clear();
+    pageNumber.value = 1;
+    numOfNoticesInRange.value = 0;
   }
 }

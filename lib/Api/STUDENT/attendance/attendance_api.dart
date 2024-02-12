@@ -1,6 +1,7 @@
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Model/STUDENT/attendance/attendance_model.dart';
+import 'package:school_management_system/Model/STUDENT/attendance/attend_data_model.dart';
 
+import '../../../Model/STUDENT/attendance/attend_list_model.dart';
 import '../../../Model/response_model.dart';
 import '../../../Utils/utils.dart';
 
@@ -15,22 +16,24 @@ class StuAttendanceApis {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static Future<List<StuAttendanceModel>> mGetStuAttendanceList(
+  static Future<AttendanceListModel> mGetStuAttendanceListModel(
       Map<String, dynamic> payLoad, token) async {
+    // kLog(payLoad);
     ResponseModel res = await CallAPI.getStudentData(
         ApiEndpoint.stuDateWiseAttendanceList, payLoad, token);
     if (res.statusCode == 200) {
       // kLogger.d(res.body[StuAttendanceModel.getParentJsonKey]);
 
       kLog("Successfully fetch mGetStuAttendanceList data");
-      return res.body[StuAttendanceModel.getParentJsonKey]
-              [StuAttendanceModel.getDataListJsonKey]
-          .map<StuAttendanceModel>((e) => StuAttendanceModel.fromMap(e))
-          .toList();
+      return AttendanceListModel.fromMap(
+              res.body[AttendanceListModel.getParentJsonKeyForStudent])
+          /*  .map<StuAttendanceDataModel>((e) => StuAttendanceDataModel.fromMap(e))
+          .toList() */
+          ;
     } else {
       kLog("mGetStuAttendanceList status code is: ${res.statusCode}");
       showError("Server failure");
-      return <StuAttendanceModel>[];
+      return AttendanceListModel();
     }
   }
 }

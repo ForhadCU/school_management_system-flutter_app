@@ -11,32 +11,34 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "My Profile",
-            style: TextStyle(color: Colors.white),
-          ),
-          elevation: 0,
-          backgroundColor: AppColor.primaryColor,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        endDrawer: StuHomeWidgets.vEndDrawer(),
-        body: BaseWidgetChild(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ProfileWidgets.vYourInfo(),
-                AppSpacing.xl.height,
-                ProfileWidgets.vAcademicInfo(),
-                AppSpacing.md.height,
-                ProfileWidgets.vParentsInfo(),
-                AppSpacing.md.height,
-                ProfileWidgets.vGaurdianInfo(),
-                AppSpacing.md.height,
-              ],
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "My Profile",
+              style: TextStyle(color: Colors.white),
             ),
+            elevation: 0,
+            backgroundColor: AppColor.primaryColor,
+            iconTheme: IconThemeData(color: Colors.white),
           ),
-        ));
+          endDrawer: StuHomeWidgets.vEndDrawer(),
+          body: BaseWidgetChild(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ProfileWidgets.vYourInfo(),
+                  AppSpacing.xl.height,
+                  ProfileWidgets.vAcademicInfo(),
+                  AppSpacing.md.height,
+                  ProfileWidgets.vParentsInfo(),
+                  AppSpacing.md.height,
+                  ProfileWidgets.vGaurdianInfo(),
+                  AppSpacing.md.height,
+                ],
+              ),
+            ),
+          )),
+    );
   }
 }

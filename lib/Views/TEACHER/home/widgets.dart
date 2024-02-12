@@ -5,6 +5,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
 import 'package:school_management_system/Model/PUBLIC/login/academic_group_model.dart';
+import 'package:school_management_system/Utils/custom_utils.dart';
+import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 import '../../../Config/config.dart';
 import '../../../Controller/TEACHER/home/home_controller.dart';
@@ -224,7 +226,52 @@ class TeachHomeWidgets {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.website),
+                        onTap: () {
+                          Get.toNamed(AppRoutes.teachAttendance);
+                        },
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: TeacherAssetLocation.attendance,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.live_class,
+                        // iconColor: AppColor.amber,
+                        label: "My Attendance".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.teachPeriodicAttnd);
+                        },
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.periodic_attend,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.my_class,
+                        // iconColor: AppColor.amber,
+                        label: "Periodic Attendance".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.teachMessage),
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.message_ic,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.messages,
+                        // iconColor: AppColor.amber,
+                        label: "Messages".toUpperCase()))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () async {
+                          await _controller.mGotoWebsite();
+                        },
                         iconLoc: StudentAssetLocation.website,
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,
@@ -245,36 +292,6 @@ class TeachHomeWidgets {
                     alignment: Alignment.center,
                     child: _vIconButton(
                         onTap: () {
-                          Get.toNamed(AppRoutes.teachPeriodicAttnd);
-                        },
-                        // onTap: () => Get.toNamed(AppRoutes.login),
-                        iconLoc: StudentAssetLocation.attendance,
-                        // bgColor: AppColor.amber.shade100,
-                        bgColor: AppColor.attendance,
-                        // iconColor: AppColor.amber,
-                        label: "Periodic Attendance".toUpperCase()))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.teachMessage),
-                        // onTap: () => Get.toNamed(AppRoutes.login),
-                        iconLoc: StudentAssetLocation.message_ic,
-                        // bgColor: AppColor.amber.shade100,
-                        bgColor: AppColor.messages,
-                        // iconColor: AppColor.amber,
-                        label: "Messages".toUpperCase()))),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: _vIconButton(
-                        onTap: () {
                           vLogoutDialog();
                           // controller.mLogutUser();
                         },
@@ -284,7 +301,6 @@ class TeachHomeWidgets {
                         bgColor: AppColor.log_out,
                         // iconColor: AppColor.amber,
                         label: "Log out".toUpperCase()))),
-            Expanded(child: Container()),
           ],
         ),
         /*  AppSpacing.xl.height,
@@ -333,6 +349,13 @@ class TeachHomeWidgets {
   }
 
   static Widget vEndDrawer() {
+    kLog("ImgUrl: " +
+        Utils.mMakeUserImageUrl(
+            imageLoc: _controller.profileInfoModel.value.photo ?? "",
+            alisName: _controller.siteListModel.value.siteAlias ?? ""));
+    kLog("Designation: ${_controller.designition.value}");
+    kLog("Imageloc: ${_controller.profileInfoModel.value.photo}");
+    kLog("alisName: ${_controller.siteListModel.value.siteAlias}");
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
         child: Column(
@@ -352,7 +375,22 @@ class TeachHomeWidgets {
                           color: Color.fromARGB(255, 82, 86, 143),
                           borderRadius: BorderRadius.circular(4)),
                       // color: Colors.orange,
-                      child: Image(
+                      child: /* cachedNetworkImage(
+                          "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+                          /*  Utils.mMakeUserImageUrl(
+                              imageLoc:
+                                  _controller.profileInfoModel.value.photo ??
+                                      "",
+                              alisName:
+                                  _controller.siteListModel.value.siteAlias ??
+                                      "") */
+                          ,
+                          width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                          fit: BoxFit.fill,
+                        ) */
+
+                          Image(
                         image: AssetImage(StudentAssetLocation.user),
                         width: AppScreenSize.mGetWidth(kGlobContext, 23),
                         height: AppScreenSize.mGetHeight(kGlobContext, 13),

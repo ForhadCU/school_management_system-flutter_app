@@ -247,7 +247,7 @@ class ExamMarksEntryWidgets {
                   /*  decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                   child: Obx(
-                    () => DropdownButton<AcademicGroup>(
+                    () => DropdownButton<TeachAcademicGroup>(
                       // child: DropdownButton<String>(
                       value: _commonController.selectedAcademicGroup.value,
                       hint: Text(
@@ -265,15 +265,15 @@ class ExamMarksEntryWidgets {
                       isDense: true,
                       isExpanded: true,
                       underline: Container(),
-                      onChanged: (AcademicGroup? selectedModel) {
+                      onChanged: (TeachAcademicGroup? selectedModel) {
                         _controller.mUpdateSelectedAcademicGroup(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
                                     // _controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
                       items: _commonController.academicGroupList
-                          .map((AcademicGroup value) {
-                        return DropdownMenuItem<AcademicGroup>(
+                          .map((TeachAcademicGroup value) {
+                        return DropdownMenuItem<TeachAcademicGroup>(
                           value: value,
                           child: Text(
                             value.groupName ?? "",

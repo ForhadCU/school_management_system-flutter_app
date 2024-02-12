@@ -33,6 +33,13 @@ class SearchSchoolController extends GetxController {
     await mGetAllSites();
   }
 
+  @override
+  onClose() async {
+    /* Get. delete<SearchSchoolController>(force: true); */
+    await Get.delete<SearchSchoolController>();
+    kLog("Called OnClose");
+  }
+
   mGetAllSites() async {
     showLoading("Getting Site list");
 

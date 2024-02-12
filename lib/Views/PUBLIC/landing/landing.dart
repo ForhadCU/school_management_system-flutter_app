@@ -24,12 +24,17 @@ class Landing extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
+        // iconTheme: IconThemeData(color: Colors.white),
+        title: Text(
+          "Website",
+          style: kTitle.copyWith(color: Colors.white),
+        ),
         elevation: 0,
-        backgroundColor: AppColor.white,
+        backgroundColor: AppColor.primaryColor,
         actions: [
           IconButton(
             // size: 24,
-            color: Colors.red,
+            color: Colors.white,
             onPressed: () {
               vExitDialog();
             },

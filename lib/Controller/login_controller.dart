@@ -38,7 +38,6 @@ class LoginController extends GetxController {
     kLog("<<Login init>>");
     await _mInitialization();
     await mGetAcademicGroupList();
-
   }
 
   mUpdateAcademicGroupSelection(
@@ -67,8 +66,8 @@ class LoginController extends GetxController {
 
         Get.offAllNamed(AppRoutes.dashboard);
       } else {
-        Get.offNamed(AppRoutes.academicGroup);
-        // await mGetAcademicGroupList();
+        await mGetAcademicGroupList();
+        Get.offNamed(AppRoutes.teachDashboard);
       }
     } else {
       kLog("userModel null");
@@ -108,6 +107,8 @@ class LoginController extends GetxController {
           PayLoads.employAcademicGroupList(
               api_access_key: AppData.api_access_key),
           token);
+      academicGroup.value = academicGroupList.first;
+     await mSaveAcademicGroupToLocal();
       // kLog(academicGroupList.length);
     } else {
       kLog("Empty Token");

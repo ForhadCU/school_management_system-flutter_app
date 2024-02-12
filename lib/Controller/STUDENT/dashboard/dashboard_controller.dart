@@ -8,6 +8,7 @@ import 'package:school_management_system/Views/PUBLIC/notification/notifications
 import 'package:school_management_system/Views/student_library.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Utils/custom_statusbar.dart';
 import '../../student_library.dart';
 
 class DashboardController extends GetxController {
@@ -24,10 +25,8 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Get.lazyPut(() => StuHomeController());
-    // Get.lazyPut(() => LandingController());
-    // Get.lazyPut(() => StuNoticeController());
-    // Get.lazyPut(() => ProfileController());
+    CustomStatusBar.mDarkStatusBar();
+
     Get.put(StuHomeController());
     Get.put(StuNotificationController());
     Get.put(StuNoticeController());

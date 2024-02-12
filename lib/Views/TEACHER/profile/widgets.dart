@@ -9,6 +9,7 @@ import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/STUDENT/profile/stu_profile_info_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
+import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 class TeachProfileWidgets {
   // make this class singleton
@@ -37,7 +38,20 @@ class TeachProfileWidgets {
     return _vPlainBlueBox(
         child: Row(
       children: [
-        const Image(
+        cachedNetworkImage(
+          "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+          /*  Utils.mMakeUserImageUrl(
+                              imageLoc:
+                                  _controller.profileInfoModel.value.photo ??
+                                      "",
+                              alisName:
+                                  _controller.siteListModel.value.siteAlias ??
+                                      "") */
+          ,
+          width: AppScreenSize.mGetWidth(kGlobContext, 23),
+          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+          fit: BoxFit.fill,
+        ) /* Image(
           image: AssetImage(
             StudentAssetLocation.user,
           ),
@@ -46,7 +60,8 @@ class TeachProfileWidgets {
           width: 64,
           height: 70,
           fit: BoxFit.cover,
-        ),
+        ) */
+        ,
         AppSpacing.md.width,
         Expanded(
             child: Column(

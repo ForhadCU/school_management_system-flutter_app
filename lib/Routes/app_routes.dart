@@ -10,7 +10,9 @@ import 'package:school_management_system/Bindings/PUBLIC/login.dart';
 import 'package:school_management_system/Bindings/PUBLIC/notice.dart';
 import 'package:school_management_system/Bindings/PUBLIC/search_school.dart';
 import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
+import 'package:school_management_system/Bindings/PUBLIC/splash_scr_binding.dart';
 import 'package:school_management_system/Bindings/STUDENT/message/messages_binding.dart';
+import 'package:school_management_system/Bindings/TEACHER/attendance/attendance_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/dashboard/dashboard_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/examAttandence/exam_attandence_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/examMarksEntry/exam_marks_entry_bindings.dart';
@@ -26,6 +28,7 @@ import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_
 import 'package:school_management_system/Views/PUBLIC/contact/contact.dart';
 import 'package:school_management_system/Views/PUBLIC/landing/landing.dart';
 import 'package:school_management_system/Views/PUBLIC/login/pages/academic_group.dart';
+import 'package:school_management_system/Views/PUBLIC/splashScreen/splash_screen.dart';
 import 'package:school_management_system/Views/STUDENT/classroom/subPages/classroom_details.dart';
 import 'package:school_management_system/Views/STUDENT/dashboard/dashboard.dart';
 import 'package:school_management_system/Views/PUBLIC/gallery/gallery.dart';
@@ -38,6 +41,7 @@ import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
 import 'package:school_management_system/Views/STUDENT/message/message.dart';
 import 'package:school_management_system/Views/STUDENT/notice/pages/expanded_notice.dart';
+import 'package:school_management_system/Views/TEACHER/attendance/attendance.dart';
 import 'package:school_management_system/Views/TEACHER/dashboard/dashboard.dart';
 import 'package:school_management_system/Views/TEACHER/examAttandence/exam_attandence.dart';
 import 'package:school_management_system/Views/TEACHER/examMarksEntry/exam_marks_entry.dart';
@@ -70,7 +74,12 @@ abstract class AppPages {
       page: () => Test(),
     ),
 
-    /// Laucher Slides
+    /// SplashScreen
+    GetPage(
+        name: AppRoutes.splashScreen,
+        binding: SplashScreenBindig(),
+        page: () => SplashScreen()),
+   /// Laucher Slides
     GetPage(
         name: AppRoutes.launcherSlides,
         binding: LaucherSlidesBinding(),
@@ -298,5 +307,9 @@ abstract class AppPages {
         name: AppRoutes.teachPeriodicAttnd,
         page: () => const TeachPeriodicAttendance(),
         binding: TeachPeriodicAttendanceBindings()),
+    GetPage(
+        name: AppRoutes.teachAttendance,
+        page: () => const TeachAttendance(),
+        binding: TeachAttendanceBindings()),
   ];
 }

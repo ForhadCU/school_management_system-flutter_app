@@ -17,13 +17,16 @@ const String nav_home = "assets/icons/nav_home.png";
 const String nav_notification = "assets/icons/nav_notification.png";
 const String nav_user = "assets/icons/nav_user.png";
 const String no_icon_img = "assets/icons/no_icon_img.png";
-
-const String attendance = "assets/logos/attendance.jpg";
+const String attendance = "assets/logos/attendance.png";
 const String demo_school = "assets/logos/demo_school.png";
-const String mark_sheet = "assets/logos/mark_sheet.jpg";
-const String multiple_login = "assets/logos/multiple_login.jpg";
-const String notice_board_logo = "assets/logos/notice_board.jpg";
-const String routines = "assets/logos/routines.jpg";
+const String mark_sheet = "assets/logos/markshit.png";
+const String multiple_login = "assets/logos/multiple_login.png";
+const String notice_board_logo = "assets/logos/noticeboard.png";
+const String routines = "assets/logos/routine.png";
+
+const String edu_world_logo = "assets/logos/edu_world_logo.png";
+const String edu_world_txt = "assets/logos/edu_world_txt.png";
+const String the_world = "assets/logos/the_world.png";
 
 const String logoDemoSchool = "assets/logos/demo_school.png";
 
@@ -58,6 +61,13 @@ class PublicAssetLocation {
   static const String slide_bg_5 = "assets/images/slide_bg_5.png";
   static const String sample_gallery_image =
       "assets/images/sample_gallery_image.jpg";
+
+  ///logo
+  static const String attendance = "assets/logos/attendance.png";
+  static const String markshit = "assets/logos/markshit.png";
+  static const String multiple_login = "assets/logos/multiple_login.png";
+  static const String noticeboard = "assets/logos/noticeboard.png";
+  static const String routine = "assets/logos/routine.png";
 }
 
 class StudentAssetLocation {
@@ -85,11 +95,12 @@ class StudentAssetLocation {
   static const String admin = "assets/icons/admin.png";
   static const String help_desk = "assets/icons/help_desk.png";
   static const String user = "assets/icons/user.png";
-
+  static const String periodic_attend = "assets/icons/periodic_attendance.png";
 
   static const String dashboard_base_ic = "assets/icons/ic_dashboard.png";
-  static const String academic_calendar_base_ic = "assets/icons/ic_calendar.png";
-  static const String attendance_base_ic  = "assets/icons/ic_attendance.png";
+  static const String academic_calendar_base_ic =
+      "assets/icons/ic_calendar.png";
+  static const String attendance_base_ic = "assets/icons/ic_attendance.png";
   static const String live_class_base_ic = "assets/icons/ic_live_meeting.png";
   static const String my_class_base_ic = "assets/icons/ic_classroom.png";
   static const String my_exam_base_ic = "assets/icons/ic_my_exam.png";
@@ -101,14 +112,15 @@ class StudentAssetLocation {
   static const String help_desk_base_ic = "assets/icons/ic_helpdesk.png";
   static const String notice_base_ic = "assets/icons/ic_notice.png";
   static const String message_ic = "assets/icons/message.png";
-
+  static const String routine_base_ic = "assets/icons/routine_base_ic.png";
+  static const String periodic_attend_base_ic =
+      "assets/icons/periodic_attnd_base_ic.png";
+  static const String tickMark = "assets/icons/periodic_attnd_base_ic.png";
 
   static const String icLauncher = "assets/logos/ic_launcher.png";
   static const String cellfin = "assets/logos/cellfin.png";
   static const String bkash = "assets/logos/bksh.png";
   static const String nagad = "assets/logos/nagad.png";
-
-
 }
 
 class TeacherAssetLocation {
@@ -120,4 +132,7 @@ class TeacherAssetLocation {
   }
 
   static const String no_icon_img = "assets/icons/no_icon_img.png";
+  static const String attendance_base_ic =
+      "assets/icons/my_attendance_base_ic.png";
+  static const String attendance = "assets/icons/my_attendance.png";
 }

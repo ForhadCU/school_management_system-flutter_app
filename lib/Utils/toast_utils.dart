@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:school_management_system/Config/config.dart';
 
 void showLoading(String message) {
-  EasyLoading.show(status: message);
+  
+  EasyLoading.show(status: message, maskType: EasyLoadingMaskType.custom);
 }
 
 void hideLoading() {
@@ -52,12 +54,14 @@ Widget helpCenterWidget(BuildContext context) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Text('title',
-                              ),
+                          const Text(
+                            'title',
+                          ),
                           const SizedBox(height: 10),
-                          const Text('details',
-                              textAlign: TextAlign.center,
-                             ),
+                          const Text(
+                            'details',
+                            textAlign: TextAlign.center,
+                          ),
                           // Text(kWhatsAppHelpDialogDetails2,
                           //     textAlign: TextAlign.center,
                           //     style: GoogleFonts.poppins(
@@ -70,7 +74,8 @@ Widget helpCenterWidget(BuildContext context) {
                               child: Container(
                                   // width: 150,
                                   height: 45,
-                                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                   decoration: const BoxDecoration(
                                     color: Color(0xff4DC85B),
                                   ),
@@ -100,7 +105,6 @@ Widget helpCenterWidget(BuildContext context) {
                                           ),
                                           const Text(
                                             'Whatsapp',
-                                           
 
                                             //  text.text.color(Colors.white).size(16).make()),
                                           ),
