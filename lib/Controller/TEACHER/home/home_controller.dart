@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/TEACHER/profile_api.dart';
+import 'package:school_management_system/Controller/TEACHER/examAttandence/exam_attandence_controller.dart';
 import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
 import 'package:school_management_system/Controller/common/common_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
@@ -154,9 +155,9 @@ class TeachHomeController extends GetxController {
   mLogutUser() async {
     // showLoading("Loggin Out...");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.clear();
+    sharedPreferences.remove(kToken);
     // hideLoading();
-    Get.offNamed(AppRoutes.searchSchool);
+    Get.offAllNamed(AppRoutes.landing);
   }
 
   void mChangeSelectedAcademicGroup(AcademicGroup? selectedModel) async {
@@ -166,7 +167,8 @@ class TeachHomeController extends GetxController {
     await sharedPreferences.setString(
         kAcademicGroup, jsonEncode(selectedModel.toMap()));
 
-    // await Get.delete<CommonController>();
+
+
 
     // await _mGetProfileInfo();
   }
@@ -178,11 +180,11 @@ class TeachHomeController extends GetxController {
         throw Exception('Could not launch ${siteListModel.value.domainName}');
       }
     } else {
-        if (!await launchUrl(Uri.parse(
-            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
-          throw Exception(
-              'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
-        }
+      if (!await launchUrl(Uri.parse(
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
+        throw Exception(
+            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
       }
+    }
   }
 }

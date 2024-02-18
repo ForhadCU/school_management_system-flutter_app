@@ -27,7 +27,8 @@ class TeachRoutineApis {
       return res.body[PeriodicTypeModel.getDataListJsonKey]
           .map<PeriodicTypeModel>((e) => PeriodicTypeModel.fromMap(e))
           .toList();
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       //  return List<StuHistoryModel>();
       return <PeriodicTypeModel>[];
     }
@@ -43,7 +44,8 @@ class TeachRoutineApis {
       kLog("Successfully fetch mGetRoutinePdf data");
       // kLog(res.body);
       return res.body;
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

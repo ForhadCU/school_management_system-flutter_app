@@ -25,7 +25,8 @@ class HelpdeskApi {
       return res.body['help_desk_list']
           .map<HelpDeskModel>((e) => HelpDeskModel.fromMap(e))
           .toList();
-    } else {
+    } else {      hideLoading();
+      showError("Server failure");
       // return List<StuHelpDeskModel>();
       return <HelpDeskModel>[];
     }

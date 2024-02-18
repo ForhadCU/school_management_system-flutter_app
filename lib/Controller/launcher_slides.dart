@@ -17,7 +17,7 @@ class LauncherSlidesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mInitialization();
+    // mInitialization();
     CustomStatusBar.mDarkStatusBar(true);
   }
 

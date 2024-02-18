@@ -24,7 +24,8 @@ class TeachPeriodicAttendanceApis {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetPeriodModel data");
       return TeachPeriodModel.fromMap(res.body);
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mGetPeriodModel status code is: ${res.statusCode}");
       return TeachPeriodModel();
       //return <TeachPeriodModel>[];
@@ -39,7 +40,8 @@ class TeachPeriodicAttendanceApis {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetPeriodicAttendanceModel data");
       return TeachPeriodicAttendanceModel.fromMap(res.body[TeachPeriodicAttendanceModel.getParentJsonKey]);
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mGetPeriodicAttendanceModel status code is: ${res.statusCode}");
       return TeachPeriodicAttendanceModel();
       //return <TeachPeriodModel>[];
@@ -63,7 +65,8 @@ class TeachPeriodicAttendanceApis {
       kLog("Successfully submit mSavePeriodicAttendance data");
       // return ExamAttendanceListModel.fromMap(res.body);
       return true;
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mSavePeriodicAttendance status code is: ${res.statusCode}");
       return false;
       //return <ClassName>[];

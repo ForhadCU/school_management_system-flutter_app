@@ -23,6 +23,8 @@ class ExamAttendanceApis {
       return ExamAttendanceListModel.fromMap(res.body);
       // return ExamAttendanceListModel();
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("mGetExamAttendanceListModel status code is: ${res.statusCode}");
       return ExamAttendanceListModel();
       //return <ClassName>[];
@@ -46,6 +48,8 @@ class ExamAttendanceApis {
       // return ExamAttendanceListModel.fromMap(res.body);
       return true;
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("mSubmitExamAttendanceList status code is: ${res.statusCode}");
       return false;
       //return <ClassName>[];

@@ -27,9 +27,9 @@ class SchoolSearchApi {
           .map<SitelistModel>((e) => SitelistModel.fromMap(e))
           .toList();
     } else {
+      hideLoading();
+      showError("Server failure");
       return <SitelistModel>[];
     }
   }
 }
-
-

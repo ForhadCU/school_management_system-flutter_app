@@ -14,9 +14,7 @@ class SearchSchool extends StatelessWidget {
     return SafeArea(
         child: Obx(
       () => !controller.isAllSitesLoaded.value
-          ? Container(
-           
-            )
+          ? Container()
           : Column(
               children: [
                 /// title
@@ -24,6 +22,7 @@ class SearchSchool extends StatelessWidget {
 
                 /// searchbar
                 SearchSchoolWidget.vSearchBar(),
+
                 AppSpacing.md.height,
 
                 /// Result List

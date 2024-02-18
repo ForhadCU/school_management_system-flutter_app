@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:logger/logger.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,9 +41,14 @@ class AppLocalDataFactory {
   static Future<SitelistModel> mGetSiteListModel() async {
     final SharedPreferences sharedPreference =
         await SharedPreferences.getInstance();
-    Map<String, dynamic> decodedJson =
-        jsonDecode(sharedPreference.getString(kSiteListModel)!);
-    return SitelistModel.fromMap(decodedJson);
+    if (sharedPreference.getString(kSiteListModel) != null) {
+      Map<String, dynamic> decodedJson =
+          jsonDecode(sharedPreference.getString(kSiteListModel)!);
+      return SitelistModel.fromMap(decodedJson);
+    } else {
+      kLog("Empty data");
+      return SitelistModel();
+    }
   }
 
   static Future<AcademicGroup> mGetAcademicGroupModel() async {

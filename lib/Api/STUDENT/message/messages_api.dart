@@ -18,12 +18,14 @@ class StuMessageApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuMessage, payLoad, token);
-    // kLogger.d(res.body[MessageModel.getDataListJsonKey]);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetMessageModel data");
       return MessageModel.fromMap(res.body[MessageModel.getDataListJsonKey]);
     } else {
       kLog("mGetMessageModel status code is: ${res.statusCode}");
+      hideLoading();
+      showError("Server failure");
       return MessageModel();
       //return <MessageModel>[];
     }

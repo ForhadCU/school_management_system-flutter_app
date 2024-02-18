@@ -24,7 +24,7 @@ class AppButtons {
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
+              horizontal: AppSpacing.xl, vertical: AppSpacing.sm+4),
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -115,6 +115,54 @@ class AppButtons {
               Text(
                 text,
                 style: kBody.copyWith(
+                  color: textColor ?? AppColor.white,
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
+
+  static Widget vInstituteSwitchButton({
+    required Function onTap,
+    required String text,
+    Color? bg,
+    Color? textColor,
+    LinearGradient? bgGradient,
+    bool? isShadow,
+    double? horizontalPadding,
+    double? verticalPadding,
+  }) {
+    return GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? AppSpacing.xl,
+              vertical: verticalPadding ?? AppSpacing.sm),
+          decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                )
+              ],
+              color: bg ?? Colors.white,
+              gradient: bgGradient ?? AppColor.kBtnGradiantColor,
+              borderRadius: BorderRadius.circular(AppSpacing.smh)),
+          child: Row(
+            children: [
+              Icon(
+                Icons.autorenew,
+                color: AppColor.white,
+                size: 16,
+              ),
+              AppSpacing.smh.width,
+              Text(
+                text,
+                style: kTitleLite.copyWith(
+                  fontWeight: FontWeight.w500,
                   color: textColor ?? AppColor.white,
                 ),
               ),

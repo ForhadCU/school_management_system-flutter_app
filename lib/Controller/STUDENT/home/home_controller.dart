@@ -66,7 +66,7 @@ class StuHomeController extends GetxController {
     kLog("Called Home init");
     CustomStatusBar.mDarkStatusBar();
 
-    await _mInitialization();
+    await _mLoadLocalData();
     // await mGetAcademicGroupList();
     await _mGetProfileInfo();
   }
@@ -77,7 +77,19 @@ class StuHomeController extends GetxController {
     // await Get.delete<SearchSchoolController>();
   }
 
-  _mInitialization() async {
+  _mInitialization() {
+    profileInfoModel = ProfileInfoModel().obs;
+    // var groupName = "College".obs;
+    selectedAcademicGroup = AcademicGroup().obs;
+    // var academicGroupList = <AcademicGroupModel>[].obs;
+    academicGroupList = <AcademicGroup>[].obs;
+
+    siteListModel = SitelistModel();
+
+    token = '';
+  }
+
+  _mLoadLocalData() async {
     token = await AppLocalDataFactory.mGetToken();
     designition.value = await AppLocalDataFactory.mGetUserType();
     siteListModel = await AppLocalDataFactory.mGetSiteListModel();
@@ -91,6 +103,7 @@ class StuHomeController extends GetxController {
             api_access_key: AppData.api_access_key,
             academic_group_id: selectedAcademicGroup.value.id.toString()),
         token);
+    kLog("Photo: ${profileInfoModel.value.photo}");
   }
 
   mGetAcademicGroupList() async {
@@ -154,10 +167,12 @@ class StuHomeController extends GetxController {
   mLogutUser() async {
     // showLoading("Loggin Out...");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.clear();
+    await sharedPreferences.remove(kToken);
+    _mInitialization();
+    print(siteListModel.siteLogo);
 
     // hideLoading();
-    Get.offNamed(AppRoutes.searchSchool);
+    Get.offAllNamed(AppRoutes.landing);
   }
 
   mGotoWebsite() async {
@@ -165,13 +180,13 @@ class StuHomeController extends GetxController {
       if (!await launchUrl(
           Uri.parse(AppData.https + siteListModel.domainName))) {
         throw Exception('Could not launch ${siteListModel.domainName}');
-      } 
-    }else {
-        if (!await launchUrl(Uri.parse(
-            "${AppData.https}${siteListModel.siteAlias}.${AppData.hostNameTheWorld}"))) {
-          throw Exception(
-              'Could not launch ${siteListModel.siteAlias}.${AppData.hostNameTheWorld}');
-        }
       }
+    } else {
+      if (!await launchUrl(Uri.parse(
+          "${AppData.https}${siteListModel.siteAlias}.${AppData.hostNameTheWorld}"))) {
+        throw Exception(
+            'Could not launch ${siteListModel.siteAlias}.${AppData.hostNameTheWorld}');
+      }
+    }
   }
 }

@@ -21,7 +21,7 @@ class TeachHelpDeskController extends GetxController {
   var siteListModel = SitelistModel().obs;
   var stuHelpdeskModelList = <HelpDeskModel>[].obs;
   var clickedEduSiteHelpDeskSetting = EduSiteHelpDeskSetting().obs;
-  late Rx<YoutubePlayerController> youtubePlayerController;
+  var youtubePlayerController = YoutubePlayerController(initialVideoId: "").obs;
   var currentGroupModel = AcademicGroup();
 
   @override
@@ -74,13 +74,17 @@ class TeachHelpDeskController extends GetxController {
   }
 
   void _mInitializeYtbPlayerController() {
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-          clickedEduSiteHelpDeskSetting.value.videoLink ?? "")!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
-      ),
-    ).obs;
+    if (clickedEduSiteHelpDeskSetting.value.videoLink != null) {
+      youtubePlayerController.value = YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(
+            clickedEduSiteHelpDeskSetting.value.videoLink!)!,
+        flags: const YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+        ),
+      );
+    } else {
+      showError("No Video file");
+    }
   }
 }

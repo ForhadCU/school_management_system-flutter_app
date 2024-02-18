@@ -32,7 +32,7 @@ class TeachProfileController extends GetxController {
   _mInitialization() async {
     token.value = await AppLocalDataFactory.mGetToken();
     userDesignition.value = await AppLocalDataFactory.mGetUserType();
-    // siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
   }
 /*   _mGetProfileInfo() async {
     profileInfoModel.value = await TeachProfileApis.mGetProfileInfo(

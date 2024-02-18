@@ -30,6 +30,8 @@ class ExamApis {
           .toList();
     } else {
       //  return List<StuHistoryModel>();
+      hideLoading();
+      showError("Server failure");
       return <StuHistoryModel>[];
     }
   }
@@ -47,12 +49,13 @@ class ExamApis {
           .toList();
     } else {
       //  return List<StuHistoryModel>();
-
+      hideLoading();
+      showError("Server failure");
       return <StuExamTypeModel>[];
     }
   }
 
-    static Future<Uint8List?> mGetExamRoutinePdf(
+  static Future<Uint8List?> mGetExamRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuExamSubjectRoutineList, payLoad, token, true);
@@ -62,10 +65,14 @@ class ExamApis {
       kLog(res.body);
       return res.body;
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;
     }
-  }  static Future<Uint8List?> mGetExamAdmitCardPdf(
+  }
+
+  static Future<Uint8List?> mGetExamAdmitCardPdf(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuExamAdmitCard, payLoad, token, true);
@@ -75,6 +82,8 @@ class ExamApis {
       kLog(res.body);
       return res.body;
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

@@ -22,7 +22,8 @@ class AboutUsApi {
       print("Successfully read data");
       AboutUsApiModel apiModel = AboutUsApiModel.fromMap(res.body);
       return apiModel.aboutUs!;
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       return AboutUs();
       //return <SiteHistoryApiM>[];
     }

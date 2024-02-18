@@ -206,7 +206,7 @@ class CallAPI {
       });
       if (res.statusCode == 200) {
         body = json.decode(res.body);
-        showSuccess("Completed");
+        hideLoading();
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
@@ -246,7 +246,7 @@ class CallAPI {
       });
       if (res.statusCode == 200) {
         body = json.decode(res.body);
-        showSuccess("Completed");
+        hideLoading();
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
@@ -260,10 +260,10 @@ class CallAPI {
 
   static Future<ResponseModel> getTeacherData(
       String endPoint, Map<String, dynamic>? params, String token,
-      {String? url}) async {
+      {String? url, bool? isShowLoading}) async {
     dynamic body;
     kLog('GET + $endPoint');
-    showLoading("Please wait...");
+   isShowLoading ==null || isShowLoading ? showLoading("Please wait...") : null;
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     SitelistModel sitelistModel = SitelistModel.fromMap(
@@ -285,7 +285,7 @@ class CallAPI {
       });
       if (res.statusCode == 200) {
         body = json.decode(res.body);
-        showSuccess("Completed");
+        hideLoading();
       }
       hideLoading();
 
@@ -331,7 +331,8 @@ class CallAPI {
         } else {
           body = json.decode(res.body);
         }
-        showSuccess("Success");
+        // showSuccess("Success");
+        
       }
       hideLoading();
       return ResponseModel(statusCode: res.statusCode, body: body);
@@ -418,7 +419,7 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        // hideLoading();
+        hideLoading();
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -427,7 +428,7 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
 
-        // showSuccess("Success");
+        // showSuccess("Submited");
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
@@ -474,7 +475,7 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
 
-        showSuccess("Success");
+        showSuccess("Submitted");
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
@@ -506,7 +507,7 @@ class CallAPI {
       });
       if (res.statusCode == 200) {
         body = json.decode(res.body);
-        showSuccess("Done");
+        hideLoading();
       }
 
       return ResponseModel(statusCode: res.statusCode, body: body);
@@ -524,7 +525,7 @@ class CallAPI {
       required Map<String, dynamic> bodyData,
       required String token,
       required Map<String, dynamic> payload}) async {
-            final SharedPreferences sharedPreferences =
+    final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     SitelistModel sitelistModel = SitelistModel.fromMap(
         jsonDecode(sharedPreferences.getString(kSiteListModel)!));
@@ -558,7 +559,7 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
 
-        showSuccess("Saved");
+        showSuccess("Submitted");
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {

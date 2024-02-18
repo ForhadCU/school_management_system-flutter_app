@@ -38,7 +38,8 @@ class LoginApi {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetAcademicGroupList data");
       return AcademicGroupListModel.fromMap(res.body).academicGroupList!;
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mGetAcademicGroupList status code is: ${res.statusCode}");
       return <AcademicGroup>[];
       //return <AcademicGroupListModel  >[];

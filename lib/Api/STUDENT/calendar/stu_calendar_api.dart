@@ -26,6 +26,8 @@ class StuCalendarApis {
           .map<StuAcademicGroupModel>((e) => StuAcademicGroupModel.fromMap(e))
           .toList();
     } else {
+       hideLoading();
+      showError("Server failure");
       return <StuAcademicGroupModel>[];
     }
   }
@@ -46,6 +48,8 @@ class StuCalendarApis {
           .monthWiseCalendarData!.eventDateList!;
     } else {
       print(res.body);
+       hideLoading();
+      showError("Server failure");
       return [<StuEventDateList>[]];
       //return <List<EventDateList>>[];
     }

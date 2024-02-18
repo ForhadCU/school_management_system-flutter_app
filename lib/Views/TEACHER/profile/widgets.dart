@@ -11,6 +11,8 @@ import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
+import '../../../Utils/custom_utils.dart';
+
 class TeachProfileWidgets {
   // make this class singleton
   TeachProfileWidgets._internal();
@@ -20,7 +22,7 @@ class TeachProfileWidgets {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static final controller = TeachProfileController.to;
+  static final _controller = TeachProfileController.to;
   static final homeController = TeachHomeController.to;
 
   static Container _vPlainBlueBox({required Widget child}) {
@@ -35,23 +37,23 @@ class TeachProfileWidgets {
   }
 
   static vYourInfo() {
-    return _vPlainBlueBox(
-        child: Row(
-      children: [
-        cachedNetworkImage(
-          "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-          /*  Utils.mMakeUserImageUrl(
-                              imageLoc:
-                                  _controller.profileInfoModel.value.photo ??
-                                      "",
-                              alisName:
-                                  _controller.siteListModel.value.siteAlias ??
-                                      "") */
-          ,
-          width: AppScreenSize.mGetWidth(kGlobContext, 23),
-          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-          fit: BoxFit.fill,
-        ) /* Image(
+    return Obx(() {
+      kLog(
+          "ImgUrlProfile: ${Utils.mMakeUserImageUrl(imageLoc: homeController.profileInfoModel.value.photo ?? "", alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+              _controller.siteListModel.value.siteAlias ?? "")}");
+      return _vPlainBlueBox(
+          child: Row(
+        children: [
+          cachedNetworkImage(
+            // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+            Utils.mMakeUserImageUrl(
+                imageLoc: homeController.profileInfoModel.value.photo ?? "",
+                alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                    _controller.siteListModel.value.siteAlias ?? ""),
+            width: AppScreenSize.mGetWidth(kGlobContext, 23),
+            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+            fit: BoxFit.fill,
+          ) /* Image(
           image: AssetImage(
             StudentAssetLocation.user,
           ),
@@ -61,42 +63,42 @@ class TeachProfileWidgets {
           height: 70,
           fit: BoxFit.cover,
         ) */
-        ,
-        AppSpacing.md.width,
-        Expanded(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  homeController.profileInfoModel.value.firstName == null
-                      ? ""
-                      : homeController.profileInfoModel.value.firstName!
-                          .toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.fontUsername,
-                    fontSize: 14,
+          ,
+          AppSpacing.md.width,
+          Expanded(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    homeController.profileInfoModel.value.firstName == null
+                        ? ""
+                        : homeController.profileInfoModel.value.firstName!
+                            .toUpperCase(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.fontUsername,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                Text(
-                  homeController.profileInfoModel.value.lastName == null
-                      ? ""
-                      : " ${homeController.profileInfoModel.value.lastName!.toUpperCase()}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.fontUsername,
-                    fontSize: 14,
+                  Text(
+                    homeController.profileInfoModel.value.lastName == null
+                        ? ""
+                        : " ${homeController.profileInfoModel.value.lastName!.toUpperCase()}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.fontUsername,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            AppSpacing.sm.height,
-            Row(
-              children: [
-                /* Text(
+                ],
+              ),
+              AppSpacing.sm.height,
+              Row(
+                children: [
+                  /* Text(
                   "UserName".toUpperCase(),
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -110,50 +112,50 @@ class TeachProfileWidgets {
                     fontSize: 16,
                   ),
                 ), */
-                Expanded(
-                  child: Text(
-                    controller.userDesignition.value.capitalizeFirst ?? "",
-                    softWrap: true,
+                  Expanded(
+                    child: Text(
+                      _controller.userDesignition.value.capitalizeFirst ?? "",
+                      softWrap: true,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              AppSpacing.sm.height,
+              Row(
+                children: [
+                  Text(
+                    "UserName".capitalizeFirst ?? "",
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
                   ),
-                ),
-              ],
-            ),
-            AppSpacing.sm.height,
-            Row(
-              children: [
-                Text(
-                  "UserName".capitalizeFirst ?? "",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  " : ".toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    homeController.profileInfoModel.value.username == null
-                        ? ""
-                        : homeController.profileInfoModel.value.username!
-                            .toUpperCase(),
-                    softWrap: true,
+                  Text(
+                    " : ".toUpperCase(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
                   ),
-                ),
-              ],
-            ), /* 
+                  Expanded(
+                    child: Text(
+                      homeController.profileInfoModel.value.username == null
+                          ? ""
+                          : homeController.profileInfoModel.value.username!
+                              .toUpperCase(),
+                      softWrap: true,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ), /* 
             AppSpacing.smh.height,
             Row(
               children: [
@@ -186,10 +188,11 @@ class TeachProfileWidgets {
               ],
             ),
             AppSpacing.smh.height, */
-          ],
-        ))
-      ],
-    ));
+            ],
+          ))
+        ],
+      ));
+    });
   }
 
   static vPersonalInfo() {

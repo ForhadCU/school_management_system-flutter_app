@@ -117,7 +117,7 @@ class AcademicCalanderWidget {
                         isTodayHighlighted: false,
                         tableBorder: TableBorder.all(
                             color: AppColor.secondaryColor, width: 1)),
-                    focusedDay:controller.toDay.value,
+                    focusedDay: controller.toDay.value,
                     firstDay: controller.firstDay,
                     lastDay: controller.lastDay,
                   )
@@ -231,6 +231,7 @@ class AcademicCalanderWidget {
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return const Divider(
+                    thickness: .4,
                     color: Colors.white,
                   );
                 },
@@ -243,14 +244,17 @@ class AcademicCalanderWidget {
       margin: EdgeInsets.symmetric(vertical: AppSpacing.smh),
       child: Row(
         children: [
-          Text(
-            date,
-            style: kBody.copyWith(
-              color: color,
+          Expanded(
+            child: Text(
+              date,
+              style: kBody.copyWith(
+                color: color,
+              ),
             ),
           ),
           AppSpacing.sm.width,
           Expanded(
+            flex: 7,
             child: Text(
               title,
               style: kBody.copyWith(color: color, fontWeight: FontWeight.bold),

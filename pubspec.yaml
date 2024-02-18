@@ -42,6 +42,7 @@ dependencies:
   flutter_pdfview: ^1.3.2
   flutter_timer_countdown: ^1.0.7
   flutter_cache_manager: ^3.3.1
+  flutter_launcher_icons: ^0.13.1
   # flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
@@ -49,6 +50,11 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+flutter_icons:
+  image_path: "icons/edu_world_logo.png"
+  android: true
+  ios: true
+
 
 flutter:
 

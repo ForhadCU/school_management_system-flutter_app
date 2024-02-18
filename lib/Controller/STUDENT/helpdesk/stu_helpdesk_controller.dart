@@ -18,13 +18,21 @@ class HelpDeskController extends GetxController {
   var siteListModel = SitelistModel().obs;
   var stuHelpdeskModelList = <HelpDeskModel>[].obs;
   var clickedEduSiteHelpDeskSetting = EduSiteHelpDeskSetting().obs;
-  late Rx<YoutubePlayerController> youtubePlayerController;
+  var youtubePlayerController = YoutubePlayerController(initialVideoId: "").obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
+    kLog("Init");
+    /*  token = "".obs;
+    siteListModel = SitelistModel().obs;
+    stuHelpdeskModelList = <HelpDeskModel>[].obs;
+    clickedEduSiteHelpDeskSetting = EduSiteHelpDeskSetting().obs;
+    youtubePlayerController = YoutubePlayerController(initialVideoId: "").obs; */
+
     await _mInitialization();
-    await _mGetProfileInfo();
+    await mGetStuHelpDeskModelList();
     /* youtubePlayerController = YoutubePlayerController(
       initialVideoId: '',
       flags: const YoutubePlayerFlags(
@@ -43,6 +51,7 @@ class HelpDeskController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    // mReset();
   }
 
   /// code goes here
@@ -57,21 +66,36 @@ class HelpDeskController extends GetxController {
     siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
   }
 
-  _mGetProfileInfo() async {
-    kLog("api key: ${AppData.api_access_key}   token: ${token.value}");
+  mGetStuHelpDeskModelList() async {
+    // kLog("api key: ${AppData.api_access_key}   token: ${token.value}");
+    // kLog("stuHelpdeskModelList Length: ${stuHelpdeskModelList.length}");
+
     stuHelpdeskModelList.value = await HelpdeskApi.mGetStuHelpDeskModelList(
         {kApi_access_key: AppData.api_access_key}, token.value);
-    kLog("stuHelpdeskModelList Length: ${stuHelpdeskModelList.length}");
   }
 
   void _mInitializeYtbPlayerController() {
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-          clickedEduSiteHelpDeskSetting.value.videoLink ?? "")!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
-      ),
-    ).obs;
+    if (clickedEduSiteHelpDeskSetting.value.videoLink != null) {
+      youtubePlayerController.value = YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(
+            clickedEduSiteHelpDeskSetting.value.videoLink!)!,
+        flags: const YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+        ),
+      );
+    } else {
+      showError("No Video file");
+    }
+  }
+
+  void mReset() {
+    /// variable declaration
+    token.value = "";
+    siteListModel.value = SitelistModel();
+    stuHelpdeskModelList.value = <HelpDeskModel>[];
+    clickedEduSiteHelpDeskSetting.value = EduSiteHelpDeskSetting();
+    youtubePlayerController.value = YoutubePlayerController(initialVideoId: "");
+    isLoading.value = false;
   }
 }

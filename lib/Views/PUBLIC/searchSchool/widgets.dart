@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/PUBLIC/search_school_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
+import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 import '../../../Config/config.dart';
@@ -84,33 +85,43 @@ class SearchSchoolWidget {
   static vSearchBar() {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-        child: TextFormField(
-          key: _formKey,
-          controller: _controller.textEditingControllerSearchSite,
-          onChanged: (value) {
-            AppData.debouncer.run(() {
-              _controller.mGetSearchResult(value);
-            });
-          },
-          decoration: InputDecoration(
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.xl, vertical: AppSpacing.mdh),
-            hintText: "Search your institution here",
-            hintStyle:
-                kBody.copyWith(color: const Color.fromARGB(255, 97, 97, 97)),
-            fillColor: AppColor.secondaryColor.withOpacity(.5),
-            filled: true,
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.secondaryColor.withOpacity(.5),
-                ),
-                borderRadius: BorderRadius.circular(AppSpacing.xl)),
-            focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColor.secondaryColor.withOpacity(.5)),
-                borderRadius: BorderRadius.circular(AppSpacing.xl)),
-          ),
+        child: Column(
+          children: [
+            TextFormField(
+              key: _formKey,
+              controller: _controller.textEditingControllerSearchSite,
+              onChanged: (value) {
+                if (value.length > 2) {
+                  AppData.debouncer.run(() {
+                    _controller.mGetSearchResult(value);
+                  });
+                } else {
+                  _controller.mClearCurrentSearchList();
+                }
+              },
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.mdh, vertical: AppSpacing.mdh),
+                hintText: "Search your institution here",
+                hintStyle: kBody.copyWith(
+                    color: const Color.fromARGB(255, 97, 97, 97)),
+                fillColor: AppColor.secondaryColor.withOpacity(.5),
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColor.secondaryColor.withOpacity(.5),
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: AppColor.secondaryColor.withOpacity(.5)),
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+            AppSpacing.sm.height,
+            vWarningMassege(),
+          ],
         ));
   }
 
@@ -140,6 +151,20 @@ class SearchSchoolWidget {
               );
             },
           ));
+  }
+
+  static vWarningMassege() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          Text(
+            "Type at least 3 letters*",
+            style: TextStyle(color: Colors.deepOrange, fontSize: 13),
+          ),
+        ],
+      ),
+    );
   }
   // codes start from here
   // All methods should be static to maintain singleton instances

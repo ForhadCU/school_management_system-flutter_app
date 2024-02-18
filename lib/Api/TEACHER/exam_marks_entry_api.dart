@@ -23,7 +23,8 @@ class ExamMarksEntryApis {
       kLog("Successfully fetch mGetExamMarksEntryModel data");
       return ExamMarksEntryListModel.fromMap(res.body);
       // return ExamMarksEntryModel();
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mGetExamMarksEntryModel status code is: ${res.statusCode}");
       return ExamMarksEntryListModel();
       //return <ClassName>[];
@@ -45,7 +46,8 @@ class ExamMarksEntryApis {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mSubmitExamMarks data");
       return true;
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mSubmitExamMarks status code is: ${res.statusCode}");
       return false;
       //return <ClassName>[];

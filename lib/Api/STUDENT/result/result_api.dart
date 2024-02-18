@@ -32,7 +32,8 @@ class ResultApis {
       return res.body[StuHistoryModel.getDataListJsonKey]
           .map<StuHistoryModel>((e) => StuHistoryModel.fromMap(e))
           .toList();
-    } else {
+    } else {      hideLoading();
+      showError("Server failure");
       //  return List<StuHistoryModel>();
       return <StuHistoryModel>[];
     }
@@ -67,7 +68,8 @@ class ResultApis {
       return res.body[StuResultTypeModel.getDataListJsonKey]
           .map<StuResultTypeModel>((e) => StuResultTypeModel.fromMap(e))
           .toList();
-    } else {
+    } else {      hideLoading();
+      showError("Server failure");
       //  return List<StuHistoryModel>();
 
       return <StuResultTypeModel>[];
@@ -83,7 +85,8 @@ class ResultApis {
       kLog("Successfully fetch mGetResultPdf data");
       // kLog(res.body);
       return res.body;
-    } else {
+    } else {      hideLoading();
+      showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

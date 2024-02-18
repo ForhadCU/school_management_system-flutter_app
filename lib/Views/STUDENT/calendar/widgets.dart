@@ -234,7 +234,9 @@ class StuCalendarWidgets {
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return const Divider(
-                    color: Colors.white,
+                    thickness: .5,
+                    
+                    color: Colors.black12,
                   );
                 },
               )));
@@ -246,14 +248,17 @@ class StuCalendarWidgets {
       margin: EdgeInsets.symmetric(vertical: AppSpacing.smh),
       child: Row(
         children: [
-          Text(
-            date,
-            style: kBody.copyWith(
-              color: color,
+          Expanded(
+            child: Text(
+              date,
+              style: kBody.copyWith(
+                color: color,
+              ),
             ),
           ),
           AppSpacing.sm.width,
           Expanded(
+            flex: 7,
             child: Text(
               title,
               style: kBody.copyWith(color: color, fontWeight: FontWeight.bold),
@@ -274,7 +279,7 @@ class StuCalendarWidgets {
           style: kBody.copyWith(fontWeight: FontWeight.w500),
         ),
         Divider(
-          color: AppColor.kGray300,
+          color: Colors.black45,
           thickness: .5,
         ),
       ],

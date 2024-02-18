@@ -79,18 +79,19 @@ class CommonController extends GetxController {
                 academic_group_id: academicGroupId.value),
             token.value)
         .then((value) {
-      value.academicYearList != null &&
-              value.academicShiftList != null &&
-              value.academicYearList!.isNotEmpty &&
-              value.academicShiftList!.isNotEmpty
-          ? {
-              academicYearList.value = value.academicYearList!,
-              academicShiftList.value = value.academicShiftList!,
-              selectedAcademicYear.value = value.academicYearList!.first,
-              selectedAcademicShift.value = value.academicShiftList!.first,
-              selectedAcademicVersion.value = value.academicVersionlist!.first,
-            }
-          : canContinue.value = false;
+      if (value.academicYearList != null &&
+          value.academicShiftList != null &&
+          value.academicYearList!.isNotEmpty &&
+          value.academicShiftList!.isNotEmpty) {
+        academicYearList.value = value.academicYearList!;
+        // academicYearList.addAll(value.academicYearList!);
+        academicShiftList.value = value.academicShiftList!;
+        selectedAcademicYear.value = value.academicYearList!.first;
+        selectedAcademicShift.value = value.academicShiftList!.first;
+        selectedAcademicVersion.value = value.academicVersionlist!.first;
+      } else {
+        canContinue.value = false;
+      }
     });
   }
 

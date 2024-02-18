@@ -22,7 +22,8 @@ class TeachMessageApis {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetMessageModel data");
       return MessageModel.fromMap(res.body[MessageModel.getDataListJsonKey]);
-    } else {
+    } else {   hideLoading();
+      showError("Server failure");
       kLog("mGetMessageModel status code is: ${res.statusCode}");
       return MessageModel();
       //return <MessageModel>[];

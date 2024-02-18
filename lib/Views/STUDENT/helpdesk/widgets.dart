@@ -18,38 +18,40 @@ class HelpDeskWidgets {
   // codes start from here
   // All methods should be static to maintain singleton instances
   static final _controller = HelpDeskController.to;
-  static final List<HelpDeskModel> stuHelpDeskModelList =
-      _controller.stuHelpdeskModelList;
 
   static vParentList() {
-    return Obx(() => ListView.separated(
-          shrinkWrap: true,
-          itemCount:
-              stuHelpDeskModelList.isEmpty ? 0 : stuHelpDeskModelList.length,
-          itemBuilder: ((context, index) {
-            final stuHelpdeskModel = stuHelpDeskModelList[index];
-            return Column(
-              children: [
-                _vTopBar(text: stuHelpdeskModel.name ?? ''),
-                _vChildList(
-                    list: stuHelpdeskModel.eduSiteHelpDeskSetting!,
-                    onTap: (int tappedIndex) {
-                      kLog(tappedIndex);
-                      print(
-                          "Tapped : ${stuHelpdeskModel.eduSiteHelpDeskSetting![tappedIndex].helpTitle}");
-                      _controller.mTappedOnHelpDeskItem(stuHelpdeskModel
-                          .eduSiteHelpDeskSetting![tappedIndex]);
-                    }),
-              ],
-            );
-          }),
-          separatorBuilder: (BuildContext copagentext, int index) {
-            return const Divider(
-              color: AppColor.white,
-              height: AppSpacing.md,
-            );
-          },
-        ));
+    return Obx(() {
+      // kLog("Length: ${_controller.stuHelpdeskModelList.isEmpty}");
+      return ListView.separated(
+        shrinkWrap: true,
+        itemCount: _controller.stuHelpdeskModelList.isEmpty
+            ? 0
+            : _controller.stuHelpdeskModelList.length,
+        itemBuilder: ((context, index) {
+          final stuHelpdeskModel = _controller.stuHelpdeskModelList[index];
+          return Column(
+            children: [
+              _vTopBar(text: stuHelpdeskModel.name ?? ''),
+              _vChildList(
+                  list: stuHelpdeskModel.eduSiteHelpDeskSetting!,
+                  onTap: (int tappedIndex) {
+                    kLog(tappedIndex);
+                    print(
+                        "Tapped : ${stuHelpdeskModel.eduSiteHelpDeskSetting![tappedIndex].helpTitle}");
+                    _controller.mTappedOnHelpDeskItem(
+                        stuHelpdeskModel.eduSiteHelpDeskSetting![tappedIndex]);
+                  }),
+            ],
+          );
+        }),
+        separatorBuilder: (BuildContext copagentext, int index) {
+          return const Divider(
+            color: AppColor.white,
+            height: AppSpacing.md,
+          );
+        },
+      );
+    });
   }
 
   static _vTopBar({required String text}) {
@@ -121,13 +123,15 @@ class HelpDeskDetailsWidgets {
     return _singleton;
   }
   static final _controller = HelpDeskController.to;
-  static EduSiteHelpDeskSetting _eduSiteHelpDeskSetting =
-      _controller.clickedEduSiteHelpDeskSetting.value;
+/*   static EduSiteHelpDeskSetting _eduSiteHelpDeskSetting =
+      _controller.clickedEduSiteHelpDeskSetting.value; */
 
   static vTutorialCard() {
     return Column(
       children: [
-        _vTopBar(text: _eduSiteHelpDeskSetting.helpTitle ?? ""),
+        _vTopBar(
+            text: _controller.clickedEduSiteHelpDeskSetting.value.helpTitle ??
+                ""),
         _vPlainBlueBox(
           child: _vBody(),
         )
@@ -181,8 +185,11 @@ class HelpDeskDetailsWidgets {
               )),
         ),
         Visibility(
-            visible:
-                _eduSiteHelpDeskSetting.helpDescription != null ? true : false,
+            visible: _controller
+                        .clickedEduSiteHelpDeskSetting.value.helpDescription !=
+                    null
+                ? true
+                : false,
             child: Column(
               children: [
                 AppSpacing.md.height,
@@ -191,7 +198,9 @@ class HelpDeskDetailsWidgets {
                   style: kBody.copyWith(color: AppColor.fontUsername),
                 ),
                 AppSpacing.sm.height,
-                Text(_eduSiteHelpDeskSetting.helpDescription ?? ''),
+                Text(_controller
+                        .clickedEduSiteHelpDeskSetting.value.helpDescription ??
+                    ''),
               ],
             ))
       ],

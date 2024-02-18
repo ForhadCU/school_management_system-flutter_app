@@ -12,6 +12,7 @@ import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/PUBLIC/landing/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/Widgets/custom_textfield.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 
@@ -51,17 +52,19 @@ class Landing extends StatelessWidget {
           title: controller.siteListModel.value.siteName ?? tDemoSchoolName)), */
       body: BaseWidgetChild(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // vSchollNameBanner(),
-            Obx(() => InstitueBanaer(
-                iconUrl: controller.siteListModel.value.siteLogo,
-                title: controller.siteListModel.value.siteName ??
-                    tDemoSchoolName)),
-            (AppSpacing.xxl * 2).height,
-            vBody(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // vSchollNameBanner(),
+              Obx(() => InstitueBanaer(
+                  iconUrl: controller.siteListModel.value.siteLogo,
+                  title: controller.siteListModel.value.siteName ??
+                      tDemoSchoolName)),
+              (AppSpacing.xxl * 2).height,
+              vBody(),
+            ],
+          ),
         ),
       )),
     ));
@@ -146,6 +149,17 @@ class Landing extends StatelessWidget {
                         label: "Login"))),
           ],
         ),
+        (AppSpacing.xxl * 2).height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppButtons.vInstituteSwitchButton(
+                onTap: () {
+                  Get.toNamed(AppRoutes.searchSchool);
+                },
+                text: "Switch Institute")
+          ],
+        )
       ],
     );
   }

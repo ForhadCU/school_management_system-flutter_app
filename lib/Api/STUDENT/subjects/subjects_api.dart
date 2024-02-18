@@ -25,7 +25,8 @@ class StuSubjectsApis {
       return res.body[StuSubjectModel.getDataListJsonKey]
           .map<StuSubjectModel>((e) => StuSubjectModel.fromMap(e))
           .toList();
-    } else {
+    } else {      hideLoading();
+      showError("Server failure");
       kLog("Failed! mGetSubjectList status code is: ${res.statusCode}");
       // return List<StuSubjectModel>();
       return <StuSubjectModel>[];

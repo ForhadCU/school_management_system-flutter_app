@@ -25,17 +25,19 @@ class Login extends StatelessWidget {
         ), */
       child: BaseWidgetChild(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() => InstitueBanaer(
-                iconUrl: controller.siteListModel.value.siteLogo,
-                title: controller.siteListModel.value.siteName ??
-                    tDemoSchoolName)),
-            // vSchollNameBanner(controller),
-            (AppSpacing.xxl * 2).height,
-            vBody(controller, formKey),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(() => InstitueBanaer(
+                  iconUrl: controller.siteListModel.value.siteLogo,
+                  title: controller.siteListModel.value.siteName ??
+                      tDemoSchoolName)),
+              // vSchollNameBanner(controller),
+              (AppSpacing.xxl * 2).height,
+              vBody(controller, formKey),
+            ],
+          ),
         ),
       )),
     );
@@ -125,13 +127,16 @@ class Login extends StatelessWidget {
           ),
         ),
         AppSpacing.xxl.height,
-        AppButtons.vPrimaryButtonWithGradient(
-            onTap: () async {
-              if (formKey.currentState!.validate()) {
-                await controller.mUserLogin();
-              }
-            },
-            text: "Login"),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+          child: AppButtons.vPrimaryButtonWithGradient(
+              onTap: () async {
+                if (formKey.currentState!.validate()) {
+                  await controller.mUserLogin();
+                }
+              },
+              text: "Login"),
+        ),
         AppSpacing.xxl.height,
         GestureDetector(
           onTap: () {
@@ -172,14 +177,16 @@ class Login extends StatelessWidget {
               ),
             )),
         AppSpacing.xxl.height,
-        AppButtons.vPrimaryButtonWithGradient(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                showSuccess("Send");
-                controller.isLoginViewVisible.value = true;
-              }
-            },
-            text: "Send"),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+            child: AppButtons.vPrimaryButtonWithGradient(
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    showSuccess("Sent");
+                    controller.isLoginViewVisible.value = true;
+                  }
+                },
+                text: "Send")),
         AppSpacing.xxl.height,
         GestureDetector(
           onTap: () {

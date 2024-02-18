@@ -75,7 +75,7 @@ class Utils {
 
   static String mMakeUserImageUrl(
       {required String imageLoc, required String alisName}) {
-    return "${alisName}.${AppData.hostNameTheWorld}${imageLoc}";
+    return "$alisName.${AppData.hostNameTheWorld}$imageLoc";
   }
 
   int mCalculateDaysFromSecs({required int secs}) {

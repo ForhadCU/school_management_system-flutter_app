@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/STUDENT/profile/stu_profile_info_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
+
+import '../../../Utils/custom_utils.dart';
+import '../../Widgets/cached_network_image.dart';
 
 class ProfileWidgets {
   // make this class singleton
@@ -16,9 +20,10 @@ class ProfileWidgets {
   }
   // codes start from here
   // All methods should be static to maintain singleton instances
-  static final controller = StuProfileController.to;
+  static final _controller = StuProfileController.to;
+  static final homeController = StuHomeController.to;
   static final ProfileInfoModel studentProfileInfoModel =
-      controller.stuProfileInfoModel.value;
+      _controller.stuProfileInfoModel.value;
 
   static Container _vPlainBlueBox({required Widget child}) {
     return Container(
@@ -35,16 +40,39 @@ class ProfileWidgets {
     return _vPlainBlueBox(
         child: Row(
       children: [
-        const Image(
-          image: AssetImage(
-            StudentAssetLocation.user,
-          ),
-          color: Colors.black45,
-          // image: CachedNetworkImage(imageUrl: controller.stuProfileInfoModel.value.),
-          width: 64,
-          height: 70,
-          fit: BoxFit.cover,
-        ),
+        Obx(() {
+      homeController.profileInfoModel.value.photo != null &&
+                      _controller.siteListModel.value.siteAlias != null ?    kLog(Utils.mMakeUserImageUrl(
+              imageLoc: homeController.profileInfoModel.value.photo!,
+              alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                  _controller.siteListModel.value.siteAlias!)): null;
+          return homeController.profileInfoModel.value.photo != null &&
+                      _controller.siteListModel.value.siteAlias != null
+                  ? cachedNetworkImage(
+                      // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+                      Utils.mMakeUserImageUrl(
+                          imageLoc:
+                              homeController.profileInfoModel.value.photo!,
+                          alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                              _controller.siteListModel.value.siteAlias!),
+                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                      // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                      fit: BoxFit.fill,
+                    )
+                  : Container(
+                      child: Text("Loading"),
+                    ) /* Image(
+              image: AssetImage(
+                StudentAssetLocation.user,
+              ),
+              color: Colors.black45,
+              // image: CachedNetworkImage(imageUrl: controller.stuProfileInfoModel.value.),
+              width: 64,
+              height: 70,
+              fit: BoxFit.cover,
+            ) */
+              ;
+        }),
         AppSpacing.md.width,
         Expanded(
             child: Column(

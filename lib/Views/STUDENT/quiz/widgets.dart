@@ -399,7 +399,7 @@ class StuQuizWidgets {
                     ],
                   ),
                 ),
-
+/* 
                 AppSpacing.md.width,
 
                 /// close
@@ -424,7 +424,7 @@ class StuQuizWidgets {
                       )
                     ],
                   ),
-                ),
+                ), */
               ],
             ),
           ),

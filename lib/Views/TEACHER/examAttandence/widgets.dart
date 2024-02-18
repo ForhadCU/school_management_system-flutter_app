@@ -28,6 +28,7 @@ class ExamAttendanceWidgets {
   // All methods should be static to maintain singleton instances
 
   static final _commonController = CommonController.to;
+  // static final _commonController = Get.put(CommonController());
   static final _controller = ExamAttendanceController.to;
 
   static vTabBar() {
@@ -40,6 +41,8 @@ class ExamAttendanceWidgets {
               isActive: true,
               onTap: () {
                 // _controller.mUpdateDailyAttendanceTabItem();
+
+                
               }),
         ),
         (AppSpacing.smh / 2).width,

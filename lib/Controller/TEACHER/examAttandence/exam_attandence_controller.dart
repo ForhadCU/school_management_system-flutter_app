@@ -37,7 +37,12 @@ class ExamAttendanceController extends GetxController {
 
   @override
   void onClose() async {
-    examAttendanceListModel.value = ExamAttendanceListModel();
+    // examAttendanceListModel.value = ExamAttendanceListModel();
+  }
+  @override
+  dispose() {
+    super.dispose();
+    
   }
 
   mGetAcademicGroupModel() async {
@@ -106,9 +111,7 @@ class ExamAttendanceController extends GetxController {
   _mGetInitialDataForDropdowns() async {
     await _commonController.mGetVersionYearShiftModel();
     await _commonController.mGetDeptClasslistModel();
-    await _commonController.mGetDeptClasslistModel();
     await _commonController.mGetClassGroupModel();
-
     await _commonController.mGetSectionSessionModel();
     await _commonController.mGetExaminationListModel();
     await _commonController.mGetExamSubjectListModel();

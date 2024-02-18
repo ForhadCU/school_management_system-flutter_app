@@ -36,31 +36,34 @@ class StuMessageWidgets {
   }
 
   static vMessageCard(MessageData message) {
-    kLog(
-        "ImageUrl: ${AppData.eduWorldTheworldHostname + _controller.siteListModel.value.siteLogo!}");
-    return Obx(() => ListTile(
-          leading: Container(
-              decoration: const BoxDecoration(
-                color: Colors.black12,
-                shape: BoxShape.circle,
-              ),
-              child: cachedNetworkImage(
-                  AppData.eduWorldTheworldHostname +
-                      _controller.siteListModel.value.siteLogo!,
-                  width: 48,
-                  fit: BoxFit
-                      .contain) /* const Icon(
+    return Obx(() {
+      kLog(
+          "Message card Logo ImageUrl: ${AppData.eduWorldTheworldHostname + _controller.siteListModel.value.siteLogo!}");
+
+      return ListTile(
+        leading: Container(
+            decoration: const BoxDecoration(
+              color: Colors.black12,
+              shape: BoxShape.circle,
+            ),
+            child: cachedNetworkImage(
+                AppData.eduWorldTheworldHostname +
+                    _controller.siteListModel.value.siteLogo!,
+                width: 48,
+                fit: BoxFit
+                    .contain) /* const Icon(
                 Icons.person,
                 size: 48,
                 color: Colors.white,
               ) */
-              ),
-          title: Text(message.title ?? ""),
-          subtitle: Text(message.message ?? ""),
-          trailing: message.createdAt == null
-              ? Container()
-              : Text(Utils().getTimeFromTimeStamp(
-                  message.createdAt.toString(), kAppDateFormat)),
-        ));
+            ),
+        title: Text(message.title ?? ""),
+        subtitle: Text(message.message ?? ""),
+        trailing: message.createdAt == null
+            ? Container()
+            : Text(Utils().getTimeFromTimeStamp(
+                message.createdAt.toString(), kAppDateFormat)),
+      );
+    });
   }
 }

@@ -24,12 +24,17 @@ class CommonApis {
   static Future<VersionYearShiftModel> mGetVersionYearShiftModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.academic_version_year_shift_list, payLoad, token);
+        isShowLoading: false,
+        ApiEndpoint.academic_version_year_shift_list,
+        payLoad,
+        token);
     // kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetVersionYearShiftModel data");
       return VersionYearShiftModel.fromMap(res.body);
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("mGetVersionYearShiftModel status code is: ${res.statusCode}");
       return VersionYearShiftModel();
       //return <ClassName>[];
@@ -39,12 +44,15 @@ class CommonApis {
   static Future<DeptClasslistModel> mGetDeptClasslistModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.version_year_shift_based_department_class, payLoad, token);
+        ApiEndpoint.version_year_shift_based_department_class, payLoad, token,
+        isShowLoading: false);
     // kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetDeptClasslistModel data");
       return DeptClasslistModel.fromMap(res.body);
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("mGetDeptClasslistModel status code is: ${res.statusCode}");
       return DeptClasslistModel();
       //return <ClassName>[];
@@ -54,6 +62,7 @@ class CommonApis {
   static Future<ClassGroupModel> mGetClassGroupModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
+        isShowLoading: false,
         ApiEndpoint
             .version_year_shift_based_section_or_class_group_session_by_class,
         payLoad,
@@ -63,6 +72,8 @@ class CommonApis {
       kLog("Successfully fetch mGetClassGroupModel data");
       return ClassGroupModel.fromMap(res.body);
     } else {
+      hideLoading();
+      showError("Server failure");
       kLog("mGetClassGroupModel status code is: ${res.statusCode}");
       return ClassGroupModel();
       //return <ClassName>[];
@@ -72,7 +83,10 @@ class CommonApis {
   static Future<SectionSessionModel> mGetSectionSessionModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.site_class_base_section, payLoad, token);
+        isShowLoading: false,
+        ApiEndpoint.site_class_base_section,
+        payLoad,
+        token);
     // kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetSectionSessionModel data");
@@ -88,6 +102,7 @@ class CommonApis {
       Map<String, dynamic> payLoad, String token) async {
     kLog(payLoad);
     ResponseModel res = await CallAPI.getTeacherData(
+        isShowLoading: false,
         ApiEndpoint.department_class_base_examination_list_by_employee,
         payLoad,
         token);
@@ -106,7 +121,10 @@ class CommonApis {
   static Future<ExamSubjectListModel> mGetExamSubjectListModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.examination_base_subject_list_by_employee, payLoad, token);
+        isShowLoading: false,
+        ApiEndpoint.examination_base_subject_list_by_employee,
+        payLoad,
+        token);
     // kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamSubjectListModel data");
@@ -122,7 +140,10 @@ class CommonApis {
   static Future<ExamDistributionListModel> mGetExamDistributionListModel(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.attendance_paper_list_by_employee, payLoad, token);
+        isShowLoading: false,
+        ApiEndpoint.attendance_paper_list_by_employee,
+        payLoad,
+        token);
     // kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamDistributionListModel data");
