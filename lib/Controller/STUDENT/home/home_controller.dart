@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:school_management_system/Api/STUDENT/home/home_api.dart';
 import 'package:school_management_system/Api/STUDENT/profile/stu_profile_api.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
@@ -99,9 +100,8 @@ class StuHomeController extends GetxController {
 
   _mGetProfileInfo() async {
     profileInfoModel.value = await ProfileApis.mGetProfileInfo(
-        PayLoads.teachProfileInfo(
-            api_access_key: AppData.api_access_key,
-            academic_group_id: selectedAcademicGroup.value.id.toString()),
+        PayLoads.mStuProfileInfo(
+            api_access_key: AppData.api_access_key, token: token),
         token);
     kLog("Photo: ${profileInfoModel.value.photo}");
   }
@@ -166,13 +166,19 @@ class StuHomeController extends GetxController {
 
   mLogutUser() async {
     // showLoading("Loggin Out...");
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.remove(kToken);
-    _mInitialization();
-    print(siteListModel.siteLogo);
 
+    /*  _mInitialization();
+    print(siteListModel.siteLogo); */
+  
+    var isLogout = await HomeApis()
+        .mUserLogout({"api_access_key": AppData.api_access_key}, token);
     // hideLoading();
-    Get.offAllNamed(AppRoutes.landing);
+    if (isLogout) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.remove(kToken);
+      Get.offAllNamed(AppRoutes.landing);
+    }
   }
 
   mGotoWebsite() async {

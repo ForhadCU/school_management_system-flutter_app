@@ -5,7 +5,7 @@ import 'package:school_management_system/Controller/common/common_controller.dar
 class ExamMarksEntryBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(ExamMarksEntryController());
-    Get.put(CommonController());
+    Get.lazyPut(() => CommonController());
+    Get.lazyPut(() => ExamMarksEntryController());
   }
 }

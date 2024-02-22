@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
@@ -9,6 +9,7 @@ import '../../../Controller/TEACHER/attendance/attendance_controller.dart';
 import '../../Widgets/buttons.dart';
 
 class TeachAttendanceWidgets {
+
   // make this class singleton
   TeachAttendanceWidgets._internal();
   static final TeachAttendanceWidgets _singleton =
@@ -1543,4 +1544,11 @@ class TeachAttendanceWidgets {
       ],
     );
   }
+
+  static vTextView() {
+    
+  }
+
+  static vListView() {}
 }
+ */

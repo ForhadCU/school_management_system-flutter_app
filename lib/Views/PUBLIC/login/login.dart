@@ -8,14 +8,13 @@ import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
 import '../../Widgets/base_widget.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Login extends GetView<LoginController> {
+  
+  Login({super.key});
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    final controller = LoginController.to;
-    final GlobalKey<FormState> formKey = GlobalKey();
-
     return BaseWidget(
       title: "Login",
       /* appBar: AppBar(

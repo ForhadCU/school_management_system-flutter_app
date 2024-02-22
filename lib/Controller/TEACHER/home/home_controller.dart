@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Api/TEACHER/profile_api.dart';
 import 'package:school_management_system/Controller/TEACHER/examAttandence/exam_attandence_controller.dart';
 import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
+import 'package:school_management_system/Controller/TEACHER/test/test_ctrlr.dart';
 import 'package:school_management_system/Controller/common/common_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
@@ -13,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Api/PUBLIC/login_api.dart';
+import '../../../Api/STUDENT/home/home_api.dart';
 import '../../../Api/STUDENT/profile/stu_profile_api.dart';
 import '../../../Config/config.dart';
 import 'package:school_management_system/Model/PUBLIC/login/academic_group_model.dart';
@@ -153,11 +155,14 @@ class TeachHomeController extends GetxController {
   }
 
   mLogutUser() async {
-    // showLoading("Loggin Out...");
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.remove(kToken);
-    // hideLoading();
-    Get.offAllNamed(AppRoutes.landing);
+    var isLogout = await HomeApis()
+        .mUserLogout({"api_access_key": AppData.api_access_key}, token);
+    if (isLogout) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.remove(kToken);
+      Get.offAllNamed(AppRoutes.landing);
+    }
   }
 
   void mChangeSelectedAcademicGroup(AcademicGroup? selectedModel) async {
@@ -166,11 +171,6 @@ class TeachHomeController extends GetxController {
 
     await sharedPreferences.setString(
         kAcademicGroup, jsonEncode(selectedModel.toMap()));
-
-
-
-
-    // await _mGetProfileInfo();
   }
 
   mGotoWebsite() async {

@@ -14,6 +14,6 @@ Widget cachedNetworkImage(String imageUrl, {double? width, BoxFit? fit, double? 
           color: Colors.blue,
         )),
     errorWidget: (context, url, error) =>
-        const Align(alignment: Alignment.center, child: Icon(Icons.error, color: Colors.black26,)),
+        const Align(alignment: Alignment.center, child: Icon(Icons.error_outline, color: Colors.black26,)),
   );
 }

@@ -5,6 +5,7 @@ import 'package:school_management_system/Controller/PUBLIC/search_school_control
 class SearchSchoolBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(SearchSchoolController());
+    // Get.put(SearchSchoolController());
+    Get.lazyPut(() => SearchSchoolController());
   }
 }

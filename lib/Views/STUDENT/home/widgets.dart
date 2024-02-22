@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -11,6 +11,7 @@ import '../../../Utils/utils.dart';
 import '../../Widgets/buttons.dart';
 
 class StuHomeWidgets {
+
   // make this class singleton
   StuHomeWidgets._internal();
   static final StuHomeWidgets _singleton = StuHomeWidgets._internal();
@@ -501,3 +502,4 @@ class StuHomeWidgets {
         barrierDismissible: false);
   }
 }
+ */

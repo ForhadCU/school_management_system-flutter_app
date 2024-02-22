@@ -4,6 +4,7 @@ import 'package:school_management_system/Controller/STUDENT/message/messages_ctr
 class StuMessageBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuMessageController());
+    // Get.put(StuMessageController());
+    Get.lazyPut(() => StuMessageController());
   }
 }

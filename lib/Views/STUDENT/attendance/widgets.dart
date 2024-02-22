@@ -10,6 +10,7 @@ import 'package:school_management_system/Views/Widgets/custom_container.dart';
 import '../../Widgets/buttons.dart';
 
 class StuAttendanceWidgets {
+  
   // make this class singleton
   StuAttendanceWidgets._internal();
   static final StuAttendanceWidgets _singleton =

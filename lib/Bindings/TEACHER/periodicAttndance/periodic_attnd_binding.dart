@@ -4,6 +4,7 @@ import 'package:school_management_system/Controller/TEACHER/periodicAttnd/period
 class TeachPeriodicAttendanceBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(TeachPeriodicAttendanceController());
+    // Get.put(TeachPeriodicAttendanceController());
+    Get.lazyPut(() => TeachPeriodicAttendanceController());
   }
 }

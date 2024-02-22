@@ -159,9 +159,12 @@ class QuizApis {
     /* ResponseModel res =
         await CallAPI.postStudentData(ApiEndpoint.stuQuizStart, payLoad, token);
     kLogger.d(res.body); */
+
     /// get quizQuestion list
     ResponseModel res = await CallAPI.getStudentData(
         ApiEndpoint.stuQuizQuestionList, payLoad, token);
+    kLogger.d(res.body);
+
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       // kLogger.d(res.body);
 

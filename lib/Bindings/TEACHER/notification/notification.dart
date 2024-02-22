@@ -6,6 +6,7 @@ import 'package:school_management_system/Views/Widgets/base_widget.dart';
 class TeachNotificationBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(TeachNotificationController());
+    // Get.put(TeachNotificationController());
+    Get.lazyPut(() => TeachNotificationController());
   }
 }

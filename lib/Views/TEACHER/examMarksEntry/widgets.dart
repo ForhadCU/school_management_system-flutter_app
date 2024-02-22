@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:school_management_system/Controller/TEACHER/examMarksEntry/exam_marks_entry_controller.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
+import '../../../Controller/TEACHER/examMarksEntry/exam_marks_entry_controller.dart';
 import '../../../Controller/common/common_controller.dart';
 import '../../../Model/TEACHER/version_year_shift_model.dart';
 import '../../Widgets/buttons.dart';
@@ -17,6 +17,8 @@ import '../../../Model/TEACHER/section_session_model.dart';
 import '../../../Model/TEACHER/version_year_shift_model.dart';
 
 class ExamMarksEntryWidgets {
+
+
   // make this class singleton
   ExamMarksEntryWidgets._internal();
   static final ExamMarksEntryWidgets _singleton =
@@ -25,40 +27,40 @@ class ExamMarksEntryWidgets {
     return _singleton;
   }
   // codes start from here
-  // All methods should be static to maintain singleton instances
+  // All methods should be  to maintain singleton instances
 
-  static final _controller = ExamMarksEntryController.to;
+/*    final controller = ExamMarksEntryController.to;
 
-  static final _commonController = CommonController.to;
+   final commonController = CommonController.to; */
 
-  static vTabBar() {
+  vTabBar() {
     return Row(
       children: [
         Expanded(
           child: CommonContainers.vTabItemContainer(
               text: "Subject Base Marks",
-              // isActive: _controller.isDailyAttendaceActive.value,
+              // isActive: controller.isDailyAttendaceActive.value,
               isActive: true,
               onTap: () {
-                // _controller.mUpdateDailyAttendanceTabItem();
+                // controller.mUpdateDailyAttendanceTabItem();
               }),
         ),
         (AppSpacing.smh / 2).width,
         Expanded(
             child: CommonContainers.vTabItemContainer(
           text: "Students Base Marks",
-          // isActive: _controller.isPeriodicAttendaceActive.value,
+          // isActive: controller.isPeriodicAttendaceActive.value,
           isActive: false,
 
           onTap: () {
-            // _controller.mUpdatePeriodicAttendanceTabItem();
+            // controller.mUpdatePeriodicAttendanceTabItem();
           },
         )),
       ],
     );
   }
 
-  static vSubjectBasedMarksEntryTopbar() {
+  vSubjectBasedMarksEntryTopbar({required ExamMarksEntryController controller, required CommonController commonController}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -81,7 +83,7 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static _vDropdowns1() {
+  _vDropdowns1() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -99,9 +101,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<AcademicYear>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicYear.value,
+                      value: commonController.selectedAcademicYear.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Year"
                             : "No Year",
                         style: kBody.copyWith(color: Colors.black),
@@ -116,12 +118,12 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (AcademicYear? selectedModel) {
-                        _controller.mUpdateSelectedAcademicYear(selectedModel);
+                        controller.mUpdateSelectedAcademicYear(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicYearList
+                      items: commonController.academicYearList
                           .map((AcademicYear value) {
                         return DropdownMenuItem<AcademicYear>(
                           value: value,
@@ -147,9 +149,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<AcademicShift>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicShift.value,
+                      value: commonController.selectedAcademicShift.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Shift"
                             : "No Shift",
                         style: kBody.copyWith(color: Colors.black),
@@ -164,12 +166,12 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (AcademicShift? selectedModel) {
-                        _controller.mUpdateSelectedAcademicShift(selectedModel);
+                        controller.mUpdateSelectedAcademicShift(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicShiftList
+                      items: commonController.academicShiftList
                           .map((AcademicShift value) {
                         return DropdownMenuItem<AcademicShift>(
                           value: value,
@@ -201,9 +203,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<AcademicClass>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicClass.value,
+                      value: commonController.selectedAcademicClass.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Class"
                             : "No Class",
                         style: kBody.copyWith(color: Colors.black),
@@ -218,12 +220,12 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (AcademicClass? selectedModel) {
-                        _controller.mUpdateSelectedAcademicClass(selectedModel);
+                        controller.mUpdateSelectedAcademicClass(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicClassList
+                      items: commonController.academicClassList
                           .map((AcademicClass value) {
                         return DropdownMenuItem<AcademicClass>(
                           value: value,
@@ -249,9 +251,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<TeachAcademicGroup>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicGroup.value,
+                      value: commonController.selectedAcademicGroup.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Group"
                             : "No Group",
                         style: kBody.copyWith(color: Colors.black),
@@ -266,12 +268,12 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (TeachAcademicGroup? selectedModel) {
-                        _controller.mUpdateSelectedAcademicGroup(selectedModel);
+                        controller.mUpdateSelectedAcademicGroup(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicGroupList
+                      items: commonController.academicGroupList
                           .map((TeachAcademicGroup value) {
                         return DropdownMenuItem<TeachAcademicGroup>(
                           value: value,
@@ -303,9 +305,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<AcademicSection>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicSection.value,
+                      value: commonController.selectedAcademicSection.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Section"
                             : "No Section",
                         style: kBody.copyWith(color: Colors.black),
@@ -320,13 +322,13 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (AcademicSection? selectedModel) {
-                        _controller
+                        controller
                             .mUpdateSelectedAcademicSection(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicSectionList
+                      items: commonController.academicSectionList
                           .map((AcademicSection value) {
                         return DropdownMenuItem<AcademicSection>(
                           value: value,
@@ -352,9 +354,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<AcademicSession>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicSession.value,
+                      value: commonController.selectedAcademicSession.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Session"
                             : "No Session",
                         style: kBody.copyWith(color: Colors.black),
@@ -369,13 +371,13 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (AcademicSession? selectedModel) {
-                        _controller
+                        controller
                             .mUpdateSelectedAcademicSession(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicSessionList
+                      items: commonController.academicSessionList
                           .map((AcademicSession value) {
                         return DropdownMenuItem<AcademicSession>(
                           value: value,
@@ -407,9 +409,9 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<Examination>(
                       // child: DropdownButton<String>(
-                      value: _commonController.selectedExamination.value,
+                      value: commonController.selectedExamination.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Exam"
                             : "No Exam",
                         style: kBody.copyWith(color: Colors.black),
@@ -424,12 +426,12 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (Examination? selectedModel) {
-                        _controller.mUpdateSelectedExamination(selectedModel);
+                        controller.mUpdateSelectedExamination(selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.examinationList
+                      items: commonController.examinationList
                           .map((Examination value) {
                         return DropdownMenuItem<Examination>(
                           value: value,
@@ -455,10 +457,10 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<SubjectGorupConditionSetting>(
                       // child: DropdownButton<String>(
-                      value: _commonController
+                      value: commonController
                           .selectedSubjectGorupConditionSetting.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Subject"
                             : "No Subject",
                         style: kBody.copyWith(color: Colors.black),
@@ -473,13 +475,13 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (SubjectGorupConditionSetting? selectedModel) {
-                        _controller.mUpdateSelectedSubjectGorupConditionSetting(
+                        controller.mUpdateSelectedSubjectGorupConditionSetting(
                             selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.subjectGorupConditionSettingList
+                      items: commonController.subjectGorupConditionSettingList
                           .map((SubjectGorupConditionSetting value) {
                         return DropdownMenuItem<SubjectGorupConditionSetting>(
                           value: value,
@@ -512,10 +514,10 @@ class ExamMarksEntryWidgets {
                   child: Obx(
                     () => DropdownButton<EmployeePaperDistribution>(
                       // child: DropdownButton<String>(
-                      value: _commonController
+                      value: commonController
                           .selectedEmployeePaperDistribution.value,
                       hint: Text(
-                        _commonController.canContinue.value
+                        commonController.canContinue.value
                             ? "Select Paper Distribution"
                             : "No Paper Distribution",
                         style: kBody.copyWith(color: Colors.black),
@@ -530,13 +532,13 @@ class ExamMarksEntryWidgets {
                       isExpanded: true,
                       underline: Container(),
                       onChanged: (EmployeePaperDistribution? selectedModel) {
-                        _controller.mUpdateSelectedEmployeePaperDistribution(
+                        controller.mUpdateSelectedEmployeePaperDistribution(
                             selectedModel);
                       },
                       /*  onChanged: (String? selectedModel) {
-                                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                                    // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.employeePaperDistributionList
+                      items: commonController.employeePaperDistributionList
                           .map((EmployeePaperDistribution value) {
                         return DropdownMenuItem<EmployeePaperDistribution>(
                           value: value,
@@ -557,7 +559,7 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static _vDropdowns2() {
+  _vDropdowns2() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -574,7 +576,7 @@ class ExamMarksEntryWidgets {
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Year",
                     style: kBody.copyWith(color: Colors.black),
@@ -589,13 +591,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -631,7 +633,7 @@ class ExamMarksEntryWidgets {
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
                   // value: controller.academicGrpDropdownValue.value,
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Shift",
                     style: kBody.copyWith(color: Colors.black),
@@ -646,13 +648,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -693,7 +695,7 @@ class ExamMarksEntryWidgets {
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Class",
                     style: kBody.copyWith(color: Colors.black),
@@ -708,13 +710,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -750,7 +752,7 @@ class ExamMarksEntryWidgets {
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
                   // value: controller.academicGrpDropdownValue.value,
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Group",
                     style: kBody.copyWith(color: Colors.black),
@@ -765,13 +767,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -812,7 +814,7 @@ class ExamMarksEntryWidgets {
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Section",
                     style: kBody.copyWith(color: Colors.black),
@@ -827,13 +829,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -869,7 +871,7 @@ class ExamMarksEntryWidgets {
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
                   // value: controller.academicGrpDropdownValue.value,
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Session",
                     style: kBody.copyWith(color: Colors.black),
@@ -884,13 +886,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -931,7 +933,7 @@ class ExamMarksEntryWidgets {
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                 // child: DropdownButton<StuHistoryModel>(
                 child: DropdownButton<String>(
-                  // value: _controller.selectedStudentHistory.value,
+                  // value: controller.selectedStudentHistory.value,
                   hint: Text(
                     "Select Exam",
                     style: kBody.copyWith(color: Colors.black),
@@ -946,13 +948,13 @@ class ExamMarksEntryWidgets {
                   isExpanded: true,
                   underline: Container(),
                   // onChanged: (StuHistoryModel? selectedModel) {
-                  //   _controller.mUpdateSelectedStuHistory(selectedModel);
+                  //   controller.mUpdateSelectedStuHistory(selectedModel);
                   // },
                   onChanged: (String? selectedModel) {
-                    // _controller.mUpdateSelectedStuHistory(selectedModel);
+                    // controller.mUpdateSelectedStuHistory(selectedModel);
                   },
                   items:
-                      /* _controller.stuHistoryList.map((StuHistoryModel value) {
+                      /* controller.stuHistoryList.map((StuHistoryModel value) {
                         return DropdownMenuItem<StuHistoryModel>(
                           value: value,
                           child: Text(
@@ -983,34 +985,34 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static _vGetResultBtn() {
+  _vGetResultBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
-        await _controller.mGetExamMarksListModel();
+        await controller.mGetExamMarksListModel();
       },
       text: "Get List",
     );
   }
 
-  static vUpdateBtn() {
+  vUpdateBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
-        await _controller.mSubmitExamMraksList();
+        await controller.mSubmitExamMraksList();
       },
       text: "Update",
     );
   }
 
-  static vSubjectBasedMarksEntryTable() {
+  vSubjectBasedMarksEntryTable({required ExamMarksEntryController controller, required CommonController commonController}) {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Obx(() {
       return Expanded(
         child: SingleChildScrollView(
-          child: _controller.examMarksEntryListModel.value
+          child: controller.examMarksEntryListModel.value
                           .studentListForMarksEntry !=
                       null &&
-                  _controller.examMarksEntryListModel.value
+                  controller.examMarksEntryListModel.value
                       .studentListForMarksEntry!.isNotEmpty
               ? Column(
                   children: [
@@ -1088,7 +1090,7 @@ class ExamMarksEntryWidgets {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          _controller
+                                          controller
                                               .examMarksEntryListModel
                                               .value
                                               .studentListForMarksEntry!
@@ -1108,15 +1110,15 @@ class ExamMarksEntryWidgets {
                                     )),
                               ],
                             ),
-                            // for (var item in _controller.userInfoModelList) // correct
+                            // for (var item in controller.userInfoModelList) // correct
 
-                            for (var item in _controller.examMarksEntryListModel
+                            for (var item in controller.examMarksEntryListModel
                                 .value.studentListForMarksEntry!)
                               TableRow(
                                 // table decoration
                                 decoration: BoxDecoration(
                                     // color: AppColor.secondaryColor.withOpacity(.4),
-                                    color: _controller
+                                    color: controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry!
@@ -1133,8 +1135,8 @@ class ExamMarksEntryWidgets {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        // _controller.mGetFormatDate(item.date),
-                                        (_controller
+                                        // controller.mGetFormatDate(item.date),
+                                        (controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry!
@@ -1202,11 +1204,11 @@ class ExamMarksEntryWidgets {
                                             ? TextFormField(
                                                 onChanged: (value) {
                                                   if (value.isNotEmpty) {
-                                                    _controller
+                                                    controller
                                                         .examMarksEntryListModel
                                                         .value
                                                         .studentListForMarksEntry![
-                                                            _controller
+                                                            controller
                                                                 .examMarksEntryListModel
                                                                 .value
                                                                 .studentListForMarksEntry!
@@ -1255,11 +1257,11 @@ class ExamMarksEntryWidgets {
                                       Expanded(
                                         child: GestureDetector(
                                           onTap: () {
-                                            _controller
+                                            controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry![
-                                                        _controller
+                                                        controller
                                                             .examMarksEntryListModel
                                                             .value
                                                             .studentListForMarksEntry!
@@ -1272,7 +1274,7 @@ class ExamMarksEntryWidgets {
                                                     .first
                                                     .examAttendanceStatus!;
 
-                                            _controller.examMarksEntryListModel
+                                            controller.examMarksEntryListModel
                                                 .refresh();
                                           },
                                           child: Container(
@@ -1339,18 +1341,20 @@ class ExamMarksEntryWidgets {
     });
   }
 
-  static vSubjectBasedMarkEntry() {
+  vSubjectBasedMarkEntry(
+      {required ExamMarksEntryController controller,
+      required CommonController commonController}) {
     return Expanded(
       child: Column(
         children: [
-          ExamMarksEntryWidgets.vSubjectBasedMarksEntryTopbar(),
+          vSubjectBasedMarksEntryTopbar(controller: controller, commonController: commonController),
           AppSpacing.md.height,
-          ExamMarksEntryWidgets.vSubjectBasedMarksEntryTable(),
+          vSubjectBasedMarksEntryTable(controller: controller, commonController: commonController),
           AppSpacing.sm.height,
-          Obx(() => _controller.examMarksEntryListModel.value
+          Obx(() => controller.examMarksEntryListModel.value
                           .studentListForMarksEntry !=
                       null &&
-                  _controller.examMarksEntryListModel.value
+                  controller.examMarksEntryListModel.value
                       .studentListForMarksEntry!.isNotEmpty
               ? vUpdateButton()
               : Container()),
@@ -1359,7 +1363,7 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static vStudentBasedMarkEntry() {
+  vStudentBasedMarkEntry() {
     return Column(
       children: [
         ExamMarksEntryWidgets.vStudentBasedMarksEntryTopbar(),
@@ -1381,16 +1385,16 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static vStudentMarksEntryTable() {
+  vStudentMarksEntryTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Obx(() {
       return Expanded(
         child: SingleChildScrollView(
-          child: _controller.examMarksEntryListModel.value
+          child: controller.examMarksEntryListModel.value
                           .studentListForMarksEntry !=
                       null &&
-                  _controller.examMarksEntryListModel.value
+                  controller.examMarksEntryListModel.value
                       .studentListForMarksEntry!.isNotEmpty
               ? Column(
                   children: [
@@ -1470,7 +1474,7 @@ class ExamMarksEntryWidgets {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          _controller
+                                          controller
                                               .examMarksEntryListModel
                                               .value
                                               .studentListForMarksEntry!
@@ -1514,15 +1518,15 @@ class ExamMarksEntryWidgets {
                     ), */
                               ],
                             ),
-                            // for (var item in _controller.userInfoModelList) // correct
+                            // for (var item in controller.userInfoModelList) // correct
 
-                            for (var item in _controller.examMarksEntryListModel
+                            for (var item in controller.examMarksEntryListModel
                                 .value.studentListForMarksEntry!)
                               TableRow(
                                 // table decoration
                                 decoration: BoxDecoration(
                                     // color: AppColor.secondaryColor.withOpacity(.4),
-                                    color: _controller
+                                    color: controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry!
@@ -1539,8 +1543,8 @@ class ExamMarksEntryWidgets {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        // _controller.mGetFormatDate(item.date),
-                                        (_controller
+                                        // controller.mGetFormatDate(item.date),
+                                        (controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry!
@@ -1629,11 +1633,11 @@ class ExamMarksEntryWidgets {
                                       Expanded(
                                         child: GestureDetector(
                                           onTap: () {
-                                            _controller
+                                            controller
                                                     .examMarksEntryListModel
                                                     .value
                                                     .studentListForMarksEntry![
-                                                        _controller
+                                                        controller
                                                             .examMarksEntryListModel
                                                             .value
                                                             .studentListForMarksEntry!
@@ -1646,7 +1650,7 @@ class ExamMarksEntryWidgets {
                                                     .first
                                                     .examAttendanceStatus!;
 
-                                            _controller.examMarksEntryListModel
+                                            controller.examMarksEntryListModel
                                                 .refresh();
                                           },
                                           child: Container(
@@ -1714,19 +1718,19 @@ class ExamMarksEntryWidgets {
     });
   }
 
-  static vUpdateButton() {
+  vUpdateButton() {
     return SizedBox(
       // width: AppScreenSize.mGetWidth(kGlobContext, 50),
       child: AppButtons.vUpdateButton(
         onTap: () async {
-          await _controller.mSubmitExamMraksList();
+          await controller.mSubmitExamMraksList();
         },
         text: "Update",
       ),
     );
   }
 
-  static vStudentList() {
+  vStudentList() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -1750,7 +1754,7 @@ class ExamMarksEntryWidgets {
                     style: kBody.copyWith(color: Colors.white),
                   ),
                   Checkbox(
-                    // value: _controller.answerIdList[index]["selected"]
+                    // value: controller.answerIdList[index]["selected"]
                     value: false,
 
                     onChanged: (value) {},
@@ -1772,7 +1776,7 @@ class ExamMarksEntryWidgets {
                 return Row(
                   children: [
                     Checkbox(
-                      // value: _controller.answerIdList[index]["selected"]
+                      // value: controller.answerIdList[index]["selected"]
                       value: false,
 
                       onChanged: (value) {},
@@ -1799,7 +1803,7 @@ class ExamMarksEntryWidgets {
     );
   }
 
-  static vStudentBasedMarksEntryTopbar() {
+  vStudentBasedMarksEntryTopbar() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -1820,3 +1824,4 @@ class ExamMarksEntryWidgets {
     );
   }
 }
+ */

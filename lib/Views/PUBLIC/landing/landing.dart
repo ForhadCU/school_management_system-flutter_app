@@ -16,18 +16,17 @@ import 'package:school_management_system/Views/Widgets/buttons.dart';
 import 'package:school_management_system/Views/Widgets/custom_textfield.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 
-class Landing extends StatelessWidget {
+class Landing extends GetView<LandingController> {
   const Landing({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = LandingController.to;
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         // iconTheme: IconThemeData(color: Colors.white),
         title: Text(
-          "Website",
+          "Website".toUpperCase(),
           style: kTitle.copyWith(color: Colors.white),
         ),
         elevation: 0,

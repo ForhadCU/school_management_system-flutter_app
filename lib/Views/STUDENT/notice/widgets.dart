@@ -11,6 +11,7 @@ import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_textfield.dart';
 
 class NoticeWidgets {
+  
   // make this class singleton
   NoticeWidgets._internal();
   static final NoticeWidgets _singleton = NoticeWidgets._internal();

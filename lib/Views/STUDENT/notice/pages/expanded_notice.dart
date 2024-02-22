@@ -7,13 +7,11 @@ import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 
-class ExpandedStuNotice extends StatelessWidget {
+class ExpandedStuNotice extends GetView<StuNoticeController> {
   ExpandedStuNotice({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final StuNoticeController controller = Get.find();
-    kLog(controller.clickedNoticeModel.value.createdAt.toString());
     return WillPopScope(
       onWillPop: () async {
         return true;

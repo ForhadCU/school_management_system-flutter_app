@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/STUDENT/helpdesk/stu_helpdesk_model.dart';
@@ -8,6 +8,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../Config/config.dart';
 
 class HelpDeskWidgets {
+
   // make this class singleton
   HelpDeskWidgets._internal();
   static final HelpDeskWidgets _singleton = HelpDeskWidgets._internal();
@@ -209,3 +210,4 @@ class HelpDeskDetailsWidgets {
   // codes start from here
   // All methods should be static to maintain singleton instances
 }
+ */

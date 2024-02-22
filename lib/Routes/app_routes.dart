@@ -22,6 +22,7 @@ import 'package:school_management_system/Bindings/TEACHER/message/messages_bindi
 import 'package:school_management_system/Bindings/TEACHER/notice/notice_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/profile/profile_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/routine/routine_bindings.dart';
+import 'package:school_management_system/Bindings/TEACHER/test/test_binding.dart';
 import 'package:school_management_system/Bindings/test/test_binding.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_calendar.dart';
@@ -53,6 +54,7 @@ import 'package:school_management_system/Views/TEACHER/notice/pages/expanded_not
 import 'package:school_management_system/Views/TEACHER/periodicAttendance/periodic_attendance.dart';
 import 'package:school_management_system/Views/TEACHER/profile/profile.dart';
 import 'package:school_management_system/Views/TEACHER/routine/routine.dart';
+import 'package:school_management_system/Views/TEACHER/test/test.dart';
 import '../Bindings/TEACHER/periodicAttndance/periodic_attnd_binding.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/STUDENT/helpdesk/subPages/helpdesk_details.dart';
@@ -79,7 +81,8 @@ abstract class AppPages {
         name: AppRoutes.splashScreen,
         binding: SplashScreenBindig(),
         page: () => SplashScreen()),
-   /// Laucher Slides
+
+    /// Laucher Slides
     GetPage(
         name: AppRoutes.launcherSlides,
         binding: LaucherSlidesBinding(),
@@ -142,7 +145,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.login,
       binding: LoginBinding(),
-      page: () => const Login(),
+      page: () =>  Login(),
     ),
     GetPage(
       name: AppRoutes.academicGroup,
@@ -204,7 +207,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentHome,
       binding: HomeBindings(),
-      page: () => const StuHome(),
+      page: () =>  StuHome(),
     ),
     GetPage(
       name: AppRoutes.liveClass,
@@ -214,7 +217,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentNotice,
       binding: StuNoticeBindings(),
-      page: () => const StudentNotice(),
+      page: () =>  StudentNotice(),
     ),
     GetPage(
       name: AppRoutes.studentNotification,
@@ -229,7 +232,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.profile,
       binding: ProfileBindings(),
-      page: () => const Profile(),
+      page: () =>  Profile(),
     ),
     GetPage(
       name: AppRoutes.quiz,
@@ -265,7 +268,7 @@ abstract class AppPages {
     /// TEACHER
     GetPage(
         name: AppRoutes.teachHome,
-        page: () => const TeachHome(),
+        page: () =>  TeachHome(),
         binding: TeachHomeBindings()),
     GetPage(
         name: AppRoutes.teachDashboard,
@@ -273,11 +276,11 @@ abstract class AppPages {
         binding: TeachDashboardBindings()),
     GetPage(
         name: AppRoutes.teachProfile,
-        page: () => const TeachProfile(),
+        page: () =>  TeachProfile(),
         binding: TeachProfileBindings()),
     GetPage(
         name: AppRoutes.teachNotice,
-        page: () => const TeachNotice(),
+        page: () =>  TeachNotice(),
         binding: TeachNoticeBindings()),
     GetPage(
         name: AppRoutes.expandedTeachNotice,
@@ -285,11 +288,11 @@ abstract class AppPages {
         binding: TeachNoticeBindings()),
     GetPage(
         name: AppRoutes.examMarksEntry,
-        page: () => const ExamMarksEntry(),
+        page: () =>  ExamMarksEntry(),
         binding: ExamMarksEntryBindings()),
     GetPage(
         name: AppRoutes.examAttendance,
-        page: () => const ExamAttendance(),
+        page: () =>  ExamAttendance(),
         binding: ExamAttendanceBindings()),
     GetPage(
         name: AppRoutes.teachRoutine,
@@ -311,5 +314,9 @@ abstract class AppPages {
         name: AppRoutes.teachAttendance,
         page: () => const TeachAttendance(),
         binding: TeachAttendanceBindings()),
+    GetPage(
+        name: AppRoutes.teachTest,
+        page: () => const TeachTest(),
+        binding: TeachTestBindings()),
   ];
 }

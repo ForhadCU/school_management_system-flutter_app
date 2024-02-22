@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/periodicAttnd/periodic_attnd_ctrlr.dart';
 import 'package:school_management_system/Model/TEACHER/period_model.dart';
@@ -10,6 +10,7 @@ import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_container.dart';
 
 class TeachPeriodicAttendanceWidgets {
+
   // make this class singleton
   TeachPeriodicAttendanceWidgets._internal();
   static final TeachPeriodicAttendanceWidgets _singleton =
@@ -898,3 +899,4 @@ class TeachPeriodicAttendanceWidgets {
         ));
   }
 }
+ */

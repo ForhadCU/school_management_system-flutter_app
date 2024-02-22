@@ -49,15 +49,38 @@ class CommonController extends GetxController {
   var canContinue = true.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     kLog("<<Common Ctrlr>>");
+    // academicYearList = <AcademicYear>[].obs;
 
     ///from local
 
     ///from server
     // await mGetVersionYearShiftModel();
   }
+
+  /*  @override
+  void onClose() {
+    kLog("Onclose Common ctrlr");
+
+    academicYearList.close();
+    // selectedAcademicYear.close();
+    academicYearList = <AcademicYear>[].obs;
+    academicYearList.refresh();
+    // selectedAcademicYear = AcademicYear().obs;
+    // kLog("Test: ${academicYearList.length}");
+    // academicYearList = <AcademicYear>[].obs;
+  } */
+/* 
+  @override
+  void onReady() async {
+    super.onReady();
+    kLog("On ready called from Common ctrlr");
+    await Future.delayed(Duration(seconds: 3));
+    kLog("refresh");
+    academicYearList.refresh();
+  } */
 
   mGetAcademicGroupModel() async {
     await AppLocalDataFactory.mGetAcademicGroupModel()
@@ -73,6 +96,7 @@ class CommonController extends GetxController {
     await mGetToken();
     await mGetAcademicGroupModel();
     kLog("Goupt id from common ctrlr: ${academicGroupId.value}");
+    academicYearList.clear();
     await CommonApis.mGetVersionYearShiftModel(
             PayLoads.academic_version_year_shift_list(
                 api_access_key: AppData.api_access_key,
@@ -93,6 +117,10 @@ class CommonController extends GetxController {
         canContinue.value = false;
       }
     });
+    // return academicYearList;
+
+    kLog("AcademicYearList: ${academicYearList.length}");
+
   }
 
   mGetDeptClasslistModel(
@@ -253,8 +281,6 @@ class CommonController extends GetxController {
                 : canContinue.value = false;
           })
         : null;
-
-    kLog("Exm fn: ${canContinue.value}");
   }
 
   mGetExamSubjectListModel(

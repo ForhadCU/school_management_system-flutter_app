@@ -7,6 +7,7 @@ class AcademicCalendarBinding extends Bindings {
 
   @override
   void dependencies() {
-    Get.put(AcademicCalendarController());
+    // Get.put(AcademicCalendarController());
+    Get.lazyPut(() => AcademicCalendarController());
   }
 }

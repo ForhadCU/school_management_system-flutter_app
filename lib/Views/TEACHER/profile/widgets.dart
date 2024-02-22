@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+/* import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -14,6 +14,7 @@ import 'package:school_management_system/Views/Widgets/cached_network_image.dart
 import '../../../Utils/custom_utils.dart';
 
 class TeachProfileWidgets {
+
   // make this class singleton
   TeachProfileWidgets._internal();
   static final TeachProfileWidgets _singleton = TeachProfileWidgets._internal();
@@ -375,3 +376,4 @@ class TeachProfileWidgets {
     );
   }
 }
+ */

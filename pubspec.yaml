@@ -51,7 +51,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 flutter_icons:
-  image_path: "icons/edu_world_logo.png"
+  image_path: "icons/edu_world_logo.jpeg"
   android: true
   ios: true
 

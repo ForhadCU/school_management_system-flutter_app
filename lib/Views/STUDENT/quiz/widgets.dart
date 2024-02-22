@@ -12,6 +12,7 @@ import '../../../Controller/student_library.dart';
 import '../../Widgets/custom_container.dart';
 
 class StuQuizWidgets {
+  
   // make this class singleton
   StuQuizWidgets._internal();
   static final StuQuizWidgets _singleton = StuQuizWidgets._internal();

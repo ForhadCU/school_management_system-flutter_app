@@ -5,6 +5,7 @@ import '../../../Controller/student_library.dart';
 class PaymentsBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuPaymentsController());
+    // Get.put(StuPaymentsController());
+    Get.lazyPut(() => StuPaymentsController());
   }
 }

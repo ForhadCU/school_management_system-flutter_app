@@ -7,7 +7,10 @@ import '../../../Controller/student_library.dart';
 class TeachRoutineBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(TeachRoutineController());
-    Get.put(CommonController());
+/*     Get.put(TeachRoutineController());
+    Get.put(CommonController()); */
+
+    Get.lazyPut(() => TeachRoutineController());
+    Get.lazyPut(() => CommonController());
   }
 }

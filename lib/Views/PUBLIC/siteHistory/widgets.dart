@@ -9,6 +9,7 @@ import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 class AboutUsWidgets {
+  
   // make this class singleton
   AboutUsWidgets._internal();
   static final AboutUsWidgets _singleton = AboutUsWidgets._internal();

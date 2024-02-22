@@ -43,14 +43,14 @@ class Notifications extends StatelessWidget {
                 /* SizedBox(
               width: 48,
             ), */
-                IconButton(
+             /*    IconButton(
                     icon: new Icon(Icons.menu, color: Colors.white),
                     onPressed: () {
                       _scaffoldKey.currentState!.openEndDrawer();
-                    }),
+                    }), */
               ],
             ),
-            endDrawer: StuHomeWidgets.vEndDrawer(),
+            // endDrawer: StuHomeWidgets.vEndDrawer(),
             body: const Center(
               child: Text("Notification"),
             )));

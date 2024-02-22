@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+/* import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -41,11 +41,13 @@ class ProfileWidgets {
         child: Row(
       children: [
         Obx(() {
-      homeController.profileInfoModel.value.photo != null &&
-                      _controller.siteListModel.value.siteAlias != null ?    kLog(Utils.mMakeUserImageUrl(
-              imageLoc: homeController.profileInfoModel.value.photo!,
-              alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
-                  _controller.siteListModel.value.siteAlias!)): null;
+          homeController.profileInfoModel.value.photo != null &&
+                  _controller.siteListModel.value.siteAlias != null
+              ? kLog(Utils.mMakeUserImageUrl(
+                  imageLoc: homeController.profileInfoModel.value.photo!,
+                  alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                      _controller.siteListModel.value.siteAlias!))
+              : null;
           return homeController.profileInfoModel.value.photo != null &&
                       _controller.siteListModel.value.siteAlias != null
                   ? cachedNetworkImage(
@@ -441,3 +443,4 @@ class ProfileWidgets {
     );
   }
 }
+ */

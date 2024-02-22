@@ -45,22 +45,21 @@ class SlideBody extends StatelessWidget {
                   children: [
                     Image(
                       image: AssetImage(edu_world_logo),
-                      width:48,
                       height: 48,
+                      width: 48,
                       fit: BoxFit.contain,
                     ),
                     AppSpacing.sm.width,
-                    Text(
-                      "EDU WORLD Apps",
-                      style: kTitle.copyWith(
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.w500),
-                    )
+                    Image(
+                      image: AssetImage(edu_world_txt),
+                      height: 14,
+                      fit: BoxFit.contain,
+                    ),
                   ],
                 ),
                 Image(
                   image: AssetImage(imageLoc),
-                  width: AppScreenSize.mGetWidth(context, 60),
+                  width: AppScreenSize.mGetWidth(context, 45),
                   // height: AppScreenSize.mGetHeight(context, 20),
                   fit: BoxFit.contain,
                 ),
@@ -91,38 +90,51 @@ class SlideBody extends StatelessWidget {
             child: Container(
           height: AppScreenSize.mGetHeight(context, 30),
           margin: EdgeInsets.symmetric(horizontal: 28),
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: subtitleList.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image(
-                      image: AssetImage(StudentAssetLocation.tickMark),
-                      width: AppScreenSize.mGetWidth(context, 5),
-                      height: AppScreenSize.mGetHeight(context, 5),
-                      color: Colors.green,
-                      fit: BoxFit.contain,
-                    ),
-                    AppSpacing.md.width,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            subtitleList[index],
-                            style: kBody.copyWith(
-                              color: Colors.black,
-                            ),
-                            // softWrap: true,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              }),
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemCount: subtitleList.length,
+            itemBuilder: (context, index) {
+              return Table(columnWidths: const {
+                0: IntrinsicColumnWidth()
+              }, children: [
+                TableRow(children: [
+                  /// column 1: follow column 2
+                  TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.fill,
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Image(
+                          image: AssetImage(done),
+                          width: 18,
+                          height: 18,
+                          // color: Colors.green,
+                          fit: BoxFit.fill,
+                        ),
+                      )),
+
+                  /// column 2: Independent in increasing height
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(left: 10,),
+                          child: Text(subtitleList[index],
+                     
+                              style: kBody.copyWith(
+                                color: Colors.black,
+                              ))),
+                    ],
+                  ),
+                ]),
+              ]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                height: 10,
+                color: Colors.transparent,
+              );
+            },
+          ),
         )),
       ],
     ));

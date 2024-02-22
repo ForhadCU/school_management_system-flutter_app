@@ -5,6 +5,7 @@ import '../../../Controller/student_library.dart';
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuHomeController());
+    // Get.put(StuHomeController());
+    Get.lazyPut(() => StuHomeController());
   }
 }

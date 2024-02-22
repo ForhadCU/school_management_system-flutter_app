@@ -18,31 +18,33 @@ import '../../../Utils/utils.dart';
 
 class ExamAttendanceController extends GetxController {
   static ExamAttendanceController get to => Get.find();
-  late final CommonController _commonController = CommonController.to;
+  late final CommonController commonController;
 /*   var selected_site_subject_group_condition_setting_id = ''.obs;
   var selected_answer_paper_distribution_detail_id = ''.obs; */
   var examAttendanceListModel = ExamAttendanceListModel().obs;
   var academicGroupId = ''.obs;
+  var academicYearList = <AcademicYear>[].obs;
+
   var token = ''.obs;
   // var isRowUpdate = false.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    kLog("Init");
-    await mGetToken();
-    await mGetAcademicGroupModel();
-    await _mGetInitialDataForDropdowns();
+    commonController = CommonController.to;
+    mGetToken();
+    mGetAcademicGroupModel();
+    _mGetInitialDataForDropdowns();
   }
 
   @override
   void onClose() async {
     // examAttendanceListModel.value = ExamAttendanceListModel();
   }
+
   @override
   dispose() {
     super.dispose();
-    
   }
 
   mGetAcademicGroupModel() async {
@@ -57,20 +59,20 @@ class ExamAttendanceController extends GetxController {
 
   mGetExamAttendanceListModel() async {
     examAttendanceListModel.value = ExamAttendanceListModel();
-    if (_commonController.selectedSubjectGorupConditionSetting.value.id !=
+    if (commonController.selectedSubjectGorupConditionSetting.value.id !=
         null) {
       examAttendanceListModel.value =
           await ExamAttendanceApis.mGetExamAttendanceListModel(
               PayLoads.examAttendanceList(
                   api_access_key: AppData.api_access_key,
-                  academic_group_id: _commonController.academicGroupId.value,
-                  site_subject_group_condition_setting_id: _commonController
+                  academic_group_id: commonController.academicGroupId.value,
+                  site_subject_group_condition_setting_id: commonController
                       .selectedSubjectGorupConditionSetting.value.id
                       .toString(),
-                  answer_paper_distribution_detail_id: _commonController
+                  answer_paper_distribution_detail_id: commonController
                       .selectedEmployeePaperDistribution.value.id
                       .toString()),
-              _commonController.token.value);
+              commonController.token.value);
     } else {
       kLog("Empty");
       ScaffoldMessenger.of(kGlobContext).showSnackBar(SnackBar(
@@ -88,14 +90,14 @@ class ExamAttendanceController extends GetxController {
     await ExamAttendanceApis.mSubmitExamAttendanceList(
       endPoint: ApiEndpoint.student_exam_attendance_submit_by_employee,
       bodyData: _mGetBody(),
-      token: _commonController.token.value,
+      token: commonController.token.value,
       payload: PayLoads.examAttendanceList(
           api_access_key: AppData.api_access_key,
-          academic_group_id: _commonController.academicGroupId.value,
-          site_subject_group_condition_setting_id: _commonController
+          academic_group_id: commonController.academicGroupId.value,
+          site_subject_group_condition_setting_id: commonController
               .selectedSubjectGorupConditionSetting.value.id
               .toString(),
-          answer_paper_distribution_detail_id: _commonController
+          answer_paper_distribution_detail_id: commonController
               .selectedEmployeePaperDistribution.value.id
               .toString()),
     );
@@ -109,52 +111,52 @@ class ExamAttendanceController extends GetxController {
   }
 
   _mGetInitialDataForDropdowns() async {
-    await _commonController.mGetVersionYearShiftModel();
-    await _commonController.mGetDeptClasslistModel();
-    await _commonController.mGetClassGroupModel();
-    await _commonController.mGetSectionSessionModel();
-    await _commonController.mGetExaminationListModel();
-    await _commonController.mGetExamSubjectListModel();
-    await _commonController.mGetExamDistributionListModel();
+    await commonController.mGetVersionYearShiftModel();
+    await commonController.mGetDeptClasslistModel();
+    await commonController.mGetClassGroupModel();
+    await commonController.mGetSectionSessionModel();
+    await commonController.mGetExaminationListModel();
+    await commonController.mGetExamSubjectListModel();
+    await commonController.mGetExamDistributionListModel();
   }
 
   mUpdateSelectedAcademicYear(AcademicYear? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicYear(selectedModel);
+    await commonController.mUpdateSelectedAcademicYear(selectedModel);
   }
 
   mUpdateSelectedAcademicShift(AcademicShift? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicShift(selectedModel);
+    await commonController.mUpdateSelectedAcademicShift(selectedModel);
   }
 
   mUpdateSelectedAcademicClass(AcademicClass? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicClass(selectedModel);
+    await commonController.mUpdateSelectedAcademicClass(selectedModel);
   }
 
   mUpdateSelectedAcademicGroup(TeachAcademicGroup? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicGroup(selectedModel);
+    await commonController.mUpdateSelectedAcademicGroup(selectedModel);
   }
 
   mUpdateSelectedAcademicSection(AcademicSection? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicSection(selectedModel);
+    await commonController.mUpdateSelectedAcademicSection(selectedModel);
   }
 
   mUpdateSelectedAcademicSession(AcademicSession? selectedModel) async {
-    await _commonController.mUpdateSelectedAcademicSession(selectedModel);
+    await commonController.mUpdateSelectedAcademicSession(selectedModel);
   }
 
   mUpdateSelectedExamination(Examination? selectedModel) async {
-    await _commonController.mUpdateSelectedExamination(selectedModel);
+    await commonController.mUpdateSelectedExamination(selectedModel);
   }
 
   mUpdateSelectedSubjectGorupConditionSetting(
       SubjectGorupConditionSetting? selectedModel) async {
-    await _commonController
+    await commonController
         .mUpdateSelectedSubjectGorupConditionSetting(selectedModel);
   }
 
   mUpdateSelectedEmployeePaperDistribution(
       EmployeePaperDistribution? selectedModel) async {
-    await _commonController
+    await commonController
         .mUpdateSelectedEmployeePaperDistribution(selectedModel);
   }
 }

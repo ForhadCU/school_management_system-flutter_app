@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Model/STUDENT/message/message_model.dart';
@@ -67,3 +67,4 @@ class StuMessageWidgets {
     });
   }
 }
+ */

@@ -5,6 +5,7 @@ import '../../../Controller/student_library.dart';
 class QuizBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuQuizController());
+    // Get.put(StuQuizController());
+    Get.lazyPut(() => StuQuizController());
   }
 }

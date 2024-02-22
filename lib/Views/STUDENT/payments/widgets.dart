@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -12,6 +12,7 @@ import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_container.dart';
 
 class StuPaymentsWidgets {
+
   // make this class singleton
   StuPaymentsWidgets._internal();
   static final StuPaymentsWidgets _singleton = StuPaymentsWidgets._internal();
@@ -1675,3 +1676,4 @@ class StuPaymentsWidgets {
     );
   }
 }
+ */

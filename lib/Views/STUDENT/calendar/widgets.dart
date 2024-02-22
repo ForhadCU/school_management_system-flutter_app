@@ -10,6 +10,7 @@ import '../../../Model/STUDENT/calendar/stu_acdemic_grp_model.dart';
 import '../../../Utils/custom_utils.dart';
 
 class StuCalendarWidgets {
+  
   // make this class singleton
   StuCalendarWidgets._internal();
   static final StuCalendarWidgets _singleton = StuCalendarWidgets._internal();

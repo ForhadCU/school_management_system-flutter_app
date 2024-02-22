@@ -5,12 +5,12 @@ import 'package:school_management_system/Controller/TEACHER/dashboard/dashboard_
 
 import '../../../Config/config.dart';
 
-class TeachDashboard extends StatelessWidget {
+class TeachDashboard extends GetView<TeachDashboardController> {
   const TeachDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = TeachDashboardController.to;
+    // final controller = TeachDashboardController.to;
     return Scaffold(
       bottomNavigationBar: Obx(() => vBtmNav(controller)),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),

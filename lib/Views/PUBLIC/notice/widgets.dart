@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/PUBLIC/notice_controller.dart';
@@ -11,6 +11,7 @@ import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_textfield.dart';
 
 class NoticeWidgets {
+
   // make this class singleton
   NoticeWidgets._internal();
   static final NoticeWidgets _singleton = NoticeWidgets._internal();
@@ -352,3 +353,4 @@ class NoticeWidgets {
     );
   }
 }
+ */

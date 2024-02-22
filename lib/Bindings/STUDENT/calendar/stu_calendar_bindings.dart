@@ -5,6 +5,7 @@ import '../../../Controller/student_library.dart';
 class StuCalendarBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuCalendarController());
+    // Get.put(StuCalendarController());
+    Get.lazyPut(() => StuCalendarController());
   }
 }

@@ -5,6 +5,7 @@ import '../../../Controller/student_library.dart';
 class AttendanceBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(StuAttendanceController());
+    // Get.put(StuAttendanceController());
+    Get.lazyPut(() => StuAttendanceController());
   }
 }

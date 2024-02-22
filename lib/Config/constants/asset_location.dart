@@ -23,6 +23,7 @@ const String mark_sheet = "assets/logos/markshit.png";
 const String multiple_login = "assets/logos/multiple_login.png";
 const String notice_board_logo = "assets/logos/noticeboard.png";
 const String routines = "assets/logos/routine.png";
+const String done = "assets/icons/done.jpeg";
 
 const String edu_world_logo = "assets/logos/edu_world_logo.png";
 const String edu_world_txt = "assets/logos/edu_world_txt.png";

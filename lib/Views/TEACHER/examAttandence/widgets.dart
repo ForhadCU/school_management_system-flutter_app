@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/examAttandence/exam_attandence_controller.dart';
 import 'package:school_management_system/Controller/common/common_controller.dart';
@@ -17,6 +17,7 @@ import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_container.dart';
 
 class ExamAttendanceWidgets {
+
   // make this class singleton
   ExamAttendanceWidgets._internal();
   static final ExamAttendanceWidgets _singleton =
@@ -41,8 +42,6 @@ class ExamAttendanceWidgets {
               isActive: true,
               onTap: () {
                 // _controller.mUpdateDailyAttendanceTabItem();
-
-                
               }),
         ),
         (AppSpacing.smh / 2).width,
@@ -96,6 +95,9 @@ class ExamAttendanceWidgets {
   }
 
   static _vDropdowns1() {
+    kLog(
+        "Called vDropdonws1: ${_commonController.academicYearList.length}  ${_commonController.selectedAcademicYear.value.yearName}  ");
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -111,43 +113,48 @@ class ExamAttendanceWidgets {
                   /*  decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                   child: Obx(
-                    () => DropdownButton<AcademicYear>(
-                      // child: DropdownButton<String>(
-                      value: _commonController.selectedAcademicYear.value,
-                      hint: Text(
-                        _commonController.canContinue.value
-                            ? "Select Year"
-                            : "No Year",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicYear? selectedModel) {
-                        _controller.mUpdateSelectedAcademicYear(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
+                    () {
+                      kLog(
+                          "Called Obx: ${_commonController.academicYearList.length}  ${_commonController.selectedAcademicYear.value.yearName}  ");
+                      return DropdownButton<AcademicYear>(
+                        // child: DropdownButton<String>(
+                        value: _commonController.selectedAcademicYear.value,
+                        hint: Text(
+                          _commonController.canContinue.value
+                              ? "Select Year"
+                              : "No Year",
+                          style: kBody.copyWith(color: Colors.black),
+                        ),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        iconSize: 12,
+                        elevation: 10,
+                        // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        focusColor: AppColor.white,
+                        dropdownColor: AppColor.frenchSkyBlue100,
+                        isDense: true,
+                        isExpanded: true,
+                        underline: Container(),
+                        onChanged: (AcademicYear? selectedModel) {
+                          _controller
+                              .mUpdateSelectedAcademicYear(selectedModel);
+                        },
+                        /*  onChanged: (String? selectedModel) {
                                     // _controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: _commonController.academicYearList
-                          .map((AcademicYear value) {
-                        return DropdownMenuItem<AcademicYear>(
-                          value: value,
-                          child: Text(
-                            value.yearName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
+                        items: _commonController.academicYearList
+                            .map((AcademicYear value) {
+                          return DropdownMenuItem<AcademicYear>(
+                            value: value,
+                            child: Text(
+                              value.yearName ?? "",
+                              style: kBody.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
+                          );
+                        }).toList(),
+                      );
+                    },
                   )),
             ),
             AppSpacing.sm.width,
@@ -1009,7 +1016,7 @@ class ExamAttendanceWidgets {
     );
   }
 
-  static vExamAttendanceTab() {
+  static vExamAttendanceTab(ExamAttendanceController controller) {
     return Expanded(
         child: Column(
       children: [
@@ -1026,3 +1033,4 @@ class ExamAttendanceWidgets {
     ));
   }
 }
+ */

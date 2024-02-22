@@ -4,6 +4,8 @@ import 'package:school_management_system/Controller/PUBLIC/landing_controller.da
 class LandingBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(LandingController());
+    // Get.put(LandingController());
+        Get.lazyPut(() => LandingController());
+
   }
 }

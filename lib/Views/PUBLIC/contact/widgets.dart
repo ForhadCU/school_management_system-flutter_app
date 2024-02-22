@@ -7,6 +7,7 @@ import '../../../Utils/utils.dart';
 import '../../Widgets/custom_textfield.dart';
 
 class ContactWidget {
+  
   static final ContactWidget _singleton = ContactWidget._internal();
   ContactWidget._internal();
   factory ContactWidget() {

@@ -7,12 +7,11 @@ import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../../Controller/PUBLIC/notice_controller.dart';
 
-class ExpandedNotice extends StatelessWidget {
+class ExpandedNotice extends GetView<NoticeController> {
   ExpandedNotice({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final NoticeController controller = Get.find();
 
     return WillPopScope(
       onWillPop: () async {

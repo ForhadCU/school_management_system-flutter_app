@@ -15,10 +15,10 @@ class DashboardController extends GetxController {
   static DashboardController get to => Get.find();
 
   final List<Widget> screens = [
-    const StuHome(),
-    const StudentNotice(),
-    const Notifications(),
-    const Profile(),
+     StuHome(),
+     StudentNotice(),
+     Notifications(),
+     Profile(),
   ];
   final RxInt selectedIndex = 0.obs;
 
@@ -26,11 +26,11 @@ class DashboardController extends GetxController {
   void onInit() {
     super.onInit();
     CustomStatusBar.mDarkStatusBar();
-
+/* 
     Get.put(StuHomeController());
     Get.put(StuNotificationController());
     Get.put(StuNoticeController());
-    Get.put(StuProfileController());
+    Get.put(StuProfileController()); */
   }
 
   @override

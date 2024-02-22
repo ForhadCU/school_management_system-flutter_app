@@ -1,21 +1,16 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:school_management_system/Controller/student_library.dart';
-import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
 import 'package:school_management_system/Model/PUBLIC/login/academic_group_model.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
-import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
 
 import '../../../Config/config.dart';
 import '../../../Controller/TEACHER/home/home_controller.dart';
-import '../../../Model/TEACHER/version_year_shift_model.dart';
 import '../../../Routes/app_pages.dart';
 import '../../../Utils/utils.dart';
-import '../../Widgets/buttons.dart';
 
 class TeachHomeWidgets {
+
   // make this class singleton
   TeachHomeWidgets._internal();
   static final TeachHomeWidgets _singleton = TeachHomeWidgets._internal();
@@ -303,10 +298,6 @@ class TeachHomeWidgets {
                         label: "Log out".toUpperCase()))),
           ],
         ),
-        /*  AppSpacing.xl.height,
-        Row(
-          children: [],
-        ), */
       ],
     );
   }
@@ -638,3 +629,4 @@ class TeachHomeWidgets {
         barrierDismissible: false);
   }
 }
+ */

@@ -68,7 +68,7 @@ const String tLauncherSlide3SubTitle =
 const List<String> tLauncherSlide3SubTitleList = [
   'All updated information as per last announcement',
   'View latest attendance info',
-  'View informations including daily routines, notices, exam results and much more'
+  'View informations including daily routine, notices, exam results and much more'
 ];
 const String tLauncherSlide4Title = 'Attendance';
 const String tLauncherSlide4SubTitle =

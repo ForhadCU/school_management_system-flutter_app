@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/PUBLIC/splash_scr_ctrlr.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends GetView<SplashScreenController> {
   const SplashScreen({super.key});
 
   @override

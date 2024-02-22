@@ -9,15 +9,16 @@ import 'package:school_management_system/Views/TEACHER/notification/notification
 import 'package:school_management_system/Views/TEACHER/profile/profile.dart';
 
 import '../../../Utils/custom_statusbar.dart';
+import '../notification/notification_controller.dart';
 
 class TeachDashboardController extends GetxController {
   static TeachDashboardController get to => Get.find();
 
   final List<Widget> screens = [
-    const TeachHome(),
-    const TeachNotice(),
-    const TeachNotification(),
-    const TeachProfile(),
+     TeachHome(),
+     TeachNotice(),
+     TeachNotification(),
+     TeachProfile(),
   ];
   final RxInt selectedIndex = 0.obs;
 
@@ -26,11 +27,11 @@ class TeachDashboardController extends GetxController {
     super.onInit();
 
     CustomStatusBar.mDarkStatusBar();
-
-    Get.put(TeachHomeController());
+ 
+   /*  Get.put(TeachHomeController());
     Get.put(TeachNoticeController());
     Get.put(TeachNoticeController());
-    Get.put(TeachProfileController());
+    Get.put(TeachProfileController()); */
   }
 
   @override

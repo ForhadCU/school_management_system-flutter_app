@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/student_library.dart';
@@ -11,6 +11,7 @@ import '../../../Config/config.dart';
 import '../../../Model/STUDENT/exam/exam_model.dart';
 
 class ResultWidgets {
+
   // make this class singleton
   ResultWidgets._internal();
   static final ResultWidgets _singleton = ResultWidgets._internal();
@@ -233,3 +234,4 @@ class ResultWidgets {
     );
   }
 }
+ */

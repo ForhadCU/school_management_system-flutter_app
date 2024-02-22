@@ -6,6 +6,7 @@ import '../../../Controller/student_library.dart';
 class TeachHelpDeskBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(TeachHelpDeskController());
+    // Get.put(TeachHelpDeskController());
+    Get.lazyPut(() => TeachHelpDeskController());
   }
 }

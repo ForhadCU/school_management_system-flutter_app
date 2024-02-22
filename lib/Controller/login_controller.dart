@@ -67,7 +67,7 @@ class LoginController extends GetxController {
         Get.offAllNamed(AppRoutes.dashboard);
       } else {
         await mGetAcademicGroupList();
-        Get.offNamed(AppRoutes.teachDashboard);
+        Get.offAllNamed(AppRoutes.teachDashboard);
       }
     } else {
       kLog("userModel null");
@@ -108,7 +108,7 @@ class LoginController extends GetxController {
               api_access_key: AppData.api_access_key),
           token);
       academicGroup.value = academicGroupList.first;
-     await mSaveAcademicGroupToLocal();
+      await mSaveAcademicGroupToLocal();
       // kLog(academicGroupList.length);
     } else {
       kLog("Empty Token");

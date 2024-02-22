@@ -6,6 +6,7 @@ import '../../../Controller/student_library.dart';
 class TeachNoticeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(TeachNoticeController());
+    // Get.put(TeachNoticeController());
+    Get.lazyPut(() => TeachNoticeController());
   }
 }

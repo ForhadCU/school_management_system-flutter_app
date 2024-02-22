@@ -10,6 +10,7 @@ import 'package:school_management_system/Utils/int_extensions.dart';
 import '../../../Controller/PUBLIC/gallery_controller.dart';
 
 class GalleryWidget {
+  
   static final GalleryWidget _singleton = GalleryWidget._internal();
   GalleryWidget._internal();
   factory GalleryWidget() {

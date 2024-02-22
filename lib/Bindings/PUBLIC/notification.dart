@@ -4,6 +4,7 @@ import 'package:school_management_system/Controller/notification.dart';
 class NotificationBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put(NotificationController());
+    // Get.put(NotificationController());
+    Get.lazyPut(() => NotificationController());
   }
 }

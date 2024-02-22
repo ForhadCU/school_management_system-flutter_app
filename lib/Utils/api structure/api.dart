@@ -146,6 +146,47 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
+  static Future<ResponseModel> userLogout(
+      String endPoint, Map<String, dynamic> payload, String token) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+    // kLog("Site Alis is ${sitelistModel.siteAlias}");
+
+    kLog(siteAlias! + _get_host + endPoint);
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+      http.Response res = await http.post(
+        Uri.https(siteAlias + _get_host, endPoint),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+      if (res.statusCode == 200 || res.statusCode == 401) {
+        body = json.decode(res.body);
+        // showSuccess("Success");
+      }
+      hideLoading();
+
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
 ////////GET DATA/////////////////
   static Future<ResponseModel> getData(
       String endPoint, Map<String, dynamic>? params,
@@ -263,7 +304,9 @@ class CallAPI {
       {String? url, bool? isShowLoading}) async {
     dynamic body;
     kLog('GET + $endPoint');
-   isShowLoading ==null || isShowLoading ? showLoading("Please wait...") : null;
+    isShowLoading == null || isShowLoading
+        ? showLoading("Please wait...")
+        : null;
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     SitelistModel sitelistModel = SitelistModel.fromMap(
@@ -332,7 +375,6 @@ class CallAPI {
           body = json.decode(res.body);
         }
         // showSuccess("Success");
-        
       }
       hideLoading();
       return ResponseModel(statusCode: res.statusCode, body: body);
