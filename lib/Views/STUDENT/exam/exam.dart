@@ -19,7 +19,7 @@ class Exam extends GetView<StuExamController> {
   Widget build(BuildContext context) {
     return BaseWidget(
         title: "Exam Document",
-        child: BaseWidgetChild( 
+        child: BaseWidgetChild(
           child: Column(children: [
             vTopbar(),
             // AppSpacing.md.height,
@@ -28,8 +28,7 @@ class Exam extends GetView<StuExamController> {
         ));
   }
 
-
-   vTopbar() {
+  vTopbar() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -87,7 +86,7 @@ class Exam extends GetView<StuExamController> {
     );
   }
 
-   _vDropdowns() {
+  _vDropdowns() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -179,9 +178,10 @@ class Exam extends GetView<StuExamController> {
     );
   }
 
-   _vGetResultBtn() {
+  _vGetResultBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
+        controller.mResetPreviousDocs();
         await controller.mGetExamRoutinePdf();
         await controller.mGetExamAdmitCardPdf();
       },
@@ -189,7 +189,7 @@ class Exam extends GetView<StuExamController> {
     );
   }
 
-   vExamDocumentsTable() {
+  vExamDocumentsTable() {
     return Obx(() => Visibility(
           visible: controller.isFoundRoutinePdf.value ||
               controller.isFoundAdmitCardPdf.value,
@@ -280,8 +280,7 @@ class Exam extends GetView<StuExamController> {
                                         onTap: () {
                                           // controller.mDownloadPortraitResult();
                                           item == "Examination Routine Pdf"
-                                              ? controller
-                                                  .mDownloadRoutinePdf()
+                                              ? controller.mDownloadRoutinePdf()
                                               : item == "Your Admit Card Pdf"
                                                   ? controller
                                                       .mDownloadAdmitCardPdf()
@@ -346,5 +345,4 @@ class Exam extends GetView<StuExamController> {
           )),
         ));
   }
-
 }

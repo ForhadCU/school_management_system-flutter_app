@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Controller/PUBLIC/about_us_controller.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/widgets.dart';
+import 'package:school_management_system/Views/Widgets/common_cached_network_image.dart';
 
 import '../../../Config/config.dart';
 import '../../../Singletones/app_data.dart';
 import '../../Widgets/base_widget.dart';
-import '../../Widgets/cached_network_image.dart';
+import '../../Widgets/user_cached_network_image.dart';
 import '../../Widgets/top_bar_banner.dart';
 
 class AboutUs extends GetView<AboutUsController> {
@@ -49,7 +50,7 @@ class AboutUs extends GetView<AboutUsController> {
                   controller.aboutUsData.value.image != null
                       ? Container(
                           margin: const EdgeInsets.only(bottom: AppSpacing.md),
-                          child: cachedNetworkImage(
+                          child: commonCachedNetworkImage(
                             /* imageUrl: */ controller
                                     .siteListModel.value.siteAlias! +
                                 AppData.hostNameTheWorld +

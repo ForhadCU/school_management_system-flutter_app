@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Controller/PUBLIC/search_school_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
-import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
+import 'package:school_management_system/Views/Widgets/user_cached_network_image.dart';
 
 import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
 import '../../../Singletones/app_data.dart';
+import '../../Widgets/site_cached_network_image.dart';
 
 class SchoolResultListItem extends StatelessWidget {
   const SchoolResultListItem(
@@ -28,7 +29,7 @@ class SchoolResultListItem extends StatelessWidget {
     return ListTile(
       onTap: () => onTap(),
       leading: imageUri != null
-          ? cachedNetworkImage(
+          ? siteCachedNetworkImage(
               imageUri!,
               width: 48,
               fit: BoxFit.fill,

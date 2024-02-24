@@ -228,35 +228,37 @@ class _HomeAdvancedDesignState extends State<HomeAdvancedDesign> {
 
   vEndDrawer() {
     return Drawer(
-        child: Column(
-      children: [
-        DrawerHeader(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage(logoDemoSchool),
-              width: AppSpacing.logoSizeDemoSchool + 20,
+        child: SingleChildScrollView(
+          child: Column(
+              children: [
+          DrawerHeader(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                image: AssetImage(logoDemoSchool),
+                width: AppSpacing.logoSizeDemoSchool + 20,
+              ),
+              AppSpacing.md.height,
+              Text(
+                tDemoSchoolName,
+                style: kTitleLite,
+              )
+            ],
+          )),
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: AppButtons.vPrimaryButtonWithGradient(
+                  onTap: () {
+                    print("Click on Login");
+                  },
+                  text: "Log in"),
             ),
-            AppSpacing.md.height,
-            Text(
-              tDemoSchoolName,
-              style: kTitleLite,
-            )
-          ],
-        )),
-        Expanded(
-          child: Container(
-            alignment: Alignment.center,
-            child: AppButtons.vPrimaryButtonWithGradient(
-                onTap: () {
-                  print("Click on Login");
-                },
-                text: "Log in"),
           ),
-        ),
-      ],
-    ) /* ListView(
+              ],
+            ),
+        ) /* ListView(
         children: [
           DrawerHeader(
               child: Container(

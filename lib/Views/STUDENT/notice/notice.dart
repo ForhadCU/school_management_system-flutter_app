@@ -24,8 +24,8 @@ class StudentNotice extends GetView<StuNoticeController> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text(
-            "Noitce Board",
+          title: Text(
+            "Noitce Board".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           elevation: 0,
@@ -77,108 +77,146 @@ class StudentNotice extends GetView<StuNoticeController> {
   Widget vEndDrawer() {
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              padding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-              color: AppColor.activeTab,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 82, 86, 143),
-                        borderRadius: BorderRadius.circular(4)),
-                    // color: Colors.orange,
-                    child: Image(
-                      image: const AssetImage(StudentAssetLocation.user),
-                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                      height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                      fit: BoxFit.fill,
-                      color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: Image(
+                        image: const AssetImage(StudentAssetLocation.user),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
-                          style: kBody.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w500),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        AppSpacing.sm.height,
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 4),
-                          decoration: BoxDecoration(
-                              color: Colors.black87,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            homeController.designition.value.capitalizeFirst ??
-                                "",
-                            style: kBody.copyWith(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        /*  AppSpacing.smh.height,
-                        Container(
-                          alignment: Alignment.center,
-                          // margin: EdgeInsets.symmetric(vertical: 14),
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.smh,
-                              horizontal: AppSpacing.sm),
-                          // color: Colors.red,
-                       /*    decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border:
-                                  Border.all(color: Colors.white, width: .5),
-                              borderRadius: BorderRadius.circular(4)), */
-                          child: Text(
-                    
-                                "",
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
                             style: kBody.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ), */
-                      ],
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                              homeController
+                                      .designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          /*  AppSpacing.smh.height,
+                          Container(
+                            alignment: Alignment.center,
+                            // margin: EdgeInsets.symmetric(vertical: 14),
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.smh,
+                                horizontal: AppSpacing.sm),
+                            // color: Colors.red,
+                         /*    decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border:
+                                    Border.all(color: Colors.white, width: .5),
+                                borderRadius: BorderRadius.circular(4)), */
+                            child: Text(
+                      
+                                  "",
+                              style: kBody.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ), */
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            ListView.separated(
-              itemCount: homeController.drawerItems.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () => homeController.mNavigateTo(
-                        homeController.drawerItems[index]["name"]!),
-                    child: Container(
-                      child: homeController.drawerItems.length - 1 == index
-                          ? InkWell(
-                              onTap: () {
-                                Get.back();
-                                vLogoutDialog();
-                              },
-                              child: Container(
+              ListView.separated(
+                itemCount: homeController.drawerItems.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      onTap: () => homeController.mNavigateTo(
+                          homeController.drawerItems[index]["name"]!),
+                      child: Container(
+                        child: homeController.drawerItems.length - 1 == index
+                            ? InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  vLogoutDialog();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: AppSpacing.md,
+                                      horizontal: AppSpacing.sm),
+                                  decoration: const BoxDecoration(
+                                      // gradient: AppColor.kVerticalCovexGradiant
+                                      color: AppColor.activeTab),
+                                  child: Row(
+                                    children: [
+                                      Image(
+                                        image: AssetImage(homeController
+                                            .drawerItems[index]["iconUri"]!),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      AppSpacing.sm.width,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          width: double.infinity,
+                                          child: Text(
+                                            homeController.drawerItems[index]
+                                                    ["name"]!
+                                                .toUpperCase(),
+                                            style: kSubTitle.copyWith(
+                                                color: AppColor.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: AppSpacing.md,
                                     horizontal: AppSpacing.sm),
                                 decoration: const BoxDecoration(
-                                    // gradient: AppColor.kVerticalCovexGradiant
+                                    // gradient: AppColor.kVerticalCovexGradiant),
                                     color: AppColor.activeTab),
                                 child: Row(
                                   children: [
                                     Image(
                                       image: AssetImage(homeController
                                           .drawerItems[index]["iconUri"]!),
-                                      width: 16,
-                                      height: 16,
+                                      width: 20,
+                                      height: 20,
+                                      color: Colors.white,
                                     ),
                                     AppSpacing.sm.width,
                                     Expanded(
@@ -198,51 +236,17 @@ class StudentNotice extends GetView<StuNoticeController> {
                                   ],
                                 ),
                               ),
-                            )
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: AppSpacing.md,
-                                  horizontal: AppSpacing.sm),
-                              decoration: const BoxDecoration(
-                                  // gradient: AppColor.kVerticalCovexGradiant),
-                                  color: AppColor.activeTab),
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage(homeController
-                                        .drawerItems[index]["iconUri"]!),
-                                    width: 16,
-                                    height: 16,
-                                    color: Colors.white,
-                                  ),
-                                  AppSpacing.sm.width,
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      width: double.infinity,
-                                      child: Text(
-                                        homeController.drawerItems[index]
-                                                ["name"]!
-                                            .toUpperCase(),
-                                        style: kSubTitle.copyWith(
-                                            color: AppColor.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                    ));
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  color: Colors.transparent,
-                  height: 1,
-                );
-              },
-            ),
-          ],
+                      ));
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    color: Colors.transparent,
+                    height: 1,
+                  );
+                },
+              ),
+            ],
+          ),
         )));
   }
 

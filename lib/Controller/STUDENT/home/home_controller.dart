@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/home/home_api.dart';
 import 'package:school_management_system/Api/STUDENT/profile/stu_profile_api.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
-import 'package:school_management_system/Utils/custom_utils.dart';
-import 'package:school_management_system/Utils/toast_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,7 +14,6 @@ import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/custom_statusbar.dart';
 import '../../../Utils/utils.dart';
-import '../../PUBLIC/search_school_controller.dart';
 
 class StuHomeController extends GetxController {
   static StuHomeController get to => Get.find();
@@ -30,6 +27,7 @@ class StuHomeController extends GetxController {
     {"name": "My Routine", "iconUri": StudentAssetLocation.attendance_base_ic},
     {"name": "My result", "iconUri": StudentAssetLocation.my_result_base_ic},
     {"name": "My Payment", "iconUri": StudentAssetLocation.my_payments_base_ic},
+    {"name": "My Subject", "iconUri": StudentAssetLocation.my_subject_base_ic},
 /*     {"name": "My class", "iconUri": StudentAssetLocation.my_class_base_ic},
     {"name": "Live Class", "iconUri": StudentAssetLocation.live_class_base_ic}, */
     {
@@ -37,11 +35,9 @@ class StuHomeController extends GetxController {
       "iconUri": StudentAssetLocation.academic_calendar_base_ic
     },
     {"name": "Attendance", "iconUri": StudentAssetLocation.attendance_base_ic},
-
     {"name": "My Quiz", "iconUri": StudentAssetLocation.my_quiz_base_ic},
     {"name": "Messages", "iconUri": StudentAssetLocation.message_ic},
-    // {"name": "Website", "iconUri": PublicAssetLocation.ic_web},
-
+    {"name": "Website", "iconUri": PublicAssetLocation.ic_web},
     {"name": "Help Desk", "iconUri": StudentAssetLocation.help_desk_base_ic},
     {"name": "Logout", "iconUri": StudentAssetLocation.logout},
   ];
@@ -57,7 +53,7 @@ class StuHomeController extends GetxController {
   // var academicGroupList = <AcademicGroupModel>[].obs;
   var academicGroupList = <AcademicGroup>[].obs;
 
-  var siteListModel = SitelistModel();
+  var siteListModel = SitelistModel().obs;
 
   var token = '';
 
@@ -85,7 +81,7 @@ class StuHomeController extends GetxController {
     // var academicGroupList = <AcademicGroupModel>[].obs;
     academicGroupList = <AcademicGroup>[].obs;
 
-    siteListModel = SitelistModel();
+    siteListModel.value = SitelistModel();
 
     token = '';
   }
@@ -93,7 +89,7 @@ class StuHomeController extends GetxController {
   _mLoadLocalData() async {
     token = await AppLocalDataFactory.mGetToken();
     designition.value = await AppLocalDataFactory.mGetUserType();
-    siteListModel = await AppLocalDataFactory.mGetSiteListModel();
+    siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
 
     // siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
   }
@@ -153,12 +149,12 @@ class StuHomeController extends GetxController {
                                 : "My subject" == drawerItem
                                     ? Get.toNamed(AppRoutes.subjects)
                                     : "Website" == drawerItem
-                                        ? Get.toNamed(AppRoutes.website)
+                                        ? {mGotoWebsite()}
                                         : "Help Desk" == drawerItem
                                             ? Get.toNamed(AppRoutes.helpdesk)
                                             : "Messages" == drawerItem
                                                 ? Get.toNamed(
-                                                    AppRoutes.stuMessage)
+                                                      AppRoutes.stuMessage)
                                                 : "Logout" == drawerItem
                                                     ? mLogutUser()
                                                     : null;
@@ -169,7 +165,7 @@ class StuHomeController extends GetxController {
 
     /*  _mInitialization();
     print(siteListModel.siteLogo); */
-  
+
     var isLogout = await HomeApis()
         .mUserLogout({"api_access_key": AppData.api_access_key}, token);
     // hideLoading();
@@ -182,16 +178,16 @@ class StuHomeController extends GetxController {
   }
 
   mGotoWebsite() async {
-    if (siteListModel.domainName != null) {
+    if (siteListModel.value.domainName != null) {
       if (!await launchUrl(
-          Uri.parse(AppData.https + siteListModel.domainName))) {
-        throw Exception('Could not launch ${siteListModel.domainName}');
+          Uri.parse(AppData.https + siteListModel.value.domainName))) {
+        throw Exception('Could not launch ${siteListModel.value.domainName}');
       }
     } else {
       if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.siteAlias}.${AppData.hostNameTheWorld}"))) {
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
         throw Exception(
-            'Could not launch ${siteListModel.siteAlias}.${AppData.hostNameTheWorld}');
+            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
       }
     }
   }

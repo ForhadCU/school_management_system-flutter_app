@@ -126,16 +126,13 @@ class Login extends GetView<LoginController> {
           ),
         ),
         AppSpacing.xxl.height,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-          child: AppButtons.vPrimaryButtonWithGradient(
-              onTap: () async {
-                if (formKey.currentState!.validate()) {
-                  await controller.mUserLogin();
-                }
-              },
-              text: "Login"),
-        ),
+        AppButtons.vPrimaryButtonWithGradient(
+            onTap: () async {
+              if (formKey.currentState!.validate()) {
+                await controller.mUserLogin();
+              }
+            },
+            text: "Login"),
         AppSpacing.xxl.height,
         GestureDetector(
           onTap: () {

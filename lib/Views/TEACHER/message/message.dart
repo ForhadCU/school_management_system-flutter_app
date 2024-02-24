@@ -10,7 +10,8 @@ import '../../../Controller/TEACHER/message/messages_ctrlr.dart';
 import '../../../Model/STUDENT/message/message_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/custom_utils.dart';
-import '../../Widgets/cached_network_image.dart';
+import '../../Widgets/site_cached_network_image.dart';
+import '../../Widgets/user_cached_network_image.dart';
 
 class TeachMessage extends GetView<TeachMessageController> {
   const TeachMessage({super.key});
@@ -50,7 +51,7 @@ class TeachMessage extends GetView<TeachMessageController> {
             color: Colors.black12,
             shape: BoxShape.circle,
           ),
-          child: cachedNetworkImage(
+          child: siteCachedNetworkImage(
               AppData.eduWorldTheworldHostname +
                   controller.siteListModel.value.siteLogo!,
               width: 48,

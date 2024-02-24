@@ -8,7 +8,8 @@ import '../../../Controller/STUDENT/message/messages_ctrlr.dart';
 import '../../../Model/STUDENT/message/message_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/custom_utils.dart';
-import '../../Widgets/cached_network_image.dart';
+import '../../Widgets/site_cached_network_image.dart';
+import '../../Widgets/user_cached_network_image.dart';
 
 class StuMessage extends GetView<StuMessageController> {
   const StuMessage({super.key});
@@ -24,7 +25,7 @@ class StuMessage extends GetView<StuMessageController> {
         ));
   }
 
-   vMessageList() {
+  vMessageList() {
     return Expanded(
       child: Obx(() => ListView.separated(
           controller: controller.messageListScrollCntrlr.value,
@@ -41,7 +42,7 @@ class StuMessage extends GetView<StuMessageController> {
     );
   }
 
-   vMessageCard(MessageData message) {
+  vMessageCard(MessageData message) {
     return Obx(() {
       kLog(
           "Message card Logo ImageUrl: ${AppData.eduWorldTheworldHostname + controller.siteListModel.value.siteLogo!}");
@@ -52,7 +53,7 @@ class StuMessage extends GetView<StuMessageController> {
               color: Colors.black12,
               shape: BoxShape.circle,
             ),
-            child: cachedNetworkImage(
+            child: siteCachedNetworkImage(
                 AppData.eduWorldTheworldHostname +
                     controller.siteListModel.value.siteLogo!,
                 width: 48,

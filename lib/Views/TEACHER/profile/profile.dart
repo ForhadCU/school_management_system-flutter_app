@@ -11,7 +11,7 @@ import '../../../Utils/utils.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:school_management_system/Controller/TEACHER/profile/profile_controller.dart';
-import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
+import 'package:school_management_system/Views/Widgets/user_cached_network_image.dart';
 
 import '../../../Utils/custom_utils.dart';
 
@@ -26,8 +26,8 @@ class TeachProfile extends GetView<TeachProfileController> {
         child: Scaffold(
             key: _scaffoldKey,
             appBar: AppBar(
-              title: const Text(
-                "My Profile",
+              title: Text(
+                "My Profile".toUpperCase(),
                 style: TextStyle(color: Colors.white),
               ),
               elevation: 0,
@@ -89,145 +89,208 @@ class TeachProfile extends GetView<TeachProfileController> {
     kLog("alisName: ${homeController.siteListModel.value.siteAlias}");
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: Column(
-          children: [
-            Container(
-                margin: EdgeInsets.all(5),
-                padding: const EdgeInsets.symmetric(
-                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                color: AppColor.activeTab,
-                child: Row(
-                  children: [
-                    Container(
-                      // width: AppScreenSize.mGetWidth(kGlobContext, 10),
-                      // height: AppScreenSize.mGetHeight(kGlobContext, 10),
-                      margin: EdgeInsets.only(right: 12),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 82, 86, 143),
-                          borderRadius: BorderRadius.circular(4)),
-                      // color: Colors.orange,
-                      child: /* cachedNetworkImage(
-                          "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                          /*  Utils.mMakeUserImageUrl(
-                              imageLoc:
-                                  homeController.profileInfoModel.value.photo ??
-                                      "",
-                              alisName:
-                                  homeController.siteListModel.value.siteAlias ??
-                                      "") */
-                          ,
-                          width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                          fit: BoxFit.fill,
-                        ) */
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.all(5),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                  color: AppColor.activeTab,
+                  child: Row(
+                    children: [
+                      Container(
+                        // width: AppScreenSize.mGetWidth(kGlobContext, 10),
+                        // height: AppScreenSize.mGetHeight(kGlobContext, 10),
+                        margin: EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 82, 86, 143),
+                            borderRadius: BorderRadius.circular(4)),
+                        // color: Colors.orange,
+                        child: homeController.profileInfoModel.value.photo !=
+                                    null &&
+                                controller.siteListModel.value.siteAlias != null
+                            ? userCachedNetworkImage(
+                                // "https://fccdc.theworld.com.bd/uploads/1708681335.jpeg",
+                                // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+                                Utils.mMakeUserImageUrl(
+                                    imageLoc: homeController
+                                        .profileInfoModel.value.photo!,
+                                    alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                                        controller
+                                            .siteListModel.value.siteAlias!),
+                                width:
+                                    AppScreenSize.mGetWidth(kGlobContext, 23),
+                                height:
+                                    AppScreenSize.mGetHeight(kGlobContext, 13),
+                                fit: BoxFit.fill,
+                              )
+                            : Image(
+                                image: const AssetImage(default_user),
+                                width:
+                                    AppScreenSize.mGetWidth(kGlobContext, 23),
+                                height:
+                                    AppScreenSize.mGetHeight(kGlobContext, 13),
+                                fit: BoxFit.fill,
+                                color: Colors.black,
+                              ), /* cachedNetworkImage(
+                            "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+                            /*  Utils.mMakeUserImageUrl(
+                                imageLoc:
+                                    homeController.profileInfoModel.value.photo ??
+                                        "",
+                                alisName:
+                                    homeController.siteListModel.value.siteAlias ??
+                                        "") */
+                            ,
+                            width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                            fit: BoxFit.fill,
+                          ) */
 
-                          Image(
-                        image: AssetImage(StudentAssetLocation.user),
-                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                        fit: BoxFit.fill,
-                        color: Colors.black,
+                        /*  Image(
+                          image: AssetImage(StudentAssetLocation.user),
+                          width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                          height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                          fit: BoxFit.fill,
+                          color: Colors.black,
+                        ), */
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
-                            style: kBody.copyWith(
-                                color: const Color.fromARGB(255, 2, 2, 2),
-                                fontWeight: FontWeight.w500),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          AppSpacing.sm.height,
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 4),
-                            decoration: BoxDecoration(
-                                color: Colors.black87,
-                                borderRadius: BorderRadius.circular(2)),
-                            child: Text(
-                              homeController
-                                      .designition.value.capitalizeFirst ??
-                                  "",
-                              style: kBody.copyWith(color: Colors.white),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
+                              style: kBody.copyWith(
+                                  color: const Color.fromARGB(255, 2, 2, 2),
+                                  fontWeight: FontWeight.w500),
                               overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                          AppSpacing.smh.height,
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.sm,
-                                vertical: AppSpacing.smh),
-                            color: AppColor.inactiveTab,
-                            /*  decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                            child: DropdownButton<AcademicGroup>(
-                              // child: DropdownButton<String>(
-                              value: homeController.selectedAcademicGroup.value,
-
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              iconSize: 12,
-                              elevation: 10,
-                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                              focusColor: AppColor.white,
-                              dropdownColor: AppColor.inactiveTab,
-                              isDense: true,
-                              isExpanded: true,
-                              underline: Container(),
-                              onChanged: (AcademicGroup? selectedModel) {
-                                homeController.mChangeSelectedAcademicGroup(
-                                    selectedModel);
-                              },
-
-                              items: homeController.academicGroupList
-                                  .map((AcademicGroup value) {
-                                return DropdownMenuItem<AcademicGroup>(
-                                  value: value,
-                                  child: Text(
-                                    value.academicGroupName ?? "",
-                                    style: kBody.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
+                            AppSpacing.sm.height,
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4, horizontal: 4),
+                              decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius: BorderRadius.circular(2)),
+                              child: Text(
+                                homeController
+                                        .designition.value.capitalizeFirst ??
+                                    "",
+                                style: kBody.copyWith(color: Colors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )),
-            ListView.separated(
-              itemCount: homeController.drawerItems.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () => homeController.mNavigateTo(
-                        homeController.drawerItems[index]["name"]!),
-                    child: Container(
-                      child: homeController.drawerItems.length - 1 == index
-                          ? InkWell(
-                              onTap: () {
-                                Get.back();
-                                vLogoutDialog();
-                              },
-                              child: Container(
+                            AppSpacing.smh.height,
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.sm,
+                                  vertical: AppSpacing.smh),
+                              color: AppColor.inactiveTab,
+                              /*  decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                              child: DropdownButton<AcademicGroup>(
+                                // child: DropdownButton<String>(
+                                value:
+                                    homeController.selectedAcademicGroup.value,
+
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.inactiveTab,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicGroup? selectedModel) {
+                                  homeController.mChangeSelectedAcademicGroup(
+                                      selectedModel);
+                                },
+
+                                items: homeController.academicGroupList
+                                    .map((AcademicGroup value) {
+                                  return DropdownMenuItem<AcademicGroup>(
+                                    value: value,
+                                    child: Text(
+                                      value.academicGroupName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
+              ListView.separated(
+                itemCount: homeController.drawerItems.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      onTap: () => homeController.mNavigateTo(
+                          homeController.drawerItems[index]["name"]!),
+                      child: Container(
+                        child: homeController.drawerItems.length - 1 == index
+                            ? InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  vLogoutDialog();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: AppSpacing.md,
+                                      horizontal: AppSpacing.sm),
+                                  decoration: BoxDecoration(
+                                      // gradient: AppColor.kVerticalCovexGradiant
+                                      color: AppColor.activeTab),
+                                  child: Row(
+                                    children: [
+                                      Image(
+                                        image: AssetImage(homeController
+                                            .drawerItems[index]["iconUri"]!),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      AppSpacing.sm.width,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          width: double.infinity,
+                                          child: Text(
+                                            homeController.drawerItems[index]
+                                                    ["name"]!
+                                                .toUpperCase(),
+                                            style: kSubTitle.copyWith(
+                                                color: AppColor.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: AppSpacing.md,
                                     horizontal: AppSpacing.sm),
                                 decoration: BoxDecoration(
-                                    // gradient: AppColor.kVerticalCovexGradiant
+                                    // gradient: AppColor.kVerticalCovexGradiant),
                                     color: AppColor.activeTab),
                                 child: Row(
                                   children: [
                                     Image(
                                       image: AssetImage(homeController
                                           .drawerItems[index]["iconUri"]!),
-                                      width: 16,
-                                      height: 16,
+                                      width: 20,
+                                      height: 20,
+                                      color: Colors.white,
                                     ),
                                     AppSpacing.sm.width,
                                     Expanded(
@@ -247,51 +310,17 @@ class TeachProfile extends GetView<TeachProfileController> {
                                   ],
                                 ),
                               ),
-                            )
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: AppSpacing.md,
-                                  horizontal: AppSpacing.sm),
-                              decoration: BoxDecoration(
-                                  // gradient: AppColor.kVerticalCovexGradiant),
-                                  color: AppColor.activeTab),
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage(homeController
-                                        .drawerItems[index]["iconUri"]!),
-                                    width: 16,
-                                    height: 16,
-                                    color: Colors.white,
-                                  ),
-                                  AppSpacing.sm.width,
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      width: double.infinity,
-                                      child: Text(
-                                        homeController.drawerItems[index]
-                                                ["name"]!
-                                            .toUpperCase(),
-                                        style: kSubTitle.copyWith(
-                                            color: AppColor.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                    ));
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  color: Colors.transparent,
-                  height: 1,
-                );
-              },
-            ),
-          ],
+                      ));
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    color: Colors.transparent,
+                    height: 1,
+                  );
+                },
+              ),
+            ],
+          ),
         )));
   }
 
@@ -384,13 +413,13 @@ class TeachProfile extends GetView<TeachProfileController> {
 
   vYourInfo() {
     return Obx(() {
-      kLog(
+      /*     kLog(
           "ImgUrlProfile: ${Utils.mMakeUserImageUrl(imageLoc: homeController.profileInfoModel.value.photo ?? "", alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
-              controller.siteListModel.value.siteAlias ?? "")}");
+              controller.siteListModel.value.siteAlias ?? "")}"); */
       return _vPlainBlueBox(
           child: Row(
         children: [
-          cachedNetworkImage(
+          userCachedNetworkImage(
             // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
             Utils.mMakeUserImageUrl(
                 imageLoc: homeController.profileInfoModel.value.photo ?? "",
@@ -460,7 +489,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                 ), */
                   Expanded(
                     child: Text(
-                      controller.userDesignition.value.capitalizeFirst ?? "",
+                      controller.userDesignition.value.capitalizeFirst ?? "N/A",
                       softWrap: true,
                       style: const TextStyle(
                         fontWeight: FontWeight.w500,
@@ -474,7 +503,7 @@ class TeachProfile extends GetView<TeachProfileController> {
               Row(
                 children: [
                   Text(
-                    "UserName".capitalizeFirst ?? "",
+                    "UserName".capitalizeFirst!,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -490,7 +519,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                   Expanded(
                     child: Text(
                       homeController.profileInfoModel.value.username == null
-                          ? ""
+                          ? "N/A"
                           : homeController.profileInfoModel.value.username!
                               .toUpperCase(),
                       softWrap: true,
@@ -574,29 +603,39 @@ class TeachProfile extends GetView<TeachProfileController> {
                   _vSingleColumTextPlate(
                       key: "Name",
                       value:
-                          "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}"),
+                          "${homeController.profileInfoModel.value.firstName ?? ""} ${homeController.profileInfoModel.value.lastName ?? ""}"),
                   _vSingleColumTextPlate(
                       key: "Father ",
-                      value:
-                          "${homeController.profileInfoModel.value.fatherName}"),
+                      value: homeController.profileInfoModel.value.fatherName !=
+                              ""
+                          ? homeController.profileInfoModel.value.fatherName!
+                          : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Mother ",
-                      value:
-                          "${homeController.profileInfoModel.value.motherName}"),
+                      value: homeController.profileInfoModel.value.motherName !=
+                              ""
+                          ? homeController.profileInfoModel.value.motherName!
+                          : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Present Address",
                       value: homeController.profileInfoModel.value.address!
-                                  .presentAddress!.districtName ==
-                              ""
-                          ? ""
+                                      .presentAddress!.districtName ==
+                                  null ||
+                              homeController.profileInfoModel.value.address!
+                                      .presentAddress!.districtName ==
+                                  ""
+                          ? "N/A"
                           : "${homeController.profileInfoModel.value.address!.presentAddress!.districtName} , ${homeController.profileInfoModel.value.address!.presentAddress!.divisionName}"),
                   _vSingleColumTextPlate(
                       key: "Permanent Address",
                       value: homeController.profileInfoModel.value.address!
-                                  .permanentAddress!.districtName ==
-                              ""
-                          ? ""
-                          : "${homeController.profileInfoModel.value.address!.permanentAddress!.districtName}, ${homeController.profileInfoModel.value.address!.permanentAddress!.divisionName}"),
+                                      .permanentAddress!.districtName ==
+                                  null ||
+                              homeController.profileInfoModel.value.address!
+                                      .permanentAddress!.districtName ==
+                                  ""
+                          ? "N/A"
+                          : "${homeController.profileInfoModel.value.address!.permanentAddress!.districtName}, ${homeController.profileInfoModel.value.address!.permanentAddress!.divisionName ?? ""}"),
                 ],
               ),
             ],
@@ -639,11 +678,15 @@ class TeachProfile extends GetView<TeachProfileController> {
                   _vSingleColumTextPlate(
                       key: "Office Id",
                       value:
-                          homeController.profileInfoModel.value.username ?? ""),
+                          homeController.profileInfoModel.value.username != ""
+                              ? homeController.profileInfoModel.value.username!
+                              : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Blood Group",
-                      value: homeController.profileInfoModel.value.bladeGroup ??
-                          ""),
+                      value: homeController.profileInfoModel.value.bladeGroup !=
+                              ""
+                          ? homeController.profileInfoModel.value.bladeGroup!
+                          : "N/A"),
                 ],
               ),
             ],

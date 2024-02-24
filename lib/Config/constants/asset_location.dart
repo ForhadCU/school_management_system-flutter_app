@@ -24,6 +24,7 @@ const String multiple_login = "assets/logos/multiple_login.png";
 const String notice_board_logo = "assets/logos/noticeboard.png";
 const String routines = "assets/logos/routine.png";
 const String done = "assets/icons/done.jpeg";
+const String default_user = "assets/icons/default_user.jpeg";
 
 const String edu_world_logo = "assets/logos/edu_world_logo.png";
 const String edu_world_txt = "assets/logos/edu_world_txt.png";
@@ -114,6 +115,7 @@ class StudentAssetLocation {
   static const String notice_base_ic = "assets/icons/ic_notice.png";
   static const String message_ic = "assets/icons/message.png";
   static const String routine_base_ic = "assets/icons/routine_base_ic.png";
+  static const String my_subject_base_ic = "assets/icons/my_subject_base_ic.png";
   static const String periodic_attend_base_ic =
       "assets/icons/periodic_attnd_base_ic.png";
   static const String tickMark = "assets/icons/periodic_attnd_base_ic.png";

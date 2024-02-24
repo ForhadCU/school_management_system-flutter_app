@@ -10,7 +10,7 @@ import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Controller/student_library.dart';
 import '../../../Utils/custom_utils.dart';
-import '../../Widgets/cached_network_image.dart';
+import '../../Widgets/user_cached_network_image.dart';
 
 class Profile extends GetView<StuProfileController> {
   Profile({super.key});
@@ -22,13 +22,13 @@ class Profile extends GetView<StuProfileController> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: const Text(
-              "My Profile",
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              "My Profile".toUpperCase(),
+              style: const TextStyle(color: Colors.white),
             ),
             elevation: 0,
             backgroundColor: AppColor.primaryColor,
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: const IconThemeData(color: Colors.white),
           ),
           endDrawer: vEndDrawer(),
           body: BaseWidgetChild(
@@ -64,109 +64,166 @@ class Profile extends GetView<StuProfileController> {
       kLog("Length: ${homeController.drawerItems.length}"); */
     return Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              padding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-              color: AppColor.activeTab,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 82, 86, 143),
-                        borderRadius: BorderRadius.circular(4)),
-                    // color: Colors.orange,
-                    child: Image(
-                      image: const AssetImage(StudentAssetLocation.user),
-                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                      height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                      fit: BoxFit.fill,
-                      color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: controller.stuProfileInfoModel.value.photo !=
+                                  null &&
+                              controller.siteListModel.value.siteAlias != null
+                          ? userCachedNetworkImage(
+                              // "https://fccdc.theworld.com.bd/uploads/1708681335.jpeg",
+                              // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+                              Utils.mMakeUserImageUrl(
+                                  imageLoc: controller
+                                      .stuProfileInfoModel.value.photo!,
+                                  alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                                      controller
+                                          .siteListModel.value.siteAlias!),
+                              width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                              height:
+                                  AppScreenSize.mGetHeight(kGlobContext, 13),
+                              fit: BoxFit.fill,
+                            )
+                          : Image(
+                              image: const AssetImage(default_user),
+                              width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                              height:
+                                  AppScreenSize.mGetHeight(kGlobContext, 13),
+                              fit: BoxFit.fill,
+                              color: Colors.black,
+                            ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${controller.stuProfileInfoModel.value.firstName} ${controller.stuProfileInfoModel.value.lastName}",
-                          style: kBody.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w500),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        AppSpacing.sm.height,
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 4),
-                          decoration: BoxDecoration(
-                              color: Colors.black87,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            homeController.designition.value.capitalizeFirst ??
-                                "",
-                            style: kBody.copyWith(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        /*  AppSpacing.smh.height,
-                        Container(
-                          alignment: Alignment.center,
-                          // margin: EdgeInsets.symmetric(vertical: 14),
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.smh,
-                              horizontal: AppSpacing.sm),
-                          // color: Colors.red,
-                       /*    decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border:
-                                  Border.all(color: Colors.white, width: .5),
-                              borderRadius: BorderRadius.circular(4)), */
-                          child: Text(
-                    
-                                "",
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${controller.stuProfileInfoModel.value.firstName} ${controller.stuProfileInfoModel.value.lastName}",
                             style: kBody.copyWith(
+                                fontSize: 16,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ), */
-                      ],
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                              homeController
+                                      .designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          /*  AppSpacing.smh.height,
+                          Container(
+                            alignment: Alignment.center,
+                            // margin: EdgeInsets.symmetric(vertical: 14),
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.smh,
+                                horizontal: AppSpacing.sm),
+                            // color: Colors.red,
+                         /*    decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border:
+                                    Border.all(color: Colors.white, width: .5),
+                                borderRadius: BorderRadius.circular(4)), */
+                            child: Text(
+                      
+                                  "",
+                              style: kBody.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ), */
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            ListView.separated(
-              itemCount: homeController.drawerItems.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                kLog("Name: ${homeController.drawerItems[index]["name"]}");
-                return GestureDetector(
-                    onTap: () => homeController.mNavigateTo(
-                        homeController.drawerItems[index]["name"]!),
-                    child: Container(
-                      child: homeController.drawerItems.length - 1 == index
-                          ? InkWell(
-                              onTap: () {
-                                Get.back();
-                                vLogoutDialog();
-                              },
-                              child: Container(
+              ListView.separated(
+                itemCount: homeController.drawerItems.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  kLog("Name: ${homeController.drawerItems[index]["name"]}");
+                  return GestureDetector(
+                      onTap: () => homeController.mNavigateTo(
+                          homeController.drawerItems[index]["name"]!),
+                      child: Container(
+                        child: homeController.drawerItems.length - 1 == index
+                            ? InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  vLogoutDialog();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: AppSpacing.md,
+                                      horizontal: AppSpacing.sm),
+                                  decoration: const BoxDecoration(
+                                      // gradient: AppColor.kVerticalCovexGradiant
+                                      color: AppColor.activeTab),
+                                  child: Row(
+                                    children: [
+                                      Image(
+                                        image: AssetImage(homeController
+                                            .drawerItems[index]["iconUri"]!),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      AppSpacing.sm.width,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          width: double.infinity,
+                                          child: Text(
+                                            homeController.drawerItems[index]
+                                                    ["name"] ??
+                                                "".toUpperCase(),
+                                            style: kSubTitle.copyWith(
+                                                color: AppColor.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: AppSpacing.md,
                                     horizontal: AppSpacing.sm),
                                 decoration: const BoxDecoration(
-                                    // gradient: AppColor.kVerticalCovexGradiant
+                                    // gradient: AppColor.kVerticalCovexGradiant),
                                     color: AppColor.activeTab),
                                 child: Row(
                                   children: [
                                     Image(
                                       image: AssetImage(homeController
                                           .drawerItems[index]["iconUri"]!),
-                                      width: 16,
-                                      height: 16,
+                                      width: 20,
+                                      height: 20,
+                                      color: Colors.white,
                                     ),
                                     AppSpacing.sm.width,
                                     Expanded(
@@ -175,8 +232,8 @@ class Profile extends GetView<StuProfileController> {
                                         width: double.infinity,
                                         child: Text(
                                           homeController.drawerItems[index]
-                                                  ["name"] ??
-                                              "".toUpperCase(),
+                                                  ["name"]!
+                                              .toUpperCase(),
                                           style: kSubTitle.copyWith(
                                               color: AppColor.white,
                                               fontWeight: FontWeight.bold),
@@ -186,51 +243,17 @@ class Profile extends GetView<StuProfileController> {
                                   ],
                                 ),
                               ),
-                            )
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: AppSpacing.md,
-                                  horizontal: AppSpacing.sm),
-                              decoration: const BoxDecoration(
-                                  // gradient: AppColor.kVerticalCovexGradiant),
-                                  color: AppColor.activeTab),
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage(homeController
-                                        .drawerItems[index]["iconUri"]!),
-                                    width: 16,
-                                    height: 16,
-                                    color: Colors.white,
-                                  ),
-                                  AppSpacing.sm.width,
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      width: double.infinity,
-                                      child: Text(
-                                        homeController.drawerItems[index]
-                                                ["name"]!
-                                            .toUpperCase(),
-                                        style: kSubTitle.copyWith(
-                                            color: AppColor.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                    ));
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  color: Colors.transparent,
-                  height: 1,
-                );
-              },
-            ),
-          ],
+                      ));
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    color: Colors.transparent,
+                    height: 1,
+                  );
+                },
+              ),
+            ],
+          ),
         ));
     // });
   }
@@ -340,9 +363,9 @@ class Profile extends GetView<StuProfileController> {
           return */
         controller.stuProfileInfoModel.value.photo != null &&
                 controller.siteListModel.value.siteAlias != null
-            ? cachedNetworkImage(
-                // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                // "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            ? userCachedNetworkImage(
+                // "https://fccdc.theworld.com.bd/uploads/1708681335.jpeg",
+                // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
                 Utils.mMakeUserImageUrl(
                     imageLoc: controller.stuProfileInfoModel.value.photo!,
                     alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
@@ -352,7 +375,7 @@ class Profile extends GetView<StuProfileController> {
                 fit: BoxFit.fill,
               )
             : Container(
-                child: Text("Loading"),
+                child: const Text("Loading"),
               ) /* Image(
               image: AssetImage(
                 StudentAssetLocation.user,
@@ -379,7 +402,7 @@ class Profile extends GetView<StuProfileController> {
                       ? ""
                       : controller.stuProfileInfoModel.value.firstName!
                           .toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     color: AppColor.fontUsername,
                     fontSize: 16,
@@ -390,7 +413,7 @@ class Profile extends GetView<StuProfileController> {
                       ? ""
                       : controller.stuProfileInfoModel.value.lastName!
                           .toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     color: AppColor.fontUsername,
                     fontSize: 16,
@@ -403,14 +426,14 @@ class Profile extends GetView<StuProfileController> {
               children: [
                 Text(
                   "UserName".toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   " : ".toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                   ),
@@ -418,11 +441,11 @@ class Profile extends GetView<StuProfileController> {
                 Expanded(
                   child: Text(
                     controller.stuProfileInfoModel.value.username == null
-                        ? ""
+                        ? "N/A"
                         : controller.stuProfileInfoModel.value.username!
                             .toUpperCase(),
                     softWrap: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
@@ -476,7 +499,7 @@ class Profile extends GetView<StuProfileController> {
         _vPlainBlueBox(
           child: Text(
             "Parent's information".toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColor.fontUsername),
@@ -487,7 +510,7 @@ class Profile extends GetView<StuProfileController> {
 
         ///body
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
@@ -500,10 +523,13 @@ class Profile extends GetView<StuProfileController> {
                 children: [
                   _vSingleColumTextPlate(
                       key: "Father",
-                      value: controller.stuProfileInfoModel.value.fatherName!),
-                  _vSingleColumTextPlate(key: "Phone", value: ""),
-                  _vSingleColumTextPlate(key: "Nid", value: ""),
-                  _vSingleColumTextPlate(key: "Bcn", value: ""),
+                      value:
+                          controller.stuProfileInfoModel.value.fatherName != ""
+                              ? controller.stuProfileInfoModel.value.fatherName!
+                              : "N/A"),
+                  _vSingleColumTextPlate(key: "Phone", value: "N/A"),
+                  _vSingleColumTextPlate(key: "Nid", value: "N/A"),
+                  _vSingleColumTextPlate(key: "Bcn", value: "N/A"),
                 ],
               ),
 
@@ -522,7 +548,7 @@ class Profile extends GetView<StuProfileController> {
         ),
         AppSpacing.sm.height,
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
@@ -535,23 +561,15 @@ class Profile extends GetView<StuProfileController> {
                 children: [
                   _vSingleColumTextPlate(
                       key: "Mother",
-                      value: controller.stuProfileInfoModel.value.motherName!),
-                  _vSingleColumTextPlate(key: "Phone", value: ""),
-                  _vSingleColumTextPlate(key: "Nid", value: ""),
-                  _vSingleColumTextPlate(key: "Bcn", value: ""),
+                      value:
+                          controller.stuProfileInfoModel.value.motherName != ""
+                              ? controller.stuProfileInfoModel.value.motherName!
+                              : "N/A"),
+                  _vSingleColumTextPlate(key: "Phone", value: "N/A"),
+                  _vSingleColumTextPlate(key: "Nid", value: "N/A"),
+                  _vSingleColumTextPlate(key: "Bcn", value: "N/A"),
                 ],
               ),
-
-              /*   /// Right part
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _vInfoTextPlate(key: "Shift", value: "Value"),
-                  _vInfoTextPlate(key: "Roll", value: "Value"),
-                  _vInfoTextPlate(key: "Group", value: "Value"),
-                  _vInfoTextPlate(key: "Religion", value: "Valdddd"),
-                ],
-              ), */
             ],
           ),
         )
@@ -567,7 +585,7 @@ class Profile extends GetView<StuProfileController> {
         _vPlainBlueBox(
           child: Text(
             "Guardian's information".toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColor.fontUsername),
@@ -578,7 +596,7 @@ class Profile extends GetView<StuProfileController> {
 
         ///body
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
@@ -589,8 +607,8 @@ class Profile extends GetView<StuProfileController> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _vSingleColumTextPlate(key: "Name", value: ""),
-                  _vSingleColumTextPlate(key: "Home", value: ""),
+                  _vSingleColumTextPlate(key: "Name", value: "N/A"),
+                  _vSingleColumTextPlate(key: "Home", value: "N/A"),
                 ],
               ),
             ],
@@ -598,7 +616,6 @@ class Profile extends GetView<StuProfileController> {
         ),
       ],
     );
-    ;
   }
 
   vAcademicInfo() {
@@ -609,7 +626,7 @@ class Profile extends GetView<StuProfileController> {
         _vPlainBlueBox(
           child: Text(
             "Academic information".toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColor.fontUsername),
@@ -620,7 +637,7 @@ class Profile extends GetView<StuProfileController> {
 
         ///body
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 4,
           ),
           child: StaggeredGrid.count(
@@ -634,16 +651,28 @@ class Profile extends GetView<StuProfileController> {
                   _vDoubleColumTextPlate(
                       key: "Year",
                       value: homeController
-                          .profileInfoModel.value.academicInfo!.year!),
+                                  .profileInfoModel.value.academicInfo!.year !=
+                              ""
+                          ? homeController
+                              .profileInfoModel.value.academicInfo!.year!
+                          : "N/A"),
                   _vDoubleColumTextPlate(
                       key: "Class",
-                      value: homeController
-                          .profileInfoModel.value.academicInfo!.className!),
+                      value: homeController.profileInfoModel.value.academicInfo!
+                                  .className !=
+                              ""
+                          ? homeController
+                              .profileInfoModel.value.academicInfo!.className!
+                          : "N/A"),
                   _vDoubleColumTextPlate(
                       key: "Section",
-                      value: homeController
-                          .profileInfoModel.value.academicInfo!.sectionName!),
-                  _vDoubleColumTextPlate(key: "Gender", value: ""),
+                      value: homeController.profileInfoModel.value.academicInfo!
+                                  .sectionName !=
+                              ""
+                          ? homeController
+                              .profileInfoModel.value.academicInfo!.sectionName!
+                          : "N/A"),
+                  _vDoubleColumTextPlate(key: "Gender", value: "N/A"),
                 ],
               ),
 
@@ -654,18 +683,26 @@ class Profile extends GetView<StuProfileController> {
                   _vDoubleColumTextPlate(
                       key: "Shift",
                       value: controller.stuProfileInfoModel.value.academicInfo!
-                              .shiftName ??
-                          ""),
+                                  .shiftName !=
+                              ""
+                          ? controller.stuProfileInfoModel.value.academicInfo!
+                              .shiftName!
+                          : "N/A"),
                   _vDoubleColumTextPlate(
                       key: "Roll",
-                      value: (controller.stuProfileInfoModel.value.id ?? 0)
+                      value: (controller.stuProfileInfoModel.value.id == null
+                              ? controller.stuProfileInfoModel.value.id!
+                              : "N/A")
                           .toString()),
                   _vDoubleColumTextPlate(
                       key: "Group",
                       value: controller.stuProfileInfoModel.value.academicInfo!
-                              .classGroupName ??
-                          ""),
-                  _vDoubleColumTextPlate(key: "Religion", value: ""),
+                                  .classGroupName !=
+                              ""
+                          ? controller.stuProfileInfoModel.value.academicInfo!
+                              .classGroupName!
+                          : "N/A"),
+                  _vDoubleColumTextPlate(key: "Religion", value: "N/A"),
                 ],
               ),
             ],
@@ -683,14 +720,14 @@ class Profile extends GetView<StuProfileController> {
           Expanded(
             flex: 2,
             child: Text(key.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
               )),
@@ -698,7 +735,7 @@ class Profile extends GetView<StuProfileController> {
           Expanded(
             flex: 2,
             child: Text(value.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13,
                 )),
@@ -716,14 +753,14 @@ class Profile extends GetView<StuProfileController> {
           Expanded(
             flex: 1,
             child: Text(key.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                 )),
           ),
           2.width,
           Text(": ".toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
               )),
@@ -731,7 +768,7 @@ class Profile extends GetView<StuProfileController> {
           Expanded(
             flex: 3,
             child: Text(value.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13,
                 )),

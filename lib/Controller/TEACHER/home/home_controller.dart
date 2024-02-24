@@ -36,16 +36,13 @@ class TeachHomeController extends GetxController {
       "iconUri": StudentAssetLocation.attendance_base_ic
     },
     {
-      "name": "My Attendance",
-      "iconUri": TeacherAssetLocation.attendance_base_ic
-    },
-    {
       "name": "Periodic Attendance",
       "iconUri": StudentAssetLocation.periodic_attend_base_ic
     },
     {"name": "My Routine", "iconUri": StudentAssetLocation.routine_base_ic},
     {"name": "Messages", "iconUri": StudentAssetLocation.message_ic},
     {"name": "Help Desk", "iconUri": StudentAssetLocation.help_desk_base_ic},
+    {"name": "Website", "iconUri": PublicAssetLocation.ic_web},
     {"name": "Logout", "iconUri": StudentAssetLocation.logout},
   ];
 
@@ -149,9 +146,11 @@ class TeachHomeController extends GetxController {
                             ? Get.toNamed(AppRoutes.teachMessage)
                             : "Help Desk" == drawerItem
                                 ? Get.toNamed(AppRoutes.teachHelpdesk)
-                                : "Logout" == drawerItem
-                                    ? mLogutUser()
-                                    : null;
+                                : "Website" == drawerItem
+                                    ? {mGotoWebsite()}
+                                    : "Logout" == drawerItem
+                                        ? mLogutUser()
+                                        : null;
   }
 
   mLogutUser() async {

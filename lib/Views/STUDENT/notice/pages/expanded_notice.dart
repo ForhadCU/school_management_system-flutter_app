@@ -18,8 +18,8 @@ class ExpandedStuNotice extends GetView<StuNoticeController> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Notice Details",
+          title:  Text(
+            "Notice Details".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: AppColor.primaryColor,

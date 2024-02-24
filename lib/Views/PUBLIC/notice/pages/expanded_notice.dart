@@ -12,15 +12,14 @@ class ExpandedNotice extends GetView<NoticeController> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Notice Details",
+          title: Text(
+            "Notice Details".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: AppColor.primaryColor,

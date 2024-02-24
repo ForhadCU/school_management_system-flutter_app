@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:school_management_system/Utils/utils.dart';
-import 'package:school_management_system/Views/Widgets/cached_network_image.dart';
+import 'package:school_management_system/Views/Widgets/common_cached_network_image.dart';
+import 'package:school_management_system/Views/Widgets/user_cached_network_image.dart';
 
 import '../../Config/config.dart';
 import '../../Singletones/app_data.dart';
+import 'site_cached_network_image.dart';
 
 class InstitueBanaer extends StatelessWidget {
   final String? iconUrl;
@@ -20,12 +22,12 @@ class InstitueBanaer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             iconUrl != null
-                ? cachedNetworkImage(
+                ? siteCachedNetworkImage(
                     AppData.eduWorldTheworldHostname + iconUrl!,
                     width: 48 * 2,
                     fit: BoxFit.contain)
                 : Image(
-                    image: AssetImage(demo_school),
+                    image: AssetImage(edu_world_logo),
                     width: 48 * 2,
                     height: 48 * 2,
                     fit: BoxFit.fill,

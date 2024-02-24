@@ -14,8 +14,8 @@ class Notifications extends StatelessWidget {
         child: Scaffold(
             key: _scaffoldKey,
             appBar: AppBar(
-              title: const Text(
-                "Notifications",
+              title: Text(
+                "Notifications".toUpperCase(),
                 style: TextStyle(color: Colors.white),
               ),
               elevation: 0,
@@ -43,7 +43,7 @@ class Notifications extends StatelessWidget {
                 /* SizedBox(
               width: 48,
             ), */
-             /*    IconButton(
+                /*    IconButton(
                     icon: new Icon(Icons.menu, color: Colors.white),
                     onPressed: () {
                       _scaffoldKey.currentState!.openEndDrawer();
