@@ -5,7 +5,6 @@ import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/m.dart';
-import 'package:school_management_system/Views/STUDENT/payments/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../Widgets/buttons.dart';
@@ -31,14 +30,13 @@ class StuPayments extends GetView<StuPaymentsController> {
                       AppSpacing.smh.height,
 
                       /// tab1: Make Payment
-                   Obx(() =>    controller.isMakePaymentTabActive.value
+                      Obx(() => controller.isMakePaymentTabActive.value
                           ? vMakePayment(
                               child: Column(
                               children: [
                                 controller.isFeeDetailsActive.value
                                     ? vFeeDetails()
-                                    : vPayableAmountBanner(
-                                        m: m),
+                                    : vPayableAmountBanner(m: m),
                                 AppSpacing.md.height,
                                 controller.isPaymentByWalet.value
                                     ? vPaymentByWalet(m: m)
@@ -51,7 +49,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                           : Container()),
 
                       ///tab2: Payment History
-                    Obx(() =>   controller.isPaymentHistoryTabActive.value
+                      Obx(() => controller.isPaymentHistoryTabActive.value
                           ? vPaymentHistory(
                               child: vTransHistoryTable(),
                             )
@@ -62,9 +60,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     });
   }
 
-
-
-   vTopbar({required M m}) {
+  vTopbar({required M m}) {
     return Obx(() => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -81,7 +77,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                         controller.mUpdateMakePaymentTabItem();
                       }),
                 ),
-                (AppSpacing.smh / 2).width,
+                /* (AppSpacing.smh / 2).width,
                 Expanded(
                     child: CommonContainers.vTabItemContainer(
                   text: "Payment History",
@@ -90,7 +86,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                   onTap: () {
                     controller.mUpdatePaymentHistoryTabItem();
                   },
-                )),
+                )), */
               ],
             ),
 
@@ -133,7 +129,7 @@ class StuPayments extends GetView<StuPaymentsController> {
         ));
   }
 
-   _vGetResultBtn() {
+  _vGetResultBtn() {
     return AppButtons.vPrimaryButton(
         onTap: () async {
           /* await controller.mGetExamRoutinePdf();
@@ -143,7 +139,7 @@ class StuPayments extends GetView<StuPaymentsController> {
         bg: AppColor.inactiveTab);
   }
 
-   _vPaymentBtn() {
+  _vPaymentBtn() {
     return AppButtons.vPrimaryButton(
         onTap: () async {
           /* await controller.mGetExamRoutinePdf();
@@ -153,7 +149,7 @@ class StuPayments extends GetView<StuPaymentsController> {
         bg: AppColor.activeTab);
   }
 
-   _vDropdowns() {
+  _vDropdowns() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -247,7 +243,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   vPayableAmountBanner({required M m}) {
+  vPayableAmountBanner({required M m}) {
     return controller.isFeeDetailsActive.value
         ? Container()
         : Row(
@@ -275,11 +271,16 @@ class StuPayments extends GetView<StuPaymentsController> {
                           style: kBody.copyWith(fontWeight: FontWeight.w500),
                         ),
                         (AppSpacing.smh).height,
-                        Text(
-                          "1254.23",
-                          style: kBody.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
+                        Obx(() => Text(
+                              controller.feeDetailsModel.value != null
+                                  ? (controller.feeDetailsModel.value!
+                                              .totalWithDue ??
+                                          0)
+                                      .toString()
+                                  : 0.toString(),
+                              style: kBody.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            )),
                       ],
                     )),
 
@@ -332,7 +333,7 @@ class StuPayments extends GetView<StuPaymentsController> {
           );
   }
 
-   vPaymentByWalet({required M m}) {
+  vPaymentByWalet({required M m}) {
     return Obx(() => controller.isPaymentByWalet.value
         ? Column(
             children: [
@@ -532,7 +533,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     ); */
   }
 
-   _vPaymentMethodBtn({
+  _vPaymentMethodBtn({
     required String logo,
     required Future<void> Function() onTap,
     required Color bg,
@@ -556,7 +557,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   vPaymentByTransId({required M m}) {
+  vPaymentByTransId({required M m}) {
     return Column(
       children: [
         Text(
@@ -605,7 +606,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   _vPaymentMethodsDropdown() {
+  _vPaymentMethodsDropdown() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -696,84 +697,86 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   vFeeDetails() {
-    return Column(
-      children: [
-        /// Top header
-        Container(
-          padding: const EdgeInsets.only(
-            left: AppSpacing.sm,
-          ),
-          decoration: const BoxDecoration(
-              color: AppColor.activeTab,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(AppSpacing.smh),
-                topRight: Radius.circular(AppSpacing.smh),
-              )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Fee Details",
-                  style: kBody.copyWith(
-                    color: AppColor.kWhite,
-                  )),
-              IconButton(
-                icon: const Icon(Icons.highlight_remove_outlined,
-                    color: AppColor.white),
-                onPressed: () {
-                  controller.mUpdateFeeDetails();
-                },
-              ),
-            ],
-          ),
-        ),
-
-        /// Body: PdfView
-
-        Container(
-          padding: EdgeInsets.all(AppSpacing.sm),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColor.activeTab, width: .2),
-          ),
-          child: controller.feeDetailsModel.value == null
-              ? Center(
-                  child: Text(
-                    "Fetching data...",
-                    style: kLabel.copyWith(
-                        fontStyle: FontStyle.italic, color: Colors.black45),
-                  ),
-                )
-              : Column(
-                  children: [
-                    /// Personal Info
-                    _vPersonalInfo(),
-                    AppSpacing.md.height,
-                    _vFeeDetailsTable(),
-                    AppSpacing.sm.height,
-
-                    Divider(
-                      height: 0,
-                      color: Colors.black12,
-                      thickness: .5,
-                    ),
-                    AppSpacing.md.height,
-                    _vFeeDetailsFooter(),
-                  ],
+  vFeeDetails() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          /// Top header
+          Container(
+            padding: const EdgeInsets.only(
+              left: AppSpacing.sm,
+            ),
+            decoration: const BoxDecoration(
+                color: AppColor.activeTab,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(AppSpacing.smh),
+                  topRight: Radius.circular(AppSpacing.smh),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Fee Details",
+                    style: kBody.copyWith(
+                      color: AppColor.kWhite,
+                    )),
+                IconButton(
+                  icon: const Icon(Icons.highlight_remove_outlined,
+                      color: AppColor.white),
+                  onPressed: () {
+                    controller.mUpdateFeeDetails();
+                  },
                 ),
-        )
-      ],
+              ],
+            ),
+          ),
+
+          /// Body: PdfView
+
+          Container(
+            padding: EdgeInsets.all(AppSpacing.sm),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColor.activeTab, width: .2),
+            ),
+            child: controller.feeDetailsModel.value == null
+                ? Center(
+                    child: Text(
+                      "Fetching data...",
+                      style: kLabel.copyWith(
+                          fontStyle: FontStyle.italic, color: Colors.black45),
+                    ),
+                  )
+                : Column(
+                    children: [
+                      /// Personal Info
+                      _vPersonalInfo(),
+                      AppSpacing.md.height,
+                      _vFeeDetailsTable(),
+                      AppSpacing.sm.height,
+
+                      Divider(
+                        height: 0,
+                        color: Colors.black12,
+                        thickness: .5,
+                      ),
+                      AppSpacing.md.height,
+                      _vFeeDetailsFooter(),
+                    ],
+                  ),
+          )
+        ],
+      ),
     );
   }
 
-   vMakePayment({required Widget child}) {
+  vMakePayment({required Widget child}) {
     return child;
   }
 
-   vPaymentHistory({required child}) {
+  vPaymentHistory({required child}) {
     return child;
   }
 
-   vTransHistoryTable() {
+  vTransHistoryTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Obx(() => Expanded(
@@ -894,8 +897,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                                     // table decoration
                                     decoration: BoxDecoration(
                                         color: /* controller.userInfoModelList.indexOf(item) */
-                                            controller.paymentHistoryList
-                                                            .value!
+                                            controller.paymentHistoryList.value!
                                                             .indexOf(item) %
                                                         2 ==
                                                     0
@@ -984,7 +986,7 @@ class StuPayments extends GetView<StuPaymentsController> {
         ));
   }
 
-   _vPersonalInfo() {
+  _vPersonalInfo() {
     return Column(
       children: [
         StaggeredGrid.count(
@@ -1001,7 +1003,9 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(controller.feeDetailsModel.value!.studentDetails!.fullName ?? "N/A"),
+              child: Text(
+                  controller.feeDetailsModel.value!.studentDetails!.fullName ??
+                      "N/A"),
             ),
           ],
         ),
@@ -1019,9 +1023,9 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(
-                  controller.feeDetailsModel.value!.studentDetails!.stClass!.className ??
-                      "N/A"),
+              child: Text(controller.feeDetailsModel.value!.studentDetails!
+                      .stClass!.className ??
+                  "N/A"),
             ),
           ],
         ),
@@ -1039,9 +1043,9 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(
-                  controller.feeDetailsModel.value!.studentDetails!.accGroup!.groupName ??
-                      "N/A"),
+              child: Text(controller.feeDetailsModel.value!.studentDetails!
+                      .accGroup!.groupName ??
+                  "N/A"),
             ),
           ],
         ),
@@ -1059,7 +1063,9 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(controller.feeDetailsModel.value!.studentDetails!.section ?? "N/A"),
+              child: Text(
+                  controller.feeDetailsModel.value!.studentDetails!.section ??
+                      "N/A"),
             ),
           ],
         ),
@@ -1077,9 +1083,10 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(
-                  (controller.feeDetailsModel.value!.studentDetails!.studentRollNumber ?? 00)
-                      .toString()),
+              child: Text((controller.feeDetailsModel.value!.studentDetails!
+                          .studentRollNumber ??
+                      00)
+                  .toString()),
             ),
           ],
         ),
@@ -1087,7 +1094,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   _vFeeDetailsTable() {
+  _vFeeDetailsTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return /*  Obx(() => */ SingleChildScrollView(
@@ -1176,12 +1183,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                 ),
                 // for (var item in controller.userInfoModelList) // correct
 
-                for (var item in controller.feeDetailsModel.value!.feeAllocationDetails!)
+                for (var item
+                    in controller.feeDetailsModel.value!.feeAllocationDetails!)
                   TableRow(
                     // table decoration
                     decoration: BoxDecoration(
                         color: /* controller.userInfoModelList.indexOf(item) */
-                            controller.feeDetailsModel.value!.feeAllocationDetails!
+                            controller.feeDetailsModel.value!
+                                            .feeAllocationDetails!
                                             .indexOf(item) %
                                         2 ==
                                     0
@@ -1235,6 +1244,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                                 children: [
                                   Expanded(
                                     child: Container(
+                                      alignment: Alignment.centerRight,
                                       padding: EdgeInsets.all(8),
                                       decoration: BoxDecoration(
                                           border: Border.all(
@@ -1443,7 +1453,9 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!.feeAmount ?? 0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .feeAmount ??
+                              0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1476,7 +1488,9 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!.previousDue ?? 0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .previousDue ??
+                              0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1510,7 +1524,8 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.totalWithDue ?? 0.00).toString(),
+                      (controller.feeDetailsModel.value!.totalWithDue ?? 0.00)
+                          .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
@@ -1542,7 +1557,8 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!.waiverAmount ??
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .waiverAmount ??
                               0.00)
                           .toString(),
                       textAlign: TextAlign.center,
@@ -1576,8 +1592,8 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!
-                                  .demandSlipDetails!.specialWaiverAmount ??
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .specialWaiverAmount ??
                               0.00)
                           .toString(),
                       textAlign: TextAlign.center,
@@ -1612,7 +1628,9 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!.offerAmount ?? 0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .offerAmount ??
+                              0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1645,7 +1663,9 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!.totalAmount ?? 0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails!
+                                  .totalAmount ??
+                              0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1663,7 +1683,7 @@ class StuPayments extends GetView<StuPaymentsController> {
     );
   }
 
-   _vFeeDetailsFooter() {
+  _vFeeDetailsFooter() {
     return Column(
       children: [
         Row(
@@ -1682,7 +1702,9 @@ class StuPayments extends GetView<StuPaymentsController> {
             Expanded(
                 flex: 6,
                 child: Text(
-                  (controller.feeDetailsModel.value!.total ?? "").toUpperCase().trim(),
+                  (controller.feeDetailsModel.value!.total ?? "")
+                      .toUpperCase()
+                      .trim(),
                   textAlign: TextAlign.left,
                   style: kBody,
                 ))
@@ -1714,5 +1736,4 @@ class StuPayments extends GetView<StuPaymentsController> {
       ],
     );
   }
-
 }

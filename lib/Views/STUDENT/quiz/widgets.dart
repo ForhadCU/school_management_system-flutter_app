@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ class StuQuizWidgets {
 
   static final _controller = StuQuizController.to;
   static final List<QuizQuestionsModel> _quizQuestionsModelList =
-      _controller.quizQuestionsModelList;
+      _controller.quizQuestionsModelList;/*  */
   static QuizQuestionsModel _quizQuestionsModel =
       _quizQuestionsModelList[_controller.quizQuestionIndex.value] ??
           QuizQuestionsModel();
@@ -1443,3 +1443,4 @@ class StuQuizWidgets {
   // codes start from here
   // All methods should be static to maintain singleton instances
 }
+ */

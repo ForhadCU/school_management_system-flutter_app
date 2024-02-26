@@ -46,6 +46,7 @@ class AppRoutes {
   static const String helpdeskDetails = "/helpdeskDetails";
   static const String classroomDetails = "/classroomDetails";
   static const String stuMessage = "/stuMessage";
+  static const String stuMessageExpand = "/stuMessageExpand";
 
   ///TEACHER
   static const String teachHome = "/teachHome";

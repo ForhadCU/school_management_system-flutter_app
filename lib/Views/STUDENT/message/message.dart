@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Routes/app_pages.dart';
+import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Views/STUDENT/message/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
@@ -48,7 +50,15 @@ class StuMessage extends GetView<StuMessageController> {
           "Message card Logo ImageUrl: ${AppData.eduWorldTheworldHostname + controller.siteListModel.value.siteLogo!}");
 
       return ListTile(
+        onTap: () {
+          controller.mUpdateClickedMessageModel(message);
+          Get.toNamed(AppRoutes.stuMessageExpand);
+        },
+        contentPadding: EdgeInsets.all(4),
+        horizontalTitleGap: AppSpacing.md,
+        minLeadingWidth: 16,
         leading: Container(
+            padding: EdgeInsets.all(8),
             decoration: const BoxDecoration(
               color: Colors.black12,
               shape: BoxShape.circle,
@@ -56,7 +66,7 @@ class StuMessage extends GetView<StuMessageController> {
             child: siteCachedNetworkImage(
                 AppData.eduWorldTheworldHostname +
                     controller.siteListModel.value.siteLogo!,
-                width: 48,
+                width: 28,
                 fit: BoxFit
                     .contain) /* const Icon(
                 Icons.person,
@@ -64,12 +74,64 @@ class StuMessage extends GetView<StuMessageController> {
                 color: Colors.white,
               ) */
             ),
-        title: Text(message.title ?? ""),
-        subtitle: Text(message.message ?? ""),
-        trailing: message.createdAt == null
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              message.title ?? "",
+              style: TextStyle(overflow: TextOverflow.ellipsis),
+            ),
+            Text(
+              Utils().getTimeFromTimeStamp(
+                  message.createdAt.toString(), kAppTimeFormat12),
+              style: kBody.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
+            ),
+          ],
+        ),
+        subtitle: Column(
+          children: [
+            TextFormField(
+              onTap: () {
+                controller.mUpdateClickedMessageModel(message);
+                Get.toNamed(AppRoutes.stuMessageExpand);
+              },
+              controller: TextEditingController(text: message.message ?? ""),
+              minLines: 1,
+              maxLines: 3,
+              style: kBody.copyWith(
+                  fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+              readOnly: true,
+              textAlign: TextAlign.left,
+              decoration: const InputDecoration(
+                  isDense: true,
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(0)),
+            ),
+            AppSpacing.sm.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                message.createdAt == null
+                    ? Container()
+                    : Text(
+                        Utils().getTimeFromTimeStamp(
+                            message.createdAt.toString(),
+                            kAppDateFormatWithDayMonth),
+                        style: kBody.copyWith(
+                            fontWeight: FontWeight.w400, fontSize: 12),
+                      ),
+              ],
+            )
+          ],
+        ),
+        /* Text(message.message ?? "", style: kBody.copyWith(
+          overflow: TextOverflow.ellipsis,
+          
+        ),), */
+        /*  trailing: message.createdAt == null
             ? Container()
             : Text(Utils().getTimeFromTimeStamp(
-                message.createdAt.toString(), kAppDateFormat)),
+                message.createdAt.toString(), kAppDateFormat)), */
       );
     });
   }

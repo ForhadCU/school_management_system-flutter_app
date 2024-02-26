@@ -19,6 +19,7 @@ class StuMessageController extends GetxController {
   var token = '';
   var siteListModel = SitelistModel().obs;
   var messageListScrollCntrlr = ScrollController().obs;
+  var clickedMessageModel = MessageData().obs;
   var pageNumber = 1.obs;
   var test = '1'.obs;
 
@@ -58,6 +59,10 @@ class StuMessageController extends GetxController {
     // Get.reset();
     super.onClose();
     await _deleteImageFromCache();
+  }
+
+  void mUpdateClickedMessageModel(MessageData data) {
+    clickedMessageModel.value = data;
   }
 
   Future _deleteImageFromCache() async {

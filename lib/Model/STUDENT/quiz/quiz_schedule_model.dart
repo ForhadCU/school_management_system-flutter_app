@@ -209,7 +209,7 @@ class QuizDeclare {
 
 class Quiz {
   int? id;
-  dynamic quizKey;
+  String? quizKey;
   String? quizName;
   int? status;
 
@@ -222,7 +222,7 @@ class Quiz {
 
   Quiz copyWith({
     int? id,
-    dynamic quizKey,
+    String? quizKey,
     String? quizName,
     int? status,
   }) =>

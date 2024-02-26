@@ -401,10 +401,14 @@ class TeachNotice extends GetView<TeachNoticeController> {
                       data.createdAt.toString(), kAppDateFormatWithTime12),
                   color: AppColor.kNoticeListColorPlate[
                       index % (AppColor.kNoticeListColorPlate.length)],
-                  onTap: () {
+                  onTapToExpand: () {
                     controller.mUpdateClickedNoticeModel(data);
                     print("clicked: $index");
-                    Get.toNamed(AppRoutes.expandedTeachNotice);
+                    Get.toNamed(AppRoutes.expandedNotice);
+                  },
+                  onTapToDownload: () async {
+                    await controller.mDownloadNotice(
+                        path: data.files!.first.path);
                   });
             },
             separatorBuilder: (BuildContext context, int index) {
@@ -420,10 +424,11 @@ class TeachNotice extends GetView<TeachNoticeController> {
       required String desc,
       required String date,
       required Color color,
-      required Function onTap}) {
+      required Function onTapToExpand,
+      required Function onTapToDownload}) {
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTapToExpand();
       },
       child: Container(
           padding: const EdgeInsets.all(AppSpacing.md),
@@ -436,15 +441,33 @@ class TeachNotice extends GetView<TeachNoticeController> {
               StaggeredGridTile.fit(
                   crossAxisCellCount: 6,
                   child: _vLeftPart(title, desc, color, () {
-                    onTap();
+                    onTapToExpand();
                   }, date)),
               StaggeredGridTile.fit(
                   crossAxisCellCount: 1,
-                  child: _vGoInside(() {
-                    onTap();
-                  }, color) /* _vDownload() */),
+                  child: _vDownload(() {
+                    onTapToDownload();
+                  }, color)),
             ],
           )),
+    );
+  }
+
+  _vDownload(Null Function() onTapToDownload, Color icColor) {
+    return GestureDetector(
+      onTap: () {
+        onTapToDownload();
+      },
+      child: Container(
+        color: Colors.transparent,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+        child: const Icon(
+          Icons.download,
+          color: AppColor.dollarBill,
+          size: 32,
+        ),
+      ),
     );
   }
 
@@ -711,14 +734,14 @@ class TeachNotice extends GetView<TeachNoticeController> {
           ]),
     );
   }
-
+/* 
   Widget _vDownload() {
     return const Icon(
       Icons.download,
       color: AppColor.dollarBill,
       size: 32,
     );
-  }
+  } */
 
   _vGoInside(Null Function() onTap, Color icColor) {
     return GestureDetector(

@@ -11,6 +11,7 @@ import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_mod
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Api/STUDENT/notice/notice_api.dart';
 import '../../Utils/utils.dart';
@@ -128,5 +129,17 @@ class NoticeController extends GetxController {
     noticeList.clear();
     pageNumber.value = 1;
     numOfNoticesInRange.value = 0;
+  }
+
+  mDownloadNotice({String? path}) async {
+    kLog("${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
+    if (path != null) {
+      if (!await launchUrl(Uri.parse(
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path"))) {
+        throw Exception('Could not download ${path}');
+      }
+    } else {
+      showError("Pdf not found!");
+    }
   }
 }

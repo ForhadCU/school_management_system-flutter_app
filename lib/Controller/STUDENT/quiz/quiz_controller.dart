@@ -52,7 +52,7 @@ class StuQuizController extends GetxController {
 
   var quizResultModel = StuQuizResultModel().obs;
   var quizScheduleModel = QuizScheduleModel().obs;
-  var quizResultList = <QuizData>[].obs;
+  var quizResultList = <QuizResultData>[].obs;
   var quizScheduleList = <QuizScheduleData>[].obs;
   var quizResultListScrlCtrlr = ScrollController().obs;
   var quizScheduleListScrlCtrlr = ScrollController().obs;
@@ -63,7 +63,6 @@ class StuQuizController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    mGetScheduleList();
     token = await AppLocalDataFactory.mGetToken();
     await mGetQuizInfo();
     await mGetQuizScheduleList();
@@ -104,6 +103,14 @@ class StuQuizController extends GetxController {
     });
 
     // progress.value = progressStratingPoint.value;
+  }
+
+  mReload() async {
+    quizScheduleList.clear();
+    quizScheduleList.clear();
+    // await mGetQuizInfo();
+    await mGetQuizScheduleList();
+    await mGetQuizResultList();
   }
 
   /// code goes here
@@ -155,7 +162,6 @@ class StuQuizController extends GetxController {
           } */
       } else {
         kLog("Quiz not started");
-
         isReady.value = true;
         mGetRemainingTimeBeforeStart();
       }
@@ -312,28 +318,21 @@ class StuQuizController extends GetxController {
     ];
   }
 
-  mGetScheduleList() {
-    scheduleList.value = [
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-      {"item": "item1"},
-    ];
-  }
-
   void mGotoNextQuiz() async {
     if (progress.value < 1.0) {
       // quizNumber.value++;
       progress.value += progressStratingPoint.value;
       quizQuestionIndex.value++;
       mCalcualteQuizTime();
+      kLog(
+          "Answer count : ${quizQuestionsModelList[quizQuestionIndex.value].questionList![quizQuestionIndex.value].answerCount!}");
 
       if (quizQuestionsModelList[quizQuestionIndex.value]
               .questionList![quizQuestionIndex.value]
               .answerCount! >
           1) {
+        kLog("From: Checkbox");
+
         /* if (quizQuestionsModel.value!.questionList![quizQuestionIndex.value]
             .studentAnswerIds!.isEmpty) {
           quizQuestionsModel
@@ -358,10 +357,12 @@ class StuQuizController extends GetxController {
           }
         }
       } else {
+        kLog("From: Radio");
         if (quizQuestionsModelList[quizQuestionIndex.value]
             .questionList![quizQuestionIndex.value]
             .studentAnswerIds!
             .isNotEmpty) {
+          kLog("AnswerList: Not empty");
           for (var element in quizQuestionsModelList[quizQuestionIndex.value]
               .questionList![quizQuestionIndex.value]
               .siteQuizQuestionDetailsForStudent!) {
@@ -373,6 +374,9 @@ class StuQuizController extends GetxController {
             }
           }
         } else {
+          kLog("Pawa jaini");
+          kLog("AnswerList: empty");
+
           selectedOption.value = null;
         }
       }

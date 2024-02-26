@@ -18,9 +18,25 @@ class StuQuiz extends GetView<StuQuizController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget(
-        title: "My Quiz",
-        child: BaseWidgetChild(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Quiz".toUpperCase(),
+            style: TextStyle(color: Colors.white),
+          ),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: AppColor.primaryColor,
+          actions: [
+            IconButton(
+                icon: new Icon(Icons.refresh, color: Colors.white),
+                onPressed: () async {
+                  await controller.mReload();
+                }),
+          ],
+        ),
+        body: BaseWidgetChild(
             child: Column(children: [
           /* StuQuizWidgets.vTabBar(),
           StuQuizWidgets.vLiveQuiz(),
@@ -31,7 +47,9 @@ class StuQuiz extends GetView<StuQuizController> {
           vLiveQuiz(),
           vQuizSchedule(),
           vQuizResult()
-        ])));
+        ])),
+      ),
+    );
   }
 
   vTabBar() {
@@ -265,72 +283,82 @@ class StuQuiz extends GetView<StuQuizController> {
 
   _vQuizPart() {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            /// Top heade
-            _vQuizPartHeading(),
-
-            /// Body
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.sm),
-              decoration: BoxDecoration(
-                color: AppColor.liveQuizBg,
-                border: Border.all(color: AppColor.activeTab, width: .2),
-              ),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  /// Quiz info
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Total Questions : "),
-                      Text(controller
-                          .quizQuestionsModel.value.questionList!.length
-                          .toString()),
-                    ],
-                  ),
-                  AppSpacing.md.height,
+                  /// Top heade
+                  _vQuizPartHeading(),
 
-                  /// Quiz ProgressLoader
-                  Row(
-                    children: [
-                      vQuizCounterProgressbar(),
-                      AppSpacing.md.width,
-                      Row(
-                        children: [
-                          Text(
-                            (controller.quizQuestionIndex.value + 1).toString(),
-                            style: kBody.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "/",
-                            style: kBody.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            controller
-                                .quizQuestionsModelList[
-                                    controller.quizQuestionIndex.value]
-                                .questionList!
-                                .length
-                                .toString(),
-                            style: kBody.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      )
-                    ],
+                  /// Body
+                  Container(
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
+                      color: AppColor.liveQuizBg,
+                      border: Border.all(color: AppColor.activeTab, width: .2),
+                    ),
+                    child: Column(
+                      children: [
+                        /// Quiz info
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Total Questions : "),
+                            Text(controller
+                                .quizQuestionsModel.value.questionList!.length
+                                .toString()),
+                          ],
+                        ),
+                        AppSpacing.md.height,
+
+                        /// Quiz ProgressLoader
+                        Row(
+                          children: [
+                            vQuizCounterProgressbar(),
+                            AppSpacing.md.width,
+                            Row(
+                              children: [
+                                Text(
+                                  (controller.quizQuestionIndex.value + 1)
+                                      .toString(),
+                                  style: kBody.copyWith(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "/",
+                                  style: kBody.copyWith(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  controller
+                                      .quizQuestionsModelList[
+                                          controller.quizQuestionIndex.value]
+                                      .questionList!
+                                      .length
+                                      .toString(),
+                                  style: kBody.copyWith(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        AppSpacing.xl.height,
+                        _vQuizQuestion(),
+                        AppSpacing.sm.height,
+                        _vQuizAnswers(),
+                      ],
+                    ),
                   ),
-                  AppSpacing.xl.height,
-                  _vQuizQuestion(),
-                  AppSpacing.sm.height,
-                  _vQuizAnswers(),
-                  AppSpacing.xxl.height,
-                  vNextAndPreviousButtons()
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          AppSpacing.xxl.height,
+          vNextAndPreviousButtons()
+        ],
       ),
     );
   }
@@ -514,83 +542,93 @@ class StuQuiz extends GetView<StuQuizController> {
                         .quizQuestionsModelList[
                             controller.quizQuestionIndex.value]
                         .questionList![controller.quizQuestionIndex.value]
-                        .answerCount ==
+                        .answerCount! <=
                     1
                 ? Obx(
-                    () => GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: AppSpacing.sm, horizontal: 8),
-                        decoration: BoxDecoration(
-                          // color: AppColor.quizAnsItemBg,
-                          border: Border.all(
-                              color: AppColor.inactiveTab, width: .5),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Row(
-                          children: [
-                            Radio(
-                              value: optionsModel.id,
-                              groupValue: controller.selectedOption.value,
-                              onChanged: (value) {
-                                controller.selectedOption.value = value;
+                    () {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppSpacing.sm, horizontal: 8),
+                          decoration: BoxDecoration(
+                            // color: AppColor.quizAnsItemBg,
+                            border: Border.all(
+                                color: AppColor.inactiveTab, width: .5),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Row(
+                            children: [
+                              Radio(
+                                value: optionsModel.id,
+                                groupValue: controller.selectedOption.value,
+                                onChanged: (value) {
+                                  controller.selectedOption.value = value;
 
-                                /// save answer id into parent model
-                                if (controller
-                                        .quizQuestionsModelList[
-                                            controller.quizQuestionIndex.value]
-                                        .questionList![
-                                            controller.quizQuestionIndex.value]
-                                        .studentAnswerIds!
-                                        .isNotEmpty &&
+                                  /// save answer id into parent model
+                                  if (controller
+                                          .quizQuestionsModelList[controller
+                                              .quizQuestionIndex.value]
+                                          .questionList![controller
+                                              .quizQuestionIndex.value]
+                                          .studentAnswerIds!
+                                          .isNotEmpty &&
+                                      controller
+                                          .quizQuestionsModelList[controller
+                                              .quizQuestionIndex.value]
+                                          .questionList![controller
+                                              .quizQuestionIndex.value]
+                                          .studentAnswerIds!
+                                          .contains(optionsModel.id)) {
                                     controller
                                         .quizQuestionsModelList[
                                             controller.quizQuestionIndex.value]
                                         .questionList![
                                             controller.quizQuestionIndex.value]
                                         .studentAnswerIds!
-                                        .contains(optionsModel.id)) {
-                                  controller
-                                      .quizQuestionsModelList[
-                                          controller.quizQuestionIndex.value]
-                                      .questionList![
-                                          controller.quizQuestionIndex.value]
-                                      .studentAnswerIds!
-                                      .removeWhere((element) =>
-                                          element == optionsModel.id);
-                                } else {
-                                  controller
-                                      .quizQuestionsModelList[
-                                          controller.quizQuestionIndex.value]
-                                      .questionList![
-                                          controller.quizQuestionIndex.value]
-                                      .studentAnswerIds!
-                                      .add(optionsModel.id);
-                                }
-                              },
-                              activeColor: AppColor.activeTab,
-                            ),
-                            Text(
-                              "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
-                              style: kBody.copyWith(color: Colors.black87),
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    optionsModel.option!,
-                                    style:
-                                        kBody.copyWith(color: Colors.black87),
-                                  ),
-                                ],
+                                        .removeWhere((element) =>
+                                            element == optionsModel.id);
+                                  } else {
+                                    controller
+                                        .quizQuestionsModelList[
+                                            controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .clear();
+
+                                    controller
+                                        .quizQuestionsModelList[
+                                            controller.quizQuestionIndex.value]
+                                        .questionList![
+                                            controller.quizQuestionIndex.value]
+                                        .studentAnswerIds!
+                                        .add(optionsModel.id);
+                                  }
+                                },
+                                activeColor: AppColor.activeTab,
                               ),
-                            ),
-                          ],
+                              Text(
+                                "${String.fromCharCode("A".codeUnitAt(0) + index)}. ",
+                                style: kBody.copyWith(color: Colors.black87),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      optionsModel.option!,
+                                      style:
+                                          kBody.copyWith(color: Colors.black87),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   )
                 : GestureDetector(
                     onTap: () {
@@ -1141,7 +1179,8 @@ class StuQuiz extends GetView<StuQuizController> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          item.quizDeclare!.quiz!.status == 1
+                                          // item.quizDeclare!.quiz!.status == 1
+                                          item.joinStatus == 1
                                               ? AppButtons.vNarrowButton(
                                                       onTap: () {},
                                                       text: "Present",
@@ -1287,11 +1326,11 @@ class StuQuiz extends GetView<StuQuizController> {
                                         horizontal: cellHorMargin),
                                   ],
                                 ),
-                                /*  Row(
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Quiz By',
+                                      'Status',
                                       style: kBody.copyWith(
                                           color: AppColor.white,
                                           fontWeight: FontWeight.w500),
@@ -1299,7 +1338,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                         vertical: cellVerMargin,
                                         horizontal: cellHorMargin),
                                   ],
-                                ), */
+                                ),
                               ],
                             ),
                             // for (var item in controller.userInfoModelList) // correct
@@ -1405,20 +1444,41 @@ class StuQuiz extends GetView<StuQuizController> {
                                           horizontal: cellHorMargin),
                                     ],
                                   ),
-                                  /* Row(
+                                  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        'AWS',
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ).marginSymmetric(
-                                          vertical: cellVerMargin,
-                                          horizontal: cellHorMargin),
+                                      // item.quizDeclare!.quiz!.status == 1
+                                      item.quizDeclare!.quizDeclareSettings!
+                                                  .isCancel ==
+                                              1
+                                          ? Text(
+                                              "Cancelled",
+                                              style: kBody.copyWith(
+                                                  color: Colors.red),
+                                            ).marginSymmetric(
+                                              vertical: cellVerMargin,
+                                              horizontal: cellHorMargin)
+                                          : item
+                                                      .quizDeclare!
+                                                      .quizDeclareSettings!
+                                                      .isEnd ==
+                                                  0
+                                              ? Text(
+                                                  "Running",
+                                                  style: kBody.copyWith(
+                                                      color: Colors.green),
+                                                ).marginSymmetric(
+                                                  vertical: cellVerMargin,
+                                                  horizontal: cellHorMargin)
+                                              : Text(
+                                                  "Ended",
+                                                  style: kBody.copyWith(
+                                                      color: Colors.black),
+                                                ).marginSymmetric(
+                                                  vertical: cellVerMargin,
+                                                  horizontal: cellHorMargin),
                                     ],
-                                  ), */
+                                  ),
                                 ],
                               ),
                           ],

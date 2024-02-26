@@ -55,10 +55,14 @@ class Notice extends GetView<NoticeController> {
                       data.createdAt.toString(), kAppDateFormatWithTime12),
                   color: AppColor.kNoticeListColorPlate[
                       index % (AppColor.kNoticeListColorPlate.length)],
-                  onTap: () {
+                  onTapToExpand: () {
                     controller.mUpdateClickedNoticeModel(data);
                     print("clicked: $index");
                     Get.toNamed(AppRoutes.expandedNotice);
+                  },
+                  onTapToDownload: () async {
+                    await controller.mDownloadNotice(
+                        path: data.files!.first.path);
                   });
             },
             separatorBuilder: (BuildContext context, int index) {
@@ -74,10 +78,11 @@ class Notice extends GetView<NoticeController> {
       required String desc,
       required String date,
       required Color color,
-      required Function onTap}) {
+      required Function onTapToExpand,
+      required Function onTapToDownload}) {
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTapToExpand();
       },
       child: Container(
           padding: const EdgeInsets.all(AppSpacing.md),
@@ -85,18 +90,18 @@ class Notice extends GetView<NoticeController> {
             color: color.withOpacity(.15),
           ),
           child: StaggeredGrid.count(
-            crossAxisCount: 7,
+            crossAxisCount: 8,
             children: [
               StaggeredGridTile.fit(
                   crossAxisCellCount: 6,
                   child: _vLeftPart(title, desc, color, () {
-                    onTap();
+                    onTapToExpand();
                   }, date)),
               StaggeredGridTile.fit(
-                  crossAxisCellCount: 1,
-                  child: _vGoInside(() {
-                    onTap();
-                  }, color) /* _vDownload() */),
+                  crossAxisCellCount: 2,
+                  child: /* _vGoInside */ _vDownload(() {
+                    onTapToDownload();
+                  }, color)),
             ],
           )),
     );
@@ -334,13 +339,13 @@ class Notice extends GetView<NoticeController> {
     );
   }
 
-  Widget _vDownload() {
+/*   Widget _vDownload() {
     return const Icon(
       Icons.download,
       color: AppColor.dollarBill,
       size: 32,
     );
-  }
+  } */
 
   _vGoInside(Null Function() onTap, Color icColor) {
     return GestureDetector(
@@ -357,6 +362,24 @@ class Notice extends GetView<NoticeController> {
             size: 24,
           ),
         ],
+      ),
+    );
+  }
+
+  _vDownload(Null Function() onTapToDownload, Color icColor) {
+    return GestureDetector(
+      onTap: () {
+        onTapToDownload();
+      },
+      child: Container(
+        alignment: Alignment.centerRight,
+        color: Colors.transparent,
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+        child: const Icon(
+          Icons.download,
+          color: AppColor.dollarBill,
+          size: 32,
+        ),
       ),
     );
   }

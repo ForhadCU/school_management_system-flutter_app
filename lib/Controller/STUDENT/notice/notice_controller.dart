@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/notice/notice_api.dart';
 import 'package:school_management_system/Utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Config/config.dart';
 import '../../../Model/PUBLIC/notice/notice_api_model.dart';
 import '../../../Model/PUBLIC/searchSchool/site_list_model.dart';
@@ -123,5 +124,17 @@ class StuNoticeController extends GetxController {
     noticeList.clear();
     pageNumber.value = 1;
     numOfNoticesInRange.value = 0;
+  }
+
+  mDownloadNotice({String? path}) async {
+    kLog("${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
+    if (path != null) {
+      if (!await launchUrl(Uri.parse(
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path"))) {
+        throw Exception('Could not download ${path}');
+      }
+    } else {
+      showError("Pdf not found!");
+    }
   }
 }

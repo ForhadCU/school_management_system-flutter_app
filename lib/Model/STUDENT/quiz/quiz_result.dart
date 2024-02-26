@@ -4,12 +4,12 @@ class StuQuizResultModel {
   static String get getParentJsonKey => "quiz_list";
 
   int? currentPage;
-  List<QuizData>? data;
+  List<QuizResultData>? data;
   String? firstPageUrl;
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  dynamic nextPageUrl;
+  String? nextPageUrl;
   String? path;
   String? perPage;
   dynamic prevPageUrl;
@@ -33,12 +33,12 @@ class StuQuizResultModel {
 
   StuQuizResultModel copyWith({
     int? currentPage,
-    List<QuizData>? data,
+    List<QuizResultData>? data,
     String? firstPageUrl,
     int? from,
     int? lastPage,
     String? lastPageUrl,
-    dynamic nextPageUrl,
+    String? nextPageUrl,
     String? path,
     String? perPage,
     dynamic prevPageUrl,
@@ -70,7 +70,7 @@ class StuQuizResultModel {
         currentPage: json["current_page"],
         data: json["data"] == null
             ? []
-            : List<QuizData>.from(json["data"]!.map((x) => QuizData.fromMap(x))),
+            : List<QuizResultData>.from(json["data"]!.map((x) => QuizResultData.fromMap(x))),
         firstPageUrl: json["first_page_url"],
         from: json["from"],
         lastPage: json["last_page"],
@@ -100,7 +100,7 @@ class StuQuizResultModel {
       };
 }
 
-class QuizData {
+class QuizResultData {
   int? studentHistoryId;
   int? quizDeclareId;
   int? joinStatus;
@@ -115,7 +115,7 @@ class QuizData {
   String? rightAnsPercentage;
   dynamic rank;
 
-  QuizData({
+  QuizResultData({
     this.studentHistoryId,
     this.quizDeclareId,
     this.joinStatus,
@@ -131,7 +131,7 @@ class QuizData {
     this.rank,
   });
 
-  QuizData copyWith({
+  QuizResultData copyWith({
     int? studentHistoryId,
     int? quizDeclareId,
     int? joinStatus,
@@ -146,7 +146,7 @@ class QuizData {
     String? rightAnsPercentage,
     dynamic rank,
   }) =>
-      QuizData(
+      QuizResultData(
         studentHistoryId: studentHistoryId ?? this.studentHistoryId,
         quizDeclareId: quizDeclareId ?? this.quizDeclareId,
         joinStatus: joinStatus ?? this.joinStatus,
@@ -162,11 +162,11 @@ class QuizData {
         rank: rank ?? this.rank,
       );
 
-  factory QuizData.fromJson(String str) => QuizData.fromMap(json.decode(str));
+  factory QuizResultData.fromJson(String str) => QuizResultData.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory QuizData.fromMap(Map<String, dynamic> json) => QuizData(
+  factory QuizResultData.fromMap(Map<String, dynamic> json) => QuizResultData(
         studentHistoryId: json["student_history_id"],
         quizDeclareId: json["quiz_declare_id"],
         joinStatus: json["join_status"],

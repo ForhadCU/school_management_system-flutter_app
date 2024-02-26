@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
             // initialRoute: AppRoutes.teachDashboard,
             // initialRoute: AppRoutes.test,
             getPages: AppPages.pages,
-
             // home: const BasePage(),
           );
         }));

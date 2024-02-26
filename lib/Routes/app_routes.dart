@@ -41,6 +41,7 @@ import 'package:school_management_system/Views/PUBLIC/notification/notifications
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
 import 'package:school_management_system/Views/STUDENT/message/message.dart';
+import 'package:school_management_system/Views/STUDENT/message/pages/expanded_message.dart';
 import 'package:school_management_system/Views/STUDENT/notice/pages/expanded_notice.dart';
 import 'package:school_management_system/Views/TEACHER/attendance/attendance.dart';
 import 'package:school_management_system/Views/TEACHER/dashboard/dashboard.dart';
@@ -145,7 +146,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.login,
       binding: LoginBinding(),
-      page: () =>  Login(),
+      page: () => Login(),
     ),
     GetPage(
       name: AppRoutes.academicGroup,
@@ -207,7 +208,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentHome,
       binding: HomeBindings(),
-      page: () =>  StuHome(),
+      page: () => StuHome(),
     ),
     GetPage(
       name: AppRoutes.liveClass,
@@ -217,7 +218,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentNotice,
       binding: StuNoticeBindings(),
-      page: () =>  StudentNotice(),
+      page: () => StudentNotice(),
     ),
     GetPage(
       name: AppRoutes.studentNotification,
@@ -232,7 +233,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.profile,
       binding: ProfileBindings(),
-      page: () =>  Profile(),
+      page: () => Profile(),
     ),
     GetPage(
       name: AppRoutes.quiz,
@@ -264,11 +265,16 @@ abstract class AppPages {
       binding: StuMessageBindings(),
       page: () => const StuMessage(),
     ),
+    GetPage(
+      name: AppRoutes.stuMessageExpand,
+      binding: StuMessageBindings(),
+      page: () =>  StuMessageExpand(),
+    ),
 
     /// TEACHER
     GetPage(
         name: AppRoutes.teachHome,
-        page: () =>  TeachHome(),
+        page: () => TeachHome(),
         binding: TeachHomeBindings()),
     GetPage(
         name: AppRoutes.teachDashboard,
@@ -276,11 +282,11 @@ abstract class AppPages {
         binding: TeachDashboardBindings()),
     GetPage(
         name: AppRoutes.teachProfile,
-        page: () =>  TeachProfile(),
+        page: () => TeachProfile(),
         binding: TeachProfileBindings()),
     GetPage(
         name: AppRoutes.teachNotice,
-        page: () =>  TeachNotice(),
+        page: () => TeachNotice(),
         binding: TeachNoticeBindings()),
     GetPage(
         name: AppRoutes.expandedTeachNotice,
@@ -288,11 +294,11 @@ abstract class AppPages {
         binding: TeachNoticeBindings()),
     GetPage(
         name: AppRoutes.examMarksEntry,
-        page: () =>  ExamMarksEntry(),
+        page: () => ExamMarksEntry(),
         binding: ExamMarksEntryBindings()),
     GetPage(
         name: AppRoutes.examAttendance,
-        page: () =>  ExamAttendance(),
+        page: () => ExamAttendance(),
         binding: ExamAttendanceBindings()),
     GetPage(
         name: AppRoutes.teachRoutine,

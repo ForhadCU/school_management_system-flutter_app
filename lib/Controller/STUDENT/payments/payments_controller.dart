@@ -38,9 +38,9 @@ class StuPaymentsController extends GetxController {
   void onInit() async {
     super.onInit();
     kLog("Payments View");
+    token = await AppLocalDataFactory.mGetToken();
 
     await mGetPaymentHistory();
-    token = await AppLocalDataFactory.mGetToken();
     await mGetFeeDetails();
   }
 
