@@ -94,7 +94,21 @@ class StuQuiz extends GetView<StuQuizController> {
     return Obx(() => Visibility(
         visible: controller.isLiveQuizActive.value,
         child: controller.isLoading.value
-            ? Container()
+            ? Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        color: AppColor.inactiveTab,
+                        strokeWidth: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             : controller.isQuizNotFound.value
                 ? _vQuizNotfoundMessage()
                 : controller.isQuizMissed.value
@@ -505,7 +519,7 @@ class StuQuiz extends GetView<StuQuizController> {
       decoration: BoxDecoration(
           border: Border.all(width: .5, color: Colors.black12),
           borderRadius: BorderRadius.circular(4),
-          color: AppColor.kBlack.withOpacity(.2)),
+          color: AppColor.kBlack.withOpacity(.1)),
       alignment: Alignment.center,
       child: Html(
         data: controller
@@ -603,7 +617,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                         .questionList![
                                             controller.quizQuestionIndex.value]
                                         .studentAnswerIds!
-                                        .add(optionsModel.id);
+                                        .add(optionsModel.id.toString());
                                   }
                                 },
                                 activeColor: AppColor.activeTab,
@@ -706,7 +720,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                         .questionList![
                                             controller.quizQuestionIndex.value]
                                         .studentAnswerIds!
-                                        .add(optionsModel.id);
+                                        .add(optionsModel.id.toString());
                                   }
 
                                   kLog(controller

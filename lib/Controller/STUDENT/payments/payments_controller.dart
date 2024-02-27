@@ -1,5 +1,11 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/STUDENT/payments/payments_api.dart';
 import 'package:school_management_system/Model/STUDENT/payments/fee_details.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
@@ -33,12 +39,15 @@ class StuPaymentsController extends GetxController {
   var token = "";
 
   var feeDetailsModel = Rxn<StuFeeDetailsModel>();
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void onInit() async {
     super.onInit();
     kLog("Payments View");
     token = await AppLocalDataFactory.mGetToken();
+
+    // mLocalNotificationInitialization();
 
     await mGetPaymentHistory();
     await mGetFeeDetails();
@@ -132,5 +141,91 @@ class StuPaymentsController extends GetxController {
         token);
   }
 
-  /// code goes here
+  /////////////Dowload Bank Slip Pdf////////////////
+  var demandSlipPdfResponse = Rxn<Uint8List>().obs;
+/* 
+  mGetExamRoutinePdf() async {
+    demandSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
+      "api_access_key": AppData.api_access_key,
+    }, token);
+
+    /*  routinePdfResponse.value.value != null &&
+            routinePdfResponse.value.value!.isNotEmpty
+        ? {
+            isFoundRoutinePdf.value = true,
+            documentList.add("Examination Routine Pdf")
+          }
+        : false; */
+  } */
+
+  mDownloadDemandSlipPdf() async {
+    demandSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
+      "api_access_key": AppData.api_access_key,
+    }, token);
+    if (demandSlipPdfResponse.value.value != null) {
+      /*  Directory downloadDirectory;
+      if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = (await getExternalStorageDirectory())!;
+        }
+      } */
+      Directory downloadDirectory;
+      if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = (await getExternalStorageDirectory())!;
+        } else {
+          kLog("Download Dir already existed");
+        }
+      }
+
+      final filePath = "${downloadDirectory.path}/demand_slip.pdf";
+
+      File file = File(filePath);
+
+      try {
+        if (await Permission.storage.request().isGranted) {
+          kLog('permission granted');
+          showLoading("Downloading...");
+          await file.writeAsBytes(demandSlipPdfResponse.value.value!);
+          showSuccess("Downloaded");
+        } else {
+          Map<Permission, PermissionStatus> statuses = await [
+            Permission.storage,
+          ].request();
+          kLog(statuses[Permission.storage].toString());
+          // showLoading("Downloading...");
+
+          await Permission.storage.request();
+          kLog('request permission');
+        }
+      } catch (error) {
+        kLog(error);
+        showError("Download failed");
+      }
+      // kLog(pdfPath);
+    } else {
+      kLog("Response Null");
+      showError("Not Found");
+    }
+  }
+
+/*   void mLocalNotificationInitialization() {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    final android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final iOS = IOSInitializationSettings();
+    final initSettings = InitializationSettings(android, iOS);
+
+    flutterLocalNotificationsPlugin.initialize(initSettings,
+        onSelectNotification: _onSelectNotification);
+  }
+
+  Future<void> _onSelectNotification(String json) async {
+    // todo: handling clicked notification
+  } */
 }

@@ -118,6 +118,9 @@ class StuNoticeController extends GetxController {
 
   void mUpdateClickedNoticeModel(Datum data) {
     clickedNoticeModel.value = data;
+    kLog(Utils().getTimeFromTimeStamp(
+        clickedNoticeModel.value.createdAt.toString(),
+        kAppDateFormatWithTime12));
   }
 
   void mResetList() {
@@ -127,7 +130,8 @@ class StuNoticeController extends GetxController {
   }
 
   mDownloadNotice({String? path}) async {
-    kLog("${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
+    kLog(
+        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
     if (path != null) {
       if (!await launchUrl(Uri.parse(
           "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path"))) {

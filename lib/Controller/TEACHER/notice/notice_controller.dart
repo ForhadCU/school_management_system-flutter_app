@@ -127,6 +127,7 @@ class TeachNoticeController extends GetxController {
   }
 
   mDownloadNotice({String? path}) async {
+    
     kLog("${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
     if (path != null) {
       if (!await launchUrl(Uri.parse(

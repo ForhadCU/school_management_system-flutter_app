@@ -146,7 +146,7 @@ class StuHomeController extends GetxController {
                             ? Get.toNamed(AppRoutes.attendance)
                             : "My Quiz" == drawerItem
                                 ? Get.toNamed(AppRoutes.quiz)
-                                : "My subject" == drawerItem
+                                : "My Subject" == drawerItem
                                     ? Get.toNamed(AppRoutes.subjects)
                                     : "Website" == drawerItem
                                         ? {mGotoWebsite()}

@@ -61,7 +61,7 @@ class QuizQuestionsModel {
 }
 
 class QuestionList {
-  dynamic studentAnswerIds;
+  List<dynamic>? studentAnswerIds;
   int? id;
   int? questionNo;
   int? siteExamQuestionInfoId;
@@ -102,7 +102,7 @@ class QuestionList {
   });
 
   QuestionList copyWith({
-    dynamic studentAnswerIds,
+    List<dynamic>? studentAnswerIds,
     int? id,
     int? questionNo,
     int? siteExamQuestionInfoId,

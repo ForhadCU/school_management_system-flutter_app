@@ -189,8 +189,8 @@ class StuHome extends GetView<StuHomeController> {
                                       Image(
                                         image: AssetImage(controller
                                             .drawerItems[index]["iconUri"]!),
-                                        width: 20,
-                                        height: 20,
+                                        width: 22,
+                                        height: 22,
                                       ),
                                       AppSpacing.sm.width,
                                       Expanded(
@@ -223,8 +223,8 @@ class StuHome extends GetView<StuHomeController> {
                                     Image(
                                       image: AssetImage(controller
                                           .drawerItems[index]["iconUri"]!),
-                                      width: 20,
-                                      height: 20,
+                                      width: 22,
+                                      height: 22,
                                       color: Colors.white,
                                     ),
                                     AppSpacing.sm.width,

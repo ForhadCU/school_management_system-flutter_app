@@ -58,9 +58,9 @@ class StuMessage extends GetView<StuMessageController> {
         horizontalTitleGap: AppSpacing.md,
         minLeadingWidth: 16,
         leading: Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(10),
             decoration: const BoxDecoration(
-              color: Colors.black12,
+              color: Color.fromARGB(255, 238, 238, 238),
               shape: BoxShape.circle,
             ),
             child: siteCachedNetworkImage(

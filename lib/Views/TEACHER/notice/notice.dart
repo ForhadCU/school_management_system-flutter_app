@@ -404,9 +404,10 @@ class TeachNotice extends GetView<TeachNoticeController> {
                   onTapToExpand: () {
                     controller.mUpdateClickedNoticeModel(data);
                     print("clicked: $index");
-                    Get.toNamed(AppRoutes.expandedNotice);
+                    Get.toNamed(AppRoutes.expandedTeachNotice);
                   },
                   onTapToDownload: () async {
+                 
                     await controller.mDownloadNotice(
                         path: data.files!.first.path);
                   });

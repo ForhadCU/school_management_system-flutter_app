@@ -420,9 +420,56 @@ class CallAPI {
       if (res.statusCode == 200) {
         if (isPdf != null) {
           body = res.bodyBytes;
+          hideLoading();
         } else {
           body = json.decode(res.body);
+          showSuccess("Success");
         }
+      }
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      kLog(e.toString());
+      hideLoading();
+      showError("Failed");
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  static Future<ResponseModel> getDownloadDemandSlipPdf(
+    String endPoint,
+    Map<String, dynamic> payload,
+    String token,
+  ) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SitelistModel sitelistModel = SitelistModel.fromMap(
+        jsonDecode(sharedPreferences.getString(kSiteListModel)!));
+    final siteAlias = sitelistModel.siteAlias;
+    try {
+      kLog('POST $endPoint');
+      showLoading("Please wait...");
+
+      http.Response res = await http.post(
+        Uri.https(
+          siteAlias! + _get_host,
+          endPoint,
+        ),
+        body: jsonEncode(payload),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': "Bearer $token",
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        hideLoading();
+        return http.Response('Error', 408);
+      });
+      kLog('post request end');
+      dynamic body;
+
+      if (res.statusCode == 200) {
+        body = res.bodyBytes;
+
         showSuccess("Success");
       }
       return ResponseModel(statusCode: res.statusCode, body: body);

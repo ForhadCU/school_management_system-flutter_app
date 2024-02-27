@@ -18,6 +18,7 @@ class TeachMessageController extends GetxController {
   var messageListScrollCntrlr = ScrollController().obs;
   var pageNumber = 1.obs;
   var siteListModel = SitelistModel().obs;
+  var clickedMessageModel = MessageData().obs;
 
   @override
   void onInit() async {
@@ -48,6 +49,10 @@ class TeachMessageController extends GetxController {
     // TODO: implement onClose
     super.onClose();
   }
+    void mUpdateClickedMessageModel(MessageData data) {
+    clickedMessageModel.value = data;
+  }
+  
 
   mGetMessageModel() async {
     messageModel.value = await TeachMessageApis.mGetMessageModel(

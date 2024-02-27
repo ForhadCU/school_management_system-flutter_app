@@ -106,9 +106,13 @@ class StuQuizController extends GetxController {
   }
 
   mReload() async {
+    quizResultList.clear();
     quizScheduleList.clear();
-    quizScheduleList.clear();
-    // await mGetQuizInfo();
+    quizQuestionsModelList.clear();
+    progress.value = 0.00;
+    quizQuestionIndex.value = 0;
+
+    await mGetQuizInfo();
     await mGetQuizScheduleList();
     await mGetQuizResultList();
   }
@@ -218,9 +222,69 @@ class StuQuizController extends GetxController {
         quizQuestionsModelList.add(quizQuestionsModel.value);
       }
 
-      for (var element in quizQuestionsModel
+      /* for (var element in quizQuestionsModel
           .value.questionList![0].siteQuizQuestionDetailsForStudent!) {
         answerIdList.add({"id": element.id, "selected": false});
+      } */
+
+      if (quizQuestionsModelList[quizQuestionIndex.value]
+              .questionList![quizQuestionIndex.value]
+              .answerCount! >
+          1) {
+        kLog("From: Checkbox");
+
+        /* if (quizQuestionsModel.value!.questionList![quizQuestionIndex.value]
+            .studentAnswerIds!.isEmpty) {
+          quizQuestionsModel
+              .value!.questionList![quizQuestionIndex.value].studentAnswerIds!
+              .add(selectedOption.value);
+        } else {
+          quizQuestionsModel.value!.questionList![quizQuestionIndex.value]
+              .studentAnswerIds!.first = selectedOption.value;
+        } */
+        ///clear options list for new or previous question
+        answerIdList.clear();
+        for (var element in quizQuestionsModelList[quizQuestionIndex.value]
+            .questionList![quizQuestionIndex.value]
+            .siteQuizQuestionDetailsForStudent!) {
+          if (quizQuestionsModelList[quizQuestionIndex.value]
+              .questionList![quizQuestionIndex.value]
+              .studentAnswerIds!
+              .contains(element.id.toString())) {
+            answerIdList.add({"id": element.id, "selected": true});
+          } else {
+            answerIdList.add({"id": element.id, "selected": false});
+          }
+        }
+      } else {
+        // kLog("From: Radio");
+        if (quizQuestionsModelList[quizQuestionIndex.value]
+            .questionList![quizQuestionIndex.value]
+            .studentAnswerIds!
+            .isNotEmpty) {
+          // kLog("AnswerList: Not empty");
+          // kLog(
+          //     "Ans id is: ${quizQuestionsModelList[quizQuestionIndex.value].questionList![quizQuestionIndex.value].studentAnswerIds!.first.runtimeType}");
+          for (var element in quizQuestionsModelList[quizQuestionIndex.value]
+              .questionList![quizQuestionIndex.value]
+              .siteQuizQuestionDetailsForStudent!) {
+            // kLog("This question's ans id: ${element.id.runtimeType}");
+            if (quizQuestionsModelList[quizQuestionIndex.value]
+                .questionList![quizQuestionIndex.value]
+                .studentAnswerIds!
+                .contains(element.id.toString())) {
+              // kLog("Pawa gese");
+              selectedOption.value = element.id;
+            } else {
+              // kLog("If condition e prblm");
+            }
+          }
+        } else {
+          // kLog("Pawa jaini");
+          // kLog("AnswerList: empty");
+
+          selectedOption.value = null;
+        }
       }
     } else {
       print("Quiz Questions model is EMpty");
@@ -350,42 +414,48 @@ class StuQuizController extends GetxController {
           if (quizQuestionsModelList[quizQuestionIndex.value]
               .questionList![quizQuestionIndex.value]
               .studentAnswerIds!
-              .contains(element.id)) {
+              .contains(element.id.toString())) {
             answerIdList.add({"id": element.id, "selected": true});
           } else {
             answerIdList.add({"id": element.id, "selected": false});
           }
         }
       } else {
-        kLog("From: Radio");
+        // kLog("From: Radio");
         if (quizQuestionsModelList[quizQuestionIndex.value]
             .questionList![quizQuestionIndex.value]
             .studentAnswerIds!
             .isNotEmpty) {
-          kLog("AnswerList: Not empty");
+          // kLog("AnswerList: Not empty");
+          // kLog(
+          //     "Ans id is: ${quizQuestionsModelList[quizQuestionIndex.value].questionList![quizQuestionIndex.value].studentAnswerIds!.first.runtimeType}");
           for (var element in quizQuestionsModelList[quizQuestionIndex.value]
               .questionList![quizQuestionIndex.value]
               .siteQuizQuestionDetailsForStudent!) {
+            // kLog("This question's ans id: ${element.id.runtimeType}");
             if (quizQuestionsModelList[quizQuestionIndex.value]
                 .questionList![quizQuestionIndex.value]
                 .studentAnswerIds!
-                .contains(element.id)) {
+                .contains(element.id.toString())) {
+              // kLog("Pawa gese");
               selectedOption.value = element.id;
+            } else {
+              // kLog("If condition e prblm");
             }
           }
         } else {
-          kLog("Pawa jaini");
-          kLog("AnswerList: empty");
+          // kLog("Pawa jaini");
+          // kLog("AnswerList: empty");
 
           selectedOption.value = null;
         }
       }
-
+/* 
       for (var element
           in quizQuestionsModelList[quizQuestionIndex.value].questionList!) {
         kLog(
             "question index: ${quizQuestionsModelList[quizQuestionIndex.value].questionList!.indexOf(element)}:  ${element.studentAnswerIds!}");
-      }
+      } */
 
       await mSaveQuizAnswer();
 
@@ -426,7 +496,7 @@ class StuQuizController extends GetxController {
           if (quizQuestionsModelList[quizQuestionIndex.value]
               .questionList![quizQuestionIndex.value]
               .studentAnswerIds!
-              .contains(element.id)) {
+              .contains(element.id.toString())) {
             answerIdList.add({"id": element.id, "selected": true});
           } else {
             answerIdList.add({"id": element.id, "selected": false});
@@ -444,7 +514,7 @@ class StuQuizController extends GetxController {
             if (quizQuestionsModelList[quizQuestionIndex.value]
                 .questionList![quizQuestionIndex.value]
                 .studentAnswerIds!
-                .contains(element.id)) {
+                .contains(element.id.toString())) {
               selectedOption.value = element.id;
             }
           }
@@ -472,7 +542,7 @@ class StuQuizController extends GetxController {
     /*   Map<String, dynamic> params = 
         jsonDecode(quizQuestionsModelList[quizQuestionIndex.value].toString()); */
     // params.addAll(modified);
-    kLog(modified);
+    // kLog(modified);
 
     bool isSuccess = await QuizApis.mSaveQuizAnswerFinalEnd(
         // AppData.dummyQuizQuestionsModel,

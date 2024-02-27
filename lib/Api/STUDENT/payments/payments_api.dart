@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:school_management_system/Model/STUDENT/payments/fee_details.dart';
 
 import '../../../Config/config.dart';
@@ -27,6 +29,23 @@ class PaymentsApi {
       kLog("mGetFeeDetails status code is: ${res.statusCode}");
       showError("Server failure");
       return StuFeeDetailsModel();
+    }
+  }
+
+  static Future<Uint8List?> mGetBankSlipPdf(
+      Map<String, dynamic> payLoad, String token) async {
+    ResponseModel res = await CallAPI.postStudentData(
+        ApiEndpoint.stuDemandSlipPdf, payLoad, token, true);
+    // kLogger.d(res.body);
+    if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
+      kLog("Successfully fetch mGetExamRoutinePdf data");
+      // kLog(res.body);
+      return res.body;
+    } else {
+      hideLoading();
+      showError("Server failure");
+      kLog("status code is: ${res.statusCode}");
+      return null;
     }
   }
 }

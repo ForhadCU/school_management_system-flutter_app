@@ -59,6 +59,7 @@ import 'package:school_management_system/Views/TEACHER/test/test.dart';
 import '../Bindings/TEACHER/periodicAttndance/periodic_attnd_binding.dart';
 import '../Views/PUBLIC/notice/pages/expanded_notice.dart';
 import '../Views/STUDENT/helpdesk/subPages/helpdesk_details.dart';
+import '../Views/TEACHER/message/pages/expanded_message.dart';
 import '../Views/test/test.dart';
 import 'package:school_management_system/Bindings/student_library.dart';
 import 'package:school_management_system/Views/student_library.dart';
@@ -221,6 +222,11 @@ abstract class AppPages {
       page: () => StudentNotice(),
     ),
     GetPage(
+      name: AppRoutes.studentNoticeExpanded,
+      binding: StuNoticeBindings(),
+      page: () => ExpandedStuNotice(),
+    ),
+    GetPage(
       name: AppRoutes.studentNotification,
       binding: NotificationBindings(),
       page: () => const Notification(),
@@ -268,7 +274,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.stuMessageExpand,
       binding: StuMessageBindings(),
-      page: () =>  StuMessageExpand(),
+      page: () => StuMessageExpand(),
     ),
 
     /// TEACHER
@@ -311,6 +317,10 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.teachMessage,
         page: () => const TeachMessage(),
+        binding: TeachMessageBindings()),
+    GetPage(
+        name: AppRoutes.teachMessageExpand,
+        page: () => TeachMessageExpand(),
         binding: TeachMessageBindings()),
     GetPage(
         name: AppRoutes.teachPeriodicAttnd,

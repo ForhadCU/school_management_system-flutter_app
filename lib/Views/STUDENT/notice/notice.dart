@@ -352,9 +352,9 @@ class StudentNotice extends GetView<StuNoticeController> {
                   color: AppColor.kNoticeListColorPlate[
                       index % (AppColor.kNoticeListColorPlate.length)],
                   onTapToExpand: () {
+
                     controller.mUpdateClickedNoticeModel(data);
-                    print("clicked: $index");
-                    Get.toNamed(AppRoutes.expandedNotice);
+                    Get.toNamed(AppRoutes.studentNoticeExpanded);
                   },
                   onTapToDownload: () async {
                     await controller.mDownloadNotice(
@@ -411,7 +411,7 @@ class StudentNotice extends GetView<StuNoticeController> {
       child: Container(
         color: Colors.transparent,
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: const Icon(
           Icons.download,
           color: AppColor.dollarBill,

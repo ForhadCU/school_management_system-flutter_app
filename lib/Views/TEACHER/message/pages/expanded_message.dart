@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Controller/TEACHER/notice/notice_controller.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-class ExpandedTeachNotice extends GetView<TeachNoticeController> {
-  ExpandedTeachNotice({super.key});
+import '../../../../Controller/STUDENT/message/messages_ctrlr.dart';
+
+class TeachMessageExpand extends GetView<StuMessageController> {
+  TeachMessageExpand({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final TeachNoticeController controller = Get.find();
     return WillPopScope(
       onWillPop: () async {
         return true;
@@ -20,7 +20,7 @@ class ExpandedTeachNotice extends GetView<TeachNoticeController> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Notice Details".toUpperCase(),
+            "Message Details".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: AppColor.primaryColor,
@@ -32,20 +32,20 @@ class ExpandedTeachNotice extends GetView<TeachNoticeController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              controller.clickedNoticeModel.value.noticeTitle ?? "N/A",
+              controller.clickedMessageModel.value.title ?? "N/A",
               style: kHeading,
             ),
             AppSpacing.sm.height,
             Text(
               Utils().getTimeFromTimeStamp(
-                  controller.clickedNoticeModel.value.createdAt.toString(),
+                  controller.clickedMessageModel.value.createdAt.toString(),
                   kAppDateFormatWithTime12),
               style: kBody.copyWith(fontWeight: FontWeight.w500),
             ),
             AppSpacing.md.height,
             Expanded(
               child: Text(
-                controller.clickedNoticeModel.value.noticeDescription ?? "N/A",
+                controller.clickedMessageModel.value.message ?? "N/A",
                 style: kBody,
                 softWrap: true,
               ),

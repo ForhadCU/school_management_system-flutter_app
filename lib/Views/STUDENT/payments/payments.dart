@@ -289,7 +289,9 @@ class StuPayments extends GetView<StuPaymentsController> {
                             children: [
                               /// Bank Slip btn
                               AppButtons.vNarrowButton(
-                                  onTap: () {},
+                                  onTap: () async {
+                                    await controller.mDownloadDemandSlipPdf();
+                                  },
                                   text: "Bank Slip",
                                   bg: AppColor.green,
                                   textColor: AppColor.white),
@@ -320,7 +322,9 @@ class StuPayments extends GetView<StuPaymentsController> {
 
                               /// Bank Slip btn
                               AppButtons.vNarrowButton(
-                                  onTap: () {},
+                                  onTap: () async {
+                                    await controller.mDownloadDemandSlipPdf();
+                                  },
                                   text: "Bank Slip",
                                   bg: AppColor.green,
                                   textColor: AppColor.white),
@@ -1444,7 +1448,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1461,7 +1465,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),
@@ -1479,7 +1483,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1496,7 +1500,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),
@@ -1515,7 +1519,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1530,7 +1534,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),
@@ -1548,7 +1552,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1565,7 +1569,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),
@@ -1583,7 +1587,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1600,7 +1604,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),
@@ -1619,7 +1623,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -1636,7 +1640,7 @@ class StuPayments extends GetView<StuPaymentsController> {
                       style: kBody.copyWith(
                           color: AppColor.kBlack,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ]),

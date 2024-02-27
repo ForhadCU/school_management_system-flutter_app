@@ -35,6 +35,7 @@ class AppRoutes {
   static const String liveClass = "/liveClass";
   // static const String logout = "/logout";
   static const String studentNotice = "/studentNotice";
+  static const String studentNoticeExpanded = "/studentNoticeExpanded";
   static const String studentNotification = "/studentNotification";
   static const String payments = "/payments";
   static const String profile = "/profile";
@@ -63,4 +64,5 @@ class AppRoutes {
   static const String teachPeriodicAttnd = "/teachPeriodicAttnd";
   static const String teachAttendance = "/teachAttendance";
   static const String teachTest = "/teachTest";
+  static const String teachMessageExpand = "/teachMessageExpand";
 }
