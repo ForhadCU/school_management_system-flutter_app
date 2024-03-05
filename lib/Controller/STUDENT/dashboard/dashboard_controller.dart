@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:school_management_system/Config/config.dart';
-import 'package:school_management_system/Controller/PUBLIC/landing_controller.dart';
-import 'package:school_management_system/Views/PUBLIC/login/login.dart';
-import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
-import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/student_library.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../Views/STUDENT/home/home.dart';
+import '../../../Views/STUDENT/notice/notice.dart';
+import '../../../Views/STUDENT/profile/profile.dart';
 
 import '../../../Utils/custom_statusbar.dart';
-import '../../student_library.dart';
 
 class DashboardController extends GetxController {
   static DashboardController get to => Get.find();
 
   final List<Widget> screens = [
-     StuHome(),
-     StudentNotice(),
-     Notifications(),
-     Profile(),
+    StuHome(),
+    StudentNotice(),
+    StuNotification(),
+    Profile(),
   ];
   final RxInt selectedIndex = 0.obs;
 

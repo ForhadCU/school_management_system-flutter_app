@@ -5,8 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Config/themes/theme.dart';
-import 'package:school_management_system/Controller/common/common_controller.dart';
-import 'Config/constants/constants.dart';
+import 'package:school_management_system/Utils/local_notification.dart';
 import 'Controller/base_controller.dart';
 import 'Routes/app_pages.dart';
 import 'Routes/app_routes.dart';
@@ -14,6 +13,8 @@ import 'Routes/app_routes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(BaseController());
+  await LocalNotification().mInit();
+
   // Get.put(CommonController());
   // appData.token = await getString('token') ?? '';
   // kLog(appData.token);

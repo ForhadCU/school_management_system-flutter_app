@@ -106,14 +106,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                             children: [
                               _vDropdowns(),
                               AppSpacing.md.height,
-                              _vGetResultBtn(),
+                              // _vGetResultBtn(),
                             ],
                           )
                         : Row(
                             children: [
                               Expanded(child: _vDropdowns()),
                               AppSpacing.sm.width,
-                              _vGetResultBtn(),
+                              // _vGetResultBtn(),
                             ],
                           ),
                   ),
@@ -250,13 +250,13 @@ class StuPayments extends GetView<StuPaymentsController> {
             children: [
               Expanded(
                   child: Container(
-                padding: m.small
+                padding: m.xs
                     ? const EdgeInsets.symmetric(
                         vertical: AppSpacing.sm, horizontal: AppSpacing.sm)
                     : const EdgeInsets.symmetric(
                         vertical: AppSpacing.md, horizontal: AppSpacing.sm),
                 decoration: BoxDecoration(
-                  gradient: AppColor.kVerticalCovexGradiantPink,
+                  color: Color(0xffF2B0C5),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Row(
@@ -284,13 +284,23 @@ class StuPayments extends GetView<StuPaymentsController> {
                       ],
                     )),
 
-                    m.small
+                    m.xs
                         ? Column(
                             children: [
                               /// Bank Slip btn
                               AppButtons.vNarrowButton(
                                   onTap: () async {
                                     await controller.mDownloadDemandSlipPdf();
+                                  },
+                                  text: "Demand Slip",
+                                  bg: AppColor.green,
+                                  textColor: AppColor.white),
+                              AppSpacing.sm.height,
+
+                              /// Bank Slip btn
+                              AppButtons.vNarrowButton(
+                                  onTap: () async {
+                                    await controller.mDownloadBankSlipPdf();
                                   },
                                   text: "Bank Slip",
                                   bg: AppColor.green,
@@ -308,26 +318,43 @@ class StuPayments extends GetView<StuPaymentsController> {
                                   textColor: AppColor.white),
                             ],
                           )
-                        : Row(
+                        : Column(
                             children: [
-                              /// Fee Details btn
-                              AppButtons.vNarrowButton(
-                                  onTap: () {
-                                    controller.mUpdateFeeDetails();
-                                  },
-                                  text: "Fee Details",
-                                  bg: AppColor.activeTab,
-                                  textColor: AppColor.white),
-                              AppSpacing.sm.width,
+                              Row(
+                                children: [
+                                  /// Bank Slip btn
+                                  AppButtons.vNarrowButton(
+                                      onTap: () async {
+                                        await controller
+                                            .mDownloadDemandSlipPdf();
+                                      },
+                                      text: "Demand Slip",
+                                      bg: AppColor.green,
+                                      textColor: AppColor.white),
+                                  AppSpacing.sm.width,
 
-                              /// Bank Slip btn
-                              AppButtons.vNarrowButton(
-                                  onTap: () async {
-                                    await controller.mDownloadDemandSlipPdf();
-                                  },
-                                  text: "Bank Slip",
-                                  bg: AppColor.green,
-                                  textColor: AppColor.white),
+                                  /// Bank Slip btn
+                                  AppButtons.vNarrowButton(
+                                      onTap: () async {
+                                        await controller.mDownloadBankSlipPdf();
+                                      },
+                                      text: "Bank Slip",
+                                      bg: AppColor.green,
+                                      textColor: AppColor.white),
+                                ],
+                              ),
+                              AppSpacing.sm.height,
+                              Row(
+                                children: [
+                                  AppButtons.vNarrowButton(
+                                      onTap: () {
+                                        controller.mUpdateFeeDetails();
+                                      },
+                                      text: "Fee Details",
+                                      bg: AppColor.activeTab,
+                                      textColor: AppColor.white)
+                                ],
+                              )
                             ],
                           )
                   ],

@@ -91,7 +91,9 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -128,7 +130,9 @@ class CallAPI {
           'Accept': 'application/json',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -168,7 +172,9 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -202,7 +208,9 @@ class CallAPI {
           'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -242,7 +250,9 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -282,7 +292,8 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -323,7 +334,9 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -364,15 +377,29 @@ class CallAPI {
           // 'Authorization': 'JWT-${appData.token}',
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
 
-      if (res.statusCode == 200) {
-        if (isPdf != null) {
+      /*  if (res.statusCode == 200) {
+        if (isPdf != null ) {
+          kLog(res.body);
           body = res.bodyBytes;
         } else {
           body = json.decode(res.body);
+        }
+        // showSuccess("Success");
+      } */
+      kLog("Pdf: ${res.body[0]}");
+
+      if (res.statusCode == 200) {
+        if (res.body.contains("No Routine Found!")) {
+          kLog(res.body);
+          body = res.body; /* json.decode(res.body); */
+        } else {
+          body = res.bodyBytes;
         }
         // showSuccess("Success");
       }
@@ -397,7 +424,7 @@ class CallAPI {
     final siteAlias = sitelistModel.siteAlias;
     try {
       kLog('POST $endPoint');
-      showLoading("Please wait...");
+      // showLoading("Please wait...");
 
       http.Response res = await http.post(
         Uri.https(
@@ -411,7 +438,9 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -419,14 +448,24 @@ class CallAPI {
 
       if (res.statusCode == 200) {
         if (isPdf != null) {
-          body = res.bodyBytes;
-          hideLoading();
+          // kLog("Pdf: ${json.decode(res.body)['mode']}");
+          /*   if (json.decode(res.body)['mode'] == "errors") {
+            body = null;
+          } else {
+            body = res.bodyBytes;
+          } */
+          // kLog("Body of pdf: ${res.body}");
+          // hideLoading();
+          return ResponseModel(statusCode: res.statusCode, body: res.bodyBytes);
         } else {
-          body = json.decode(res.body);
-          showSuccess("Success");
+          // showSuccess("Success");
+          return ResponseModel(
+              statusCode: res.statusCode, body: json.decode(res.body));
         }
       }
-      return ResponseModel(statusCode: res.statusCode, body: body);
+
+      return ResponseModel(
+          statusCode: res.statusCode, body: json.decode(res.body));
     } on Exception catch (e) {
       kLog(e.toString());
       hideLoading();
@@ -461,13 +500,17 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
       dynamic body;
 
       if (res.statusCode == 200) {
+        kLog("Pdf: ${res.body}");
+
         body = res.bodyBytes;
 
         showSuccess("Success");
@@ -508,7 +551,9 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -555,7 +600,9 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');
@@ -592,6 +639,8 @@ class CallAPI {
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
         hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       if (res.statusCode == 200) {
@@ -639,7 +688,9 @@ class CallAPI {
           'Authorization': "Bearer $token",
         },
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
-        hideLoading();
+        // hideLoading();
+        showError("Request Timeout");
+
         return http.Response('Error', 408);
       });
       kLog('post request end');

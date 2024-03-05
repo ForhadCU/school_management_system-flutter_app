@@ -44,10 +44,16 @@ class StuMessageExpand extends GetView<StuMessageController> {
             ),
             AppSpacing.md.height,
             Expanded(
-              child: Text(
-                controller.clickedMessageModel.value.message ?? "N/A",
-                style: kBody,
-                softWrap: true,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      controller.clickedMessageModel.value.message ?? "N/A",
+                      style: kBody,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

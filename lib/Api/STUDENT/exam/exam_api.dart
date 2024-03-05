@@ -57,16 +57,17 @@ class ExamApis {
 
   static Future<Uint8List?> mGetExamRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
+    kLog(payLoad);
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuExamSubjectRoutineList, payLoad, token, true);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetExamRoutinePdf data");
-      kLog(res.body);
+      // kLog(res.body);
       return res.body;
     } else {
-      hideLoading();
-      showError("Server failure");
+      // hideLoading();
+      kLog(res.body['message']);
       kLog("status code is: ${res.statusCode}");
       return null;
     }
@@ -77,13 +78,14 @@ class ExamApis {
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuExamAdmitCard, payLoad, token, true);
     // kLogger.d(res.body['result']);
-    if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
+    if (res.body != null && res.statusCode == 200) {
       kLog("Successfully fetch mGetExamAdmitCardPdf data");
-      kLog(res.body);
+      // kLog(res.body);
       return res.body;
     } else {
-      hideLoading();
-      showError("Server failure");
+      // hideLoading();
+      // showError("Server failure");
+      kLog(res.body['message']);
       kLog("status code is: ${res.statusCode}");
       return null;
     }

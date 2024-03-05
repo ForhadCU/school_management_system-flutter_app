@@ -19,6 +19,7 @@ class TeachMessageController extends GetxController {
   var pageNumber = 1.obs;
   var siteListModel = SitelistModel().obs;
   var clickedMessageModel = MessageData().obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -49,12 +50,13 @@ class TeachMessageController extends GetxController {
     // TODO: implement onClose
     super.onClose();
   }
-    void mUpdateClickedMessageModel(MessageData data) {
+
+  void mUpdateClickedMessageModel(MessageData data) {
     clickedMessageModel.value = data;
   }
-  
 
   mGetMessageModel() async {
+    isLoading.value = true;
     messageModel.value = await TeachMessageApis.mGetMessageModel(
         PayLoads.teachMessage(
             page: pageNumber.value.toString(),
@@ -65,6 +67,7 @@ class TeachMessageController extends GetxController {
     if (messageModel.value.data != null) {
       messageList.addAll(messageModel.value.data!);
     }
+    isLoading.value = false;
   }
 
   void mResetList() {

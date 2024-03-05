@@ -49,6 +49,7 @@ class ApiEndpoint {
 
   static const String stuDemandSlipPdf =
       "/api/student/get-student-demand-slip-pdf";
+  static const String stuBackSlipPdf = "/api/student/get-student-bank-slip-pdf";
   static const String stuDemandSlip = "/api/student/get-student-demand-slip";
 
   static const String stuPaymentMethodList =
@@ -114,9 +115,12 @@ class ApiEndpoint {
   static const String employee_helpdesk_list =
       "/api/employee/get-employee-helpdesk-list";
   static const String teachMessage = "/api/employee/get-employee-message-list";
-  
+
   static const String teachPeriodList = "/api/employee/get-site-periodic-list";
-  static const String teachPeriodicAttend = "/api/employee/get-student-list-by-periodic-allocation";
-  static const String teachSavePeriodicAttend = "/api/employee/save-student-periodic-attendance";
-  static const String teachAttendance = "/api/employee/get-my-attendance-list-for-employee";
+  static const String teachPeriodicAttend =
+      "/api/employee/get-student-list-by-periodic-allocation";
+  static const String teachSavePeriodicAttend =
+      "/api/employee/save-student-periodic-attendance";
+  static const String teachAttendance =
+      "/api/employee/get-my-attendance-list-for-employee";
 }

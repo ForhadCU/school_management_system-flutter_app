@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
+import 'package:school_management_system/Controller/TEACHER/message/messages_ctrlr.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
@@ -8,7 +9,7 @@ import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../../Controller/STUDENT/message/messages_ctrlr.dart';
 
-class TeachMessageExpand extends GetView<StuMessageController> {
+class TeachMessageExpand extends GetView<TeachMessageController> {
   TeachMessageExpand({super.key});
 
   @override
@@ -44,10 +45,16 @@ class TeachMessageExpand extends GetView<StuMessageController> {
             ),
             AppSpacing.md.height,
             Expanded(
-              child: Text(
-                controller.clickedMessageModel.value.message ?? "N/A",
-                style: kBody,
-                softWrap: true,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      controller.clickedMessageModel.value.message ?? "N/A",
+                      style: kBody,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

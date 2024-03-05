@@ -31,6 +31,7 @@ class NoticeController extends GetxController {
   var token = Rxn<String>();
   var noticeListScrollCntrlr = ScrollController().obs;
   var pageNumber = 1.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -76,8 +77,9 @@ class NoticeController extends GetxController {
   }
 
   mGetNoticesInRange() async {
-    kLog("Date From: ${mGetFormatDate(dateFrom)}");
-    kLog("Date to: ${mGetFormatDate(dateTo)}");
+    /*   kLog("Date From: ${mGetFormatDate(dateFrom)}");
+    kLog("Date to: ${mGetFormatDate(dateTo)}"); */
+    isLoading.value = true;
     noticeApiModel.value = await StuNoticeApi.mGetNoticeApiModeldata(
         PayLoads.allNotice(
             api_access_key: AppData.api_access_key,
@@ -93,6 +95,7 @@ class NoticeController extends GetxController {
       noticeList.addAll(noticeApiModel.value.data!);
       numOfNoticesInRange.value = noticeList.length;
     }
+    isLoading.value = false;
   }
 
   mSelectDateFrom() async {
@@ -132,7 +135,8 @@ class NoticeController extends GetxController {
   }
 
   mDownloadNotice({String? path}) async {
-    kLog("${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
+    kLog(
+        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
     if (path != null) {
       if (!await launchUrl(Uri.parse(
           "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path"))) {

@@ -31,7 +31,16 @@ class TeachMessage extends GetView<TeachMessageController> {
 
   vMessageList() {
     return Expanded(
-      child: Obx(() => ListView.separated(
+      child: Obx(()  =>controller.isLoading.value
+          ? Container()
+          : controller.messageList.isEmpty
+              ? Center(
+                  child: Text(
+                    "No Message",
+                    style: kBody.copyWith(color: Colors.black54),
+                  ),
+                )
+              :  ListView.separated(
           controller: controller.messageListScrollCntrlr.value,
           shrinkWrap: true,
           itemBuilder: ((context, index) {
@@ -48,88 +57,86 @@ class TeachMessage extends GetView<TeachMessageController> {
 
   vMessageCard(MessageData message) {
     return ListTile(
-        onTap: () {
-          controller.mUpdateClickedMessageModel(message);
-          Get.toNamed(AppRoutes.teachMessageExpand);
-        },
-        contentPadding: EdgeInsets.all(4),
-        horizontalTitleGap: AppSpacing.md,
-        minLeadingWidth: 16,
-        leading: Container(
-            padding: EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 238, 238, 238),
-              shape: BoxShape.circle,
-            ),
-            child: siteCachedNetworkImage(
-                AppData.eduWorldTheworldHostname +
-                    controller.siteListModel.value.siteLogo!,
-                width: 28,
-                fit: BoxFit
-                    .contain) /* const Icon(
+      onTap: () {
+        controller.mUpdateClickedMessageModel(message);
+        Get.toNamed(AppRoutes.teachMessageExpand);
+      },
+      contentPadding: EdgeInsets.all(4),
+      horizontalTitleGap: AppSpacing.md,
+      minLeadingWidth: 16,
+      leading: Container(
+          padding: EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 238, 238, 238),
+            shape: BoxShape.circle,
+          ),
+          child: siteCachedNetworkImage(
+              "${AppData.eduWorldTheworldHostname}${controller.siteListModel.value.siteLogo ?? ""}",
+              width: 28,
+              fit: BoxFit
+                  .contain) /* const Icon(
                 Icons.person,
                 size: 48,
                 color: Colors.white,
               ) */
-            ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              message.title ?? "",
-              style: TextStyle(overflow: TextOverflow.ellipsis),
-            ),
-            Text(
-              Utils().getTimeFromTimeStamp(
-                  message.createdAt.toString(), kAppTimeFormat12),
-              style: kBody.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
-            ),
-          ],
-        ),
-        subtitle: Column(
-          children: [
-            TextFormField(
-              onTap: () {
-                controller.mUpdateClickedMessageModel(message);
-                Get.toNamed(AppRoutes.teachMessageExpand);
-              },
-              controller: TextEditingController(text: message.message ?? ""),
-              minLines: 1,
-              maxLines: 3,
-              style: kBody.copyWith(
-                  fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
-              readOnly: true,
-              textAlign: TextAlign.left,
-              decoration: const InputDecoration(
-                  isDense: true,
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(0)),
-            ),
-            AppSpacing.sm.height,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                message.createdAt == null
-                    ? Container()
-                    : Text(
-                        Utils().getTimeFromTimeStamp(
-                            message.createdAt.toString(),
-                            kAppDateFormatWithDayMonth),
-                        style: kBody.copyWith(
-                            fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-              ],
-            )
-          ],
-        ),
-        /* Text(message.message ?? "", style: kBody.copyWith(
+          ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            message.title ?? "",
+            style: TextStyle(overflow: TextOverflow.ellipsis),
+          ),
+          Text(
+            Utils().getTimeFromTimeStamp(
+                message.createdAt.toString(), kAppTimeFormat12),
+            style: kBody.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
+          ),
+        ],
+      ),
+      subtitle: Column(
+        children: [
+          TextFormField(
+            onTap: () {
+              controller.mUpdateClickedMessageModel(message);
+              Get.toNamed(AppRoutes.teachMessageExpand);
+            },
+            controller: TextEditingController(text: message.message ?? ""),
+            minLines: 1,
+            maxLines: 3,
+            style: kBody.copyWith(
+                fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+            readOnly: true,
+            textAlign: TextAlign.left,
+            decoration: const InputDecoration(
+                isDense: true,
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(0)),
+          ),
+          AppSpacing.sm.height,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              message.createdAt == null
+                  ? Container()
+                  : Text(
+                      Utils().getTimeFromTimeStamp(message.createdAt.toString(),
+                          kAppDateFormatWithDayMonth),
+                      style: kBody.copyWith(
+                          fontWeight: FontWeight.w400, fontSize: 12),
+                    ),
+            ],
+          )
+        ],
+      ),
+      /* Text(message.message ?? "", style: kBody.copyWith(
           overflow: TextOverflow.ellipsis,
           
         ),), */
-        /*  trailing: message.createdAt == null
+      /*  trailing: message.createdAt == null
             ? Container()
             : Text(Utils().getTimeFromTimeStamp(
                 message.createdAt.toString(), kAppDateFormat)), */
-       );
+    );
   }
 }

@@ -4,12 +4,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/STUDENT/payments/payments_api.dart';
 import 'package:school_management_system/Model/STUDENT/payments/fee_details.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
+import 'package:school_management_system/Utils/local_notification.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
 import '../../../Config/config.dart';
@@ -39,7 +41,13 @@ class StuPaymentsController extends GetxController {
   var token = "";
 
   var feeDetailsModel = Rxn<StuFeeDetailsModel>();
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  // late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  var localPathOfDemandSlip = "".obs;
+  var localPathOfBankSlip = "".obs;
+  var localPath = "".obs;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  var isInitial = true.obs;
 
   @override
   void onInit() async {
@@ -47,15 +55,17 @@ class StuPaymentsController extends GetxController {
     kLog("Payments View");
     token = await AppLocalDataFactory.mGetToken();
 
-    // mLocalNotificationInitialization();
+    // await mLocalNotificationInitialization();
 
     await mGetPaymentHistory();
     await mGetFeeDetails();
+    mListenNotification();
   }
 
   @override
   void onClose() {
     super.onClose();
+    // LocalNotification().onClickNotificationBehavior.done;
   }
 
   void mClickedBkashBtn() {
@@ -143,6 +153,7 @@ class StuPaymentsController extends GetxController {
 
   /////////////Dowload Bank Slip Pdf////////////////
   var demandSlipPdfResponse = Rxn<Uint8List>().obs;
+  var bankSlipPdfResponse = Rxn<Uint8List>().obs;
 /* 
   mGetExamRoutinePdf() async {
     demandSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
@@ -158,8 +169,83 @@ class StuPaymentsController extends GetxController {
         : false; */
   } */
 
+//////////////Local Notification////////////////////////
+  /* Future<void> showNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('pdf_download_channel', 'PDF Download',
+            /* 'PDF Download Notification' */
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker',
+            playSound: false,
+            enableVibration: false);
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+        0, 'PDF Downloaded', 'Click to open PDF', platformChannelSpecifics,
+        payload: /* 'item x' */ localPath.value);
+  }
+
+  /*  Future<void> */ mLocalNotificationInitialization() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: (defaultValue) async {
+      await onDidReceiveNotificationResponse();
+    });
+  }
+
+  onDidReceiveNotificationResponse() async {
+    // Handle notification tap
+    print("Notification Tapped!");
+    // Check if the PDF file exists
+    if (localPath.value != "") {
+      // Open PDF file
+      await OpenFilex.open(localPath.value);
+      kLog(localPath.value);
+    } else {
+      print("PDF file not found.");
+    }
+  } */
+
+  ////listen Notification when click////
+  void mListenNotification() {
+    LocalNotification()
+        .onClickNotificationBehavior
+        .stream
+        .listen((event) async {
+      // localPathOfDemandSlip.value = event;
+      kLog("Notification Clicekd");
+      // kLog("Path: ${localPathOfDemandSlip.value}");
+/* 
+      if (localPathOfDemandSlip.value != "") {
+        // Open PDF file
+        await OpenFilex.open(localPathOfDemandSlip.value);
+        kLog(localPathOfDemandSlip.value);
+      }  */
+      kLog("Event: $event");
+      if (event != "" && !isInitial.value) {
+        // Open PDF file
+        await OpenFilex.open(event);
+        print("PDF file found.");
+
+        // kLog(localPathOfDemandSlip.value);
+      } else {
+        print("PDF file not found.");
+      }
+    });
+  }
+
   mDownloadDemandSlipPdf() async {
-    demandSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
+    showLoading("Downloading...");
+
+    demandSlipPdfResponse.value.value = await PaymentsApi.mGetDemandSlipPdf({
       "api_access_key": AppData.api_access_key,
     }, token);
     if (demandSlipPdfResponse.value.value != null) {
@@ -184,15 +270,84 @@ class StuPaymentsController extends GetxController {
         }
       }
 
-      final filePath = "${downloadDirectory.path}/demand_slip.pdf";
+      final filePath =
+          "${downloadDirectory.path}/demand_slip ${DateTime.now().millisecondsSinceEpoch}.pdf";
 
       File file = File(filePath);
 
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-          showLoading("Downloading...");
           await file.writeAsBytes(demandSlipPdfResponse.value.value!);
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
+
+          await LocalNotification().mShowNotification(payload: file.path);
+          showSuccess("Downloaded");
+        } else {
+          Map<Permission, PermissionStatus> statuses = await [
+            Permission.storage,
+          ].request();
+          kLog(statuses[Permission.storage].toString());
+          // showLoading("Downloading...");
+
+          await Permission.storage.request();
+          kLog('request permission');
+        }
+      } catch (error) {
+        kLog(error);
+        showError("Download failed");
+      }
+      // kLog(pdfPath);
+    } else {
+      kLog("Response Null");
+      showError("Not Found");
+    }
+  }
+
+  mDownloadBankSlipPdf() async {
+    showLoading("Downloading...");
+
+    bankSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
+      "api_access_key": AppData.api_access_key,
+    }, token);
+    if (bankSlipPdfResponse.value.value != null) {
+      /*  Directory downloadDirectory;
+      if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = (await getExternalStorageDirectory())!;
+        }
+      } */
+      Directory downloadDirectory;
+      if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = (await getExternalStorageDirectory())!;
+        } else {
+          kLog("Download Dir already existed");
+        }
+      }
+
+      final filePath =
+          "${downloadDirectory.path}/bank_slip ${DateTime.now().millisecondsSinceEpoch}.pdf";
+
+      File file = File(filePath);
+
+      try {
+        if (await Permission.storage.request().isGranted) {
+          kLog('permission granted');
+          await file.writeAsBytes(bankSlipPdfResponse.value.value!);
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
+
+          await LocalNotification().mShowNotification(payload: file.path);
           showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [

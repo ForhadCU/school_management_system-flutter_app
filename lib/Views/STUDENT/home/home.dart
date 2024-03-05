@@ -76,100 +76,100 @@ class StuHome extends GetView<StuHomeController> {
   Widget vEndDrawer() {
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(5),
-                padding: const EdgeInsets.symmetric(
-                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                color: AppColor.activeTab,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 12),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 82, 86, 143),
-                          borderRadius: BorderRadius.circular(4)),
-                      // color: Colors.orange,
-                      child: userCachedNetworkImage(
-                        // "fccdc.theworld.com.bd//uploads/1708681335.jpeg"
-                        Utils.mMakeUserImageUrl(
-                            imageLoc:
-                                controller.profileInfoModel.value.photo ?? "",
-                            alisName:
-                                controller.siteListModel.value.siteAlias ?? ""),
-                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                        // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                        fit: BoxFit.fill,
-                      ) /* Image(
-                        image: const AssetImage(StudentAssetLocation.user),
-                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                        fit: BoxFit.fill,
-                        color: Colors.black,
-                      ) */
-                      ,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${controller.profileInfoModel.value.firstName ?? ""} ${controller.profileInfoModel.value.lastName ?? ""}",
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+              color: AppColor.activeTab,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 82, 86, 143),
+                        borderRadius: BorderRadius.circular(4)),
+                    // color: Colors.orange,
+                    child: userCachedNetworkImage(
+                      // "fccdc.theworld.com.bd//uploads/1708681335.jpeg"
+                      Utils.mMakeUserImageUrl(
+                          imageLoc:
+                              controller.profileInfoModel.value.photo ?? "",
+                          alisName:
+                              controller.siteListModel.value.siteAlias ?? ""),
+                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                      // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                      fit: BoxFit.fill,
+                    ) /* Image(
+                      image: const AssetImage(StudentAssetLocation.user),
+                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                      height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                      fit: BoxFit.fill,
+                      color: Colors.black,
+                    ) */
+                    ,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${controller.profileInfoModel.value.firstName ?? ""} ${controller.profileInfoModel.value.lastName ?? ""}",
+                          style: kBody.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        AppSpacing.sm.height,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 2, horizontal: 4),
+                          decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.circular(4)),
+                          child: Text(
+                            controller.designition.value.capitalizeFirst ??
+                                "",
+                            style: kBody.copyWith(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        /*  AppSpacing.smh.height,
+                        Container(
+                          alignment: Alignment.center,
+                          // margin: EdgeInsets.symmetric(vertical: 14),
+                          padding: EdgeInsets.symmetric(
+                              vertical: AppSpacing.smh,
+                              horizontal: AppSpacing.sm),
+                          // color: Colors.red,
+                       /*    decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border:
+                                  Border.all(color: Colors.white, width: .5),
+                              borderRadius: BorderRadius.circular(4)), */
+                          child: Text(
+                    
+                                "",
                             style: kBody.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          AppSpacing.sm.height,
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2, horizontal: 4),
-                            decoration: BoxDecoration(
-                                color: Colors.black87,
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              controller.designition.value.capitalizeFirst ??
-                                  "",
-                              style: kBody.copyWith(color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          /*  AppSpacing.smh.height,
-                          Container(
-                            alignment: Alignment.center,
-                            // margin: EdgeInsets.symmetric(vertical: 14),
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppSpacing.smh,
-                                horizontal: AppSpacing.sm),
-                            // color: Colors.red,
-                         /*    decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.white, width: .5),
-                                borderRadius: BorderRadius.circular(4)), */
-                            child: Text(
-                      
-                                  "",
-                              style: kBody.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ), */
-                        ],
-                      ),
+                        ), */
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              ListView.separated(
+            ),
+            Expanded(
+              child: ListView.separated(
                 itemCount: controller.drawerItems.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                      onTap: () => controller
-                          .mNavigateTo(controller.drawerItems[index]["name"]!),
+                      onTap: () => controller.mNavigateTo(
+                          controller.drawerItems[index]["name"]!),
                       child: Container(
                         child: controller.drawerItems.length - 1 == index
                             ? InkWell(
@@ -233,7 +233,8 @@ class StuHome extends GetView<StuHomeController> {
                                         alignment: Alignment.centerLeft,
                                         width: double.infinity,
                                         child: Text(
-                                          controller.drawerItems[index]["name"]!
+                                          controller.drawerItems[index]
+                                                  ["name"]!
                                               .toUpperCase(),
                                           style: kSubTitle.copyWith(
                                               color: AppColor.white,
@@ -253,8 +254,8 @@ class StuHome extends GetView<StuHomeController> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         )));
   }
 

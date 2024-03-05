@@ -391,125 +391,125 @@ class TeachHome extends GetView<TeachHomeController> {
   }
 
   Widget vEndDrawer() {
-    kLog("ImgUrl: " +
+    /*  kLog("ImgUrl: " +
         Utils.mMakeUserImageUrl(
             imageLoc: controller.profileInfoModel.value.photo ?? "",
             alisName: controller.siteListModel.value.siteAlias ?? ""));
     kLog("Designation: ${controller.designition.value}");
     kLog("Imageloc: ${controller.profileInfoModel.value.photo}");
-    kLog("alisName: ${controller.siteListModel.value.siteAlias}");
+    kLog("alisName: ${controller.siteListModel.value.siteAlias}"); */
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(5),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                  color: AppColor.activeTab,
-                  child: Row(
-                    children: [
-                      Container(
-                          // width: AppScreenSize.mGetWidth(kGlobContext, 10),
-                          // height: AppScreenSize.mGetHeight(kGlobContext, 10),
-                          margin: EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 82, 86, 143),
-                              borderRadius: BorderRadius.circular(4)),
-                          // color: Colors.orange,
-                          child: userCachedNetworkImage(
-                            // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                            Utils.mMakeUserImageUrl(
-                                imageLoc:
-                                    controller.profileInfoModel.value.photo ?? "",
-                                alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
-                                    controller.siteListModel.value.siteAlias ??
-                                        ""),
-                            width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                            fit: BoxFit.fill,
-                          )
-        
-                          /*  Image(
-                          image: AssetImage(StudentAssetLocation.user),
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                        // width: AppScreenSize.mGetWidth(kGlobContext, 10),
+                        // height: AppScreenSize.mGetHeight(kGlobContext, 10),
+                        margin: EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 82, 86, 143),
+                            borderRadius: BorderRadius.circular(4)),
+                        // color: Colors.orange,
+                        child: userCachedNetworkImage(
+                          // "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+                          Utils.mMakeUserImageUrl(
+                              imageLoc:
+                                  controller.profileInfoModel.value.photo ?? "",
+                              alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                                  controller.siteListModel.value.siteAlias ??
+                                      ""),
                           width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                          height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
                           fit: BoxFit.fill,
-                          color: Colors.black,
-                        ), */
+                        )
+
+                        /*  Image(
+                        image: AssetImage(StudentAssetLocation.user),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                        color: Colors.black,
+                      ), */
+                        ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${controller.profileInfoModel.value.firstName ?? ""} ${controller.profileInfoModel.value.lastName ?? ""}",
+                            style: kBody.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${controller.profileInfoModel.value.firstName} ${controller.profileInfoModel.value.lastName}",
-                              style: kBody.copyWith(
-                                  color: const Color.fromARGB(255, 2, 2, 2),
-                                  fontWeight: FontWeight.w500),
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(2)),
+                            child: Text(
+                              controller.designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            AppSpacing.sm.height,
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 4),
-                              decoration: BoxDecoration(
-                                  color: Colors.black87,
-                                  borderRadius: BorderRadius.circular(2)),
-                              child: Text(
-                                controller.designition.value.capitalizeFirst ??
-                                    "",
-                                style: kBody.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            AppSpacing.smh.height,
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.sm,
-                                  vertical: AppSpacing.smh),
-                              color: AppColor.inactiveTab,
-                              /*  decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                              child: DropdownButton<AcademicGroup>(
-                                // child: DropdownButton<String>(
-                                value: controller.selectedAcademicGroup.value,
-        
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                iconSize: 12,
-                                elevation: 10,
-                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                                focusColor: AppColor.white,
-                                dropdownColor: AppColor.inactiveTab,
-                                isDense: true,
-                                isExpanded: true,
-                                underline: Container(),
-                                onChanged: (AcademicGroup? selectedModel) {
-                                  controller.mChangeSelectedAcademicGroup(
-                                      selectedModel);
-                                },
-        
-                                items: controller.academicGroupList
-                                    .map((AcademicGroup value) {
-                                  return DropdownMenuItem<AcademicGroup>(
-                                    value: value,
-                                    child: Text(
-                                      value.academicGroupName ?? "",
-                                      style: kBody.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                          ),
+                          AppSpacing.smh.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.inactiveTab,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: DropdownButton<AcademicGroup>(
+                              // child: DropdownButton<String>(
+                              value: controller.selectedAcademicGroup.value,
+
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 12,
+                              elevation: 10,
+                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                              focusColor: AppColor.white,
+                              dropdownColor: AppColor.inactiveTab,
+                              isDense: true,
+                              isExpanded: true,
+                              underline: Container(),
+                              onChanged: (AcademicGroup? selectedModel) {
+                                controller.mChangeSelectedAcademicGroup(
+                                    selectedModel);
+                              },
+
+                              items: controller.academicGroupList
+                                  .map((AcademicGroup value) {
+                                return DropdownMenuItem<AcademicGroup>(
+                                  value: value,
+                                  child: Text(
+                                    value.academicGroupName ?? "",
+                                    style: kBody.copyWith(
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              ListView.separated(
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Expanded(
+              child: ListView.separated(
                 itemCount: controller.drawerItems.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -544,7 +544,8 @@ class TeachHome extends GetView<TeachHomeController> {
                                           alignment: Alignment.centerLeft,
                                           width: double.infinity,
                                           child: Text(
-                                            controller.drawerItems[index]["name"]!
+                                            controller.drawerItems[index]
+                                                    ["name"]!
                                                 .toUpperCase(),
                                             style: kSubTitle.copyWith(
                                                 color: AppColor.white,
@@ -598,8 +599,8 @@ class TeachHome extends GetView<TeachHomeController> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         )));
   }
 

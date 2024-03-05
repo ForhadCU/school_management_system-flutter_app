@@ -15,6 +15,7 @@ class TeachProfileController extends GetxController {
   var token = "".obs;
   var siteListModel = SitelistModel().obs;
   var userDesignition = ''.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -30,9 +31,11 @@ class TeachProfileController extends GetxController {
   }
 
   _mInitialization() async {
+    
     token.value = await AppLocalDataFactory.mGetToken();
     userDesignition.value = await AppLocalDataFactory.mGetUserType();
     siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
+
   }
 /*   _mGetProfileInfo() async {
     profileInfoModel.value = await TeachProfileApis.mGetProfileInfo(

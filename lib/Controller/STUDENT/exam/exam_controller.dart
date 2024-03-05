@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/STUDENT/exam/exam_api.dart';
@@ -14,6 +15,7 @@ import '../../../Model/STUDENT/result/history_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/custom_statusbar.dart';
+import '../../../Utils/local_notification.dart';
 import '../../../Utils/utils.dart';
 
 class StuExamController extends GetxController {
@@ -21,6 +23,8 @@ class StuExamController extends GetxController {
   var isFoundRoutinePdf = false.obs;
   var isFoundAdmitCardPdf = false.obs;
   var documentList = <String>[].obs;
+  var isLoading = true.obs;
+  var isInitial = true.obs;
 
   static StuExamController get to => Get.find();
 
@@ -41,10 +45,15 @@ class StuExamController extends GetxController {
     // CustomStatusBar.mDarkStatusBar();
 
     token.value = await AppLocalDataFactory.mGetToken();
+    showLoading("Please Wait...");
+
     await mGetStudentHistoryList();
     await mGetExamTypeList();
     await mGetExamRoutinePdf();
     await mGetExamAdmitCardPdf();
+    isLoading.value = false;
+    hideLoading();
+    mListenNotification();
   }
 
   @override
@@ -111,7 +120,7 @@ class StuExamController extends GetxController {
           student_history_id: selectedStudentHistory.value.id.toString(),
           // student_history_id: 39851.toString(),
           examination_id: selectedExamTypeModel.value.id.toString(),
-          // examination_id: 9.toString(),
+          // examination_id: 44.toString(),
         ),
         token.value);
 
@@ -131,7 +140,7 @@ class StuExamController extends GetxController {
           student_history_id: selectedStudentHistory.value.id.toString(),
           // student_history_id: 39851.toString(),
           examination_id: selectedExamTypeModel.value.id.toString(),
-          // examination_id: 9.toString(),
+          // examination_id: 44.toString(),
         ),
         token.value);
 
@@ -145,6 +154,7 @@ class StuExamController extends GetxController {
   }
 
   mDownloadRoutinePdf() async {
+    showLoading("Downloading...");
     if (routinePdfResponse.value.value != null) {
       /*  Directory downloadDirectory;
       if (Platform.isIOS) {
@@ -168,15 +178,19 @@ class StuExamController extends GetxController {
       }
 
       final filePath =
-          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Routine.pdf";
+          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Routine ${DateTime.now().millisecondsSinceEpoch.toString()}.pdf";
 
       File file = File(filePath);
 
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-          showLoading("Downloading...");
           await file.writeAsBytes(routinePdfResponse.value.value!);
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
+
+          await LocalNotification().mShowNotification(payload: file.path);
           showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [
@@ -200,6 +214,7 @@ class StuExamController extends GetxController {
   }
 
   mDownloadAdmitCardPdf() async {
+    showLoading("Downloading...");
     if (admitCardPdfResponse.value.value != null) {
       Directory downloadDirectory;
       if (Platform.isIOS) {
@@ -211,15 +226,19 @@ class StuExamController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Admit card.pdf";
+          "${downloadDirectory.path}/${selectedExamTypeModel.value.examinationName} Admit card ${DateTime.now().millisecondsSinceEpoch}.pdf";
 
       File file = File(filePath);
 
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-          showLoading("Downloading...");
           await file.writeAsBytes(admitCardPdfResponse.value.value!);
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
+
+          await LocalNotification().mShowNotification(payload: file.path);
           showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [
@@ -246,5 +265,33 @@ class StuExamController extends GetxController {
     documentList.clear();
     isFoundRoutinePdf.value = false;
     isFoundAdmitCardPdf.value = false;
+  }
+
+  ////listen Notification when click////
+  void mListenNotification() {
+    LocalNotification()
+        .onClickNotificationBehavior
+        .stream
+        .listen((event) async {
+      // localPathOfDemandSlip.value = event;
+      kLog("Notification Clicekd");
+      // kLog("Path: ${localPathOfDemandSlip.value}");
+/* 
+      if (localPathOfDemandSlip.value != "") {
+        // Open PDF file
+        await OpenFilex.open(localPathOfDemandSlip.value);
+        kLog(localPathOfDemandSlip.value);
+      }  */
+      kLog("Event: $event");
+      if (event != "" && !isInitial.value) {
+        // Open PDF file
+        await OpenFilex.open(event);
+        print("PDF file found.");
+
+        // kLog(localPathOfDemandSlip.value);
+      } else {
+        print("PDF file not found.");
+      }
+    });
   }
 }

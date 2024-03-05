@@ -96,7 +96,7 @@ class StudentAssetLocation {
   static const String logout = "assets/icons/logout.png";
   static const String admin = "assets/icons/admin.png";
   static const String help_desk = "assets/icons/help_desk.png";
-  static const String user = "assets/icons/user.png";
+  // static const String user = "assets/icons/user.png";
   static const String periodic_attend = "assets/icons/periodic_attendance.png";
 
   static const String dashboard_base_ic = "assets/icons/ic_dashboard.png";

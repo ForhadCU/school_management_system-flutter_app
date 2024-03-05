@@ -44,6 +44,8 @@ dependencies:
   flutter_cache_manager: ^3.3.1
   flutter_launcher_icons: ^0.13.1
   flutter_local_notifications: ^16.3.2
+  open_filex: ^4.4.0
+  rxdart: ^0.27.7
   # flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
@@ -51,8 +53,10 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-flutter_icons:
-  image_path: "icons/edu_world_logo.jpeg"
+flutter_launcher_icons:
+  image_path: "icons/edu_world_logo.png"
+  adaptive_icon_background: "#E4312A"
+  adaptive_icon_foreground: "icons/forground.png"
   android: true
   ios: true
 

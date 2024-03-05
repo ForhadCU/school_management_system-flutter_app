@@ -29,26 +29,35 @@ class StuMessage extends GetView<StuMessageController> {
 
   vMessageList() {
     return Expanded(
-      child: Obx(() => ListView.separated(
-          controller: controller.messageListScrollCntrlr.value,
-          shrinkWrap: true,
-          itemBuilder: ((context, index) {
-            return vMessageCard(controller.messageList[index]);
-          }),
-          separatorBuilder: (context, index) {
-            return const Divider(
-              color: AppColor.frenchSkyBlue100,
-            );
-          },
-          itemCount: controller.messageList.length)),
+      child: Obx(() => controller.isLoading.value
+          ? Container()
+          : controller.messageList.isEmpty
+              ? Center(
+                  child: Text(
+                    "No Message",
+                    style: kBody.copyWith(color: Colors.black54),
+                  ),
+                )
+              : ListView.separated(
+                  controller: controller.messageListScrollCntrlr.value,
+                  shrinkWrap: true,
+                  itemBuilder: ((context, index) {
+                    return vMessageCard(controller.messageList[index]);
+                  }),
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: AppColor.frenchSkyBlue100,
+                    );
+                  },
+                  itemCount: controller.messageList.length)),
     );
   }
 
   vMessageCard(MessageData message) {
     return Obx(() {
-      kLog(
+/*       kLog(
           "Message card Logo ImageUrl: ${AppData.eduWorldTheworldHostname + controller.siteListModel.value.siteLogo!}");
-
+ */
       return ListTile(
         onTap: () {
           controller.mUpdateClickedMessageModel(message);
@@ -64,8 +73,7 @@ class StuMessage extends GetView<StuMessageController> {
               shape: BoxShape.circle,
             ),
             child: siteCachedNetworkImage(
-                AppData.eduWorldTheworldHostname +
-                    controller.siteListModel.value.siteLogo!,
+                "${AppData.eduWorldTheworldHostname}${controller.siteListModel.value.siteLogo ?? ""}",
                 width: 28,
                 fit: BoxFit
                     .contain) /* const Icon(

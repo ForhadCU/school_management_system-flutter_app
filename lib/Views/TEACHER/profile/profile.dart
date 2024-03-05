@@ -89,146 +89,140 @@ class TeachProfile extends GetView<TeachProfileController> {
     kLog("alisName: ${homeController.siteListModel.value.siteAlias}");
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(5),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                  color: AppColor.activeTab,
-                  child: Row(
-                    children: [
-                      Container(
-                        // width: AppScreenSize.mGetWidth(kGlobContext, 10),
-                        // height: AppScreenSize.mGetHeight(kGlobContext, 10),
-                        margin: EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 82, 86, 143),
-                            borderRadius: BorderRadius.circular(4)),
-                        // color: Colors.orange,
-                        child: homeController.profileInfoModel.value.photo !=
-                                    null &&
-                                controller.siteListModel.value.siteAlias != null
-                            ? userCachedNetworkImage(
-                                // "https://fccdc.theworld.com.bd/uploads/1708681335.jpeg",
-                                // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-                                Utils.mMakeUserImageUrl(
-                                    imageLoc: homeController
-                                        .profileInfoModel.value.photo!,
-                                    alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
-                                        controller
-                                            .siteListModel.value.siteAlias!),
-                                width:
-                                    AppScreenSize.mGetWidth(kGlobContext, 23),
-                                height:
-                                    AppScreenSize.mGetHeight(kGlobContext, 13),
-                                fit: BoxFit.fill,
-                              )
-                            : Image(
-                                image: const AssetImage(default_user),
-                                width:
-                                    AppScreenSize.mGetWidth(kGlobContext, 23),
-                                height:
-                                    AppScreenSize.mGetHeight(kGlobContext, 13),
-                                fit: BoxFit.fill,
-                                color: Colors.black,
-                              ), /* cachedNetworkImage(
-                            "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                            /*  Utils.mMakeUserImageUrl(
-                                imageLoc:
-                                    homeController.profileInfoModel.value.photo ??
-                                        "",
-                                alisName:
-                                    homeController.siteListModel.value.siteAlias ??
-                                        "") */
-                            ,
-                            width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                            fit: BoxFit.fill,
-                          ) */
-
-                        /*  Image(
-                          image: AssetImage(StudentAssetLocation.user),
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      // width: AppScreenSize.mGetWidth(kGlobContext, 10),
+                      // height: AppScreenSize.mGetHeight(kGlobContext, 10),
+                      margin: EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: homeController.profileInfoModel.value.photo !=
+                                  null &&
+                              controller.siteListModel.value.siteAlias != null
+                          ? userCachedNetworkImage(
+                              // "https://fccdc.theworld.com.bd/uploads/1708681335.jpeg",
+                              // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+                              Utils.mMakeUserImageUrl(
+                                  imageLoc: homeController
+                                      .profileInfoModel.value.photo!,
+                                  alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
+                                      controller
+                                          .siteListModel.value.siteAlias!),
+                              width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                              height:
+                                  AppScreenSize.mGetHeight(kGlobContext, 13),
+                              fit: BoxFit.fill,
+                            )
+                          : Image(
+                              image: const AssetImage(default_user),
+                              width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                              fit: BoxFit.fill,
+                            ), /* cachedNetworkImage(
+                          "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
+                          /*  Utils.mMakeUserImageUrl(
+                              imageLoc:
+                                  homeController.profileInfoModel.value.photo ??
+                                      "",
+                              alisName:
+                                  homeController.siteListModel.value.siteAlias ??
+                                      "") */
+                          ,
                           width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                          height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                          // height: AppScreenSize.mGetHeight(kGlobContext, 13),
                           fit: BoxFit.fill,
-                          color: Colors.black,
-                        ), */
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
-                              style: kBody.copyWith(
-                                  color: const Color.fromARGB(255, 2, 2, 2),
-                                  fontWeight: FontWeight.w500),
+                        ) */
+
+                      /*  Image(
+                        image: AssetImage(StudentAssetLocation.user),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                        color: Colors.black,
+                      ), */
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
+                            style: kBody.copyWith(
+                                color: const Color.fromARGB(255, 2, 2, 2),
+                                fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(2)),
+                            child: Text(
+                              homeController
+                                      .designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            AppSpacing.sm.height,
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 4),
-                              decoration: BoxDecoration(
-                                  color: Colors.black87,
-                                  borderRadius: BorderRadius.circular(2)),
-                              child: Text(
-                                homeController
-                                        .designition.value.capitalizeFirst ??
-                                    "",
-                                style: kBody.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            AppSpacing.smh.height,
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.sm,
-                                  vertical: AppSpacing.smh),
-                              color: AppColor.inactiveTab,
-                              /*  decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                              child: DropdownButton<AcademicGroup>(
-                                // child: DropdownButton<String>(
-                                value:
-                                    homeController.selectedAcademicGroup.value,
+                          ),
+                          AppSpacing.smh.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.inactiveTab,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: DropdownButton<AcademicGroup>(
+                              // child: DropdownButton<String>(
+                              value: homeController.selectedAcademicGroup.value,
 
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                iconSize: 12,
-                                elevation: 10,
-                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                                focusColor: AppColor.white,
-                                dropdownColor: AppColor.inactiveTab,
-                                isDense: true,
-                                isExpanded: true,
-                                underline: Container(),
-                                onChanged: (AcademicGroup? selectedModel) {
-                                  homeController.mChangeSelectedAcademicGroup(
-                                      selectedModel);
-                                },
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 12,
+                              elevation: 10,
+                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                              focusColor: AppColor.white,
+                              dropdownColor: AppColor.inactiveTab,
+                              isDense: true,
+                              isExpanded: true,
+                              underline: Container(),
+                              onChanged: (AcademicGroup? selectedModel) {
+                                homeController.mChangeSelectedAcademicGroup(
+                                    selectedModel);
+                              },
 
-                                items: homeController.academicGroupList
-                                    .map((AcademicGroup value) {
-                                  return DropdownMenuItem<AcademicGroup>(
-                                    value: value,
-                                    child: Text(
-                                      value.academicGroupName ?? "",
-                                      style: kBody.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                              items: homeController.academicGroupList
+                                  .map((AcademicGroup value) {
+                                return DropdownMenuItem<AcademicGroup>(
+                                  value: value,
+                                  child: Text(
+                                    value.academicGroupName ?? "",
+                                    style: kBody.copyWith(
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              ListView.separated(
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Expanded(
+              child: ListView.separated(
                 itemCount: homeController.drawerItems.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -319,8 +313,8 @@ class TeachProfile extends GetView<TeachProfileController> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         )));
   }
 
@@ -521,7 +515,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                       homeController.profileInfoModel.value.username == null
                           ? "N/A"
                           : homeController.profileInfoModel.value.username!
-                              .toUpperCase(),
+                              .toLowerCase(),
                       softWrap: true,
                       style: const TextStyle(
                         fontWeight: FontWeight.w500,

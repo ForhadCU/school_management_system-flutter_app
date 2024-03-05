@@ -229,7 +229,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.studentNotification,
       binding: NotificationBindings(),
-      page: () => const Notification(),
+      page: () => StuNotification(),
     ),
     GetPage(
       name: AppRoutes.payments,
@@ -308,7 +308,7 @@ abstract class AppPages {
         binding: ExamAttendanceBindings()),
     GetPage(
         name: AppRoutes.teachRoutine,
-        page: () => const TeachRoutine(),
+        page: () => TeachRoutine(),
         binding: TeachRoutineBindings()),
     GetPage(
         name: AppRoutes.teachHelpdesk,

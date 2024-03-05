@@ -24,7 +24,7 @@ class ResultApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getStudentData(
         ApiEndpoint.stuHistoryList, payLoad, token);
-    // kLogger.d(res.body['result']);
+    kLogger.d(res.body[StuHistoryModel.getDataListJsonKey]);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully read mGetClassList data");
       // kLog(res.body[StuHistoryModel.getDataListJsonKey]);
@@ -32,7 +32,8 @@ class ResultApis {
       return res.body[StuHistoryModel.getDataListJsonKey]
           .map<StuHistoryModel>((e) => StuHistoryModel.fromMap(e))
           .toList();
-    } else {      hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       //  return List<StuHistoryModel>();
       return <StuHistoryModel>[];
@@ -56,19 +57,20 @@ class ResultApis {
       return <StuExamModel>[];
     }
   } */
-  
-    static Future<List<StuResultTypeModel>> mGetResultTypeList(
+
+  static Future<List<StuResultTypeModel>> mGetResultTypeList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuPrimaryResultList, payLoad, token);
-    // kLogger.d(res.body['result']);
+    kLogger.d(res.body[StuResultTypeModel.getDataListJsonKey]);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully read StuExamModel data");
       kLog(res.body[StuResultTypeModel.getDataListJsonKey]);
       return res.body[StuResultTypeModel.getDataListJsonKey]
           .map<StuResultTypeModel>((e) => StuResultTypeModel.fromMap(e))
           .toList();
-    } else {      hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       //  return List<StuHistoryModel>();
 
@@ -84,8 +86,15 @@ class ResultApis {
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetResultPdf data");
       // kLog(res.body);
+      /*    if (res.body == null) {
+        kLog("Body is null");
+        return null;
+      } else {
+        return res.body;
+      } */
       return res.body;
-    } else {      hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;

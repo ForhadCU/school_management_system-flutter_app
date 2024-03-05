@@ -21,15 +21,13 @@ class StuMessageController extends GetxController {
   var messageListScrollCntrlr = ScrollController().obs;
   var clickedMessageModel = MessageData().obs;
   var pageNumber = 1.obs;
-  var test = '1'.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
     token = await AppLocalDataFactory.mGetToken();
     siteListModel.value = await AppLocalDataFactory.mGetSiteListModel();
-    kLog("SiteAlis: ${siteListModel.value.siteAlias}");
-    test.value = "2";
-    kLog(test);
+    // kLog("SiteAlis: ${siteListModel.value.siteAlias}");
     await mGetMessageModel();
     messageListScrollCntrlr.value.addListener(() {
       if (messageListScrollCntrlr.value.offset ==
@@ -72,6 +70,7 @@ class StuMessageController extends GetxController {
   }
 
   mGetMessageModel() async {
+    isLoading.value = true;
     messageModel.value = await StuMessageApis.mGetMessageModel(
         PayLoads.stuMessage(
             page: pageNumber.value.toString(),
@@ -81,6 +80,7 @@ class StuMessageController extends GetxController {
     if (messageModel.value.data != null) {
       messageList.addAll(messageModel.value.data!);
     }
+    isLoading.value = false;
   }
 
   void mResetList() {

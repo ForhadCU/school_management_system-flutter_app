@@ -71,7 +71,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                 Text(
                   "The World",
                   style: kBody.copyWith(
-                      fontSize: 18,
+                      fontSize: 14,
                       color: Colors.black87,
                       fontWeight: FontWeight.w500),
                 ),

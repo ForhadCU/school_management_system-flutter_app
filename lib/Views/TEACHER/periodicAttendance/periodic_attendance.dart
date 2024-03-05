@@ -3,7 +3,8 @@ import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/TEACHER/periodicAttendance/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-import '../../../Config/config.dart';import 'package:get/get.dart';
+import '../../../Config/config.dart';
+import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/periodicAttnd/periodic_attnd_ctrlr.dart';
 import 'package:school_management_system/Model/TEACHER/period_model.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
@@ -13,8 +14,8 @@ import '../../../Config/config.dart';
 import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_container.dart';
 
-class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController> {
-
+class TeachPeriodicAttendance
+    extends GetView<TeachPeriodicAttendanceController> {
   const TeachPeriodicAttendance({super.key});
 
   @override
@@ -24,17 +25,18 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
         child: BaseWidgetChild(
             child: Column(
           children: [
-           vPeriodicAttendanceTopbar(),
+            vPeriodicAttendanceTopbar(),
             AppSpacing.md.height,
             const Divider(height: 1, thickness: .3, color: Colors.black12),
             AppSpacing.md.height,
-           vPeriodicAttendanceTable(),
+            vPeriodicAttendanceTable(),
             AppSpacing.sm.height,
             vUpdateAttendanceBtn(),
           ],
         )));
   }
-    vPeriodicAttendanceTopbar() {
+
+  vPeriodicAttendanceTopbar() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -57,7 +59,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
     );
   }
 
-   vPeriodicAttendanceFilter() {
+  vPeriodicAttendanceFilter() {
     return Column(
       children: [
         ///Attandence Date Part
@@ -91,8 +93,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
                     ),
                     (AppSpacing.sm).width,
                     Obx(() => Text(
-                          controller
-                              .mGetFormatDate(controller.attendanceDate),
+                          controller.mGetFormatDate(controller.attendanceDate),
                           style: kBody.copyWith(
                               fontWeight: FontWeight.w500, color: Colors.black),
                         )),
@@ -173,7 +174,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
     );
   }
 
-   vGetAttendanceBtn() {
+  vGetAttendanceBtn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -192,7 +193,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
     );
   }
 
-   vUpdateAttendanceBtn() {
+  vUpdateAttendanceBtn() {
     return Obx(() => Visibility(
           visible: controller.isAttendanceModified.value,
           child: Row(
@@ -211,7 +212,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
         ));
   }
 
-   vPeriodicAttendanceTable() {
+  vPeriodicAttendanceTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     /*  List controller.periodicAttendanceDataList = [
@@ -526,7 +527,10 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
                                                       height: 14,
                                                       width: 14,
                                                       decoration: BoxDecoration(
-                                                          color: AppColor.white,
+                                                          color: item.present !=
+                                                                  1
+                                                              ? AppColor.white
+                                                              : AppColor.green,
                                                           border: Border.all(
                                                               color: Colors
                                                                   .black12),
@@ -852,7 +856,7 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
     );
   }
 
-   _vDropdowns1() {
+  _vDropdowns1() {
     return Obx(() => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -909,5 +913,4 @@ class TeachPeriodicAttendance extends GetView<TeachPeriodicAttendanceController>
           ],
         ));
   }
-
 }

@@ -14,6 +14,7 @@ class StuProfileController extends GetxController {
   var token = "".obs;
   var siteListModel = SitelistModel().obs;
   var stuProfileInfoModel = ProfileInfoModel().obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -34,9 +35,11 @@ class StuProfileController extends GetxController {
   }
 
   _mGetProfileInfo() async {
+    isLoading.value = true;
     stuProfileInfoModel.value = await ProfileApis.mGetProfileInfo(
         {"api_access_key": AppData.api_access_key}, token.value);
     kLog("stuProfileInfoModel username: ${stuProfileInfoModel.value.username}");
+    isLoading.value = false;
   }
 
   /// code goes here

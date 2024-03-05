@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Utils/utils.dart';
@@ -24,6 +26,7 @@ class Exam extends GetView<StuExamController> {
             vTopbar(),
             // AppSpacing.md.height,
             vExamDocumentsTable(),
+            vNotFoundMessage(),
           ]),
         ));
   }
@@ -41,9 +44,9 @@ class Exam extends GetView<StuExamController> {
                       text: "Exam Details",
                       isActive: controller.isExamDetailsActive.value,
                       onTap: () {
-                        controller.mUpdateExamDetailsTabItem();
+                        // controller.mUpdateExamDetailsTabItem();
                       }),
-                ),
+                ), /* 
                 (AppSpacing.smh / 2).width,
                 Expanded(
                     child: CommonContainers.vTabItemContainer(
@@ -52,7 +55,7 @@ class Exam extends GetView<StuExamController> {
                   onTap: () {
                     controller.mUpdateExamOnlineTabItem();
                   },
-                )),
+                )), */
               ],
             )),
 
@@ -182,8 +185,12 @@ class Exam extends GetView<StuExamController> {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
         controller.mResetPreviousDocs();
+        controller.isLoading.value = true;
+        showLoading("Please Wait...");
         await controller.mGetExamRoutinePdf();
         await controller.mGetExamAdmitCardPdf();
+        controller.isLoading.value = false;
+        hideLoading();
       },
       text: "Get Document",
     );
@@ -344,5 +351,21 @@ class Exam extends GetView<StuExamController> {
                 ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
           )),
         ));
+  }
+
+  vNotFoundMessage() {
+    return Obx(() => Visibility(
+        visible: !controller.isFoundRoutinePdf.value &&
+            !controller.isFoundAdmitCardPdf.value &&
+            !controller.isLoading.value,
+        child: Expanded(
+          child: Center(
+              child: Text(
+            "No Result Found.",
+            style: kBody.copyWith(
+              color: Colors.black45,
+            ),
+          )),
+        )));
   }
 }

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/STUDENT/routine/routine_api.dart';
@@ -24,7 +25,8 @@ class StuRoutineController extends GetxController {
   // RxString pageOrientation = PageOrientation.portrait.obs;
   Rx<String> pdfFilePath = "".obs;
   late Rx<PDFViewController> pdfController;
-  RxBool isRoutineFound = true.obs;
+  RxBool isRoutineFound = false.obs;
+  var isLoading = true.obs;
 
   /// variable declaration
 
@@ -61,7 +63,7 @@ class StuRoutineController extends GetxController {
 
   /// code goes here
   mGetRoutinePdf() async {
-    mResetPdfFilePath();
+    isLoading.value = true;
     Uint8List? response = await RoutineApis.mGetRoutinePdf(
         PayLoads.stuRoutinePdf(
           api_access_key: AppData.api_access_key,
@@ -69,9 +71,11 @@ class StuRoutineController extends GetxController {
               selectedPeriodicTypeModel.value!.id.toString(),
         ),
         token.value);
+    isLoading.value = false;
 
     if (response != null) {
-      kLog("Response not null: $response");
+      isRoutineFound.value = true;
+      // kLog("Response not null: $response");
       var dir = await getApplicationDocumentsDirectory();
       var filePath =
           "${dir.path}/${selectedPeriodicTypeModel.value!.typeName} ${selectedPeriodicTypeModel.value!.id}.pdf";
@@ -223,15 +227,10 @@ class StuRoutineController extends GetxController {
   }
 
   void mUpdateSelectedPeriodicType(PeriodicTypeModel? selectedModel) {
-    selectedPeriodicTypeModel.value = selectedModel;
-  }
-
-  void mResetPdfFilePath() {
-    pdfFilePath.value = '';
-    if (pdfFilePath.value.isEmpty) {
-      kLog("Empty");
-    } else {
-      kLog("Not Empty");
-    }
+    if (selectedPeriodicTypeModel.value != selectedModel) {
+      isLoading.value = true;
+      isRoutineFound.value = true;
+      selectedPeriodicTypeModel.value = selectedModel;
+    } 
   }
 }

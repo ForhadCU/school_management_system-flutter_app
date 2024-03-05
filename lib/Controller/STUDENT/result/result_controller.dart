@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/STUDENT/result/result_api.dart';
@@ -16,6 +17,7 @@ import 'package:school_management_system/Utils/utils.dart';
 import 'package:path/path.dart' as path;
 
 import '../../../Model/STUDENT/exam/exam_model.dart';
+import '../../../Utils/local_notification.dart';
 
 class StuResultController extends GetxController {
   static StuResultController get to => Get.find();
@@ -31,7 +33,9 @@ class StuResultController extends GetxController {
   // RxString pageOrientation = PageOrientation.portrait.obs;
   Rx<String> pdfFilePath = "".obs;
   late Rx<PDFViewController> pdfController;
-  RxBool isResultFound = true.obs;
+  RxBool isResultFound = false.obs;
+  var isLoading = true.obs;
+  var isInitial = true.obs;
 
   @override
   void onInit() async {
@@ -40,6 +44,7 @@ class StuResultController extends GetxController {
     await mGetStudentHistoryList();
     await mGetResultTypeList();
     await mGetResultPdf();
+    mListenNotification();
   }
 
   @override
@@ -47,13 +52,53 @@ class StuResultController extends GetxController {
     super.onClose();
   }
 
+////listen Notification when click////
+  void mListenNotification() {
+    LocalNotification()
+        .onClickNotificationBehavior
+        .stream
+        .listen((event) async {
+      // localPathOfDemandSlip.value = event;
+      kLog("Notification Clicekd");
+      // kLog("Path: ${localPathOfDemandSlip.value}");
+/* 
+      if (localPathOfDemandSlip.value != "") {
+        // Open PDF file
+        await OpenFilex.open(localPathOfDemandSlip.value);
+        kLog(localPathOfDemandSlip.value);
+      }  */
+      kLog("Event: $event");
+      if (event != "" && !isInitial.value) {
+        // Open PDF file
+        await OpenFilex.open(event);
+        print("PDF file found.");
+
+        // kLog(localPathOfDemandSlip.value);
+      } else {
+        print("PDF file not found.");
+      }
+    });
+  }
+
   /// code goes here
   mChangeClassDropdownValue(StuHistoryModel value) {
-    selectedStudentHistory.value = value;
+    // selectedStudentHistory.value = value;
+
+    if (selectedStudentHistory.value != value) {
+      isLoading.value = true;
+      isResultFound.value = true;
+      selectedStudentHistory.value = value;
+    }
   }
 
   mChangeResultTypeDropdownValue(StuResultTypeModel value) {
     selectedResultModel.value = value;
+
+    if (selectedResultModel.value != value) {
+      isLoading.value = true;
+      isResultFound.value = true;
+      selectedResultModel.value = value;
+    }
   }
 
   mGetStudentHistoryList() async {
@@ -81,6 +126,8 @@ class StuResultController extends GetxController {
   }
 
   mGetResultPdf() async {
+    isLoading.value = true;
+
     Uint8List? response = await ResultApis.mGetResultPdf(
         PayLoads.stuPrimaryResultDetailsPdf(
             api_access_key: AppData.api_access_key,
@@ -91,6 +138,7 @@ class StuResultController extends GetxController {
                 20.toString(),
             page_orientaion: PageOrientation.portrait),
         token.value);
+    isLoading.value = false;
 
     if (response != null) {
       kLog("Response not null: $response");
@@ -171,7 +219,7 @@ class StuResultController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedResultModel.value.name} ${selectedStudentHistory.value.studentRollNumber} (Potrait).pdf";
+          "${downloadDirectory.path}/${selectedResultModel.value.name} (Potrait) ${DateTime.now().millisecondsSinceEpoch}.pdf";
 
       File file = File(filePath);
       /*    await file.writeAsBytes(response);
@@ -180,12 +228,13 @@ class StuResultController extends GetxController {
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-
           await file.writeAsBytes(response);
-          // pdfFilePath.value = filePath;
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
 
-          /* pdfPath.set(file.path);
-            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+          await LocalNotification().mShowNotification(payload: file.path);
+          showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [
             Permission.storage,
@@ -275,7 +324,7 @@ class StuResultController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedResultModel.value.name} ${selectedStudentHistory.value.studentRollNumber} (Landscape).pdf";
+          "${downloadDirectory.path}/${selectedResultModel.value.name} (Landscape) ${DateTime.now().millisecondsSinceEpoch}.pdf";
 
       File file = File(filePath);
       /*    await file.writeAsBytes(response);
@@ -284,12 +333,13 @@ class StuResultController extends GetxController {
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-
           await file.writeAsBytes(response);
-          // pdfFilePath.value = filePath;
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
 
-          /* pdfPath.set(file.path);
-            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+          await LocalNotification().mShowNotification(payload: file.path);
+          showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [
             Permission.storage,

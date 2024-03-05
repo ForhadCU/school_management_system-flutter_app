@@ -26,6 +26,7 @@ class StuNoticeController extends GetxController {
   var token = Rxn<String>();
   var noticeListScrollCntrlr = ScrollController().obs;
   var pageNumber = 1.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -71,8 +72,10 @@ class StuNoticeController extends GetxController {
   }
 
   mGetNoticesInRange() async {
-    kLog("Date From: ${mGetFormatDate(dateFrom)}");
-    kLog("Date to: ${mGetFormatDate(dateTo)}");
+    /* kLog("Date From: ${mGetFormatDate(dateFrom)}");
+    kLog("Date to: ${mGetFormatDate(dateTo)}"); */
+   isLoading.value = true;
+    
     noticeApiModel.value = await StuNoticeApi.mGetNoticeApiModeldata(
         PayLoads.allNotice(
             api_access_key: AppData.api_access_key,
@@ -88,6 +91,8 @@ class StuNoticeController extends GetxController {
       noticeList.addAll(noticeApiModel.value.data!);
       numOfNoticesInRange.value = noticeList.length;
     }
+   isLoading.value = false;
+
   }
 
   mSelectDateFrom() async {

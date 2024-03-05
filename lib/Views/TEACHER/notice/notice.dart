@@ -1,84 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:school_management_system/Model/PUBLIC/notice/notice_api_model.dart';
 import 'package:school_management_system/Utils/utils.dart';
-import 'package:school_management_system/Views/TEACHER/notice/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../Config/config.dart';
 import '../../../Controller/TEACHER/home/home_controller.dart';
 import '../../../Model/PUBLIC/login/academic_group_model.dart';
-import '../home/widgets.dart';
-import 'package:flutter/material.dart';
+import '../../Widgets/user_cached_network_image.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/notice/notice_controller.dart';
 import 'package:school_management_system/Controller/student_library.dart';
-import 'package:school_management_system/Utils/utils.dart';
 
-import '../../../Config/config.dart';
 import '../../../Routes/app_pages.dart';
 import '../../../Utils/custom_utils.dart';
 import '../../Widgets/buttons.dart';
-import '../../Widgets/custom_textfield.dart';
 
 class TeachNotice extends GetView<TeachNoticeController> {
   TeachNotice({super.key});
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late M m;
+  late double h;
+  late double w;
 
   final homeController = TeachHomeController.to;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            key: _scaffoldKey,
-            appBar: AppBar(
-              title: Text(
-                "Noitce Board".toUpperCase(),
-                style: TextStyle(color: Colors.white),
-              ),
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: AppColor.primaryColor,
-              actions: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: 14),
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
-                  // color: Colors.red,
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(color: Colors.white, width: .5),
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Obx(() => Text(
-                        homeController.selectedAcademicGroup.value
-                                .academicGroupName ??
-                            "",
-                        style: kBody.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w500),
-                      )),
+    h = MediaQuery.of(context).size.height;
+    w = MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        m = M(constraints);
+        kLog(constraints.w);
+        return SafeArea(
+            child: Scaffold(
+                key: _scaffoldKey,
+                appBar: AppBar(
+                  title: Text(
+                    "Noitce Board".toUpperCase(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  elevation: 0,
+                  iconTheme: IconThemeData(color: Colors.white),
+                  backgroundColor: AppColor.primaryColor,
+                  actions: [
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(vertical: 14),
+                      padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                      // color: Colors.red,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.white, width: .5),
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Obx(() => Text(
+                            homeController.selectedAcademicGroup.value
+                                    .academicGroupName ??
+                                "",
+                            style: kBody.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    ),
+                    /* SizedBox(
+                width: 48,
+              ), */
+                    IconButton(
+                        icon: new Icon(Icons.menu, color: Colors.white),
+                        onPressed: () {
+                          _scaffoldKey.currentState!.openEndDrawer();
+                        }),
+                  ],
                 ),
-                /* SizedBox(
-              width: 48,
-            ), */
-                IconButton(
-                    icon: new Icon(Icons.menu, color: Colors.white),
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openEndDrawer();
-                    }),
-              ],
-            ),
-            endDrawer: vEndDrawer(),
-            body: BaseWidgetChild(
-                child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                vTopbar(),
-                AppSpacing.xl.height,
-                Expanded(child: vNoticeList())
-              ],
-            ))));
+                endDrawer: vEndDrawer(),
+                body: BaseWidgetChild(
+                    child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    vTopbar(),
+                    AppSpacing.xl.height,
+                    Expanded(child: vNoticeList())
+                  ],
+                ))));
+      },
+    );
   }
 
   Widget vEndDrawer() {
@@ -91,120 +98,114 @@ class TeachNotice extends GetView<TeachNoticeController> {
     kLog("alisName: ${controller.siteListModel.value.siteAlias}");
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(5),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                  color: AppColor.activeTab,
-                  child: Row(
-                    children: [
-                      Container(
-                        // width: AppScreenSize.mGetWidth(kGlobContext, 10),
-                        // height: AppScreenSize.mGetHeight(kGlobContext, 10),
-                        margin: EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 82, 86, 143),
-                            borderRadius: BorderRadius.circular(4)),
-                        // color: Colors.orange,
-                        child: /* cachedNetworkImage(
-                            "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                            /*  Utils.mMakeUserImageUrl(
-                                imageLoc:
-                                    controller.profileInfoModel.value.photo ??
-                                        "",
-                                alisName:
-                                    controller.siteListModel.value.siteAlias ??
-                                        "") */
-                            ,
-                            width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                            fit: BoxFit.fill,
-                          ) */
-
-                            Image(
-                          image: AssetImage(StudentAssetLocation.user),
-                          width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                          height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                          fit: BoxFit.fill,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
-                              style: kBody.copyWith(
-                                  color: const Color.fromARGB(255, 2, 2, 2),
-                                  fontWeight: FontWeight.w500),
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: userCachedNetworkImage(
+                        // "fccdc.theworld.com.bd//uploads/1708681335.jpeg"
+                        Utils.mMakeUserImageUrl(
+                            imageLoc:
+                                homeController.profileInfoModel.value.photo ??
+                                    "",
+                            alisName:
+                                controller.siteListModel.value.siteAlias ?? ""),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                      ) /* Image(
+                      image: const AssetImage(StudentAssetLocation.user),
+                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                      height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                      fit: BoxFit.fill,
+                      color: Colors.black,
+                    ) */
+                      ,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
+                            style: kBody.copyWith(
+                                color: const Color.fromARGB(255, 2, 2, 2),
+                                fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(2)),
+                            child: Text(
+                              homeController
+                                      .designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            AppSpacing.sm.height,
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 4),
-                              decoration: BoxDecoration(
-                                  color: Colors.black87,
-                                  borderRadius: BorderRadius.circular(2)),
-                              child: Text(
-                                homeController
-                                        .designition.value.capitalizeFirst ??
-                                    "",
-                                style: kBody.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            AppSpacing.smh.height,
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.sm,
-                                  vertical: AppSpacing.smh),
-                              color: AppColor.inactiveTab,
-                              /*  decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                              child: DropdownButton<AcademicGroup>(
-                                // child: DropdownButton<String>(
-                                value:
-                                    homeController.selectedAcademicGroup.value,
+                          ),
+                          AppSpacing.smh.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.inactiveTab,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: DropdownButton<AcademicGroup>(
+                              // child: DropdownButton<String>(
+                              value: homeController.selectedAcademicGroup.value,
 
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                iconSize: 12,
-                                elevation: 10,
-                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                                focusColor: AppColor.white,
-                                dropdownColor: AppColor.inactiveTab,
-                                isDense: true,
-                                isExpanded: true,
-                                underline: Container(),
-                                onChanged: (AcademicGroup? selectedModel) {
-                                  homeController.mChangeSelectedAcademicGroup(
-                                      selectedModel);
-                                },
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 12,
+                              elevation: 10,
+                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                              focusColor: AppColor.white,
+                              dropdownColor: AppColor.inactiveTab,
+                              isDense: true,
+                              isExpanded: true,
+                              underline: Container(),
+                              onChanged: (AcademicGroup? selectedModel) {
+                                homeController.mChangeSelectedAcademicGroup(
+                                    selectedModel);
+                              },
 
-                                items: homeController.academicGroupList
-                                    .map((AcademicGroup value) {
-                                  return DropdownMenuItem<AcademicGroup>(
-                                    value: value,
-                                    child: Text(
-                                      value.academicGroupName ?? "",
-                                      style: kBody.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                              items: homeController.academicGroupList
+                                  .map((AcademicGroup value) {
+                                return DropdownMenuItem<AcademicGroup>(
+                                  value: value,
+                                  child: Text(
+                                    value.academicGroupName ?? "",
+                                    style: kBody.copyWith(
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              ListView.separated(
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Expanded(
+              child: ListView.separated(
                 itemCount: homeController.drawerItems.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -295,8 +296,8 @@ class TeachNotice extends GetView<TeachNoticeController> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         )));
   }
 
@@ -377,47 +378,52 @@ class TeachNotice extends GetView<TeachNoticeController> {
   }
 
   vNoticeList() {
-    return Obx(() => controller.noticeApiModel.value.data == null ||
-            controller.noticeApiModel.value.data!.isEmpty
-        ? Container(
-            alignment: Alignment.center,
-            child: Text(
-              "No notice found!",
-              style: kBody.copyWith(color: Colors.amber),
-            ),
-          )
-        : ListView.separated(
-            controller: controller.noticeListScrollCntrlr.value,
-            shrinkWrap: true,
-            itemCount: controller.noticeApiModel.value.data == null
-                ? 0
-                : controller.noticeList.length,
-            itemBuilder: (context, index) {
-              final data = controller.noticeList[index];
-              return _vNoticeCard(
-                  title: data.noticeTitle!,
-                  desc: data.noticeDescription!,
-                  date: Utils().getTimeFromTimeStamp(
-                      data.createdAt.toString(), kAppDateFormatWithTime12),
-                  color: AppColor.kNoticeListColorPlate[
-                      index % (AppColor.kNoticeListColorPlate.length)],
-                  onTapToExpand: () {
-                    controller.mUpdateClickedNoticeModel(data);
-                    print("clicked: $index");
-                    Get.toNamed(AppRoutes.expandedTeachNotice);
-                  },
-                  onTapToDownload: () async {
-                 
-                    await controller.mDownloadNotice(
-                        path: data.files!.first.path);
-                  });
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                color: Colors.white,
-              );
-            },
-          ));
+    return Obx(() => controller.isLoading.value
+        ? Container()
+        : controller.noticeApiModel.value.data == null ||
+                controller.noticeApiModel.value.data!.isEmpty
+            ? Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "No notice found!",
+                  style: kBody.copyWith(color: Colors.amber),
+                ),
+              )
+            : ListView.separated(
+                controller: controller.noticeListScrollCntrlr.value,
+                shrinkWrap: true,
+                itemCount: controller.noticeApiModel.value.data == null
+                    ? 0
+                    : controller.noticeList.length,
+                itemBuilder: (context, index) {
+                  final data = controller.noticeList[index];
+                  return _vNoticeCard(
+                      files: data.files,
+                      title: data.noticeTitle ?? "",
+                      desc: data.noticeDescription ?? "",
+                      date: data.createdAt == null
+                          ? ""
+                          : Utils().getTimeFromTimeStamp(
+                              data.createdAt.toString(),
+                              kAppDateFormatWithTime12),
+                      color: AppColor.kNoticeListColorPlate[
+                          index % (AppColor.kNoticeListColorPlate.length)],
+                      onTapToExpand: () {
+                        controller.mUpdateClickedNoticeModel(data);
+                        print("clicked: $index");
+                        Get.toNamed(AppRoutes.expandedTeachNotice);
+                      },
+                      onTapToDownload: () async {
+                        await controller.mDownloadNotice(
+                            path: data.files!.first.path);
+                      });
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    color: Colors.white,
+                  );
+                },
+              ));
   }
 
   Widget _vNoticeCard(
@@ -426,7 +432,8 @@ class TeachNotice extends GetView<TeachNoticeController> {
       required String date,
       required Color color,
       required Function onTapToExpand,
-      required Function onTapToDownload}) {
+      required Function onTapToDownload,
+      List<FileElement>? files}) {
     return GestureDetector(
       onTap: () {
         onTapToExpand();
@@ -437,18 +444,20 @@ class TeachNotice extends GetView<TeachNoticeController> {
             color: color.withOpacity(.15),
           ),
           child: StaggeredGrid.count(
-            crossAxisCount: 7,
+            crossAxisCount: 8,
             children: [
               StaggeredGridTile.fit(
                   crossAxisCellCount: 6,
                   child: _vLeftPart(title, desc, color, () {
                     onTapToExpand();
                   }, date)),
-              StaggeredGridTile.fit(
-                  crossAxisCellCount: 1,
-                  child: _vDownload(() {
-                    onTapToDownload();
-                  }, color)),
+              files == null || files.isEmpty
+                  ? Container()
+                  : StaggeredGridTile.fit(
+                      crossAxisCellCount: 2,
+                      child: /* _vGoInside */ _vDownload(() {
+                        onTapToDownload();
+                      }, color)),
             ],
           )),
     );
@@ -511,12 +520,70 @@ class TeachNotice extends GetView<TeachNoticeController> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8), color: AppColor.activeTab),
       alignment: Alignment.centerLeft,
-      child: StaggeredGrid.count(
-        crossAxisCount: 7,
-        crossAxisSpacing: AppSpacing.sm,
-        mainAxisSpacing: AppSpacing.md,
-        children: [
-          StaggeredGridTile.fit(
+      child: m.xs
+          ? StaggeredGrid.count(
+              crossAxisCount: 7,
+              crossAxisSpacing: AppSpacing.sm,
+              mainAxisSpacing: AppSpacing.md,
+              children: [
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 1,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.smh),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => Text(
+                          controller.numOfNoticesInRange.value.toString(),
+                          style: kTitle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.silverLakeBlue),
+                        )),
+                  ),
+                ),
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 6,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: AppColor.topaz,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => GestureDetector(
+                          onTap: () async {
+                            await controller.mSelectDateFrom();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.calendar_month,
+                                size: 16,
+                                color: AppColor.kGray100,
+                              ),
+                              (AppSpacing.smh / 2).width,
+                              Text(
+                                controller.mGetFormatDate(controller.dateFrom),
+                                style: kBody.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                ),
+                StaggeredGridTile.fit(
+                    crossAxisCellCount: 1,
+                    child: Container(
+                      alignment: Alignment.center,
+                    )),
+                /* StaggeredGridTile.fit(
             crossAxisCellCount: 1,
             child: Container(
               height: 28,
@@ -531,86 +598,47 @@ class TeachNotice extends GetView<TeachNoticeController> {
                         color: AppColor.silverLakeBlue),
                   )),
             ),
-          ),
-          StaggeredGridTile.fit(
-            crossAxisCellCount: 3,
-            child: Container(
-              height: 28,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              decoration: BoxDecoration(
-                  color: AppColor.topaz,
-                  borderRadius: BorderRadius.circular(5)),
-              child: Obx(() => GestureDetector(
-                    onTap: () async {
-                      await controller.mSelectDateFrom();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.calendar_month,
-                          size: 16,
-                          color: AppColor.kGray100,
-                        ),
-                        (AppSpacing.smh / 2).width,
-                        Text(
-                          controller.mGetFormatDate(controller.dateFrom),
-                          style: kBody.copyWith(
-                              fontWeight: FontWeight.w500, color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  )),
-            ),
-          ),
-          /*  StaggeredGridTile.fit(
-              crossAxisCellCount: 1,
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "to",
-                  style: kLabel,
+          ), */
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 6,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: AppColor.topaz,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => GestureDetector(
+                          onTap: () async {
+                            await controller.mSelectDateTo();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.calendar_month,
+                                size: 16,
+                                color: AppColor.kGray100,
+                              ),
+                              (AppSpacing.smh / 2).width,
+                              Text(
+                                controller.mGetFormatDate(controller.dateTo),
+                                style: kBody.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
                 ),
-              )), */
-          StaggeredGridTile.fit(
-            crossAxisCellCount: 3,
-            child: Container(
-              height: 28,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              decoration: BoxDecoration(
-                  color: AppColor.topaz,
-                  borderRadius: BorderRadius.circular(5)),
-              child: Obx(() => GestureDetector(
-                    onTap: () async {
-                      await controller.mSelectDateTo();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.calendar_month,
-                          size: 16,
-                          color: AppColor.kGray100,
-                        ),
-                        (AppSpacing.smh / 2).width,
-                        Text(
-                          controller.mGetFormatDate(controller.dateTo),
-                          style: kBody.copyWith(
-                              fontWeight: FontWeight.w500, color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  )),
-            ),
-          ),
 
-          /// Searchbar
-          StaggeredGridTile.fit(
-            crossAxisCellCount: 7,
-            child: _vGetResultBtn(),
-          ) /*   StaggeredGridTile.fit(
+                /// Searchbar
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 7,
+                  child: _vGetResultBtn(),
+                ) /*   StaggeredGridTile.fit(
             crossAxisCellCount: 7,
             child: CustomTextField(
               style: kBody,
@@ -638,8 +666,135 @@ class TeachNotice extends GetView<TeachNoticeController> {
               ),
             ),
           ) */
-        ],
-      ),
+              ],
+            )
+          : StaggeredGrid.count(
+              crossAxisCount: 7,
+              crossAxisSpacing: AppSpacing.sm,
+              mainAxisSpacing: AppSpacing.md,
+              children: [
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 1,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.smh),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => Text(
+                          controller.numOfNoticesInRange.value.toString(),
+                          style: kTitle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.silverLakeBlue),
+                        )),
+                  ),
+                ),
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 3,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: AppColor.topaz,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => GestureDetector(
+                          onTap: () async {
+                            await controller.mSelectDateFrom();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.calendar_month,
+                                size: 16,
+                                color: AppColor.kGray100,
+                              ),
+                              (AppSpacing.smh / 2).width,
+                              Text(
+                                controller.mGetFormatDate(controller.dateFrom),
+                                style: kBody.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                ),
+
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 3,
+                  child: Container(
+                    height: 28,
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                    decoration: BoxDecoration(
+                        color: AppColor.topaz,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Obx(() => GestureDetector(
+                          onTap: () async {
+                            await controller.mSelectDateTo();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.calendar_month,
+                                size: 16,
+                                color: AppColor.kGray100,
+                              ),
+                              (AppSpacing.smh / 2).width,
+                              Text(
+                                controller.mGetFormatDate(controller.dateTo),
+                                style: kBody.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                ),
+
+                /// Searchbar
+                StaggeredGridTile.fit(
+                  crossAxisCellCount: 7,
+                  child: _vGetResultBtn(),
+                ) /*   StaggeredGridTile.fit(
+            crossAxisCellCount: 7,
+            child: CustomTextField(
+              style: kBody,
+              padding: const EdgeInsets.symmetric(
+                vertical: AppSpacing.smh,
+                horizontal: AppSpacing.sm,
+              ),
+              prefixIcon: Container(
+                alignment: Alignment.center,
+                width: 80,
+                margin: const EdgeInsets.only(right: AppSpacing.sm),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        right:
+                            BorderSide(color: AppColor.kGray500, width: .5))),
+                child: const Text(
+                  "Active",
+                  style: kBody,
+                ),
+              ),
+              suffixIcon: const Icon(
+                Icons.search,
+                color: AppColor.kGray500,
+              ),
+            ),
+          ) */
+              ],
+            ),
     );
   }
 

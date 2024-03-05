@@ -43,10 +43,17 @@ class ExpandedNotice extends GetView<NoticeController> {
             ),
             AppSpacing.md.height,
             Expanded(
-              child: Text(
-                controller.clickedNoticeModel.value.noticeDescription ?? "N/A",
-                style: kBody,
-                softWrap: true,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      controller.clickedNoticeModel.value.noticeDescription ??
+                          "N/A",
+                      style: kBody,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

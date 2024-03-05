@@ -9,6 +9,7 @@ import '../../../Controller/TEACHER/home/home_controller.dart';
 import '../../../Model/PUBLIC/login/academic_group_model.dart';
 import '../../../Utils/custom_utils.dart';
 import '../../../Utils/utils.dart';
+import '../../Widgets/user_cached_network_image.dart';
 import '../home/widgets.dart';
 
 class TeachNotification extends GetView<TeachNoticeController> {
@@ -61,8 +62,8 @@ class TeachNotification extends GetView<TeachNoticeController> {
             endDrawer: vEndDrawer(),
             body: BaseWidgetChild(
               child: Container(
-                child: Text("Notification"),
-              ),
+                  // child: Text("Notification"),
+                  ),
             )));
   }
 
@@ -76,120 +77,114 @@ class TeachNotification extends GetView<TeachNoticeController> {
     kLog("alisName: ${homeController.siteListModel.value.siteAlias}");
     return Obx(() => Drawer(
         backgroundColor: AppColor.inactiveTab,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(5),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
-                  color: AppColor.activeTab,
-                  child: Row(
-                    children: [
-                      Container(
-                        // width: AppScreenSize.mGetWidth(kGlobContext, 10),
-                        // height: AppScreenSize.mGetHeight(kGlobContext, 10),
-                        margin: EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 82, 86, 143),
-                            borderRadius: BorderRadius.circular(4)),
-                        // color: Colors.orange,
-                        child: /* cachedNetworkImage(
-                            "fccdc.theworld.com.bd/uploads/1707576530.jpeg"
-                            /*  Utils.mMakeUserImageUrl(
-                                imageLoc:
-                                    homeController.profileInfoModel.value.photo ??
-                                        "",
-                                alisName:
-                                    homeController.siteListModel.value.siteAlias ??
-                                        "") */
-                            ,
-                            width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                            // height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                            fit: BoxFit.fill,
-                          ) */
-
-                            Image(
-                          image: AssetImage(StudentAssetLocation.user),
-                          width: AppScreenSize.mGetWidth(kGlobContext, 23),
-                          height: AppScreenSize.mGetHeight(kGlobContext, 13),
-                          fit: BoxFit.fill,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
-                              style: kBody.copyWith(
-                                  color: const Color.fromARGB(255, 2, 2, 2),
-                                  fontWeight: FontWeight.w500),
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+                color: AppColor.activeTab,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 82, 86, 143),
+                          borderRadius: BorderRadius.circular(4)),
+                      // color: Colors.orange,
+                      child: userCachedNetworkImage(
+                        // "fccdc.theworld.com.bd//uploads/1708681335.jpeg"
+                        Utils.mMakeUserImageUrl(
+                            imageLoc:
+                                homeController.profileInfoModel.value.photo ??
+                                    "",
+                            alisName:
+                                controller.siteListModel.value.siteAlias ?? ""),
+                        width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                        // height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                        fit: BoxFit.fill,
+                      ) /* Image(
+                      image: const AssetImage(StudentAssetLocation.user),
+                      width: AppScreenSize.mGetWidth(kGlobContext, 23),
+                      height: AppScreenSize.mGetHeight(kGlobContext, 13),
+                      fit: BoxFit.fill,
+                      color: Colors.black,
+                    ) */
+                      ,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${homeController.profileInfoModel.value.firstName} ${homeController.profileInfoModel.value.lastName}",
+                            style: kBody.copyWith(
+                                color: const Color.fromARGB(255, 2, 2, 2),
+                                fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          AppSpacing.sm.height,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(2)),
+                            child: Text(
+                              homeController
+                                      .designition.value.capitalizeFirst ??
+                                  "",
+                              style: kBody.copyWith(color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            AppSpacing.sm.height,
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 4),
-                              decoration: BoxDecoration(
-                                  color: Colors.black87,
-                                  borderRadius: BorderRadius.circular(2)),
-                              child: Text(
-                                homeController
-                                        .designition.value.capitalizeFirst ??
-                                    "",
-                                style: kBody.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            AppSpacing.smh.height,
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.sm,
-                                  vertical: AppSpacing.smh),
-                              color: AppColor.inactiveTab,
-                              /*  decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                              child: DropdownButton<AcademicGroup>(
-                                // child: DropdownButton<String>(
-                                value:
-                                    homeController.selectedAcademicGroup.value,
+                          ),
+                          AppSpacing.smh.height,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.inactiveTab,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: DropdownButton<AcademicGroup>(
+                              // child: DropdownButton<String>(
+                              value: homeController.selectedAcademicGroup.value,
 
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                iconSize: 12,
-                                elevation: 10,
-                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                                focusColor: AppColor.white,
-                                dropdownColor: AppColor.inactiveTab,
-                                isDense: true,
-                                isExpanded: true,
-                                underline: Container(),
-                                onChanged: (AcademicGroup? selectedModel) {
-                                  homeController.mChangeSelectedAcademicGroup(
-                                      selectedModel);
-                                },
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 12,
+                              elevation: 10,
+                              // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                              focusColor: AppColor.white,
+                              dropdownColor: AppColor.inactiveTab,
+                              isDense: true,
+                              isExpanded: true,
+                              underline: Container(),
+                              onChanged: (AcademicGroup? selectedModel) {
+                                homeController.mChangeSelectedAcademicGroup(
+                                    selectedModel);
+                              },
 
-                                items: homeController.academicGroupList
-                                    .map((AcademicGroup value) {
-                                  return DropdownMenuItem<AcademicGroup>(
-                                    value: value,
-                                    child: Text(
-                                      value.academicGroupName ?? "",
-                                      style: kBody.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                              items: homeController.academicGroupList
+                                  .map((AcademicGroup value) {
+                                return DropdownMenuItem<AcademicGroup>(
+                                  value: value,
+                                  child: Text(
+                                    value.academicGroupName ?? "",
+                                    style: kBody.copyWith(
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              ListView.separated(
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Expanded(
+              child: ListView.separated(
                 itemCount: homeController.drawerItems.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -280,8 +275,8 @@ class TeachNotification extends GetView<TeachNoticeController> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         )));
   }
 

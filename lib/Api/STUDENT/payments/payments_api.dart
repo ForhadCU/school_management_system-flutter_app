@@ -32,13 +32,30 @@ class PaymentsApi {
     }
   }
 
-  static Future<Uint8List?> mGetBankSlipPdf(
+  static Future<Uint8List?> mGetDemandSlipPdf(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuDemandSlipPdf, payLoad, token, true);
     // kLogger.d(res.body);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetExamRoutinePdf data");
+      // kLog(res.body);
+      return res.body;
+    } else {
+      hideLoading();
+      showError("Server failure");
+      kLog("status code is: ${res.statusCode}");
+      return null;
+    }
+  }
+
+  static Future<Uint8List?> mGetBankSlipPdf(
+      Map<String, dynamic> payLoad, String token) async {
+    ResponseModel res = await CallAPI.postStudentData(
+        ApiEndpoint.stuBackSlipPdf, payLoad, token, true);
+    // kLogger.d(res.body);
+    if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
+      kLog("Successfully fetch mGetBankSlipPdf data");
       // kLog(res.body);
       return res.body;
     } else {

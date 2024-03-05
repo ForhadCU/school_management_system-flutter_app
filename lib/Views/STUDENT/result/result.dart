@@ -2,22 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
-import 'package:school_management_system/Views/STUDENT/result/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../Controller/student_library.dart';
 import '../../../Utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:get/get.dart';
-import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Model/STUDENT/result/history_model.dart';
 import 'package:school_management_system/Model/STUDENT/result/result_type_model.dart';
-import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
 
-import '../../../Config/config.dart';
-import '../../../Model/STUDENT/exam/exam_model.dart';
 class Result extends GetView<StuResultController> {
   const Result({super.key});
 
@@ -45,13 +38,13 @@ class Result extends GetView<StuResultController> {
     );
   }
 
-   vTopbar(M m) {
+  vTopbar(M m) {
     return Container(
       decoration: BoxDecoration(
-          // color: AppColor.helpDeskTopbar,
-          color: AppColor.secondaryColor.withOpacity(.2),
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: AppColor.helpDeskTopbar, width: .5)),
+        // color: AppColor.helpDeskTopbar,
+        color: AppColor.activeTab,
+        borderRadius: BorderRadius.circular(5.0),
+      ),
       padding:
           const EdgeInsets.symmetric(horizontal: 8.0, vertical: AppSpacing.md),
       child: Column(
@@ -65,7 +58,7 @@ class Result extends GetView<StuResultController> {
     );
   }
 
-   _vDropdowns() {
+  _vDropdowns() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -155,7 +148,7 @@ class Result extends GetView<StuResultController> {
     );
   }
 
-   _vGetResultBtn() {
+  _vGetResultBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
         await controller.mGetResultPdf();
@@ -164,11 +157,21 @@ class Result extends GetView<StuResultController> {
     );
   }
 
-   vResultPdf() {
-    return Obx(() => controller.isResultFound.value
-        ? controller.pdfFilePath.isEmpty
-            ? Container()
-            : Container(
+  vResultPdf() {
+    return Obx(() => controller.isLoading.value
+        ? Container()
+        : !controller.isResultFound.value
+            ? Container(
+                alignment: Alignment.center,
+                height: AppScreenSize.mGetHeight(kGlobContext, 50),
+                child: Text(
+                  "No Result Found.",
+                  style: kBody.copyWith(
+                    color: Colors.black45,
+                  ),
+                ),
+              )
+            : SizedBox(
                 height: AppScreenSize.mGetHeight(kGlobContext, 65),
                 width: double.infinity,
                 child: PDFView(
@@ -197,64 +200,57 @@ class Result extends GetView<StuResultController> {
                   onPageChanged: (int? page, int? total) {
                     print('page change: /');
                   },
-                ))
-        : Expanded(
-            child: Center(
-                child: Text(
-              "No Result Found.",
-              style: kBody.copyWith(
-                color: AppColor.red,
-              ),
-            )),
-          ));
+                )));
   }
 
-   vDownloadBtns() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        /// heading
-        Row(
-          children: [
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              color: Colors.black12,
-              height: 1,
-            )),
-            AppSpacing.smh.width,
-            const Text(
-              "Dowload",
-              style: kLabel,
-            ),
-            AppSpacing.smh.width,
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              color: Colors.black12,
-              height: 1,
-            )),
-          ],
-        ),
-        AppSpacing.sm.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppButtons.vDownloadButton(
-                onTap: () {
-                  controller.mDownloadPortraitResult();
-                },
-                text: "Portrait"),
-            AppSpacing.md.width,
-            AppButtons.vDownloadButton(
-                onTap: () {
-                  controller.mDownloadLandscapeResult();
-                },
-                text: "Landscape"),
-          ],
-        )
-      ],
+  vDownloadBtns() {
+    return Visibility(
+      visible: controller.isResultFound.value,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          /// heading
+          Row(
+            children: [
+              const Expanded(
+                  child: Divider(
+                thickness: 1,
+                color: Colors.black12,
+                height: 1,
+              )),
+              AppSpacing.smh.width,
+              const Text(
+                "Dowload",
+                style: kLabel,
+              ),
+              AppSpacing.smh.width,
+              const Expanded(
+                  child: Divider(
+                thickness: 1,
+                color: Colors.black12,
+                height: 1,
+              )),
+            ],
+          ),
+          AppSpacing.sm.height,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppButtons.vDownloadButton(
+                  onTap: () {
+                    controller.mDownloadPortraitResult();
+                  },
+                  text: "Portrait"),
+              AppSpacing.md.width,
+              AppButtons.vDownloadButton(
+                  onTap: () {
+                    controller.mDownloadLandscapeResult();
+                  },
+                  text: "Landscape"),
+            ],
+          )
+        ],
+      ),
     );
   }
-
 }

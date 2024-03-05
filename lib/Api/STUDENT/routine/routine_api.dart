@@ -27,7 +27,8 @@ class RoutineApis {
       return res.body[PeriodicTypeModel.getDataListJsonKey]
           .map<PeriodicTypeModel>((e) => PeriodicTypeModel.fromMap(e))
           .toList();
-    } else {      hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       //  return List<StuHistoryModel>();
       return <PeriodicTypeModel>[];
@@ -42,9 +43,16 @@ class RoutineApis {
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetResultPdf data");
+      if (res.body == "No Routine Found!") {
+        // kLog(res.body);
+        kLogger.d("Null pdf");
+        return null;
+      } else {
+        return res.body;
+      }
       // kLog(res.body);
-      return res.body;
-    } else {      hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       kLog("status code is: ${res.statusCode}");
       return null;
