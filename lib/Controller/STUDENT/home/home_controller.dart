@@ -154,7 +154,7 @@ class StuHomeController extends GetxController {
                                             ? Get.toNamed(AppRoutes.helpdesk)
                                             : "Messages" == drawerItem
                                                 ? Get.toNamed(
-                                                      AppRoutes.stuMessage)
+                                                    AppRoutes.stuMessage)
                                                 : "Logout" == drawerItem
                                                     ? mLogutUser()
                                                     : null;
@@ -185,9 +185,9 @@ class StuHomeController extends GetxController {
       }
     } else {
       if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}"))) {
         throw Exception(
-            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
+            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameShort}');
       }
     }
   }

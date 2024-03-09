@@ -7,6 +7,7 @@ import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Widgets/custom_textfield.dart';
 
@@ -15,7 +16,6 @@ class Contact extends GetView<ContactController> {
 
   @override
   Widget build(BuildContext context) {
-    
     return WillPopScope(
       onWillPop: () async {
         return true;
@@ -69,7 +69,7 @@ class Contact extends GetView<ContactController> {
       child: Column(
         children: [
           vTextFieldWithIcon(
-            text:  controller.siteListModel.value.address.toString(),
+            text: controller.siteListModel.value.address.toString(),
             icon: Icon(
               Icons.location_pin,
               size: 24,
@@ -117,25 +117,40 @@ class Contact extends GetView<ContactController> {
         _vSitebox(PublicAssetLocation.ic_web, Color(0xff667FB5),
             controller.siteListModel.value.googleLink),
         _vSitebox(PublicAssetLocation.ic_whatsapp, Color(0xff6FC556), null),
-        _vSitebox(PublicAssetLocation.ic_google, Color.fromARGB(255, 179, 179, 179), null),
+        _vSitebox(PublicAssetLocation.ic_google,
+            Color.fromARGB(255, 179, 179, 179), null),
       ],
     );
   }
 
   _vSitebox(String imageLoc, Color bgColor, String? url) {
-    return Container(
-      width: AppScreenSize.mGetWidth(kGlobContext, 14),
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-      alignment: Alignment.center,
-      decoration:
-          BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(4)),
-      child: Image(
-        image: AssetImage(imageLoc),
-        width: 24,
-        height: 24,
-        color: AppColor.white,
+    return GestureDetector(
+      onTap: () async {
+        if (url != null && url != "") {
+          await mGotoWebsite(url);
+        } else {
+          showError("Url not found!");
+        }
+      },
+      child: Container(
+        width: AppScreenSize.mGetWidth(kGlobContext, 14),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: bgColor, borderRadius: BorderRadius.circular(4)),
+        child: Image(
+          image: AssetImage(imageLoc),
+          width: 24,
+          height: 24,
+          color: AppColor.white,
+        ),
       ),
     );
   }
 
+  mGotoWebsite(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch}');
+    }
+  }
 }

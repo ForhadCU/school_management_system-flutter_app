@@ -14,7 +14,7 @@ class TestApi  {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  Future<List<SitelistModel>> mSearchUsers(
+  /* Future<List<SitelistModel>> mSearchUsers(
       {required String email, required String username}) async {
     ResponseModel res = await CallAPI.getData('appusers', {
       "page": "0",
@@ -34,7 +34,7 @@ class TestApi  {
     } else {
       return <SitelistModel>[];
     }
-  }
+  } */
 
 
 }

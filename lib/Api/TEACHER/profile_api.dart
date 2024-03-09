@@ -1,5 +1,6 @@
+import 'package:school_management_system/Model/TEACHER/profile/teach_profile_info_model.dart';
+
 import '../../Config/config.dart';
-import '../../Model/STUDENT/profile/stu_profile_info_model.dart';
 import '../../Model/response_model.dart';
 import '../../Utils/utils.dart';
 
@@ -13,7 +14,7 @@ class TeachProfileApis {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static Future<ProfileInfoModel> mGetProfileInfo(
+  static Future<TeachProfileInfoModel> mGetProfileInfo(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getStudentData(
         ApiEndpoint.employee_profile, payLoad, token);
@@ -21,11 +22,11 @@ class TeachProfileApis {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");
       // kLog(res.body);
-      return ProfileInfoModel.fromMap(res.body['student_profile']);
+      return TeachProfileInfoModel.fromMap(res.body['student_profile']);
     } else {   hideLoading();
       showError("Server failure");
       kLog("StatusCode: " + res.statusCode.toString());
-      return ProfileInfoModel();
+      return TeachProfileInfoModel();
     }
   }
 }

@@ -1,13 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Config/constants/constants.dart';
-import '../../Controller/common/common_controller.dart';
 import '../../Model/response_model.dart';
 import '../../Singletones/app_data.dart';
 import '../toast_utils.dart';
@@ -36,15 +32,17 @@ class CallAPI {
   final String _get_middle_point = '/Chargetron/api/'; */
 
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
-  static const String _host = 'https://cms.goecworld.com';
+  // static const String _host = 'https://cms.goecworld.com';
   static const String _https = 'https://';
-  static const String _get_host = '.theworld.com.bd';
+  // static const String _get_host = '.theworld.com.bd';
+  static const String _get_host = '.eduworlderp.com';
   // static const String _getHostForSubmition = 'https://fccdc.theworld.com.bd';
-  static const String _url = 'https://cms.goecworld.com/Chargetron/api/';
-  static const String _get_middle_point = '/Chargetron/api/';
+  // static const String _url = 'https://cms.goecworld.com/Chargetron/api/';
+  // static const String _get_middle_point = '/Chargetron/api/';
+  // static const String _real_host = 'https://demoschool.eduworlderp.com';
 
 /////////POST DATA/////////////////
-  static Future<ResponseModel> postData(
+  /* static Future<ResponseModel> postData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('POST $endPoint');
@@ -69,7 +67,7 @@ class CallAPI {
       hideLoading();
     }
     return ResponseModel(statusCode: 404, body: null);
-  }
+  } */
 
   static Future<ResponseModel> postPublicData(
       String endPoint, Map<String, dynamic> payload) async {
@@ -194,7 +192,7 @@ class CallAPI {
   }
 
 ////////GET DATA/////////////////
-  static Future<ResponseModel> getData(
+  /*  static Future<ResponseModel> getData(
       String endPoint, Map<String, dynamic>? params,
       {String? url}) async {
     dynamic body;
@@ -225,7 +223,7 @@ class CallAPI {
     }
 
     return ResponseModel(statusCode: 404, body: null);
-  }
+  } */
 
   static Future<ResponseModel> getPublicData(
       String endPoint, Map<String, dynamic>? params,
@@ -630,7 +628,7 @@ class CallAPI {
     try {
       http.Response res = await http.get(
         // Uri.https(_get_host, _get_middle_point + endPoint, params),
-        Uri.https("eduworld.theworld.com.bd", "/api/site/get-site-list"),
+        Uri.https("eduworld.eduworlderp.com", "/api/site/get-site-list"),
         headers: {
           // "Access-Control-Allow-Origin": "*",
           'Content-type': 'application/json',
@@ -711,7 +709,7 @@ class CallAPI {
   }
 
 ////////////////PUT//////////////////////
-  static Future<ResponseModel> putData(
+  /*  static Future<ResponseModel> putData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('PUT $endPoint');
@@ -739,10 +737,10 @@ class CallAPI {
       showError('Failed to put data');
     }
     return ResponseModel(statusCode: 404, body: null);
-  }
+  } */
 
 ///////DELETE API///////////////
-  static Future<ResponseModel> deleteData(
+  /*  static Future<ResponseModel> deleteData(
       Map<String, dynamic> data, String endPoint) async {
     try {
       kLog('DELETE $endPoint');
@@ -772,9 +770,9 @@ class CallAPI {
     }
     return ResponseModel(statusCode: 404, body: null);
   }
-
+ */
 /////////PATCH DATA////////////////
-  static Future<ResponseModel> patchData(
+  /*  static Future<ResponseModel> patchData(
       String endPoint, Map<String, dynamic>? params) async {
     http.Response res = await http.patch(
       Uri.http(
@@ -799,10 +797,10 @@ class CallAPI {
     body = json.decode(res.body);
     // kLog(body.toString());
     return ResponseModel(statusCode: res.statusCode, body: body);
-  }
+  } */
 
 //////IMAGE UPLOAD//////
-  static uploadFile(String text, File file) async {
+  /* static uploadFile(String text, File file) async {
     //create multipart request for POST or PATCH method
     showLoading('uploading...');
     var request = http.MultipartRequest(
@@ -826,7 +824,7 @@ class CallAPI {
     kLog(res['image']);
     // appData.userModel.image = res['image'] ?? '';
     return res['image'];
-  }
+  } */
 
   /*  Future<void> download(String endPoint, var param, String fileName) async {
     http.Response response = await http.get(
@@ -875,7 +873,7 @@ class CallAPI {
   } */
 
 //EASY FUNCTIONS
-  static Future easyGet<T>(
+  /* static Future easyGet<T>(
       {required Map<String, dynamic> query,
       required String endpoint,
       required bool isList,
@@ -897,5 +895,5 @@ class CallAPI {
       }
     }
     return isList ? <T>[] : model;
-  }
+  } */
 }

@@ -8,6 +8,7 @@ import 'package:school_management_system/Controller/TEACHER/test/test_ctrlr.dart
 import 'package:school_management_system/Controller/common/common_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/academicCalendar/academic_grp_api_model.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
+import 'package:school_management_system/Model/TEACHER/profile/teach_profile_info_model.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class TeachHomeController extends GetxController {
     {"name": "Logout", "iconUri": StudentAssetLocation.logout},
   ];
 
-  var profileInfoModel = ProfileInfoModel().obs;
+  var profileInfoModel = TeachProfileInfoModel().obs;
   var designition = "".obs;
   // var groupName = "College".obs;
   var selectedAcademicGroup = AcademicGroup().obs;
@@ -180,11 +181,10 @@ class TeachHomeController extends GetxController {
       }
     } else {
       if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}"))) {
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}"))) {
         throw Exception(
-            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}');
+            'Could not launch ${siteListModel.value.siteAlias}.${AppData.hostNameShort}');
       }
     }
   }
-
 }

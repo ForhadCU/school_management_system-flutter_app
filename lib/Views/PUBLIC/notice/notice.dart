@@ -107,17 +107,17 @@ class Notice extends GetView<NoticeController> {
             crossAxisCount: 8,
             children: [
               StaggeredGridTile.fit(
-                  crossAxisCellCount: 6,
+                  crossAxisCellCount: 8,
                   child: _vLeftPart(title, desc, color, () {
                     onTapToExpand();
                   }, date)),
-              files == null || files.isEmpty
+             /*  files == null || files.isEmpty
                   ? Container()
                   : StaggeredGridTile.fit(
                       crossAxisCellCount: 2,
                       child: /* _vGoInside */ _vDownload(() {
                         onTapToDownload();
-                      }, color)),
+                      }, color)), */
             ],
           )),
     );

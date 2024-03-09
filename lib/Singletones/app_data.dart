@@ -11,17 +11,17 @@ class AppData {
   // String token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW1lZXNAYWN1dGVhbmdsZS5pbyIsInNjb3BlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJSwiaXNzIjoiaHR0cDovL2V6Ym90LmNvbSIsImlhdCI6MTcwMDEwNzgyOSwiZXhwIjoxNzMxNjQzODI5fQ.OodibBwm4CgzOBWqre2s70yHDjrizXaGbELUhRQoN1g';
   String token = '';
   static const String api_access_key = "api_app_access_254R68495324Y1W123";
-  static const String eduWorldTheworldHostname =
-      "https://eduworld.theworld.com.bd";
-  static const String hostNameTheWorld =
-      "theworld.com.bd";
+  // static const String hostName = "https://eduworld.theworld.com.bd";
+  static const String hostNameFull = "https://eduworld.eduworlderp.com";
+  static const String hostNameShort = "eduworlderp.com";
   static const String eduWorldErpHostname = "https://eduworld.eduworlderp.com";
   static const String websiteUrl = "https://eduworld.com.bd";
   static const String https = "https://";
   List<String> userPrivileges = [];
 
   static Debouncer debouncer = Debouncer(milliseconds: 1500);
-  static const String dummyUserid = "2315400002"; /* 2215400344 */
+  static const String dummyUserid =
+      /* "2315400002"; */ /* 2215400344; */ "2403400001";
   static const String dummyEmployeeId = "e211540016";
   static const String dummyUserPass = "123456";
   static const Map<String, dynamic> dummyQuizQuestionsModel = {

@@ -64,8 +64,7 @@ class StuMessageController extends GetxController {
   }
 
   Future _deleteImageFromCache() async {
-    String url =
-        AppData.eduWorldTheworldHostname + siteListModel.value.siteLogo!;
+    String url = AppData.hostNameFull + siteListModel.value.siteLogo!;
     await CachedNetworkImage.evictFromCache(url);
   }
 

@@ -114,10 +114,10 @@ class TeachProfile extends GetView<TeachProfileController> {
                               // "https://cdn-icons-png.flaticon.com/512/149/149071.png",
                               Utils.mMakeUserImageUrl(
                                   imageLoc: homeController
-                                      .profileInfoModel.value.photo!,
+                                      .profileInfoModel.value.photo ??"",
                                   alisName: /* fccdc.theworld.com.bd/uploads/1707576530.jpeg */
                                       controller
-                                          .siteListModel.value.siteAlias!),
+                                          .siteListModel.value.siteAlias ?? ""),
                               width: AppScreenSize.mGetWidth(kGlobContext, 23),
                               height:
                                   AppScreenSize.mGetHeight(kGlobContext, 13),
@@ -444,7 +444,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                   Text(
                     homeController.profileInfoModel.value.firstName == null
                         ? ""
-                        : homeController.profileInfoModel.value.firstName!
+                        : homeController.profileInfoModel.value.firstName ?? ""
                             .toUpperCase(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
@@ -455,7 +455,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                   Text(
                     homeController.profileInfoModel.value.lastName == null
                         ? ""
-                        : " ${homeController.profileInfoModel.value.lastName!.toUpperCase()}",
+                        : " ${homeController.profileInfoModel.value.lastName ?? "".toUpperCase()}",
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppColor.fontUsername,
@@ -514,7 +514,7 @@ class TeachProfile extends GetView<TeachProfileController> {
                     child: Text(
                       homeController.profileInfoModel.value.username == null
                           ? "N/A"
-                          : homeController.profileInfoModel.value.username!
+                          : homeController.profileInfoModel.value.username ?? ""
                               .toLowerCase(),
                       softWrap: true,
                       style: const TextStyle(
@@ -602,13 +602,13 @@ class TeachProfile extends GetView<TeachProfileController> {
                       key: "Father ",
                       value: homeController.profileInfoModel.value.fatherName !=
                               ""
-                          ? homeController.profileInfoModel.value.fatherName!
+                          ? homeController.profileInfoModel.value.fatherName ?? ""
                           : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Mother ",
                       value: homeController.profileInfoModel.value.motherName !=
                               ""
-                          ? homeController.profileInfoModel.value.motherName!
+                          ? homeController.profileInfoModel.value.motherName ??""
                           : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Present Address",
@@ -673,13 +673,13 @@ class TeachProfile extends GetView<TeachProfileController> {
                       key: "Office Id",
                       value:
                           homeController.profileInfoModel.value.username != ""
-                              ? homeController.profileInfoModel.value.username!
+                              ? homeController.profileInfoModel.value.username ?? ""
                               : "N/A"),
                   _vSingleColumTextPlate(
                       key: "Blood Group",
                       value: homeController.profileInfoModel.value.bladeGroup !=
                               ""
-                          ? homeController.profileInfoModel.value.bladeGroup!
+                          ? homeController.profileInfoModel.value.bladeGroup ?? ""
                           : "N/A"),
                 ],
               ),

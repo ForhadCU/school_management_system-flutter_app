@@ -31,7 +31,7 @@ class TeachMessage extends GetView<TeachMessageController> {
 
   vMessageList() {
     return Expanded(
-      child: Obx(()  =>controller.isLoading.value
+      child: Obx(() => controller.isLoading.value
           ? Container()
           : controller.messageList.isEmpty
               ? Center(
@@ -40,18 +40,18 @@ class TeachMessage extends GetView<TeachMessageController> {
                     style: kBody.copyWith(color: Colors.black54),
                   ),
                 )
-              :  ListView.separated(
-          controller: controller.messageListScrollCntrlr.value,
-          shrinkWrap: true,
-          itemBuilder: ((context, index) {
-            return vMessageCard(controller.messageList[index]);
-          }),
-          separatorBuilder: (context, index) {
-            return const Divider(
-              color: AppColor.frenchSkyBlue100,
-            );
-          },
-          itemCount: controller.messageList.length)),
+              : ListView.separated(
+                  controller: controller.messageListScrollCntrlr.value,
+                  shrinkWrap: true,
+                  itemBuilder: ((context, index) {
+                    return vMessageCard(controller.messageList[index]);
+                  }),
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: AppColor.frenchSkyBlue100,
+                    );
+                  },
+                  itemCount: controller.messageList.length)),
     );
   }
 
@@ -71,7 +71,7 @@ class TeachMessage extends GetView<TeachMessageController> {
             shape: BoxShape.circle,
           ),
           child: siteCachedNetworkImage(
-              "${AppData.eduWorldTheworldHostname}${controller.siteListModel.value.siteLogo ?? ""}",
+              "${AppData.hostNameFull}${controller.siteListModel.value.siteLogo ?? ""}",
               width: 28,
               fit: BoxFit
                   .contain) /* const Icon(

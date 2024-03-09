@@ -53,7 +53,7 @@ class AboutUs extends GetView<AboutUsController> {
                           child: commonCachedNetworkImage(
                             /* imageUrl: */ controller
                                     .siteListModel.value.siteAlias! +
-                                AppData.hostNameTheWorld +
+                                AppData.hostNameShort +
                                 controller.aboutUsData.value.image,
                             width: AppScreenSize.mGetWidth(kGlobContext, 95),
                             height: AppScreenSize.mGetWidth(kGlobContext, 35),

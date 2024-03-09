@@ -73,7 +73,7 @@ class StuMessage extends GetView<StuMessageController> {
               shape: BoxShape.circle,
             ),
             child: siteCachedNetworkImage(
-                "${AppData.eduWorldTheworldHostname}${controller.siteListModel.value.siteLogo ?? ""}",
+                "${AppData.hostNameFull}${controller.siteListModel.value.siteLogo ?? ""}",
                 width: 28,
                 fit: BoxFit
                     .contain) /* const Icon(

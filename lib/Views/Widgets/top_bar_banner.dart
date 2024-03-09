@@ -22,10 +22,8 @@ class InstitueBanaer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             iconUrl != null
-                ? siteCachedNetworkImage(
-                    AppData.eduWorldTheworldHostname + iconUrl!,
-                    width: 48 * 2,
-                    fit: BoxFit.contain)
+                ? siteCachedNetworkImage(AppData.hostNameFull + iconUrl!,
+                    width: 48 * 2, fit: BoxFit.contain)
                 : Image(
                     image: AssetImage(edu_world_logo),
                     width: 48 * 2,

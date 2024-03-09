@@ -6,7 +6,6 @@ import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
-
 class ExpandedStuNotice extends GetView<StuNoticeController> {
   ExpandedStuNotice({super.key});
 
@@ -18,14 +17,31 @@ class ExpandedStuNotice extends GetView<StuNoticeController> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title:  Text(
+          title: Text(
             "Notice Details".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: AppColor.primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
           elevation: 0,
-         ),
+        ),
+        floatingActionButton:controller.clickedNoticeModel.value.files == null || controller.clickedNoticeModel.value.files!.isEmpty
+                  ? Container()
+                  : FloatingActionButton(
+          onPressed: () async {
+            await controller.mDownloadNotice(
+                path: controller.clickedNoticeModel.value.files!.first.path);
+          },
+          backgroundColor: AppColor.green,
+          child: Container(
+            // padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+            child: const Icon(
+              Icons.download,
+              color: AppColor.white,
+              size: 32,
+            ),
+          ),
+        ),
         body: BaseWidgetChild(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

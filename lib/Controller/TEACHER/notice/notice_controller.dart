@@ -33,8 +33,11 @@ class TeachNoticeController extends GetxController {
     super.onInit();
     /*  _mInitialization();
      */
+    isLoading.value = false;
     await _mInitialization();
     await mGetNoticesInRange();
+    isLoading.value = true;
+
     noticeListScrollCntrlr.value.addListener(() {
       if (noticeListScrollCntrlr.value.offset ==
           noticeListScrollCntrlr.value.position.maxScrollExtent) {
@@ -74,7 +77,6 @@ class TeachNoticeController extends GetxController {
   mGetNoticesInRange() async {
     /*  kLog("Date From: ${mGetFormatDate(dateFrom)}");
     kLog("Date to: ${mGetFormatDate(dateTo)}"); */
-    isLoading.value = true;
     noticeApiModel.value = await StuNoticeApi.mGetNoticeApiModeldata(
         PayLoads.allNotice(
             api_access_key: AppData.api_access_key,
@@ -90,7 +92,6 @@ class TeachNoticeController extends GetxController {
       noticeList.addAll(noticeApiModel.value.data!);
       numOfNoticesInRange.value = noticeList.length;
     }
-    isLoading.value = false;
   }
 
   mSelectDateFrom() async {
@@ -131,10 +132,10 @@ class TeachNoticeController extends GetxController {
 
   mDownloadNotice({String? path}) async {
     kLog(
-        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path");
+        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path");
     if (path != null) {
       if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameTheWorld}$path"))) {
+          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path"))) {
         throw Exception('Could not download ${path}');
       }
     } else {

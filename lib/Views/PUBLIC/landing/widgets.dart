@@ -28,7 +28,7 @@ class LandingWidgets {
           children: [
             iconUrl != null
                 ? CachedNetworkImage(
-                    imageUrl: AppData.eduWorldTheworldHostname + iconUrl!,
+                    imageUrl: AppData.hostNameFull + iconUrl!,
                     width: 48 * 2,
                     height: 48 * 2,
                     fit: BoxFit.fill,

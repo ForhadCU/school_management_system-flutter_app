@@ -28,7 +28,7 @@ const String student = "student";
 const String teacher = "teacher";
 
 //appStrings
-const String kAppName = 'Freelancer app';
+const String kAppName = 'Edu World App';
 const String kLoading = 'Loading...';
 const String kFilter = "filter";
 const String kDownload = "download";

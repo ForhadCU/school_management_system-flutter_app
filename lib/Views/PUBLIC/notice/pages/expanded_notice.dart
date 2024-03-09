@@ -26,6 +26,23 @@ class ExpandedNotice extends GetView<NoticeController> {
           iconTheme: IconThemeData(color: Colors.white),
           elevation: 0,
         ),
+        floatingActionButton:  controller.clickedNoticeModel.value.files == null || controller.clickedNoticeModel.value.files!.isEmpty
+                  ? Container()
+                  : FloatingActionButton(
+          onPressed: () async {
+            await controller.mDownloadNotice(
+                path: controller.clickedNoticeModel.value.files!.first.path);
+          },
+          backgroundColor: AppColor.green,
+          child: Container(
+            // padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+            child: const Icon(
+              Icons.download,
+              color: AppColor.white,
+              size: 32,
+            ),
+          ),
+        ),
         body: BaseWidgetChild(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

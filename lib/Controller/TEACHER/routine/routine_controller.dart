@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:school_management_system/Api/TEACHER/routine_api.dart';
@@ -13,6 +14,7 @@ import '../../../Config/config.dart';
 import '../../../Model/STUDENT/routine/period_type_model.dart';
 import '../../../Singletones/app_data.dart';
 import '../../../Utils/api structure/payloads.dart';
+import '../../../Utils/local_notification.dart';
 import '../../../Utils/utils.dart';
 import '../../common/common_controller.dart';
 
@@ -29,6 +31,7 @@ class TeachRoutineController extends GetxController {
   RxBool isRoutineFound = true.obs;
   var academicGroupId = ''.obs;
   var token = ''.obs;
+  var isInitial = true.obs;
 
   /// variable declaration
 
@@ -39,11 +42,40 @@ class TeachRoutineController extends GetxController {
     await mGetAcademicGroupModel();
     await _mGetInitialDataForDropdowns();
     await mGetRoutinePdf();
+    mListenNotification();
   }
 
   @override
   void onClose() {
     super.onClose();
+  }
+
+////listen Notification when click////
+  void mListenNotification() {
+    LocalNotification()
+        .onClickNotificationBehavior
+        .stream
+        .listen((event) async {
+      // localPathOfDemandSlip.value = event;
+      kLog("Notification Clicekd");
+      // kLog("Path: ${localPathOfDemandSlip.value}");
+/* 
+      if (localPathOfDemandSlip.value != "") {
+        // Open PDF file
+        await OpenFilex.open(localPathOfDemandSlip.value);
+        kLog(localPathOfDemandSlip.value);
+      }  */
+      kLog("Event: $event");
+      if (event != "" && !isInitial.value) {
+        // Open PDF file
+        await OpenFilex.open(event);
+        print("PDF file found.");
+
+        // kLog(localPathOfDemandSlip.value);
+      } else {
+        print("PDF file not found.");
+      }
+    });
   }
 
   mGetAcademicGroupModel() async {
@@ -117,12 +149,13 @@ class TeachRoutineController extends GetxController {
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-
           await file.writeAsBytes(response);
-          pdfFilePath.value = filePath;
+          // localPathOfDemandSlip.value = file.path;
+          // await showNotification();
+          isInitial.value = false;
 
-          /* pdfPath.set(file.path);
-            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+          await LocalNotification().mShowNotification(payload: file.path);
+          showSuccess("Downloaded");
         } else {
           Map<Permission, PermissionStatus> statuses = await [
             Permission.storage,
