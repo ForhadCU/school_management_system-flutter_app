@@ -24,6 +24,8 @@ class SearchSchoolController extends GetxController {
   late final SharedPreferences sharedPreferences;
 
   var isAllSitesLoaded = false.obs;
+  var isVisibleCharWarning = true.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -75,7 +77,7 @@ class SearchSchoolController extends GetxController {
   }
 
   void mGetSearchResult(value) {
-    print(textEditingControllerSearchSite.text);
+    // print(textEditingControllerSearchSite.text);
     mClearCurrentSearchList();
 
     value == null || value == ''

@@ -64,10 +64,14 @@ class SearchSchool extends GetView<SearchSchoolController> {
               controller: controller.textEditingControllerSearchSite,
               onChanged: (value) {
                 if (value.length > 2) {
+                  controller.isLoading.value = true;
                   AppData.debouncer.run(() {
+                    controller.isVisibleCharWarning.value = false;
                     controller.mGetSearchResult(value);
+                    controller.isLoading.value = false;
                   });
                 } else {
+                  controller.isVisibleCharWarning.value = true;
                   controller.mClearCurrentSearchList();
                 }
               },
@@ -98,44 +102,63 @@ class SearchSchool extends GetView<SearchSchoolController> {
   }
 
   vWarningMassege() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: [
-          Text(
-            "Type at least 3 letters*",
-            style: TextStyle(color: Colors.deepOrange, fontSize: 13),
+    return Obx(() => Visibility(
+          visible: controller.isVisibleCharWarning.value,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Text(
+                  "Type at least 3 letters*",
+                  style: TextStyle(color: Colors.deepOrange, fontSize: 13),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   vSiteList() {
-    return Obx(() => controller.searchedSitesList.isEmpty
-        ? Container()
-        : ListView.separated(
-            itemCount: controller.searchedSitesList.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final SitelistModel sitelistModel =
-                  controller.searchedSitesList[index];
-              return SchoolResultListItem(
-                  onTap: () {
-                    controller.mSetSiteListModel(sitelistModel);
-                  },
-                  imageUri: AppData.eduWorldTheworldHostname +
-                      sitelistModel.siteLogo!,
-                  schoolName: sitelistModel.siteName ?? "N/A",
-                  schoolAdress: sitelistModel.address ?? "N/A");
-            },
-            separatorBuilder: (context, index) {
-              return Divider(
-                height: 2,
-                thickness: 1,
-                color: AppColor.secondaryColor.withOpacity(.5),
-              );
-            },
-          ));
+    return Obx(() => !controller.isLoading.value &&
+            !controller.isVisibleCharWarning.value &&
+            controller.searchedSitesList.isEmpty
+        ? Center(
+            child: Text(
+              "No Result Found",
+              style: kBody.copyWith(color: Colors.black45),
+            ),
+          )
+        : controller.isLoading.value
+            ? Center(
+                child: SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: CircularProgressIndicator(
+                      color: AppColor.primaryColor.withOpacity(.5),
+                      strokeWidth: 2,
+                    )),
+              )
+            : ListView.separated(
+                itemCount: controller.searchedSitesList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final SitelistModel sitelistModel =
+                      controller.searchedSitesList[index];
+                  return SchoolResultListItem(
+                      onTap: () {
+                        controller.mSetSiteListModel(sitelistModel);
+                      },
+                      imageUri: AppData.hostNameFull + sitelistModel.siteLogo!,
+                      schoolName: sitelistModel.siteName ?? "N/A",
+                      schoolAdress: sitelistModel.address ?? "N/A");
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 2,
+                    thickness: 1,
+                    color: AppColor.secondaryColor.withOpacity(.5),
+                  );
+                },
+              ));
   }
 }

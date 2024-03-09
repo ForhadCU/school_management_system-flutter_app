@@ -139,8 +139,7 @@ class SearchSchoolWidget {
                   onTap: () {
                     _controller.mSetSiteListModel(sitelistModel);
                   },
-                  imageUri: AppData.eduWorldTheworldHostname +
-                      sitelistModel.siteLogo!,
+                  imageUri: AppData.hostNameFull + sitelistModel.siteLogo!,
                   schoolName: sitelistModel.siteName ?? "N/A",
                   schoolAdress: sitelistModel.address ?? "N/A");
             },
