@@ -136,15 +136,24 @@ class StuNoticeController extends GetxController {
   }
 
   mDownloadNotice({String? path}) async {
-    kLog(
-        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path");
     if (path != null) {
-      if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path"))) {
-        throw Exception('Could not download ${path}');
+      if (siteListModel.value.domainName != null) {
+        kLog(AppData.https + siteListModel.value.domainName + path);
+        if (!await launchUrl(
+            Uri.parse(AppData.https + siteListModel.value.domainName + path))) {
+          throw Exception(
+              'Could not download ${siteListModel.value.domainName}$path');
+        }
+      } else {
+        kLog(
+            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path");
+        if (!await launchUrl(Uri.parse(
+            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path"))) {
+          throw Exception('Could not download ${path}');
+        }
       }
     } else {
       showError("Pdf not found!");
     }
-  }
+   }
 }

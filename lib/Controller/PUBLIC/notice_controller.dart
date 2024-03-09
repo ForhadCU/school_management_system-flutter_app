@@ -21,7 +21,7 @@ class NoticeController extends GetxController {
 
   var dropdownValue = Rxn<String>();
   var dateTo = DateTime.now().obs;
-  var dateFrom = DateTime.now().subtract(const Duration(days: 7)).obs;
+  var dateFrom = DateTime.now().subtract(const Duration(days: 60)).obs;
   var numOfNoticesInRange = 0.obs;
   Rx<NoticeApiModel> noticeApiModel = NoticeApiModel().obs;
   var noticeList = <Datum>[].obs;
@@ -78,6 +78,7 @@ class NoticeController extends GetxController {
     return Utils().getTimeFromTimeStamp(date.toString(), kApiDateFormat);
   }
 
+  ////////// Get all notice ///////////////
   mGetNoticesInRange() async {
     /*   kLog("Date From: ${mGetFormatDate(dateFrom)}");
     kLog("Date to: ${mGetFormatDate(dateTo)}"); */
@@ -100,6 +101,7 @@ class NoticeController extends GetxController {
     // isLoading.value = false;
   }
 
+  //////////Select Date for filtering//////////////
   mSelectDateFrom() async {
     DateTime? pickedDate = await showDatePicker(
       context: kGlobContext,
@@ -126,6 +128,7 @@ class NoticeController extends GetxController {
     }
   }
 
+  ////////////////////////////////////////////
   void mUpdateClickedNoticeModel(Datum data) {
     clickedNoticeModel.value = data;
   }
@@ -136,13 +139,23 @@ class NoticeController extends GetxController {
     numOfNoticesInRange.value = 0;
   }
 
+  /////////Download notice/////////////////
   mDownloadNotice({String? path}) async {
-    kLog(
-        "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path");
     if (path != null) {
-      if (!await launchUrl(Uri.parse(
-          "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path"))) {
-        throw Exception('Could not download ${path}');
+      if (siteListModel.value.domainName != null) {
+        kLog(AppData.https + siteListModel.value.domainName + path);
+        if (!await launchUrl(
+            Uri.parse(AppData.https + siteListModel.value.domainName + path))) {
+          throw Exception(
+              'Could not download ${siteListModel.value.domainName}$path');
+        }
+      } else {
+        kLog(
+            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path");
+        if (!await launchUrl(Uri.parse(
+            "${AppData.https}${siteListModel.value.siteAlias}.${AppData.hostNameShort}$path"))) {
+          throw Exception('Could not download ${path}');
+        }
       }
     } else {
       showError("Pdf not found!");
