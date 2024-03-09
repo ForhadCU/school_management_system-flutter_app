@@ -24,7 +24,7 @@ class AppButtons {
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xl, vertical: AppSpacing.sm+4),
+              horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(

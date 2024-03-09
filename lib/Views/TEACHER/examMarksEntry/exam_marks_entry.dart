@@ -80,7 +80,7 @@ class ExamMarksEntry extends GetView<ExamMarksEntryController> {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(
-              vertical: AppSpacing.md, horizontal: AppSpacing.sm),
+              vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
           decoration: const BoxDecoration(
               // borderRadius: BorderRadius.circular(8),
               color: AppColor.activeTab),
@@ -88,8 +88,18 @@ class ExamMarksEntry extends GetView<ExamMarksEntryController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _vDropdowns1(),
-              AppSpacing.xl.height,
-              _vGetResultBtn(),
+              Obx(() => Visibility(
+                    visible: controller.isVisibleGetButton.value,
+                    child: Column(
+                      children: [
+                        AppSpacing.md.height,
+                        SizedBox(
+                          width: AppScreenSize.mGetWidth(kGlobContext, 50),
+                          child: _vGetResultBtn(),
+                        )
+                      ],
+                    ),
+                  ))
             ],
           ),
         ),
@@ -98,479 +108,564 @@ class ExamMarksEntry extends GetView<ExamMarksEntryController> {
   }
 
   _vDropdowns1() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    // kLog(
+    //     "Called vDropdonws1: ${commonController.academicYearList.length}  ${commonController.selectedAcademicYear.value.yearName}  ");
+
+    return Obx(() => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
+            Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.sm,
+                              vertical: AppSpacing.smh),
+                          color: AppColor.frenchSkyBlue100,
+                          /*  decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<AcademicYear>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicYear.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Year"
-                            : "No Year",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicYear? selectedModel) {
-                        controller.mUpdateSelectedAcademicYear(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
+                          child: Obx(
+                            () {
+                              // kLog(
+                              //     "Called Obx: ${commonController.academicYearList.length}  ${commonController.selectedAcademicYear.value.yearName}  ");
+                              return DropdownButton<AcademicYear>(
+                                // child: DropdownButton<String>(
+                                value:
+                                    commonController.selectedAcademicYear.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Year"
+                                      : "No Year",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicYear? selectedModel) {
+                                  controller.mUpdateSelectedAcademicYear(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
                                     // controller.mUpdateSelectedStuHistory(selectedModel);
                                   }, */
-                      items: commonController.academicYearList
-                          .map((AcademicYear value) {
-                        return DropdownMenuItem<AcademicYear>(
-                          value: value,
-                          child: Text(
-                            value.yearName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                                items: commonController.academicYearList
+                                    .map((AcademicYear value) {
+                                  return DropdownMenuItem<AcademicYear>(
+                                    value: value,
+                                    child: Text(
+                                      value.yearName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              );
+                            },
+                          )),
                     ),
-                  )),
+                    Visibility(
+                        visible: commonController.academicShiftList.isNotEmpty,
+                        child: AppSpacing.sm.width),
+                    Visibility(
+                      visible: commonController.academicShiftList.isNotEmpty,
+                      child: Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<AcademicShift>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedAcademicShift.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Shift"
+                                      : "No Shift",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicShift? selectedModel) {
+                                  controller.mUpdateSelectedAcademicShift(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                                  // controller.mUpdateSelectedStuHistory(selectedModel);
+                                                }, */
+                                items: commonController.academicShiftList
+                                    .map((AcademicShift value) {
+                                  return DropdownMenuItem<AcademicShift>(
+                                    value: value,
+                                    child: Text(
+                                      value.shiftName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
+                )),
+            Visibility(
+                visible: commonController.academicClassList.isNotEmpty ||
+                    commonController.academicGroupList.isNotEmpty,
+                child: AppSpacing.sm.height),
+            Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Visibility(
+                      visible: commonController.academicClassList.isNotEmpty,
+                      child: Expanded(
+                        flex: 1,
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<AcademicClass>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedAcademicClass.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Class"
+                                      : "No Class",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicClass? selectedModel) {
+                                  controller.mUpdateSelectedAcademicClass(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController.academicClassList
+                                    .map((AcademicClass value) {
+                                  return DropdownMenuItem<AcademicClass>(
+                                    value: value,
+                                    child: Text(
+                                      value.className ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    ),
+                    Visibility(
+                        visible: commonController.academicGroupList.isNotEmpty,
+                        child: AppSpacing.sm.width),
+                    Visibility(
+                      visible: commonController.academicGroupList.isNotEmpty,
+                      child: Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<TeachAcademicGroup>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedAcademicGroup.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Group"
+                                      : "No Group",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (TeachAcademicGroup? selectedModel) {
+                                  controller.mUpdateSelectedAcademicGroup(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController.academicGroupList
+                                    .map((TeachAcademicGroup value) {
+                                  return DropdownMenuItem<TeachAcademicGroup>(
+                                    value: value,
+                                    child: Text(
+                                      value.groupName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
+                )),
+            Visibility(
+                visible: commonController.academicSectionList.isNotEmpty ||
+                    commonController.academicSessionList.isNotEmpty,
+                child: AppSpacing.sm.height),
+            Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Visibility(
+                      visible: commonController.academicSectionList.isNotEmpty,
+                      child: Expanded(
+                        flex: 1,
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<AcademicSection>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedAcademicSection.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Section"
+                                      : "No Section",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicSection? selectedModel) {
+                                  controller.mUpdateSelectedAcademicSection(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController.academicSectionList
+                                    .map((AcademicSection value) {
+                                  return DropdownMenuItem<AcademicSection>(
+                                    value: value,
+                                    child: Text(
+                                      value.sectionName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    ),
+                    Visibility(
+                        visible:
+                            commonController.academicSessionList.isNotEmpty,
+                        child: AppSpacing.sm.width),
+                    Visibility(
+                      visible: commonController.academicSessionList.isNotEmpty,
+                      child: Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<AcademicSession>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedAcademicSession.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Session"
+                                      : "No Session",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (AcademicSession? selectedModel) {
+                                  controller.mUpdateSelectedAcademicSession(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController.academicSessionList
+                                    .map((AcademicSession value) {
+                                  return DropdownMenuItem<AcademicSession>(
+                                    value: value,
+                                    child: Text(
+                                      value.sessionName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
+                )),
+            Visibility(
+                visible: commonController.examinationList.isNotEmpty ||
+                    commonController
+                        .subjectGorupConditionSettingList.isNotEmpty,
+                child: AppSpacing.sm.height),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Obx(() => Visibility(
+                      visible: commonController.examinationList.isNotEmpty,
+                      child: Expanded(
+                        flex: 1,
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<Examination>(
+                                // child: DropdownButton<String>(
+                                value:
+                                    commonController.selectedExamination.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Exam"
+                                      : "No Exam",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (Examination? selectedModel) {
+                                  controller.mUpdateSelectedExamination(
+                                      selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController.examinationList
+                                    .map((Examination value) {
+                                  return DropdownMenuItem<Examination>(
+                                    value: value,
+                                    child: Text(
+                                      value.examinationName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    )),
+                Obx(() => Visibility(
+                    visible: commonController
+                        .subjectGorupConditionSettingList.isNotEmpty,
+                    child: AppSpacing.sm.width)),
+                Obx(() => Visibility(
+                      visible: commonController
+                          .subjectGorupConditionSettingList.isNotEmpty,
+                      child: Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () =>
+                                  DropdownButton<SubjectGorupConditionSetting>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedSubjectGorupConditionSetting.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Subject"
+                                      : "No Subject",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged: (SubjectGorupConditionSetting?
+                                    selectedModel) {
+                                  controller
+                                      .mUpdateSelectedSubjectGorupConditionSetting(
+                                          selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController
+                                    .subjectGorupConditionSettingList
+                                    .map((SubjectGorupConditionSetting value) {
+                                  return DropdownMenuItem<
+                                      SubjectGorupConditionSetting>(
+                                    value: value,
+                                    child: Text(
+                                      value.subjectName ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
+                      ),
+                    )),
+              ],
             ),
-            AppSpacing.sm.width,
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<AcademicShift>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicShift.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Shift"
-                            : "No Shift",
-                        style: kBody.copyWith(color: Colors.black),
+            Visibility(
+                visible:
+                    commonController.employeePaperDistributionList.isNotEmpty,
+                child: AppSpacing.sm.height),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Obx(() => Visibility(
+                      visible: commonController
+                          .employeePaperDistributionList.isNotEmpty,
+                      child: Expanded(
+                        flex: 1,
+                        child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.sm,
+                                vertical: AppSpacing.smh),
+                            color: AppColor.frenchSkyBlue100,
+                            /*  decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(5)), */
+                            child: Obx(
+                              () => DropdownButton<EmployeePaperDistribution>(
+                                // child: DropdownButton<String>(
+                                value: commonController
+                                    .selectedEmployeePaperDistribution.value,
+                                hint: Text(
+                                  commonController.canContinue.value
+                                      ? "Select Paper Distribution"
+                                      : "No Paper Distribution",
+                                  style: kBody.copyWith(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                iconSize: 12,
+                                elevation: 10,
+                                // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                                focusColor: AppColor.white,
+                                dropdownColor: AppColor.frenchSkyBlue100,
+                                isDense: true,
+                                isExpanded: true,
+                                underline: Container(),
+                                onChanged:
+                                    (EmployeePaperDistribution? selectedModel) {
+                                  controller
+                                      .mUpdateSelectedEmployeePaperDistribution(
+                                          selectedModel);
+                                },
+                                /*  onChanged: (String? selectedModel) {
+                                      // controller.mUpdateSelectedStuHistory(selectedModel);
+                                    }, */
+                                items: commonController
+                                    .employeePaperDistributionList
+                                    .map((EmployeePaperDistribution value) {
+                                  return DropdownMenuItem<
+                                      EmployeePaperDistribution>(
+                                    value: value,
+                                    child: Text(
+                                      value.academicExamType!.marksType ?? "",
+                                      style: kBody.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )),
                       ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicShift? selectedModel) {
-                        controller.mUpdateSelectedAcademicShift(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.academicShiftList
-                          .map((AcademicShift value) {
-                        return DropdownMenuItem<AcademicShift>(
-                          value: value,
-                          child: Text(
-                            value.shiftName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
+                    )),
+              ],
             ),
           ],
-        ),
-        AppSpacing.sm.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<AcademicClass>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicClass.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Class"
-                            : "No Class",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicClass? selectedModel) {
-                        controller.mUpdateSelectedAcademicClass(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.academicClassList
-                          .map((AcademicClass value) {
-                        return DropdownMenuItem<AcademicClass>(
-                          value: value,
-                          child: Text(
-                            value.className ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-            AppSpacing.sm.width,
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<TeachAcademicGroup>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicGroup.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Group"
-                            : "No Group",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (TeachAcademicGroup? selectedModel) {
-                        controller.mUpdateSelectedAcademicGroup(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.academicGroupList
-                          .map((TeachAcademicGroup value) {
-                        return DropdownMenuItem<TeachAcademicGroup>(
-                          value: value,
-                          child: Text(
-                            value.groupName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-          ],
-        ),
-        AppSpacing.sm.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<AcademicSection>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicSection.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Section"
-                            : "No Section",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicSection? selectedModel) {
-                        controller
-                            .mUpdateSelectedAcademicSection(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.academicSectionList
-                          .map((AcademicSection value) {
-                        return DropdownMenuItem<AcademicSection>(
-                          value: value,
-                          child: Text(
-                            value.sectionName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-            AppSpacing.sm.width,
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<AcademicSession>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedAcademicSession.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Session"
-                            : "No Session",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (AcademicSession? selectedModel) {
-                        controller
-                            .mUpdateSelectedAcademicSession(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.academicSessionList
-                          .map((AcademicSession value) {
-                        return DropdownMenuItem<AcademicSession>(
-                          value: value,
-                          child: Text(
-                            value.sessionName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-          ],
-        ),
-        AppSpacing.sm.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<Examination>(
-                      // child: DropdownButton<String>(
-                      value: commonController.selectedExamination.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Exam"
-                            : "No Exam",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (Examination? selectedModel) {
-                        controller.mUpdateSelectedExamination(selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.examinationList
-                          .map((Examination value) {
-                        return DropdownMenuItem<Examination>(
-                          value: value,
-                          child: Text(
-                            value.examinationName ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-            AppSpacing.sm.width,
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<SubjectGorupConditionSetting>(
-                      // child: DropdownButton<String>(
-                      value: commonController
-                          .selectedSubjectGorupConditionSetting.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Subject"
-                            : "No Subject",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (SubjectGorupConditionSetting? selectedModel) {
-                        controller.mUpdateSelectedSubjectGorupConditionSetting(
-                            selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.subjectGorupConditionSettingList
-                          .map((SubjectGorupConditionSetting value) {
-                        return DropdownMenuItem<SubjectGorupConditionSetting>(
-                          value: value,
-                          child: Text(
-                            value.subjectName ?? "",
-                            overflow: TextOverflow.ellipsis,
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-          ],
-        ),
-        AppSpacing.sm.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
-                  color: AppColor.frenchSkyBlue100,
-                  /*  decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(5)), */
-                  child: Obx(
-                    () => DropdownButton<EmployeePaperDistribution>(
-                      // child: DropdownButton<String>(
-                      value: commonController
-                          .selectedEmployeePaperDistribution.value,
-                      hint: Text(
-                        commonController.canContinue.value
-                            ? "Select Paper Distribution"
-                            : "No Paper Distribution",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 12,
-                      elevation: 10,
-                      // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                      focusColor: AppColor.white,
-                      dropdownColor: AppColor.frenchSkyBlue100,
-                      isDense: true,
-                      isExpanded: true,
-                      underline: Container(),
-                      onChanged: (EmployeePaperDistribution? selectedModel) {
-                        controller.mUpdateSelectedEmployeePaperDistribution(
-                            selectedModel);
-                      },
-                      /*  onChanged: (String? selectedModel) {
-                                    // controller.mUpdateSelectedStuHistory(selectedModel);
-                                  }, */
-                      items: commonController.employeePaperDistributionList
-                          .map((EmployeePaperDistribution value) {
-                        return DropdownMenuItem<EmployeePaperDistribution>(
-                          value: value,
-                          child: Text(
-                            value.academicExamType!.marksType ?? "",
-                            style: kBody.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )),
-            ),
-          ],
-        ),
-      ],
-    );
+        ));
   }
 
   _vDropdowns2() {

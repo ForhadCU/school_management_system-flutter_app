@@ -120,12 +120,13 @@ class CommonApis {
 
   static Future<ExamSubjectListModel> mGetExamSubjectListModel(
       Map<String, dynamic> payLoad, String token) async {
+    kLog(payLoad);
     ResponseModel res = await CallAPI.getTeacherData(
         isShowLoading: false,
         ApiEndpoint.examination_base_subject_list_by_employee,
         payLoad,
         token);
-    // kLogger.d(res.body);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamSubjectListModel data");
       return ExamSubjectListModel.fromMap(res.body);

@@ -120,7 +120,6 @@ class CommonController extends GetxController {
     // return academicYearList;
 
     kLog("AcademicYearList: ${academicYearList.length}");
-
   }
 
   mGetDeptClasslistModel(
@@ -188,8 +187,10 @@ class CommonController extends GetxController {
             value.academicGroupList != null &&
                     value.academicGroupList!.isNotEmpty
                 ? {
-                    academicGroupList.value = value.academicGroupList!,
-                    selectedAcademicGroup.value = value.academicGroupList!.first
+                    academicGroupList
+                        .add(TeachAcademicGroup(groupName: "Select Group")),
+                    academicGroupList.addAll(value.academicGroupList!),
+                    selectedAcademicGroup.value = academicGroupList.first
                   }
                 : canContinue.value = false;
           })
@@ -231,12 +232,17 @@ class CommonController extends GetxController {
                     value.academicSessionList != null &&
                     value.academicSessionList!.isNotEmpty
                 ? {
-                    academicSectionList.value = value.academicSectionList!,
-                    academicSessionList.value = value.academicSessionList!,
-                    selectedAcademicSection.value =
-                        value.academicSectionList!.first,
-                    selectedAcademicSession.value =
-                        value.academicSessionList!.first
+                    ///section list
+                    academicSectionList
+                        .add(AcademicSection(sectionName: "Select Section")),
+                    academicSectionList.addAll(value.academicSectionList!),
+                    selectedAcademicSection.value = academicSectionList.first,
+
+                    ///session list
+                    academicSessionList
+                        .add(AcademicSession(sessionName: "Select Session")),
+                    academicSessionList.addAll(value.academicSessionList!),
+                    selectedAcademicSession.value = academicSessionList.first,
                   }
                 : canContinue.value = false;
           })
@@ -270,13 +276,16 @@ class CommonController extends GetxController {
                     // academic_department_id: null,
                     academic_department_id: "",
                     academic_class_group_id:
-                        selectedAcademicGroup.value.id.toString()),
+                        (selectedAcademicGroup.value.id ?? "").toString()),
                 token.value)
             .then((value) {
             value.examinationList != null && value.examinationList!.isNotEmpty
                 ? {
-                    examinationList.value = value.examinationList!,
-                    selectedExamination.value = value.examinationList!.first
+                    ///examination list
+                    /* examinationList
+                        .add(Examination(examinationName: "Select Exam")), */
+                    examinationList.addAll(value.examinationList!),
+                    selectedExamination.value = examinationList.first,
                   }
                 : canContinue.value = false;
           })
@@ -302,25 +311,29 @@ class CommonController extends GetxController {
                     api_access_key: AppData.api_access_key,
                     academic_group_id: academicGroupId.value,
                     academic_version_id:
-                        selectedAcademicVersion.value.id.toString(),
+                        (selectedAcademicVersion.value.id).toString(),
                     academic_year_id: selectedAcademicYear.value.id.toString(),
                     academic_shift_id:
                         selectedAcademicShift.value.id.toString(),
                     academic_class_id:
                         selectedAcademicClass.value.id.toString(),
-                    academic_department_id: null,
+                    academic_department_id: "",
                     academic_class_group_id:
-                        selectedAcademicGroup.value.id.toString(),
+                        (selectedAcademicGroup.value.id ?? "").toString(),
                     examination_id: selectedExamination.value.id.toString()),
                 token.value)
             .then((value) {
             value.subjectGorupConditionSettingList != null &&
                     value.subjectGorupConditionSettingList!.isNotEmpty
                 ? {
-                    subjectGorupConditionSettingList.value =
-                        value.subjectGorupConditionSettingList!,
+                    ///Subject list
+                    /* subjectGorupConditionSettingList.add(
+                        SubjectGorupConditionSetting(
+                            subjectName: "Select Subject")), */
+                    subjectGorupConditionSettingList
+                        .addAll(value.subjectGorupConditionSettingList!),
                     selectedSubjectGorupConditionSetting.value =
-                        value.subjectGorupConditionSettingList!.first,
+                        subjectGorupConditionSettingList.first,
                   }
                 : canContinue.value = false;
           })
@@ -365,10 +378,14 @@ class CommonController extends GetxController {
             value.employeePaperDistributionList != null &&
                     value.employeePaperDistributionList!.isNotEmpty
                 ? {
-                    employeePaperDistributionList.value =
-                        value.employeePaperDistributionList!,
+                    ///Distribution list
+                    /* employeePaperDistributionList.add(EmployeePaperDistribution(
+                        academicExamType: DistributedAcademicExamType(
+                            marksType: "Select Mark Type"))), */
+                    employeePaperDistributionList
+                        .addAll(value.employeePaperDistributionList!),
                     selectedEmployeePaperDistribution.value =
-                        value.employeePaperDistributionList!.first,
+                        employeePaperDistributionList.first,
                   }
                 : canContinue.value = false;
           })
@@ -382,11 +399,11 @@ class CommonController extends GetxController {
       selectedAcademicYear.value = selectedModel!;
       canContinue.value = true;
       await mGetDeptClasslistModel();
-      await mGetClassGroupModel();
-      await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
       await mGetExamDistributionListModel();
+      await mGetClassGroupModel();
+      await mGetSectionSessionModel();
     }
   }
 
@@ -395,11 +412,11 @@ class CommonController extends GetxController {
       selectedAcademicShift.value = selectedModel!;
       canContinue.value = true;
       await mGetDeptClasslistModel();
-      await mGetClassGroupModel();
-      await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
       await mGetExamDistributionListModel();
+      await mGetClassGroupModel();
+      await mGetSectionSessionModel();
     }
   }
 
@@ -409,11 +426,11 @@ class CommonController extends GetxController {
       canContinue.value = true;
       // await mGetDeptClasslistModel();
       // await mGetDeptClasslistModel();
-      await mGetClassGroupModel();
-      await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
       await mGetExamDistributionListModel();
+      await mGetClassGroupModel();
+      await mGetSectionSessionModel();
     }
   }
 
@@ -424,10 +441,10 @@ class CommonController extends GetxController {
       // await mGetDeptClasslistModel();
       // await mGetDeptClasslistModel();
       // await mGetClassGroupModel();
-      await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
       await mGetExamDistributionListModel();
+      await mGetSectionSessionModel();
     }
   }
 

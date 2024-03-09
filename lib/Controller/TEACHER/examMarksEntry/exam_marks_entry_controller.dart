@@ -24,6 +24,7 @@ class ExamMarksEntryController extends GetxController {
   var academicGroupId = ''.obs;
   var token = ''.obs;
   var examMarksEntryListModel = ExamMarksEntryListModel().obs;
+  var isVisibleGetButton = false.obs;
 
   @override
   void onInit() async {
@@ -42,7 +43,8 @@ class ExamMarksEntryController extends GetxController {
   mGetExamMarksListModel() async {
     examMarksEntryListModel.value = ExamMarksEntryListModel();
     if (_commonController.selectedSubjectGorupConditionSetting.value.id !=
-        null) {
+            null ||
+        _commonController.selectedEmployeePaperDistribution.value.id != null) {
       examMarksEntryListModel.value =
           await ExamMarksEntryApis.mGetExamMarksEntryModel(
               PayLoads.examMarkEntry(
@@ -105,13 +107,12 @@ class ExamMarksEntryController extends GetxController {
   _mGetInitialDataForDropdowns() async {
     await _commonController.mGetVersionYearShiftModel();
     await _commonController.mGetDeptClasslistModel();
-    await _commonController.mGetDeptClasslistModel();
-    await _commonController.mGetClassGroupModel();
-
-    await _commonController.mGetSectionSessionModel();
     await _commonController.mGetExaminationListModel();
     await _commonController.mGetExamSubjectListModel();
     await _commonController.mGetExamDistributionListModel();
+    await _commonController.mGetClassGroupModel();
+    await _commonController.mGetSectionSessionModel();
+    isVisibleGetButton.value = true;
   }
 
   mUpdateSelectedAcademicYear(AcademicYear? selectedModel) async {

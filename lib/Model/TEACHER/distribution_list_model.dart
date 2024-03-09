@@ -68,7 +68,7 @@ class EmployeePaperDistribution {
     final ClassGroup? classGroup;
     final dynamic session;
     final dynamic section;
-    final AcademicExamType? academicExamType;
+    final DistributedAcademicExamType? academicExamType;
 
     EmployeePaperDistribution({
         this.id,
@@ -131,7 +131,7 @@ class EmployeePaperDistribution {
         ClassGroup? classGroup,
         dynamic session,
         dynamic section,
-        AcademicExamType? academicExamType,
+        DistributedAcademicExamType? academicExamType,
     }) => 
         EmployeePaperDistribution(
             id: id ?? this.id,
@@ -198,7 +198,7 @@ class EmployeePaperDistribution {
         classGroup: json["class_group"] == null ? null : ClassGroup.fromMap(json["class_group"]),
         session: json["session"],
         section: json["section"],
-        academicExamType: json["academic_exam_type"] == null ? null : AcademicExamType.fromMap(json["academic_exam_type"]),
+        academicExamType: json["academic_exam_type"] == null ? null : DistributedAcademicExamType.fromMap(json["academic_exam_type"]),
     );
 
     Map<String, dynamic> toMap() => {
@@ -234,14 +234,14 @@ class EmployeePaperDistribution {
     };
 }
 
-class AcademicExamType {
+class DistributedAcademicExamType {
     final int? id;
     final String? marksType;
     final int? status;
     final dynamic deletedAt;
     final String? headKey;
 
-    AcademicExamType({
+    DistributedAcademicExamType({
         this.id,
         this.marksType,
         this.status,
@@ -249,14 +249,14 @@ class AcademicExamType {
         this.headKey,
     });
 
-    AcademicExamType copyWith({
+    DistributedAcademicExamType copyWith({
         int? id,
         String? marksType,
         int? status,
         dynamic deletedAt,
         String? headKey,
     }) => 
-        AcademicExamType(
+        DistributedAcademicExamType(
             id: id ?? this.id,
             marksType: marksType ?? this.marksType,
             status: status ?? this.status,
@@ -264,11 +264,11 @@ class AcademicExamType {
             headKey: headKey ?? this.headKey,
         );
 
-    factory AcademicExamType.fromJson(String str) => AcademicExamType.fromMap(json.decode(str));
+    factory DistributedAcademicExamType.fromJson(String str) => DistributedAcademicExamType.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory AcademicExamType.fromMap(Map<String, dynamic> json) => AcademicExamType(
+    factory DistributedAcademicExamType.fromMap(Map<String, dynamic> json) => DistributedAcademicExamType(
         id: json["id"],
         marksType: json["marks_type"],
         status: json["status"],
