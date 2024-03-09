@@ -78,6 +78,16 @@ class TeachHome extends GetView<TeachHomeController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.examAttendance),
+                        iconLoc: StudentAssetLocation.attendance,
+                        // bgColor: AppColor.red.shade100,
+                        // iconColor: AppColor.red,
+                        bgColor: AppColor.attendance,
+                        label: "Exam Attendance".toUpperCase()))),
+            Expanded(
               child: _vIconButton(
                   onTap: () {
                     print("Click");
@@ -90,16 +100,6 @@ class TeachHome extends GetView<TeachHomeController> {
                   // iconColor: AppColor.orange,
                   label: "Marks Entry".toUpperCase()),
             ),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: _vIconButton(
-                        onTap: () => Get.toNamed(AppRoutes.examAttendance),
-                        iconLoc: StudentAssetLocation.attendance,
-                        // bgColor: AppColor.red.shade100,
-                        // iconColor: AppColor.red,
-                        bgColor: AppColor.attendance,
-                        label: "Exam Attendance".toUpperCase()))),
             Expanded(
               child: Align(
                 alignment: Alignment.center,

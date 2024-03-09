@@ -29,12 +29,12 @@ class TeachHomeController extends GetxController {
   /// variable declaration
   var drawerItems = [
     {
-      "name": "Exam Mark Entry",
-      "iconUri": StudentAssetLocation.my_exam_base_ic
-    },
-    {
       "name": "Exam Attendance",
       "iconUri": StudentAssetLocation.attendance_base_ic
+    },
+    {
+      "name": "Exam Mark Entry",
+      "iconUri": StudentAssetLocation.my_exam_base_ic
     },
     {
       "name": "Periodic Attendance",
