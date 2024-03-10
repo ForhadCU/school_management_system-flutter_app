@@ -1433,8 +1433,8 @@ class ExamMarksEntry extends GetView<ExamMarksEntryController> {
                         )),
                       ),
                     ),
-                    AppSpacing.md.height,
-                    vUpdateButton(),
+                   /*  AppSpacing.md.height,
+                    vUpdateButton(), */
                   ],
                 )
               : Container(

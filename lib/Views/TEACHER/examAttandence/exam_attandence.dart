@@ -1085,8 +1085,8 @@ class ExamAttendance extends GetView<ExamAttendanceController> {
                         )),
                       ),
                     ),
-                    AppSpacing.md.height,
-                    vUpdateButton(),
+                    /* AppSpacing.md.height,
+                    vUpdateButton(), */
                   ],
                 )
               : Container(
