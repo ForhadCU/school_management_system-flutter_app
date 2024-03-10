@@ -43,7 +43,7 @@ class ExamAttendanceApis {
       payload: payload,
     );
     kLogger.d(res.body);
-    if (res.statusCode == 200 && res.body['mode'] == "success") {
+    if (res.statusCode == 200) {
       kLog("Successfully submit mSubmitExamAttendanceList data");
       // return ExamAttendanceListModel.fromMap(res.body);
       return true;

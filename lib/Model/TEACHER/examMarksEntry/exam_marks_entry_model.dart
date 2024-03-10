@@ -1534,7 +1534,9 @@ class Student {
         "ntrc_registration_number": ntrcRegistrationNumber,
         "status": status,
         "date_of_birth":
-            "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
+            dateOfBirth == null
+            ? null
+            : "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
         "site_id": siteId,
         "academic_group_id": academicGroupId,
         "deleted_at": deletedAt,

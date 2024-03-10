@@ -29,7 +29,6 @@ class ExamMarksEntryController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
     await mGetToken();
     await mGetAcademicGroupModel();
     await _mGetInitialDataForDropdowns();
@@ -37,7 +36,7 @@ class ExamMarksEntryController extends GetxController {
 
   @override
   void onClose() async {
-    await Get.delete<ExamMarksEntryController>();
+    // await Get.delete<ExamMarksEntryController>();
   }
 
   mGetExamMarksListModel() async {
