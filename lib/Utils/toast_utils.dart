@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:school_management_system/Config/config.dart';
 
 void showLoading(String message) {
-  
   EasyLoading.show(status: message, maskType: EasyLoadingMaskType.custom);
 }
 
@@ -19,7 +18,7 @@ void showSuccess(String message) {
 }
 
 void showError(String message) {
-  EasyLoading.showError(message);
+  EasyLoading.showError(message, duration: const Duration(milliseconds: 1000));
 }
 
 Widget helpCenterWidget(BuildContext context) {

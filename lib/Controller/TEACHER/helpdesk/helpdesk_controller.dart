@@ -28,7 +28,7 @@ class TeachHelpDeskController extends GetxController {
   void onInit() async {
     super.onInit();
     await _mInitialization();
-    await _mGetProfileInfo();
+    await mGetStuHelpDeskModelList();
     /* youtubePlayerController = YoutubePlayerController(
       initialVideoId: '',
       flags: const YoutubePlayerFlags(
@@ -52,8 +52,11 @@ class TeachHelpDeskController extends GetxController {
   /// code goes here
   mTappedOnHelpDeskItem(EduSiteHelpDeskSetting eduSiteHelpDeskSetting) {
     clickedEduSiteHelpDeskSetting.value = eduSiteHelpDeskSetting;
-    _mInitializeYtbPlayerController();
-    Get.toNamed(AppRoutes.helpdeskDetails);
+    kLog("Print before");
+    if (_mInitializeYtbPlayerController()) {
+      Get.toNamed(AppRoutes.teachHelpdeskDetails);
+    }
+    kLog("Print after");
   }
 
   _mInitialization() async {
@@ -62,7 +65,7 @@ class TeachHelpDeskController extends GetxController {
     currentGroupModel = await AppLocalDataFactory.mGetAcademicGroupModel();
   }
 
-  _mGetProfileInfo() async {
+  mGetStuHelpDeskModelList() async {
     // kLog("api key: ${AppData.api_access_key}   token: ${token.value}");
     stuHelpdeskModelList.value =
         await TeachHelpdeskApi.mGeTeachHelpDeskModelList(
@@ -73,18 +76,29 @@ class TeachHelpDeskController extends GetxController {
     // kLog("stuHelpdeskModelList Length: ${stuHelpdeskModelList.length}");
   }
 
-  void _mInitializeYtbPlayerController() {
+  bool _mInitializeYtbPlayerController() {
     if (clickedEduSiteHelpDeskSetting.value.videoLink != null) {
-      youtubePlayerController.value = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(
-            clickedEduSiteHelpDeskSetting.value.videoLink!)!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: true,
-          mute: false,
-        ),
-      );
+      if (YoutubePlayer.convertUrlToId(
+              clickedEduSiteHelpDeskSetting.value.videoLink!) !=
+          null) {
+        youtubePlayerController.value = YoutubePlayerController(
+          initialVideoId: YoutubePlayer.convertUrlToId(
+              clickedEduSiteHelpDeskSetting.value.videoLink!)!,
+          flags: const YoutubePlayerFlags(
+            autoPlay: true,
+            mute: false,
+          ),
+        );
+
+        return true;
+      } else {
+        showError("Invalid video url");
+
+        return false;
+      }
     } else {
       showError("No Video file");
+      return false;
     }
   }
 }

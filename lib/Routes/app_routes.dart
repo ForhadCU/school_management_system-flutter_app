@@ -48,6 +48,7 @@ import 'package:school_management_system/Views/TEACHER/dashboard/dashboard.dart'
 import 'package:school_management_system/Views/TEACHER/examAttandence/exam_attandence.dart';
 import 'package:school_management_system/Views/TEACHER/examMarksEntry/exam_marks_entry.dart';
 import 'package:school_management_system/Views/TEACHER/helpdesk/helpdesk.dart';
+import 'package:school_management_system/Views/TEACHER/helpdesk/subPages/helpdesk_details.dart';
 import 'package:school_management_system/Views/TEACHER/home/home.dart';
 import 'package:school_management_system/Views/TEACHER/message/message.dart';
 import 'package:school_management_system/Views/TEACHER/notice/notice.dart';
@@ -313,6 +314,10 @@ abstract class AppPages {
     GetPage(
         name: AppRoutes.teachHelpdesk,
         page: () => const TeachHelpDesk(),
+        binding: TeachHelpDeskBindings()),
+    GetPage(
+        name: AppRoutes.teachHelpdeskDetails,
+        page: () => const TeachHelpDeskDetails(),
         binding: TeachHelpDeskBindings()),
     GetPage(
         name: AppRoutes.teachMessage,

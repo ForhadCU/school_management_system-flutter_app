@@ -19,13 +19,14 @@ class TeachHelpdeskApi {
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.employee_helpdesk_list, payLoad, token);
     kLogger.d(res.body);
-    if (res.statusCode == 200 && res.body['mode'] == "success") {
+    if (res.statusCode == 200) {
       print("Successfully read mGeTeachHelpDeskModelList data");
-      print(res.body);
+      // print(res.body);
       return res.body['help_desk_list']
           .map<HelpDeskModel>((e) => HelpDeskModel.fromMap(e))
           .toList();
-    } else {   hideLoading();
+    } else {
+      hideLoading();
       showError("Server failure");
       // return List<StuHelpDeskModel>();
       return <HelpDeskModel>[];

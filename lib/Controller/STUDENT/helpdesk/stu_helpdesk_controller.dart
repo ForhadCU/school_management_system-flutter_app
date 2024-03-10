@@ -57,8 +57,9 @@ class HelpDeskController extends GetxController {
   /// code goes here
   mTappedOnHelpDeskItem(EduSiteHelpDeskSetting eduSiteHelpDeskSetting) {
     clickedEduSiteHelpDeskSetting.value = eduSiteHelpDeskSetting;
-    _mInitializeYtbPlayerController();
-    Get.toNamed(AppRoutes.helpdeskDetails);
+    if (_mInitializeYtbPlayerController()) {
+      Get.toNamed(AppRoutes.helpdeskDetails);
+    }
   }
 
   _mInitialization() async {
@@ -74,18 +75,29 @@ class HelpDeskController extends GetxController {
         {kApi_access_key: AppData.api_access_key}, token.value);
   }
 
-  void _mInitializeYtbPlayerController() {
+  bool _mInitializeYtbPlayerController() {
     if (clickedEduSiteHelpDeskSetting.value.videoLink != null) {
-      youtubePlayerController.value = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(
-            clickedEduSiteHelpDeskSetting.value.videoLink!)!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: true,
-          mute: false,
-        ),
-      );
+      if (YoutubePlayer.convertUrlToId(
+              clickedEduSiteHelpDeskSetting.value.videoLink!) !=
+          null) {
+        youtubePlayerController.value = YoutubePlayerController(
+          initialVideoId: YoutubePlayer.convertUrlToId(
+              clickedEduSiteHelpDeskSetting.value.videoLink!)!,
+          flags: const YoutubePlayerFlags(
+            autoPlay: true,
+            mute: false,
+          ),
+        );
+
+        return true;
+      } else {
+        showError("Invalid video url");
+
+        return false;
+      }
     } else {
       showError("No Video file");
+      return false;
     }
   }
 

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Views/TEACHER/helpdesk/widgets.dart';
-import 'package:school_management_system/Views/Widgets/base_widget.dart';import 'package:get/get.dart';
+import 'package:school_management_system/Views/Widgets/base_widget.dart';
+import 'package:get/get.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../Config/config.dart';
 import '../../../../Controller/TEACHER/helpdesk/helpdesk_controller.dart';
-
 
 class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
   const TeachHelpDeskDetails({super.key});
@@ -23,11 +24,12 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
         ));
   }
 
-
-   vTutorialCard() {
+  vTutorialCard() {
     return Column(
       children: [
-        _vTopBar(text: controller.clickedEduSiteHelpDeskSetting.value.helpTitle ?? ""),
+        _vTopBar(
+            text:
+                controller.clickedEduSiteHelpDeskSetting.value.helpTitle ?? ""),
         _vPlainBlueBox(
           child: _vBody(),
         )
@@ -35,7 +37,7 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
     );
   }
 
-   _vTopBar({required String text}) {
+  _vTopBar({required String text}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
@@ -54,7 +56,7 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
     );
   }
 
-   Container _vPlainBlueBox({required Widget child}) {
+  Container _vPlainBlueBox({required Widget child}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
@@ -64,7 +66,7 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
     );
   }
 
-   _vBody() {
+  _vBody() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -81,8 +83,11 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
               )),
         ),
         Visibility(
-            visible:
-                controller.clickedEduSiteHelpDeskSetting.value.helpDescription != null ? true : false,
+            visible: controller
+                        .clickedEduSiteHelpDeskSetting.value.helpDescription !=
+                    null
+                ? true
+                : false,
             child: Column(
               children: [
                 AppSpacing.md.height,
@@ -91,11 +96,13 @@ class TeachHelpDeskDetails extends GetView<TeachHelpDeskController> {
                   style: kBody.copyWith(color: AppColor.fontUsername),
                 ),
                 AppSpacing.sm.height,
-                Text(controller.clickedEduSiteHelpDeskSetting.value.helpDescription ?? ''),
+                Html(
+                    data: controller.clickedEduSiteHelpDeskSetting.value
+                            .helpDescription ??
+                        '')
               ],
             ))
       ],
     );
   }
- 
 }

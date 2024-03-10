@@ -103,6 +103,4 @@ class HelpDeskDetails extends GetView<HelpDeskController> {
       ],
     );
   }
-  // codes start from here
-  // All methods should be  to maintain singleton instances
 }
