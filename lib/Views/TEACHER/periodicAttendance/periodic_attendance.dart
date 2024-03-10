@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:school_management_system/Utils/utils.dart';
-import 'package:school_management_system/Views/TEACHER/periodicAttendance/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../../Config/config.dart';
@@ -8,11 +7,8 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/periodicAttnd/periodic_attnd_ctrlr.dart';
 import 'package:school_management_system/Model/TEACHER/period_model.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
-import 'package:school_management_system/Utils/utils.dart';
 
-import '../../../Config/config.dart';
 import '../../Widgets/buttons.dart';
-import '../../Widgets/custom_container.dart';
 
 class TeachPeriodicAttendance
     extends GetView<TeachPeriodicAttendanceController> {
@@ -26,11 +22,10 @@ class TeachPeriodicAttendance
             child: Column(
           children: [
             vPeriodicAttendanceTopbar(),
-            AppSpacing.md.height,
-            const Divider(height: 1, thickness: .3, color: Colors.black12),
-            AppSpacing.md.height,
+            // AppSpacing.md.height,
+            const Divider(height: 1, thickness: .5, color: Colors.black12),
+            // AppSpacing.md.height,
             vPeriodicAttendanceTable(),
-            AppSpacing.sm.height,
             vUpdateAttendanceBtn(),
           ],
         )));
@@ -196,16 +191,21 @@ class TeachPeriodicAttendance
   vUpdateAttendanceBtn() {
     return Obx(() => Visibility(
           visible: controller.isAttendanceModified.value,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
             children: [
-              Expanded(
-                child: AppButtons.vUpdateButton(
-                  onTap: () async {
-                    await controller.mSavePeriodicAttendance();
-                  },
-                  text: "Save",
-                ),
+              AppSpacing.sm.height,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: AppButtons.vUpdateButton(
+                      onTap: () async {
+                        await controller.mSavePeriodicAttendance();
+                      },
+                      text: "Save",
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -213,8 +213,8 @@ class TeachPeriodicAttendance
   }
 
   vPeriodicAttendanceTable() {
-    double cellVerMargin = 8;
-    double cellHorMargin = 16;
+    double cellVerMargin = 10;
+    double cellHorMargin = 12;
     /*  List controller.periodicAttendanceDataList = [
       "Anamika Roy",
       "Rafi Islam",
@@ -237,6 +237,7 @@ class TeachPeriodicAttendance
           */
                   )
               : SingleChildScrollView(
+                  controller: controller.scrollCtrlr.value,
                   child: Column(
                     children: [
                       SingleChildScrollView(
@@ -396,7 +397,7 @@ class TeachPeriodicAttendance
                                         horizontal: cellHorMargin),
                                   ],
                                 ),
-                                Row(
+                                /*  Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
@@ -408,7 +409,7 @@ class TeachPeriodicAttendance
                                         vertical: cellVerMargin,
                                         horizontal: cellHorMargin),
                                   ],
-                                ),
+                                ), */
                               ],
                             ),
                             // for (var item in controller.userInfoModelList) // correct
@@ -429,78 +430,107 @@ class TeachPeriodicAttendance
                                 ),
                                 children: <Widget>[
                                   /// #
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(12),
-                                        color: item.present != 1
-                                            ? AppColor.red
-                                            : Colors.transparent,
-                                        child: Text(
-                                          // controller.mGetFormatDate(item.date),
-                                          controller.periodicAttendanceDataList
-                                              .indexOf(item)
-                                              .toString(),
-                                          style: kBody.copyWith(
-                                              color: item.present != 1
-                                                  ? AppColor.kWhite
-                                                  : Colors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.mUpdateAttendanceList(item);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(12),
+                                            color: item.present != 1
+                                                ? AppColor.red
+                                                : Colors.transparent,
+                                            child: Text(
+                                              // controller.mGetFormatDate(item.date),
+                                              (controller.periodicAttendanceDataList
+                                                          .indexOf(item) +
+                                                      1)
+                                                  .toString(),
+                                              style: kBody.copyWith(
+                                                  color: item.present != 1
+                                                      ? AppColor.kWhite
+                                                      : Colors.black,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400),
+                                            ).marginSymmetric(
+                                                vertical: cellVerMargin,
+                                                horizontal: cellHorMargin),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
 
                                   /// Name
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(12),
-                                          color: item.present != 1
-                                              ? AppColor.red
-                                              : Colors.transparent,
-                                          child: Text(
-                                            item.fullName ?? "",
-                                            textAlign: TextAlign.start,
-                                            style: kBody.copyWith(
-                                                color: item.present != 1
-                                                    ? AppColor.kWhite
-                                                    : Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.mUpdateAttendanceList(item);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            padding: const EdgeInsets.all(12),
+                                            color: item.present != 1
+                                                ? AppColor.red
+                                                : Colors.transparent,
+                                            child: Text(
+                                              item.fullName ?? "",
+                                              textAlign: TextAlign.start,
+                                              style: kBody.copyWith(
+                                                  color: item.present != 1
+                                                      ? AppColor.kWhite
+                                                      : Colors.black,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400),
+                                            ).marginSymmetric(
+                                                vertical: cellVerMargin,
+                                                horizontal: cellHorMargin),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
 
                                   /// Roll
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(12),
-                                          color: item.present != 1
-                                              ? AppColor.red
-                                              : Colors.transparent,
-                                          child: Text(
-                                            item.studentRollNumber ?? "",
-                                            textAlign: TextAlign.start,
-                                            style: kBody.copyWith(
-                                                color: item.present != 1
-                                                    ? AppColor.kWhite
-                                                    : Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.mUpdateAttendanceList(item);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(12),
+                                            color: item.present != 1
+                                                ? AppColor.red
+                                                : Colors.transparent,
+                                            child: Text(
+                                              item.studentRollNumber ?? "",
+                                              textAlign: TextAlign.start,
+                                              style: kBody.copyWith(
+                                                  color: item.present != 1
+                                                      ? AppColor.kWhite
+                                                      : Colors.black,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400),
+                                            ).marginSymmetric(
+                                                vertical: cellVerMargin,
+                                                horizontal: cellHorMargin),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
 
                                   GestureDetector(
@@ -553,7 +583,10 @@ class TeachPeriodicAttendance
                                                             ? AppColor.kWhite
                                                             : Colors.black,
                                                       ),
-                                                    ),
+                                                    ).marginSymmetric(
+                                                        vertical: cellVerMargin,
+                                                        horizontal:
+                                                            cellHorMargin),
                                                   ],
                                                 ),
                                               ],
@@ -588,7 +621,9 @@ class TeachPeriodicAttendance
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.w400),
-                                              ),
+                                              ).marginSymmetric(
+                                                  vertical: cellVerMargin,
+                                                  horizontal: cellHorMargin),
                                               /*  Text(
                                               "(1)",
                                               textAlign: TextAlign.start,
@@ -694,7 +729,9 @@ class TeachPeriodicAttendance
                                                     : Colors.black,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400),
-                                          ),
+                                          ).marginSymmetric(
+                                              vertical: cellVerMargin,
+                                              horizontal: cellHorMargin),
                                         ),
                                       ) /* .marginSymmetric(
                                 vertical: cellVerMargin,
@@ -721,7 +758,9 @@ class TeachPeriodicAttendance
                                                     : Colors.black,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400),
-                                          ),
+                                          ).marginSymmetric(
+                                              vertical: cellVerMargin,
+                                              horizontal: cellHorMargin),
                                         ),
                                       ) /* .marginSymmetric(
                                 vertical: cellVerMargin,
@@ -802,7 +841,10 @@ class TeachPeriodicAttendance
                                                           ? AppColor.kWhite
                                                           : Colors.black,
                                                     ),
-                                                  ),
+                                                  ).marginSymmetric(
+                                                      vertical: cellVerMargin,
+                                                      horizontal:
+                                                          cellHorMargin),
                                                 ],
                                               ),
                                             ],
@@ -815,7 +857,7 @@ class TeachPeriodicAttendance
                                     ],
                                   ),
 
-                                  Row(
+                                  /*  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Expanded(
@@ -844,7 +886,7 @@ class TeachPeriodicAttendance
                                 horizontal: cellHorMargin) */
                                       ,
                                     ],
-                                  ),
+                                  ), */
                                 ],
                               ),
                           ],
@@ -898,9 +940,10 @@ class TeachPeriodicAttendance
                         return DropdownMenuItem<PeriodData>(
                           value: value,
                           child: Text(
-                            value.subjectName ?? "",
+                            "${value.className ?? ""} ${value.subjectName ?? ""} ${value.classTimingDetailName ?? ""}",
                             style: kBody.copyWith(
                               fontWeight: FontWeight.w400,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         );
