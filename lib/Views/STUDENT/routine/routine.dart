@@ -22,9 +22,7 @@ class Routine extends GetView<StuRoutineController> {
               children: [
                 vTopbar(),
                 AppSpacing.xl.height,
-                vDownloadBtns(),
-                AppSpacing.md.height,
-                vRoutinePdf(),
+                vBody(),
               ],
             ),
           ),
@@ -99,107 +97,140 @@ class Routine extends GetView<StuRoutineController> {
   }
 
   _vGetRoutineBtn() {
-    return AppButtons.vPrimaryButtonWithGradient(
-      onTap: () async {
-        await controller.mGetRoutinePdf();
-      },
-      text: "Get Routine",
-    );
+    return SizedBox(
+        width: AppScreenSize.mGetWidth(kGlobContext, 50),
+        child: AppButtons.vPrimaryButtonWithGradient(
+          onTap: () async {
+            controller.isLoading.value = true;
+            await controller.mGetRoutinePdf();
+            controller.isLoading.value = false;
+          },
+          text: "Get",
+        ));
   }
 
   vRoutinePdf() {
+    return Container(
+        alignment: Alignment.topCenter,
+        height: AppScreenSize.mGetHeight(kGlobContext, 40),
+        width: double.infinity,
+        child: PDFView(
+          filePath: controller.pdfFilePath.value,
+          enableSwipe: true,
+          swipeHorizontal: true,
+          autoSpacing: false,
+          pageFling: false,
+          pageSnap: true,
+          onError: (error) {
+            print(error);
+          },
+          onRender: (pages) {
+            // controller.obs;
+            kLog("Called");
+          },
+          onPageError: (page, error) {
+            print(': ${error.toString()}');
+          },
+          onViewCreated: (PDFViewController vc) async {
+            // controller.pdfController.value = vc;
+            // pdfViewController = vc;
+            kLog("Ready Pdf View");
+            // controller.obs;
+          },
+          onPageChanged: (int? page, int? total) {
+            print('page change: /');
+          },
+        ));
+  }
+
+  vDownloadBtns() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        /// heading
+        Row(
+          children: [
+            const Expanded(
+                child: Divider(
+              thickness: 1,
+              color: Colors.black12,
+              height: 1,
+            )),
+            AppSpacing.smh.width,
+            const Text(
+              "Dowload",
+              style: kLabel,
+            ),
+            AppSpacing.smh.width,
+            const Expanded(
+                child: Divider(
+              thickness: 1,
+              color: Colors.black12,
+              height: 1,
+            )),
+          ],
+        ),
+        AppSpacing.sm.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppButtons.vDownloadButton(
+                onTap: () {
+                  controller.mDownload();
+                },
+                text: "Save as PDF"),
+            /*   AppButtons.vDownloadButton(
+                onTap: () {
+                  // controller.mDownloadLandscapeResult();
+                },
+                text: "Landscape"), */
+          ],
+        )
+      ],
+    );
+  }
+
+  vBody() {
     return Obx(() => controller.isLoading.value
-        ? Container()
+        ? Container(
+            alignment: Alignment.center,
+            height: AppScreenSize.mGetHeight(kGlobContext, 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    color: AppColor.primaryColor.withOpacity(.5),
+                    strokeWidth: 1.5,
+                  ),
+                ),
+                AppSpacing.sm.height,
+                const Text(
+                  "Please wait...",
+                  style: kLabel,
+                ),
+              ],
+            ),
+          )
         : !controller.isRoutineFound.value
             ? Container(
                 alignment: Alignment.center,
                 height: AppScreenSize.mGetHeight(kGlobContext, 50),
                 child: Text(
-                  "No Result Found.",
+                  "Not Found.",
                   style: kBody.copyWith(
                     color: Colors.black45,
                   ),
                 ),
               )
-            : SizedBox(
-                height: AppScreenSize.mGetHeight(kGlobContext, 50),
-                width: double.infinity,
-                child: PDFView(
-                  filePath: controller.pdfFilePath.value,
-                  enableSwipe: true,
-                  swipeHorizontal: true,
-                  autoSpacing: false,
-                  pageFling: false,
-                  pageSnap: true,
-                  onError: (error) {
-                    print(error);
-                  },
-                  onRender: (pages) {
-                    // controller.obs;
-                    kLog("Called");
-                  },
-                  onPageError: (page, error) {
-                    print(': ${error.toString()}');
-                  },
-                  onViewCreated: (PDFViewController vc) async {
-                    // controller.pdfController.value = vc;
-                    // pdfViewController = vc;
-                    kLog("Ready Pdf View");
-                    // controller.obs;
-                  },
-                  onPageChanged: (int? page, int? total) {
-                    print('page change: /');
-                  },
-                )));
-  }
-
-  vDownloadBtns() {
-    return Visibility(
-      visible: controller.isRoutineFound.value,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          /// heading
-          Row(
-            children: [
-              const Expanded(
-                  child: Divider(
-                thickness: 1,
-                color: Colors.black12,
-                height: 1,
-              )),
-              AppSpacing.smh.width,
-              const Text(
-                "Dowload",
-                style: kLabel,
-              ),
-              AppSpacing.smh.width,
-              const Expanded(
-                  child: Divider(
-                thickness: 1,
-                color: Colors.black12,
-                height: 1,
-              )),
-            ],
-          ),
-          AppSpacing.sm.height,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppButtons.vDownloadButton(
-                  onTap: () {
-                    controller.mDownload();
-                  },
-                  text: "Save as PDF"),
-              /*   AppButtons.vDownloadButton(
-                  onTap: () {
-                    // controller.mDownloadLandscapeResult();
-                  },
-                  text: "Landscape"), */
-            ],
-          )
-        ],
-      ),
-    );
+            : Column(
+                children: [
+                  vDownloadBtns(),
+                  AppSpacing.md.height,
+                  vRoutinePdf(),
+                ],
+              ));
   }
 }

@@ -53,7 +53,7 @@ class RoutineApis {
       // kLog(res.body);
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Not found");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

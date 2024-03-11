@@ -12,12 +12,11 @@ import '../../../Model/TEACHER/version_year_shift_model.dart';
 import '../../Widgets/buttons.dart';
 
 class TeachRoutine extends GetView<TeachRoutineController> {
-   TeachRoutine({super.key});
-    final _commonController = CommonController.to;
+  TeachRoutine({super.key});
+  final _commonController = CommonController.to;
 
   @override
   Widget build(BuildContext context) {
-
     return BaseWidget(
         title: "Routine",
         child: BaseWidgetChild(
@@ -26,17 +25,14 @@ class TeachRoutine extends GetView<TeachRoutineController> {
               children: [
                 vTopbar(),
                 AppSpacing.xl.height,
-                vDownloadBtns(),
-                AppSpacing.md.height,
-                vRoutinePdf(),
+                vBody(),
               ],
             ),
           ),
         ));
   }
 
-
-   vTopbar() {
+  vTopbar() {
     return Container(
       decoration: BoxDecoration(
         // color: AppColor.helpDeskTopbar,
@@ -56,7 +52,7 @@ class TeachRoutine extends GetView<TeachRoutineController> {
     );
   }
 
-   _vDropdowns() {
+  _vDropdowns() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -159,73 +155,54 @@ class TeachRoutine extends GetView<TeachRoutineController> {
     );
   }
 
-   _vGetRoutineBtn() {
-    return AppButtons.vPrimaryButtonWithGradient(
-      onTap: () async {
-        await controller.mGetRoutinePdf();
-      },
-      text: "Get Routine",
-    );
+  _vGetRoutineBtn() {
+    return SizedBox(
+        width: AppScreenSize.mGetWidth(kGlobContext, 50),
+        child: AppButtons.vPrimaryButtonWithGradient(
+          onTap: () async {
+            controller.isLoading.value = true;
+            await controller.mGetRoutinePdf();
+            controller.isLoading.value = false;
+          },
+          text: "Get",
+        ));
   }
 
-   vRoutinePdf() {
-    return Obx(() {
-      kLog("Updated");
-      return controller.isRoutineFound.value
-          ? controller.pdfFilePath.isEmpty
-              ? Container(
-                  /* 
-                alignment: Alignment.center,
-                height: AppScreenSize.mGetHeight(kGlobContext, 50),
-                child: Text(
-                  "No Routine Found!",
-                  style: kBody.copyWith(color: Colors.amber),
-                ),
-               */
-                  )
-              : SizedBox(
-                  height: AppScreenSize.mGetHeight(kGlobContext, 60),
-                  width: double.infinity,
-                  child: PDFView(
-                    filePath: controller.pdfFilePath.value,
-                    enableSwipe: true,
-                    swipeHorizontal: true,
-                    autoSpacing: false,
-                    pageFling: false,
-                    pageSnap: true,
-                    onError: (error) {
-                      print(error);
-                    },
-                    onRender: (pages) {
-                      // controller.obs;
-                      kLog("Called");
-                    },
-                    onPageError: (page, error) {
-                      print(': ${error.toString()}');
-                    },
-                    onViewCreated: (PDFViewController vc) async {
-                      // controller.pdfController.value = vc;
-                      // pdfViewController = vc;
-                      kLog("Ready Pdf View");
-                      // controller.obs;
-                    },
-                    onPageChanged: (int? page, int? total) {
-                      print('page change: /');
-                    },
-                  ))
-          : Expanded(
-              child: Center(
-                  child: Text(
-                "No Result Found.",
-                style: kBody.copyWith(
-                  color: AppColor.red,
-                ),
-              )),
-            );
-    });
+  vRoutinePdf() {
+    return Container(
+        alignment: Alignment.topCenter,
+        height: AppScreenSize.mGetHeight(kGlobContext, 40),
+        width: double.infinity,
+        child: PDFView(
+          filePath: controller.pdfFilePath.value,
+          enableSwipe: true,
+          swipeHorizontal: true,
+          autoSpacing: false,
+          pageFling: false,
+          pageSnap: true,
+          onError: (error) {
+            print(error);
+          },
+          onRender: (pages) {
+            // controller.obs;
+            kLog("Called");
+          },
+          onPageError: (page, error) {
+            print(': ${error.toString()}');
+          },
+          onViewCreated: (PDFViewController vc) async {
+            // controller.pdfController.value = vc;
+            // pdfViewController = vc;
+            kLog("Ready Pdf View");
+            // controller.obs;
+          },
+          onPageChanged: (int? page, int? total) {
+            print('page change: /');
+          },
+        ));
   }
 
-   vDownloadBtns() {
+  vDownloadBtns() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -270,5 +247,49 @@ class TeachRoutine extends GetView<TeachRoutineController> {
         )
       ],
     );
+  }
+
+  vBody() {
+    return Obx(() => controller.isLoading.value
+        ? Container(
+            alignment: Alignment.center,
+            height: AppScreenSize.mGetHeight(kGlobContext, 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    color: AppColor.primaryColor.withOpacity(.5),
+                    strokeWidth: 1.5,
+                  ),
+                ),
+                AppSpacing.sm.height,
+                const Text(
+                  "Please wait...",
+                  style: kLabel,
+                ),
+              ],
+            ),
+          )
+        : !controller.isRoutineFound.value
+            ? Container(
+                alignment: Alignment.center,
+                height: AppScreenSize.mGetHeight(kGlobContext, 50),
+                child: Text(
+                  "Not Found.",
+                  style: kBody.copyWith(
+                    color: Colors.black45,
+                  ),
+                ),
+              )
+            : Column(
+                children: [
+                  vDownloadBtns(),
+                  AppSpacing.md.height,
+                  vRoutinePdf(),
+                ],
+              ));
   }
 }

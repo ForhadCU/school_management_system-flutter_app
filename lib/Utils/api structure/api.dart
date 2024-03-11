@@ -358,7 +358,7 @@ class CallAPI {
       {String? url}) async {
     dynamic body;
     kLog('GET + $endPoint');
-    showLoading("Please wait...");
+    // showLoading("Please wait...");
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     SitelistModel sitelistModel = SitelistModel.fromMap(
@@ -401,7 +401,7 @@ class CallAPI {
         }
         // showSuccess("Success");
       }
-      hideLoading();
+      // hideLoading();
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       kLog(e.toString());

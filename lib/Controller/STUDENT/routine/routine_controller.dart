@@ -28,18 +28,20 @@ class StuRoutineController extends GetxController {
   Rx<String> pdfFilePath = "".obs;
   late Rx<PDFViewController> pdfController;
   RxBool isRoutineFound = false.obs;
-  var isLoading = true.obs;
   var isInitial = true.obs;
+  var isLoading = true.obs;
+  Uint8List? routineResponse;
 
   /// variable declaration
 
   @override
   void onInit() async {
     super.onInit();
+    showLoading("Please wait");
     token.value = await AppLocalDataFactory.mGetToken();
     await mGetPeriodicTypeList();
-
     await mGetRoutinePdf();
+    isLoading.value = false;
     mListenNotification();
   }
 
@@ -95,17 +97,17 @@ class StuRoutineController extends GetxController {
 
   /// code goes here
   mGetRoutinePdf() async {
-    isLoading.value = true;
-    Uint8List? response = await RoutineApis.mGetRoutinePdf(
+    // isLoading.value = true;
+    routineResponse = await RoutineApis.mGetRoutinePdf(
         PayLoads.stuRoutinePdf(
           api_access_key: AppData.api_access_key,
           academic_period_type_id:
               selectedPeriodicTypeModel.value!.id.toString(),
         ),
         token.value);
-    isLoading.value = false;
+    // isLoading.value = false;
 
-    if (response != null) {
+    if (routineResponse != null) {
       isRoutineFound.value = true;
       // kLog("Response not null: $response");
       var dir = await getApplicationDocumentsDirectory();
@@ -125,6 +127,8 @@ class StuRoutineController extends GetxController {
           "${downloadDirectory.path}/${selectedExamModel.value.examinationName}.pdf"; */
 
       File file = File(filePath);
+      pdfFilePath.value = filePath;
+      isRoutineFound.value = true;
       /*    await file.writeAsBytes(response);
       pdfFilePath.value = filePath; */
 
@@ -132,8 +136,8 @@ class StuRoutineController extends GetxController {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
 
-          await file.writeAsBytes(response);
-          pdfFilePath.value = filePath;
+          await file.writeAsBytes(routineResponse!);
+          isLoading.value = false;
 
           /* pdfPath.set(file.path);
             showBottomSheet(context!, invoiceRef, pdfPath.value); */
@@ -147,27 +151,22 @@ class StuRoutineController extends GetxController {
         }
       } catch (error) {
         kLog(error);
+        isLoading.value = false;
+        isRoutineFound.value = false;
       }
       // kLog(pdfPath);
     } else {
       kLog("Response Null");
       isRoutineFound.value = false;
+      isLoading.value = false;
     }
   }
 
   mDownload() async {
     showLoading("Downloading...");
 
-    Uint8List? response = await RoutineApis.mGetRoutinePdf(
-        PayLoads.stuRoutine(
-          api_access_key: AppData.api_access_key,
-          academic_period_type_id:
-              selectedPeriodicTypeModel.value!.id.toString(),
-        ),
-        token.value);
-
-    if (response != null) {
-      kLog("Response not null: $response");
+    if (routineResponse != null) {
+      kLog("Response not null: $routineResponse");
 /*       var dir = await getApplicationDocumentsDirectory();
       var filePath =
           "${dir.path}/${selectedExamModel.value.examinationName} ${selectedStudentHistory.value.studentRollNumber} (Landscape).pdf";
@@ -182,7 +181,7 @@ class StuRoutineController extends GetxController {
         }
       }
       final filePath =
-          "${downloadDirectory.path}/${selectedPeriodicTypeModel.value!.typeName} Routine.pdf";
+          "${downloadDirectory.path}/${selectedPeriodicTypeModel.value!.typeName} Routine ${DateTime.now().millisecond}.pdf";
 
       File file = File(filePath);
       /*    await file.writeAsBytes(response);
@@ -191,14 +190,17 @@ class StuRoutineController extends GetxController {
       try {
         if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
-          await file.writeAsBytes(response);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
+
+          await file.writeAsBytes(routineResponse!);
+          // pdfFilePath.value = filePath;
+
+          /* pdfPath.set(file.path);
+            showBottomSheet(context!, invoiceRef, pdfPath.value); */
           isInitial.value = false;
 
           await LocalNotification().mShowNotification(payload: file.path);
           showSuccess("Downloaded");
-       } else {
+        } else {
           Map<Permission, PermissionStatus> statuses = await [
             Permission.storage,
           ].request();
@@ -212,57 +214,16 @@ class StuRoutineController extends GetxController {
       // kLog(pdfPath);
     } else {
       kLog("Response Null");
-      isRoutineFound.value = false;
+      hideLoading();
+      // isRoutineFound.value = false;
     }
 
-    /* 
-    Directory downloadDirectory;
-
-    if (Platform.isIOS) {
-      downloadDirectory = await getApplicationDocumentsDirectory();
-    } else {
-      downloadDirectory = Directory('/storage/emulated/0/Download');
-      if (!await downloadDirectory.exists())
-        downloadDirectory = (await getExternalStorageDirectory())!;
-    }
-
-    String filePathName =
-        "${downloadDirectory.path}/${selectedExamModel.value.examinationName}";
-    File savedFile = File(filePathName);
-    bool fileExists = await savedFile.exists();
-
-    if (fileExists) {
-      ScaffoldMessenger.of(kGlobContext).showSnackBar(const SnackBar(
-          content:
-              Text("File already downloaded: /storage/emulated/0/Download")));
-    } else {
-      try {
-        if (await Permission.storage.request().isGranted) {
-          await savedFile.writeAsBytes(response);
-          pdfFilePath.value = file.path;
-          kLog('permission granted');
-
-          /* pdfPath.set(file.path);
-            showBottomSheet(context!, invoiceRef, pdfPath.value); */
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          await Permission.storage.request();
-          kLog('request permission');
-        }
-      } catch (error) {
-        kLog(error);
-      }
-    }
-  */
   }
 
   void mUpdateSelectedPeriodicType(PeriodicTypeModel? selectedModel) {
     if (selectedPeriodicTypeModel.value != selectedModel) {
-      isLoading.value = true;
-      isRoutineFound.value = true;
+    /*   isLoading.value = true;
+      isRoutineFound.value = true; */
       selectedPeriodicTypeModel.value = selectedModel;
     }
   }

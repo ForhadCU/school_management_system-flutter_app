@@ -18,7 +18,8 @@ class TeachRoutineApis {
   static Future<List<PeriodicTypeModel>> mGetPeriodicTypeList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
-        ApiEndpoint.teach_period_type_list, payLoad, token);
+        ApiEndpoint.teach_period_type_list, payLoad, token,
+        isShowLoading: false);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully read mGetPeriodicTypeList data");
@@ -37,6 +38,7 @@ class TeachRoutineApis {
 
   static Future<Uint8List?> mGetRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
+    kLog(payLoad);
     ///////get request hobe//////
     ResponseModel res = await CallAPI.getRoutineData(
         ApiEndpoint.employee_routine_report_pdf, payLoad, token, true);
@@ -47,7 +49,7 @@ class TeachRoutineApis {
       return res.body;
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Not Found");
       kLog("status code is: ${res.statusCode}");
       return null;
     }
