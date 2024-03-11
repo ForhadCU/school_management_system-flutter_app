@@ -284,79 +284,119 @@ class StuPayments extends GetView<StuPaymentsController> {
                       ],
                     )),
 
-                    m.xs
-                        ? Column(
-                            children: [
-                              /// Bank Slip btn
-                              AppButtons.vNarrowButton(
-                                  onTap: () async {
-                                    await controller.mDownloadDemandSlipPdf();
-                                  },
-                                  text: "Demand Slip",
-                                  bg: AppColor.green,
-                                  textColor: AppColor.white),
-                              AppSpacing.sm.height,
-
-                              /// Bank Slip btn
-                              AppButtons.vNarrowButton(
-                                  onTap: () async {
-                                    await controller.mDownloadBankSlipPdf();
-                                  },
-                                  text: "Bank Slip",
-                                  bg: AppColor.green,
-                                  textColor: AppColor.white),
-
-                              AppSpacing.sm.height,
-
-                              /// Fee Details btn
-                              AppButtons.vNarrowButton(
-                                  onTap: () {
-                                    controller.mUpdateFeeDetails();
-                                  },
-                                  text: "Fee Details",
-                                  bg: AppColor.activeTab,
-                                  textColor: AppColor.white),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              Row(
+                    Obx(() => Visibility(
+                        visible: controller.isVisibleButtonsAndMethod.value,
+                        child: m.xs
+                            ? Column(
                                 children: [
-                                  /// Bank Slip btn
-                                  AppButtons.vNarrowButton(
-                                      onTap: () async {
-                                        await controller
-                                            .mDownloadDemandSlipPdf();
-                                      },
-                                      text: "Demand Slip",
-                                      bg: AppColor.green,
-                                      textColor: AppColor.white),
-                                  AppSpacing.sm.width,
+                                  /// Demand Slip btn
+                                  Visibility(
+                                    visible: controller.isDemandSlipFound.value,
+                                    child: Column(
+                                      children: [
+                                        AppButtons.vNarrowButton(
+                                            onTap: () async {
+                                              await controller
+                                                  .mDownloadDemandSlipPdf();
+                                            },
+                                            text: "Demand Slip",
+                                            bg: AppColor.green,
+                                            textColor: AppColor.white),
+                                        AppSpacing.sm.height,
+                                      ],
+                                    ),
+                                  ),
 
                                   /// Bank Slip btn
-                                  AppButtons.vNarrowButton(
-                                      onTap: () async {
-                                        await controller.mDownloadBankSlipPdf();
-                                      },
-                                      text: "Bank Slip",
-                                      bg: AppColor.green,
-                                      textColor: AppColor.white),
-                                ],
-                              ),
-                              AppSpacing.sm.height,
-                              Row(
-                                children: [
-                                  AppButtons.vNarrowButton(
-                                      onTap: () {
-                                        controller.mUpdateFeeDetails();
-                                      },
-                                      text: "Fee Details",
-                                      bg: AppColor.activeTab,
-                                      textColor: AppColor.white)
+                                  Visibility(
+                                    visible: controller.isBankSlipFound.value,
+                                    child: Column(
+                                      children: [
+                                        AppButtons.vNarrowButton(
+                                            onTap: () async {
+                                              await controller
+                                                  .mDownloadBankSlipPdf();
+                                            },
+                                            text: "Bank Slip",
+                                            bg: AppColor.green,
+                                            textColor: AppColor.white),
+                                        AppSpacing.sm.height,
+                                      ],
+                                    ),
+                                  ),
+
+                                  /// Fee Details btn
+                                  Column(
+                                    children: [
+                                      AppButtons.vNarrowButton(
+                                          onTap: () {
+                                            controller.mUpdateFeeDetails();
+                                          },
+                                          text: "Fee Details",
+                                          bg: AppColor.activeTab,
+                                          textColor: AppColor.white),
+                                    ],
+                                  )
                                 ],
                               )
-                            ],
-                          )
+                            : Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      /// Demand Slip btn
+                                      Obx(() => Visibility(
+                                            visible: controller
+                                                .isDemandSlipFound.value,
+                                            child: Row(
+                                              children: [
+                                                AppButtons.vNarrowButton(
+                                                    onTap: () async {
+                                                      await controller
+                                                          .mDownloadDemandSlipPdf();
+                                                    },
+                                                    text: "Demand Slip",
+                                                    bg: AppColor.green,
+                                                    textColor: AppColor.white),
+                                                AppSpacing.sm.width,
+                                              ],
+                                            ),
+                                          )),
+
+                                      /// Bank Slip btn
+                                      Obx(() => Visibility(
+                                            visible: controller
+                                                .isBankSlipFound.value,
+                                            child: AppButtons.vNarrowButton(
+                                                onTap: () async {
+                                                  await controller
+                                                      .mDownloadBankSlipPdf();
+                                                },
+                                                text: "Bank Slip",
+                                                bg: AppColor.green,
+                                                textColor: AppColor.white),
+                                          )),
+                                    ],
+                                  ),
+
+                                  /// Fee Details
+                                  Column(
+                                    children: [
+                                      AppSpacing.sm.height,
+                                      Row(
+                                        children: [
+                                          AppButtons.vNarrowButton(
+                                              onTap: () {
+                                                controller.mUpdateFeeDetails();
+                                              },
+                                              text: "Fee Details",
+                                              bg: AppColor.activeTab,
+                                              textColor: AppColor.white)
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ))),
                   ],
                 ),
               )),
@@ -365,7 +405,8 @@ class StuPayments extends GetView<StuPaymentsController> {
   }
 
   vPaymentByWalet({required M m}) {
-    return Obx(() => controller.isPaymentByWalet.value
+    return Obx(() => controller.isPaymentByWalet.value &&
+            controller.isVisibleButtonsAndMethod.value
         ? Column(
             children: [
               Row(
@@ -589,52 +630,56 @@ class StuPayments extends GetView<StuPaymentsController> {
   }
 
   vPaymentByTransId({required M m}) {
-    return Column(
-      children: [
-        Text(
-          "Payment Method*",
-          style: kBody.copyWith(fontWeight: FontWeight.w500),
-        ),
-        AppSpacing.sm.height,
-        _vPaymentMethodsDropdown(),
-        AppSpacing.md.height,
-        Text(
-          "Transactioh Id*",
-          style: kBody.copyWith(fontWeight: FontWeight.w500),
-        ),
-        AppSpacing.sm.height,
+    return Obx(() => Visibility(
+          visible: controller.isVisibleButtonsAndMethod.value,
+          child: Column(
+            children: [
+              Text(
+                "Payment Method*",
+                style: kBody.copyWith(fontWeight: FontWeight.w500),
+              ),
+              AppSpacing.sm.height,
+              _vPaymentMethodsDropdown(),
+              AppSpacing.md.height,
+              Text(
+                "Transactioh Id*",
+                style: kBody.copyWith(fontWeight: FontWeight.w500),
+              ),
+              AppSpacing.sm.height,
 
-        /// Transaction id Field
-        Container(
-          width: AppScreenSize.mGetWidth(kGlobContext, 70),
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            border: Border.all(color: Colors.black12),
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                offset: Offset(3, 3),
-                blurRadius: 1,
-              )
+              /// Transaction id Field
+              Container(
+                width: AppScreenSize.mGetWidth(kGlobContext, 70),
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(3, 3),
+                      blurRadius: 1,
+                    )
+                  ],
+                ),
+                child: TextFormField(
+                  textAlign: TextAlign.start,
+                  style: kBody,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    border: InputBorder.none,
+                    hintText: "Write Transaction id",
+                    fillColor: AppColor.white,
+                  ),
+                ),
+              ),
+              AppSpacing.xl.height,
+              _vPaymentBtn(),
             ],
           ),
-          child: TextFormField(
-            textAlign: TextAlign.start,
-            style: kBody,
-            decoration: const InputDecoration(
-              isDense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              border: InputBorder.none,
-              hintText: "Write Transaction id",
-              fillColor: AppColor.white,
-            ),
-          ),
-        ),
-        AppSpacing.xl.height,
-        _vPaymentBtn(),
-      ],
-    );
+        ));
   }
 
   _vPaymentMethodsDropdown() {

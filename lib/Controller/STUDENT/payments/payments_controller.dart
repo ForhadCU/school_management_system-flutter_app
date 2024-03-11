@@ -48,6 +48,9 @@ class StuPaymentsController extends GetxController {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   var isInitial = true.obs;
+  var isDemandSlipFound = false.obs;
+  var isBankSlipFound = false.obs;
+  var isVisibleButtonsAndMethod = false.obs;
 
   @override
   void onInit() async {
@@ -59,6 +62,8 @@ class StuPaymentsController extends GetxController {
 
     await mGetPaymentHistory();
     await mGetFeeDetails();
+    await mGetDemandSlipPdf();
+    await mGetBankSlipPdf();
     mListenNotification();
   }
 
@@ -149,6 +154,11 @@ class StuPaymentsController extends GetxController {
     feeDetailsModel.value = await PaymentsApi.mGetFeeDetails(
         PayLoads.stuPaymentDemandSlip(api_access_key: AppData.api_access_key),
         token);
+    if (feeDetailsModel.value == null) {
+      isVisibleButtonsAndMethod.value = false;
+    } else {
+      isVisibleButtonsAndMethod.value = true;
+    }
   }
 
   /////////////Dowload Bank Slip Pdf////////////////
@@ -240,6 +250,24 @@ class StuPaymentsController extends GetxController {
         print("PDF file not found.");
       }
     });
+  }
+
+  mGetDemandSlipPdf() async {
+    demandSlipPdfResponse.value.value = await PaymentsApi.mGetDemandSlipPdf({
+      "api_access_key": AppData.api_access_key,
+    }, token);
+    if (demandSlipPdfResponse.value.value != null) {
+      isDemandSlipFound.value = true;
+    }
+  }
+
+  mGetBankSlipPdf() async {
+    bankSlipPdfResponse.value.value = await PaymentsApi.mGetBankSlipPdf({
+      "api_access_key": AppData.api_access_key,
+    }, token);
+    if (bankSlipPdfResponse.value.value != null) {
+      isBankSlipFound.value = true;
+    }
   }
 
   mDownloadDemandSlipPdf() async {

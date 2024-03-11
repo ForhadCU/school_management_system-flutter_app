@@ -6,7 +6,7 @@ class StuFeeDetailsModel {
     int? slipNo;
     List<FeeAllocationDetail>? feeAllocationDetails;
     int? totalWithDue;
-    dynamic userName;
+    String? userName;
     String? total;
     String? mode;
     String? status;
@@ -22,29 +22,6 @@ class StuFeeDetailsModel {
         this.mode,
         this.status,
     });
-
-    StuFeeDetailsModel copyWith({
-        DemandSlipDetails? demandSlipDetails,
-        StudentDetails? studentDetails,
-        int? slipNo,
-        List<FeeAllocationDetail>? feeAllocationDetails,
-        int? totalWithDue,
-        dynamic userName,
-        String? total,
-        String? mode,
-        String? status,
-    }) => 
-        StuFeeDetailsModel(
-            demandSlipDetails: demandSlipDetails ?? this.demandSlipDetails,
-            studentDetails: studentDetails ?? this.studentDetails,
-            slipNo: slipNo ?? this.slipNo,
-            feeAllocationDetails: feeAllocationDetails ?? this.feeAllocationDetails,
-            totalWithDue: totalWithDue ?? this.totalWithDue,
-            userName: userName ?? this.userName,
-            total: total ?? this.total,
-            mode: mode ?? this.mode,
-            status: status ?? this.status,
-        );
 
     factory StuFeeDetailsModel.fromJson(String str) => StuFeeDetailsModel.fromMap(json.decode(str));
 
@@ -101,7 +78,7 @@ class DemandSlipDetails {
     dynamic paymentFromDate;
     dynamic paymentToDate;
     dynamic previousSiteStudentFeeDemandSlipDetailId;
-    int? previousClassDuePaymentHistoryId;
+    dynamic previousClassDuePaymentHistoryId;
     dynamic dueTransferToPromotedStudentHistoryId;
     dynamic previousAcademicClassDueStatus;
     int? accountsReceivedStatus;
@@ -145,77 +122,6 @@ class DemandSlipDetails {
         this.createdDate,
         this.slipNo,
     });
-
-    DemandSlipDetails copyWith({
-        int? id,
-        int? studentHistoryId,
-        String? totalAmount,
-        int? siteId,
-        int? academicGroupId,
-        int? status,
-        DateTime? createdAt,
-        dynamic updatedAt,
-        String? previousDue,
-        String? siteStudentFeeGenerateIds,
-        String? siteStudentFeeWaiverOfferHistoryIds,
-        dynamic paymentDuration,
-        dynamic siteGroupId,
-        String? feeAmount,
-        String? waiverAmount,
-        String? specialWaiverAmount,
-        dynamic offerAmount,
-        int? createdBy,
-        dynamic lastPaymentDate,
-        int? paymentFineStatus,
-        String? delayFine,
-        String? dueFine,
-        dynamic paymentFromDate,
-        dynamic paymentToDate,
-        dynamic previousSiteStudentFeeDemandSlipDetailId,
-        int? previousClassDuePaymentHistoryId,
-        dynamic dueTransferToPromotedStudentHistoryId,
-        dynamic previousAcademicClassDueStatus,
-        int? accountsReceivedStatus,
-        dynamic orderId,
-        dynamic sitePaymentGatewayId,
-        DateTime? createdDate,
-        int? slipNo,
-    }) => 
-        DemandSlipDetails(
-            id: id ?? this.id,
-            studentHistoryId: studentHistoryId ?? this.studentHistoryId,
-            totalAmount: totalAmount ?? this.totalAmount,
-            siteId: siteId ?? this.siteId,
-            academicGroupId: academicGroupId ?? this.academicGroupId,
-            status: status ?? this.status,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            previousDue: previousDue ?? this.previousDue,
-            siteStudentFeeGenerateIds: siteStudentFeeGenerateIds ?? this.siteStudentFeeGenerateIds,
-            siteStudentFeeWaiverOfferHistoryIds: siteStudentFeeWaiverOfferHistoryIds ?? this.siteStudentFeeWaiverOfferHistoryIds,
-            paymentDuration: paymentDuration ?? this.paymentDuration,
-            siteGroupId: siteGroupId ?? this.siteGroupId,
-            feeAmount: feeAmount ?? this.feeAmount,
-            waiverAmount: waiverAmount ?? this.waiverAmount,
-            specialWaiverAmount: specialWaiverAmount ?? this.specialWaiverAmount,
-            offerAmount: offerAmount ?? this.offerAmount,
-            createdBy: createdBy ?? this.createdBy,
-            lastPaymentDate: lastPaymentDate ?? this.lastPaymentDate,
-            paymentFineStatus: paymentFineStatus ?? this.paymentFineStatus,
-            delayFine: delayFine ?? this.delayFine,
-            dueFine: dueFine ?? this.dueFine,
-            paymentFromDate: paymentFromDate ?? this.paymentFromDate,
-            paymentToDate: paymentToDate ?? this.paymentToDate,
-            previousSiteStudentFeeDemandSlipDetailId: previousSiteStudentFeeDemandSlipDetailId ?? this.previousSiteStudentFeeDemandSlipDetailId,
-            previousClassDuePaymentHistoryId: previousClassDuePaymentHistoryId ?? this.previousClassDuePaymentHistoryId,
-            dueTransferToPromotedStudentHistoryId: dueTransferToPromotedStudentHistoryId ?? this.dueTransferToPromotedStudentHistoryId,
-            previousAcademicClassDueStatus: previousAcademicClassDueStatus ?? this.previousAcademicClassDueStatus,
-            accountsReceivedStatus: accountsReceivedStatus ?? this.accountsReceivedStatus,
-            orderId: orderId ?? this.orderId,
-            sitePaymentGatewayId: sitePaymentGatewayId ?? this.sitePaymentGatewayId,
-            createdDate: createdDate ?? this.createdDate,
-            slipNo: slipNo ?? this.slipNo,
-        );
 
     factory DemandSlipDetails.fromJson(String str) => DemandSlipDetails.fromMap(json.decode(str));
 
@@ -359,71 +265,6 @@ class FeeAllocationDetail {
         this.academicFeeSubHead,
     });
 
-    FeeAllocationDetail copyWith({
-        int? id,
-        int? academicFeeSubHeadId,
-        int? academicFeeHeadId,
-        int? academicFeeGroupId,
-        int? academicShiftId,
-        dynamic academicSessionId,
-        dynamic academicStudentCategoryId,
-        dynamic academicStudentTypeId,
-        dynamic academicStudentAdmissionTypeId,
-        dynamic academicDepartmentId,
-        int? academicClassId,
-        dynamic academicSectionId,
-        int? academicClassGroupId,
-        dynamic academicSubjectId,
-        int? academicYearId,
-        int? academicVersionId,
-        String? amount,
-        int? siteId,
-        int? status,
-        dynamic createdAt,
-        dynamic updatedAt,
-        int? academicGroupId,
-        String? fineAmount,
-        dynamic fineApplicableDate,
-        int? fineApplicableDay,
-        dynamic siteGroupId,
-        String? feeTypeName,
-        AcademicFee? academicFeeHead,
-        AcademicFee? academicFeeGroup,
-        AcademicFee? academicFeeSubHead,
-    }) => 
-        FeeAllocationDetail(
-            id: id ?? this.id,
-            academicFeeSubHeadId: academicFeeSubHeadId ?? this.academicFeeSubHeadId,
-            academicFeeHeadId: academicFeeHeadId ?? this.academicFeeHeadId,
-            academicFeeGroupId: academicFeeGroupId ?? this.academicFeeGroupId,
-            academicShiftId: academicShiftId ?? this.academicShiftId,
-            academicSessionId: academicSessionId ?? this.academicSessionId,
-            academicStudentCategoryId: academicStudentCategoryId ?? this.academicStudentCategoryId,
-            academicStudentTypeId: academicStudentTypeId ?? this.academicStudentTypeId,
-            academicStudentAdmissionTypeId: academicStudentAdmissionTypeId ?? this.academicStudentAdmissionTypeId,
-            academicDepartmentId: academicDepartmentId ?? this.academicDepartmentId,
-            academicClassId: academicClassId ?? this.academicClassId,
-            academicSectionId: academicSectionId ?? this.academicSectionId,
-            academicClassGroupId: academicClassGroupId ?? this.academicClassGroupId,
-            academicSubjectId: academicSubjectId ?? this.academicSubjectId,
-            academicYearId: academicYearId ?? this.academicYearId,
-            academicVersionId: academicVersionId ?? this.academicVersionId,
-            amount: amount ?? this.amount,
-            siteId: siteId ?? this.siteId,
-            status: status ?? this.status,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            academicGroupId: academicGroupId ?? this.academicGroupId,
-            fineAmount: fineAmount ?? this.fineAmount,
-            fineApplicableDate: fineApplicableDate ?? this.fineApplicableDate,
-            fineApplicableDay: fineApplicableDay ?? this.fineApplicableDay,
-            siteGroupId: siteGroupId ?? this.siteGroupId,
-            feeTypeName: feeTypeName ?? this.feeTypeName,
-            academicFeeHead: academicFeeHead ?? this.academicFeeHead,
-            academicFeeGroup: academicFeeGroup ?? this.academicFeeGroup,
-            academicFeeSubHead: academicFeeSubHead ?? this.academicFeeSubHead,
-        );
-
     factory FeeAllocationDetail.fromJson(String str) => FeeAllocationDetail.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
@@ -502,7 +343,7 @@ class AcademicFee {
     dynamic createdAt;
     dynamic updatedAt;
     String? headKey;
-    dynamic headKeyBaseId;
+    int? headKeyBaseId;
 
     AcademicFee({
         this.id,
@@ -513,25 +354,6 @@ class AcademicFee {
         this.headKey,
         this.headKeyBaseId,
     });
-
-    AcademicFee copyWith({
-        int? id,
-        String? name,
-        int? status,
-        dynamic createdAt,
-        dynamic updatedAt,
-        String? headKey,
-        dynamic headKeyBaseId,
-    }) => 
-        AcademicFee(
-            id: id ?? this.id,
-            name: name ?? this.name,
-            status: status ?? this.status,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            headKey: headKey ?? this.headKey,
-            headKeyBaseId: headKeyBaseId ?? this.headKeyBaseId,
-        );
 
     factory AcademicFee.fromJson(String str) => AcademicFee.fromMap(json.decode(str));
 
@@ -566,7 +388,7 @@ class StudentDetails {
     int? academicShiftId;
     int? academicClassId;
     dynamic siteBatchDetailId;
-    int? academicDepartmentId;
+    dynamic academicDepartmentId;
     dynamic academicResidenceId;
     dynamic academicTransportId;
     int? academicSessionId;
@@ -577,10 +399,10 @@ class StudentDetails {
     dynamic boardRegistrationNumber;
     dynamic boardRollNumber;
     List<List<dynamic>>? academicSubjectIds;
-    List<List<dynamic>>? optionalSubjectIds;
+    List<List<dynamic>?>? optionalSubjectIds;
     List<List<dynamic>?>? selectiveMarkinglessSubjectIds;
-    List<List<dynamic>>? compulsorySubjectIds;
-    List<List<dynamic>>? selectiveCompulsorySubjectIds;
+    List<List<dynamic>?>? compulsorySubjectIds;
+    List<List<dynamic>?>? selectiveCompulsorySubjectIds;
     int? religionSubjectId;
     int? academicClassGroupId;
     dynamic academicSectionId;
@@ -588,8 +410,8 @@ class StudentDetails {
     int? studentRollNumber;
     dynamic registrationNo;
     int? localGuardianId;
-    int? previousAcademicClassId;
-    String? previousRollNo;
+    dynamic previousAcademicClassId;
+    dynamic previousRollNo;
     dynamic previousGpa;
     dynamic previousExamMark;
     dynamic previousInstituteName;
@@ -600,8 +422,8 @@ class StudentDetails {
     int? status;
     DateTime? createdAt;
     DateTime? updatedAt;
-    int? previousStudentHistoryId;
-    dynamic createdBy;
+    dynamic previousStudentHistoryId;
+    int? createdBy;
     int? updatedBy;
     dynamic siteStudentRegistrationApplicationId;
     dynamic exAcademicYearId;
@@ -627,6 +449,7 @@ class StudentDetails {
     StClass? stClass;
     AccGroup? accGroup;
     dynamic section;
+    dynamic department;
 
     StudentDetails({
         this.id,
@@ -697,148 +520,8 @@ class StudentDetails {
         this.stClass,
         this.accGroup,
         this.section,
+        this.department,
     });
-
-    StudentDetails copyWith({
-        int? id,
-        int? userId,
-        int? academicGroupId,
-        int? academicVersionId,
-        int? academicShiftId,
-        int? academicClassId,
-        dynamic siteBatchDetailId,
-        int? academicDepartmentId,
-        dynamic academicResidenceId,
-        dynamic academicTransportId,
-        int? academicSessionId,
-        int? academicStudentCategoryId,
-        int? academicStudentTypeId,
-        int? academicStudentAdmissionTypeId,
-        dynamic academicQuataId,
-        dynamic boardRegistrationNumber,
-        dynamic boardRollNumber,
-        List<List<dynamic>>? academicSubjectIds,
-        List<List<dynamic>>? optionalSubjectIds,
-        List<List<dynamic>?>? selectiveMarkinglessSubjectIds,
-        List<List<dynamic>>? compulsorySubjectIds,
-        List<List<dynamic>>? selectiveCompulsorySubjectIds,
-        int? religionSubjectId,
-        int? academicClassGroupId,
-        dynamic academicSectionId,
-        int? academicYearId,
-        int? studentRollNumber,
-        dynamic registrationNo,
-        int? localGuardianId,
-        int? previousAcademicClassId,
-        String? previousRollNo,
-        dynamic previousGpa,
-        dynamic previousExamMark,
-        dynamic previousInstituteName,
-        dynamic previousInstituteLocation,
-        dynamic tcNumber,
-        dynamic tcDate,
-        int? siteId,
-        int? status,
-        DateTime? createdAt,
-        DateTime? updatedAt,
-        int? previousStudentHistoryId,
-        dynamic createdBy,
-        int? updatedBy,
-        dynamic siteStudentRegistrationApplicationId,
-        dynamic exAcademicYearId,
-        dynamic exAcademicShiftId,
-        dynamic exAcademicClassId,
-        dynamic exAcademicDepartmentId,
-        dynamic exAcademicClassGroupId,
-        dynamic exAcademicSectionId,
-        dynamic exAcademicSessionId,
-        dynamic exRollNumber,
-        dynamic exIdCardCode,
-        int? transferStatus,
-        dynamic studentRollNumberPrefix,
-        int? studentEduPaymentStatus,
-        dynamic eduStudentPanelCloseDate,
-        dynamic siteStudentAdmissionApplicationId,
-        dynamic houseId,
-        String? fullName,
-        String? studentFullRollNumber,
-        String? fullNameUsername,
-        String? rollFullNameUsername,
-        Student? student,
-        StClass? stClass,
-        AccGroup? accGroup,
-        dynamic section,
-    }) => 
-        StudentDetails(
-            id: id ?? this.id,
-            userId: userId ?? this.userId,
-            academicGroupId: academicGroupId ?? this.academicGroupId,
-            academicVersionId: academicVersionId ?? this.academicVersionId,
-            academicShiftId: academicShiftId ?? this.academicShiftId,
-            academicClassId: academicClassId ?? this.academicClassId,
-            siteBatchDetailId: siteBatchDetailId ?? this.siteBatchDetailId,
-            academicDepartmentId: academicDepartmentId ?? this.academicDepartmentId,
-            academicResidenceId: academicResidenceId ?? this.academicResidenceId,
-            academicTransportId: academicTransportId ?? this.academicTransportId,
-            academicSessionId: academicSessionId ?? this.academicSessionId,
-            academicStudentCategoryId: academicStudentCategoryId ?? this.academicStudentCategoryId,
-            academicStudentTypeId: academicStudentTypeId ?? this.academicStudentTypeId,
-            academicStudentAdmissionTypeId: academicStudentAdmissionTypeId ?? this.academicStudentAdmissionTypeId,
-            academicQuataId: academicQuataId ?? this.academicQuataId,
-            boardRegistrationNumber: boardRegistrationNumber ?? this.boardRegistrationNumber,
-            boardRollNumber: boardRollNumber ?? this.boardRollNumber,
-            academicSubjectIds: academicSubjectIds ?? this.academicSubjectIds,
-            optionalSubjectIds: optionalSubjectIds ?? this.optionalSubjectIds,
-            selectiveMarkinglessSubjectIds: selectiveMarkinglessSubjectIds ?? this.selectiveMarkinglessSubjectIds,
-            compulsorySubjectIds: compulsorySubjectIds ?? this.compulsorySubjectIds,
-            selectiveCompulsorySubjectIds: selectiveCompulsorySubjectIds ?? this.selectiveCompulsorySubjectIds,
-            religionSubjectId: religionSubjectId ?? this.religionSubjectId,
-            academicClassGroupId: academicClassGroupId ?? this.academicClassGroupId,
-            academicSectionId: academicSectionId ?? this.academicSectionId,
-            academicYearId: academicYearId ?? this.academicYearId,
-            studentRollNumber: studentRollNumber ?? this.studentRollNumber,
-            registrationNo: registrationNo ?? this.registrationNo,
-            localGuardianId: localGuardianId ?? this.localGuardianId,
-            previousAcademicClassId: previousAcademicClassId ?? this.previousAcademicClassId,
-            previousRollNo: previousRollNo ?? this.previousRollNo,
-            previousGpa: previousGpa ?? this.previousGpa,
-            previousExamMark: previousExamMark ?? this.previousExamMark,
-            previousInstituteName: previousInstituteName ?? this.previousInstituteName,
-            previousInstituteLocation: previousInstituteLocation ?? this.previousInstituteLocation,
-            tcNumber: tcNumber ?? this.tcNumber,
-            tcDate: tcDate ?? this.tcDate,
-            siteId: siteId ?? this.siteId,
-            status: status ?? this.status,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            previousStudentHistoryId: previousStudentHistoryId ?? this.previousStudentHistoryId,
-            createdBy: createdBy ?? this.createdBy,
-            updatedBy: updatedBy ?? this.updatedBy,
-            siteStudentRegistrationApplicationId: siteStudentRegistrationApplicationId ?? this.siteStudentRegistrationApplicationId,
-            exAcademicYearId: exAcademicYearId ?? this.exAcademicYearId,
-            exAcademicShiftId: exAcademicShiftId ?? this.exAcademicShiftId,
-            exAcademicClassId: exAcademicClassId ?? this.exAcademicClassId,
-            exAcademicDepartmentId: exAcademicDepartmentId ?? this.exAcademicDepartmentId,
-            exAcademicClassGroupId: exAcademicClassGroupId ?? this.exAcademicClassGroupId,
-            exAcademicSectionId: exAcademicSectionId ?? this.exAcademicSectionId,
-            exAcademicSessionId: exAcademicSessionId ?? this.exAcademicSessionId,
-            exRollNumber: exRollNumber ?? this.exRollNumber,
-            exIdCardCode: exIdCardCode ?? this.exIdCardCode,
-            transferStatus: transferStatus ?? this.transferStatus,
-            studentRollNumberPrefix: studentRollNumberPrefix ?? this.studentRollNumberPrefix,
-            studentEduPaymentStatus: studentEduPaymentStatus ?? this.studentEduPaymentStatus,
-            eduStudentPanelCloseDate: eduStudentPanelCloseDate ?? this.eduStudentPanelCloseDate,
-            siteStudentAdmissionApplicationId: siteStudentAdmissionApplicationId ?? this.siteStudentAdmissionApplicationId,
-            houseId: houseId ?? this.houseId,
-            fullName: fullName ?? this.fullName,
-            studentFullRollNumber: studentFullRollNumber ?? this.studentFullRollNumber,
-            fullNameUsername: fullNameUsername ?? this.fullNameUsername,
-            rollFullNameUsername: rollFullNameUsername ?? this.rollFullNameUsername,
-            student: student ?? this.student,
-            stClass: stClass ?? this.stClass,
-            accGroup: accGroup ?? this.accGroup,
-            section: section ?? this.section,
-        );
 
     factory StudentDetails.fromJson(String str) => StudentDetails.fromMap(json.decode(str));
 
@@ -863,10 +546,10 @@ class StudentDetails {
         boardRegistrationNumber: json["board_registration_number"],
         boardRollNumber: json["board_roll_number"],
         academicSubjectIds: json["academic_subject_ids"] == null ? [] : List<List<dynamic>>.from(json["academic_subject_ids"]!.map((x) => List<dynamic>.from(x.map((x) => x)))),
-        optionalSubjectIds: json["optional_subject_ids"] == null ? [] : List<List<dynamic>>.from(json["optional_subject_ids"]!.map((x) => List<dynamic>.from(x.map((x) => x)))),
+        optionalSubjectIds: json["optional_subject_ids"] == null ? [] : List<List<dynamic>?>.from(json["optional_subject_ids"]!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
         selectiveMarkinglessSubjectIds: json["selective_markingless_subject_ids"] == null ? [] : List<List<dynamic>?>.from(json["selective_markingless_subject_ids"]!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
-        compulsorySubjectIds: json["compulsory_subject_ids"] == null ? [] : List<List<dynamic>>.from(json["compulsory_subject_ids"]!.map((x) => List<dynamic>.from(x.map((x) => x)))),
-        selectiveCompulsorySubjectIds: json["selective_compulsory_subject_ids"] == null ? [] : List<List<dynamic>>.from(json["selective_compulsory_subject_ids"]!.map((x) => List<dynamic>.from(x.map((x) => x)))),
+        compulsorySubjectIds: json["compulsory_subject_ids"] == null ? [] : List<List<dynamic>?>.from(json["compulsory_subject_ids"]!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
+        selectiveCompulsorySubjectIds: json["selective_compulsory_subject_ids"] == null ? [] : List<List<dynamic>?>.from(json["selective_compulsory_subject_ids"]!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
         religionSubjectId: json["religion_subject_id"],
         academicClassGroupId: json["academic_class_group_id"],
         academicSectionId: json["academic_section_id"],
@@ -913,6 +596,7 @@ class StudentDetails {
         stClass: json["st_class"] == null ? null : StClass.fromMap(json["st_class"]),
         accGroup: json["acc_group"] == null ? null : AccGroup.fromMap(json["acc_group"]),
         section: json["section"],
+        department: json["department"],
     );
 
     Map<String, dynamic> toMap() => {
@@ -934,10 +618,10 @@ class StudentDetails {
         "board_registration_number": boardRegistrationNumber,
         "board_roll_number": boardRollNumber,
         "academic_subject_ids": academicSubjectIds == null ? [] : List<dynamic>.from(academicSubjectIds!.map((x) => List<dynamic>.from(x.map((x) => x)))),
-        "optional_subject_ids": optionalSubjectIds == null ? [] : List<dynamic>.from(optionalSubjectIds!.map((x) => List<dynamic>.from(x.map((x) => x)))),
+        "optional_subject_ids": optionalSubjectIds == null ? [] : List<dynamic>.from(optionalSubjectIds!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
         "selective_markingless_subject_ids": selectiveMarkinglessSubjectIds == null ? [] : List<dynamic>.from(selectiveMarkinglessSubjectIds!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
-        "compulsory_subject_ids": compulsorySubjectIds == null ? [] : List<dynamic>.from(compulsorySubjectIds!.map((x) => List<dynamic>.from(x.map((x) => x)))),
-        "selective_compulsory_subject_ids": selectiveCompulsorySubjectIds == null ? [] : List<dynamic>.from(selectiveCompulsorySubjectIds!.map((x) => List<dynamic>.from(x.map((x) => x)))),
+        "compulsory_subject_ids": compulsorySubjectIds == null ? [] : List<dynamic>.from(compulsorySubjectIds!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
+        "selective_compulsory_subject_ids": selectiveCompulsorySubjectIds == null ? [] : List<dynamic>.from(selectiveCompulsorySubjectIds!.map((x) => x == null ? [] : List<dynamic>.from(x!.map((x) => x)))),
         "religion_subject_id": religionSubjectId,
         "academic_class_group_id": academicClassGroupId,
         "academic_section_id": academicSectionId,
@@ -984,6 +668,7 @@ class StudentDetails {
         "st_class": stClass?.toMap(),
         "acc_group": accGroup?.toMap(),
         "section": section,
+        "department": department,
     };
 }
 
@@ -1003,23 +688,6 @@ class AcademicSubjectIdClass {
         this.subjectName,
         this.translations,
     });
-
-    AcademicSubjectIdClass copyWith({
-        int? id,
-        int? belongsToAcademicGroup,
-        DateTime? createdAt,
-        DateTime? updatedAt,
-        String? subjectName,
-        List<AcademicSubjectIdTranslation>? translations,
-    }) => 
-        AcademicSubjectIdClass(
-            id: id ?? this.id,
-            belongsToAcademicGroup: belongsToAcademicGroup ?? this.belongsToAcademicGroup,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            subjectName: subjectName ?? this.subjectName,
-            translations: translations ?? this.translations,
-        );
 
     factory AcademicSubjectIdClass.fromJson(String str) => AcademicSubjectIdClass.fromMap(json.decode(str));
 
@@ -1056,19 +724,6 @@ class AcademicSubjectIdTranslation {
         this.subjectName,
         this.locale,
     });
-
-    AcademicSubjectIdTranslation copyWith({
-        int? id,
-        String? academicSubjectId,
-        String? subjectName,
-        Locale? locale,
-    }) => 
-        AcademicSubjectIdTranslation(
-            id: id ?? this.id,
-            academicSubjectId: academicSubjectId ?? this.academicSubjectId,
-            subjectName: subjectName ?? this.subjectName,
-            locale: locale ?? this.locale,
-        );
 
     factory AcademicSubjectIdTranslation.fromJson(String str) => AcademicSubjectIdTranslation.fromMap(json.decode(str));
 
@@ -1113,21 +768,6 @@ class AccGroup {
         this.updatedAt,
         this.deletedAt,
     });
-
-    AccGroup copyWith({
-        int? id,
-        String? groupName,
-        DateTime? createdAt,
-        DateTime? updatedAt,
-        dynamic deletedAt,
-    }) => 
-        AccGroup(
-            id: id ?? this.id,
-            groupName: groupName ?? this.groupName,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            deletedAt: deletedAt ?? this.deletedAt,
-        );
 
     factory AccGroup.fromJson(String str) => AccGroup.fromMap(json.decode(str));
 
@@ -1174,31 +814,6 @@ class StClass {
         this.deletedAt,
         this.minimumBirthDate,
     });
-
-    StClass copyWith({
-        int? id,
-        String? className,
-        int? academicGroupPresent,
-        int? serialNo,
-        String? note,
-        int? status,
-        dynamic createdAt,
-        dynamic updatedAt,
-        dynamic deletedAt,
-        dynamic minimumBirthDate,
-    }) => 
-        StClass(
-            id: id ?? this.id,
-            className: className ?? this.className,
-            academicGroupPresent: academicGroupPresent ?? this.academicGroupPresent,
-            serialNo: serialNo ?? this.serialNo,
-            note: note ?? this.note,
-            status: status ?? this.status,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            deletedAt: deletedAt ?? this.deletedAt,
-            minimumBirthDate: minimumBirthDate ?? this.minimumBirthDate,
-        );
 
     factory StClass.fromJson(String str) => StClass.fromMap(json.decode(str));
 
@@ -1249,22 +864,22 @@ class Student {
     String? nameNativeLanguage;
     String? contactNumber;
     dynamic bloodGroupId;
-    int? motherOccupationId;
+    dynamic motherOccupationId;
     dynamic motherYearlyIncome;
-    String? motherContactNumber;
+    dynamic motherContactNumber;
     dynamic motherEmail;
-    String? motherNid;
+    dynamic motherNid;
     dynamic motherBcn;
-    int? fatherOccupationId;
-    int? fatherYearlyIncome;
-    String? fatherContactNumber;
+    dynamic fatherOccupationId;
+    dynamic fatherYearlyIncome;
+    dynamic fatherContactNumber;
     dynamic fatherEmail;
-    String? fatherNid;
+    dynamic fatherNid;
     dynamic fatherBcn;
     int? presentCountryId;
     int? presentDivisionId;
     int? presentDistrictId;
-    dynamic presentThanaId;
+    int? presentThanaId;
     int? permanentCountryId;
     int? permanentDivisionId;
     int? permanentDistrictId;
@@ -1283,11 +898,11 @@ class Student {
     dynamic boardRollNumber;
     int? religionSubjectId;
     String? academicSubjectIds;
-    List<AcademicSubjectIdClass>? compulsorySubjectIds;
-    List<AcademicSubjectIdClass>? selectiveCompulsorySubjectIds;
-    List<AcademicSubjectIdClass>? optionalSubjectIds;
+    List<dynamic>? compulsorySubjectIds;
+    List<dynamic>? selectiveCompulsorySubjectIds;
+    List<dynamic>? optionalSubjectIds;
     List<dynamic>? selectiveMarkinglessSubjectIds;
-    int? guardianStudentRelationId;
+    dynamic guardianStudentRelationId;
     int? academicClassId;
     dynamic siteBatchDetailId;
     dynamic academicSectionId;
@@ -1318,8 +933,8 @@ class Student {
     dynamic deletedAt;
     dynamic locale;
     dynamic lastAcademicGroupId;
-    int? siteStudentRegistrationApplicationId;
-    String? presentIdCardCode;
+    dynamic siteStudentRegistrationApplicationId;
+    dynamic presentIdCardCode;
     dynamic exIdCardCode;
     dynamic studentRollNumberPrefix;
     DateTime? lastLogin;
@@ -1330,16 +945,16 @@ class Student {
     int? studentEduPaymentStatus;
     dynamic eduStudentPanelCloseDate;
     String? smsContactField;
-    int? houseId;
+    dynamic houseId;
     String? fullName;
     String? studentFullRollNumber;
     String? firstName;
     dynamic lastName;
-    String? address;
+    dynamic address;
     dynamic spouseName;
     String? motherName;
     String? fatherName;
-    String? permanentAddress;
+    dynamic permanentAddress;
     List<StudentTranslation>? translations;
 
     Student({
@@ -1454,229 +1069,6 @@ class Student {
         this.translations,
     });
 
-    Student copyWith({
-        int? id,
-        String? username,
-        String? userType,
-        dynamic email,
-        int? canUpdate,
-        String? alias,
-        dynamic employeeId,
-        int? instituteHead,
-        dynamic signature,
-        int? employeeSerial,
-        int? companyBranchId,
-        dynamic biometricId,
-        int? fingerTaken,
-        int? attendanceSms,
-        String? nameNativeLanguage,
-        String? contactNumber,
-        dynamic bloodGroupId,
-        int? motherOccupationId,
-        dynamic motherYearlyIncome,
-        String? motherContactNumber,
-        dynamic motherEmail,
-        String? motherNid,
-        dynamic motherBcn,
-        int? fatherOccupationId,
-        int? fatherYearlyIncome,
-        String? fatherContactNumber,
-        dynamic fatherEmail,
-        String? fatherNid,
-        dynamic fatherBcn,
-        int? presentCountryId,
-        int? presentDivisionId,
-        int? presentDistrictId,
-        dynamic presentThanaId,
-        int? permanentCountryId,
-        int? permanentDivisionId,
-        int? permanentDistrictId,
-        int? permanentThanaId,
-        int? genderId,
-        int? religionId,
-        int? academicVersionId,
-        int? academicYearId,
-        int? academicSessionId,
-        int? academicStudentCategoryId,
-        int? academicStudentTypeId,
-        int? academicStudentAdmissionTypeId,
-        dynamic academicQuataId,
-        dynamic studentRegistrationNumber,
-        dynamic boardRegistrationNumber,
-        dynamic boardRollNumber,
-        int? religionSubjectId,
-        String? academicSubjectIds,
-        List<AcademicSubjectIdClass>? compulsorySubjectIds,
-        List<AcademicSubjectIdClass>? selectiveCompulsorySubjectIds,
-        List<AcademicSubjectIdClass>? optionalSubjectIds,
-        List<dynamic>? selectiveMarkinglessSubjectIds,
-        int? guardianStudentRelationId,
-        int? academicClassId,
-        dynamic siteBatchDetailId,
-        dynamic academicSectionId,
-        int? academicClassGroupId,
-        int? studentRollNumber,
-        dynamic profession,
-        int? localGuardianUserId,
-        dynamic academicDepartmentId,
-        dynamic academicResidenceId,
-        dynamic academicTransportId,
-        dynamic designationId,
-        dynamic empCategoryId,
-        dynamic empPositionId,
-        int? academicShiftId,
-        dynamic deptJoinDate,
-        dynamic phone,
-        dynamic emergencyContact,
-        dynamic nidNumber,
-        dynamic passportNo,
-        dynamic birthCertificateNo,
-        dynamic nationality,
-        dynamic instituteJoiningDate,
-        dynamic ntrcRegistrationNumber,
-        int? status,
-        DateTime? dateOfBirth,
-        int? siteId,
-        int? academicGroupId,
-        dynamic deletedAt,
-        dynamic locale,
-        dynamic lastAcademicGroupId,
-        int? siteStudentRegistrationApplicationId,
-        String? presentIdCardCode,
-        dynamic exIdCardCode,
-        dynamic studentRollNumberPrefix,
-        DateTime? lastLogin,
-        DateTime? createdAt,
-        int? createdBy,
-        DateTime? updatedAt,
-        int? updatedBy,
-        int? studentEduPaymentStatus,
-        dynamic eduStudentPanelCloseDate,
-        String? smsContactField,
-        int? houseId,
-        String? fullName,
-        String? studentFullRollNumber,
-        String? firstName,
-        dynamic lastName,
-        String? address,
-        dynamic spouseName,
-        String? motherName,
-        String? fatherName,
-        String? permanentAddress,
-        List<StudentTranslation>? translations,
-    }) => 
-        Student(
-            id: id ?? this.id,
-            username: username ?? this.username,
-            userType: userType ?? this.userType,
-            email: email ?? this.email,
-            canUpdate: canUpdate ?? this.canUpdate,
-            alias: alias ?? this.alias,
-            employeeId: employeeId ?? this.employeeId,
-            instituteHead: instituteHead ?? this.instituteHead,
-            signature: signature ?? this.signature,
-            employeeSerial: employeeSerial ?? this.employeeSerial,
-            companyBranchId: companyBranchId ?? this.companyBranchId,
-            biometricId: biometricId ?? this.biometricId,
-            fingerTaken: fingerTaken ?? this.fingerTaken,
-            attendanceSms: attendanceSms ?? this.attendanceSms,
-            nameNativeLanguage: nameNativeLanguage ?? this.nameNativeLanguage,
-            contactNumber: contactNumber ?? this.contactNumber,
-            bloodGroupId: bloodGroupId ?? this.bloodGroupId,
-            motherOccupationId: motherOccupationId ?? this.motherOccupationId,
-            motherYearlyIncome: motherYearlyIncome ?? this.motherYearlyIncome,
-            motherContactNumber: motherContactNumber ?? this.motherContactNumber,
-            motherEmail: motherEmail ?? this.motherEmail,
-            motherNid: motherNid ?? this.motherNid,
-            motherBcn: motherBcn ?? this.motherBcn,
-            fatherOccupationId: fatherOccupationId ?? this.fatherOccupationId,
-            fatherYearlyIncome: fatherYearlyIncome ?? this.fatherYearlyIncome,
-            fatherContactNumber: fatherContactNumber ?? this.fatherContactNumber,
-            fatherEmail: fatherEmail ?? this.fatherEmail,
-            fatherNid: fatherNid ?? this.fatherNid,
-            fatherBcn: fatherBcn ?? this.fatherBcn,
-            presentCountryId: presentCountryId ?? this.presentCountryId,
-            presentDivisionId: presentDivisionId ?? this.presentDivisionId,
-            presentDistrictId: presentDistrictId ?? this.presentDistrictId,
-            presentThanaId: presentThanaId ?? this.presentThanaId,
-            permanentCountryId: permanentCountryId ?? this.permanentCountryId,
-            permanentDivisionId: permanentDivisionId ?? this.permanentDivisionId,
-            permanentDistrictId: permanentDistrictId ?? this.permanentDistrictId,
-            permanentThanaId: permanentThanaId ?? this.permanentThanaId,
-            genderId: genderId ?? this.genderId,
-            religionId: religionId ?? this.religionId,
-            academicVersionId: academicVersionId ?? this.academicVersionId,
-            academicYearId: academicYearId ?? this.academicYearId,
-            academicSessionId: academicSessionId ?? this.academicSessionId,
-            academicStudentCategoryId: academicStudentCategoryId ?? this.academicStudentCategoryId,
-            academicStudentTypeId: academicStudentTypeId ?? this.academicStudentTypeId,
-            academicStudentAdmissionTypeId: academicStudentAdmissionTypeId ?? this.academicStudentAdmissionTypeId,
-            academicQuataId: academicQuataId ?? this.academicQuataId,
-            studentRegistrationNumber: studentRegistrationNumber ?? this.studentRegistrationNumber,
-            boardRegistrationNumber: boardRegistrationNumber ?? this.boardRegistrationNumber,
-            boardRollNumber: boardRollNumber ?? this.boardRollNumber,
-            religionSubjectId: religionSubjectId ?? this.religionSubjectId,
-            academicSubjectIds: academicSubjectIds ?? this.academicSubjectIds,
-            compulsorySubjectIds: compulsorySubjectIds ?? this.compulsorySubjectIds,
-            selectiveCompulsorySubjectIds: selectiveCompulsorySubjectIds ?? this.selectiveCompulsorySubjectIds,
-            optionalSubjectIds: optionalSubjectIds ?? this.optionalSubjectIds,
-            selectiveMarkinglessSubjectIds: selectiveMarkinglessSubjectIds ?? this.selectiveMarkinglessSubjectIds,
-            guardianStudentRelationId: guardianStudentRelationId ?? this.guardianStudentRelationId,
-            academicClassId: academicClassId ?? this.academicClassId,
-            siteBatchDetailId: siteBatchDetailId ?? this.siteBatchDetailId,
-            academicSectionId: academicSectionId ?? this.academicSectionId,
-            academicClassGroupId: academicClassGroupId ?? this.academicClassGroupId,
-            studentRollNumber: studentRollNumber ?? this.studentRollNumber,
-            profession: profession ?? this.profession,
-            localGuardianUserId: localGuardianUserId ?? this.localGuardianUserId,
-            academicDepartmentId: academicDepartmentId ?? this.academicDepartmentId,
-            academicResidenceId: academicResidenceId ?? this.academicResidenceId,
-            academicTransportId: academicTransportId ?? this.academicTransportId,
-            designationId: designationId ?? this.designationId,
-            empCategoryId: empCategoryId ?? this.empCategoryId,
-            empPositionId: empPositionId ?? this.empPositionId,
-            academicShiftId: academicShiftId ?? this.academicShiftId,
-            deptJoinDate: deptJoinDate ?? this.deptJoinDate,
-            phone: phone ?? this.phone,
-            emergencyContact: emergencyContact ?? this.emergencyContact,
-            nidNumber: nidNumber ?? this.nidNumber,
-            passportNo: passportNo ?? this.passportNo,
-            birthCertificateNo: birthCertificateNo ?? this.birthCertificateNo,
-            nationality: nationality ?? this.nationality,
-            instituteJoiningDate: instituteJoiningDate ?? this.instituteJoiningDate,
-            ntrcRegistrationNumber: ntrcRegistrationNumber ?? this.ntrcRegistrationNumber,
-            status: status ?? this.status,
-            dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-            siteId: siteId ?? this.siteId,
-            academicGroupId: academicGroupId ?? this.academicGroupId,
-            deletedAt: deletedAt ?? this.deletedAt,
-            locale: locale ?? this.locale,
-            lastAcademicGroupId: lastAcademicGroupId ?? this.lastAcademicGroupId,
-            siteStudentRegistrationApplicationId: siteStudentRegistrationApplicationId ?? this.siteStudentRegistrationApplicationId,
-            presentIdCardCode: presentIdCardCode ?? this.presentIdCardCode,
-            exIdCardCode: exIdCardCode ?? this.exIdCardCode,
-            studentRollNumberPrefix: studentRollNumberPrefix ?? this.studentRollNumberPrefix,
-            lastLogin: lastLogin ?? this.lastLogin,
-            createdAt: createdAt ?? this.createdAt,
-            createdBy: createdBy ?? this.createdBy,
-            updatedAt: updatedAt ?? this.updatedAt,
-            updatedBy: updatedBy ?? this.updatedBy,
-            studentEduPaymentStatus: studentEduPaymentStatus ?? this.studentEduPaymentStatus,
-            eduStudentPanelCloseDate: eduStudentPanelCloseDate ?? this.eduStudentPanelCloseDate,
-            smsContactField: smsContactField ?? this.smsContactField,
-            houseId: houseId ?? this.houseId,
-            fullName: fullName ?? this.fullName,
-            studentFullRollNumber: studentFullRollNumber ?? this.studentFullRollNumber,
-            firstName: firstName ?? this.firstName,
-            lastName: lastName ?? this.lastName,
-            address: address ?? this.address,
-            spouseName: spouseName ?? this.spouseName,
-            motherName: motherName ?? this.motherName,
-            fatherName: fatherName ?? this.fatherName,
-            permanentAddress: permanentAddress ?? this.permanentAddress,
-            translations: translations ?? this.translations,
-        );
-
     factory Student.fromJson(String str) => Student.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
@@ -1733,9 +1125,9 @@ class Student {
         boardRollNumber: json["board_roll_number"],
         religionSubjectId: json["religion_subject_id"],
         academicSubjectIds: json["academic_subject_ids"],
-        compulsorySubjectIds: json["compulsory_subject_ids"] == null ? [] : List<AcademicSubjectIdClass>.from(json["compulsory_subject_ids"]!.map((x) => AcademicSubjectIdClass.fromMap(x))),
-        selectiveCompulsorySubjectIds: json["selective_compulsory_subject_ids"] == null ? [] : List<AcademicSubjectIdClass>.from(json["selective_compulsory_subject_ids"]!.map((x) => AcademicSubjectIdClass.fromMap(x))),
-        optionalSubjectIds: json["optional_subject_ids"] == null ? [] : List<AcademicSubjectIdClass>.from(json["optional_subject_ids"]!.map((x) => AcademicSubjectIdClass.fromMap(x))),
+        compulsorySubjectIds: json["compulsory_subject_ids"] == null ? [] : List<dynamic>.from(json["compulsory_subject_ids"]!.map((x) => x)),
+        selectiveCompulsorySubjectIds: json["selective_compulsory_subject_ids"] == null ? [] : List<dynamic>.from(json["selective_compulsory_subject_ids"]!.map((x) => x)),
+        optionalSubjectIds: json["optional_subject_ids"] == null ? [] : List<dynamic>.from(json["optional_subject_ids"]!.map((x) => x)),
         selectiveMarkinglessSubjectIds: json["selective_markingless_subject_ids"] == null ? [] : List<dynamic>.from(json["selective_markingless_subject_ids"]!.map((x) => x)),
         guardianStudentRelationId: json["guardian_student_relation_id"],
         academicClassId: json["academic_class_id"],
@@ -1845,9 +1237,9 @@ class Student {
         "board_roll_number": boardRollNumber,
         "religion_subject_id": religionSubjectId,
         "academic_subject_ids": academicSubjectIds,
-        "compulsory_subject_ids": compulsorySubjectIds == null ? [] : List<dynamic>.from(compulsorySubjectIds!.map((x) => x.toMap())),
-        "selective_compulsory_subject_ids": selectiveCompulsorySubjectIds == null ? [] : List<dynamic>.from(selectiveCompulsorySubjectIds!.map((x) => x.toMap())),
-        "optional_subject_ids": optionalSubjectIds == null ? [] : List<dynamic>.from(optionalSubjectIds!.map((x) => x.toMap())),
+        "compulsory_subject_ids": compulsorySubjectIds == null ? [] : List<dynamic>.from(compulsorySubjectIds!.map((x) => x)),
+        "selective_compulsory_subject_ids": selectiveCompulsorySubjectIds == null ? [] : List<dynamic>.from(selectiveCompulsorySubjectIds!.map((x) => x)),
+        "optional_subject_ids": optionalSubjectIds == null ? [] : List<dynamic>.from(optionalSubjectIds!.map((x) => x)),
         "selective_markingless_subject_ids": selectiveMarkinglessSubjectIds == null ? [] : List<dynamic>.from(selectiveMarkinglessSubjectIds!.map((x) => x)),
         "guardian_student_relation_id": guardianStudentRelationId,
         "academic_class_id": academicClassId,
@@ -1914,8 +1306,8 @@ class StudentTranslation {
     String? fatherName;
     String? motherName;
     dynamic spouseName;
-    String? address;
-    String? permanentAddress;
+    dynamic address;
+    dynamic permanentAddress;
     Locale? locale;
     dynamic localGuardianName;
 
@@ -1932,33 +1324,6 @@ class StudentTranslation {
         this.locale,
         this.localGuardianName,
     });
-
-    StudentTranslation copyWith({
-        int? id,
-        int? userId,
-        String? firstName,
-        dynamic lastName,
-        String? fatherName,
-        String? motherName,
-        dynamic spouseName,
-        String? address,
-        String? permanentAddress,
-        Locale? locale,
-        dynamic localGuardianName,
-    }) => 
-        StudentTranslation(
-            id: id ?? this.id,
-            userId: userId ?? this.userId,
-            firstName: firstName ?? this.firstName,
-            lastName: lastName ?? this.lastName,
-            fatherName: fatherName ?? this.fatherName,
-            motherName: motherName ?? this.motherName,
-            spouseName: spouseName ?? this.spouseName,
-            address: address ?? this.address,
-            permanentAddress: permanentAddress ?? this.permanentAddress,
-            locale: locale ?? this.locale,
-            localGuardianName: localGuardianName ?? this.localGuardianName,
-        );
 
     factory StudentTranslation.fromJson(String str) => StudentTranslation.fromMap(json.decode(str));
 
