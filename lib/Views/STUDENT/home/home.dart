@@ -435,7 +435,7 @@ class StuHome extends GetView<StuHomeController> {
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,
                         bgColor: AppColor.attendance,
-                        label: "Attendance".toUpperCase()))),
+                        label: "My Attendance".toUpperCase()))),
             Expanded(
                 child: Align(
                     alignment: Alignment.center,

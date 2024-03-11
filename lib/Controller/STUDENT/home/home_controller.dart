@@ -34,7 +34,7 @@ class StuHomeController extends GetxController {
       "name": "Calendar",
       "iconUri": StudentAssetLocation.academic_calendar_base_ic
     },
-    {"name": "Attendance", "iconUri": StudentAssetLocation.attendance_base_ic},
+    {"name": "My Attendance", "iconUri": StudentAssetLocation.attendance_base_ic},
     {"name": "My Quiz", "iconUri": StudentAssetLocation.my_quiz_base_ic},
     {"name": "Messages", "iconUri": StudentAssetLocation.message_ic},
     {"name": "Website", "iconUri": PublicAssetLocation.ic_web},
@@ -142,7 +142,7 @@ class StuHomeController extends GetxController {
                              */
                     : "Calendar" == drawerItem
                         ? Get.toNamed(AppRoutes.calendar)
-                        : "Attendance" == drawerItem
+                        : "My Attendance" == drawerItem
                             ? Get.toNamed(AppRoutes.attendance)
                             : "My Quiz" == drawerItem
                                 ? Get.toNamed(AppRoutes.quiz)

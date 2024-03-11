@@ -36,11 +36,12 @@ class TeachHomeController extends GetxController {
       "name": "Exam Mark Entry",
       "iconUri": StudentAssetLocation.my_exam_base_ic
     },
+    {"name": "My Routine", "iconUri": StudentAssetLocation.routine_base_ic},
+    {"name": "My Attendance", "iconUri": StudentAssetLocation.attendance_base_ic},
     {
       "name": "Periodic Attendance",
       "iconUri": StudentAssetLocation.periodic_attend_base_ic
     },
-    {"name": "My Routine", "iconUri": StudentAssetLocation.routine_base_ic},
     {"name": "Messages", "iconUri": StudentAssetLocation.message_ic},
     {"name": "Help Desk", "iconUri": StudentAssetLocation.help_desk_base_ic},
     {"name": "Website", "iconUri": PublicAssetLocation.ic_web},
