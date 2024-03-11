@@ -32,7 +32,7 @@ class StuAttendanceApis {
           ;
     } else {
       kLog("mGetStuAttendanceList status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return AttendanceListModel();
     }
   }

@@ -29,7 +29,6 @@ class LoginApi {
     }
   }
 
- 
   static Future<List<AcademicGroup>> mGetAcademicGroupList(
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getStudentData(
@@ -38,8 +37,9 @@ class LoginApi {
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetAcademicGroupList data");
       return AcademicGroupListModel.fromMap(res.body).academicGroupList!;
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       kLog("mGetAcademicGroupList status code is: ${res.statusCode}");
       return <AcademicGroup>[];
       //return <AcademicGroupListModel  >[];

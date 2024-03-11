@@ -20,12 +20,17 @@ class TeachPeriodicAttendanceApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.teachPeriodList, payLoad, token);
-    // kLogger.d(res.body['result']);
+    kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetPeriodModel data");
       return TeachPeriodModel.fromMap(res.body);
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      if (res.statusCode == 410) {
+        showError("Permission denied!");
+      } else {
+        showError("Server error");
+      }
       kLog("mGetPeriodModel status code is: ${res.statusCode}");
       return TeachPeriodModel();
       //return <TeachPeriodModel>[];
@@ -36,12 +41,19 @@ class TeachPeriodicAttendanceApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.teachPeriodicAttend, payLoad, token);
-    // kLogger.d(res.body);
+    // kLog(payLoad);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetPeriodicAttendanceModel data");
-      return TeachPeriodicAttendanceModel.fromMap(res.body[TeachPeriodicAttendanceModel.getParentJsonKey]);
-    } else {   hideLoading();
-      showError("Server failure");
+      return TeachPeriodicAttendanceModel.fromMap(
+          res.body[TeachPeriodicAttendanceModel.getParentJsonKey]);
+    } else {
+      hideLoading();
+      if (res.statusCode == 410) {
+        showError("Permission denied");
+      } else {
+        showError("Internal server error");
+      }
       kLog("mGetPeriodicAttendanceModel status code is: ${res.statusCode}");
       return TeachPeriodicAttendanceModel();
       //return <TeachPeriodModel>[];
@@ -53,7 +65,7 @@ class TeachPeriodicAttendanceApis {
       required Map<String, dynamic> bodyData,
       required String token,
       required Map<String, dynamic> payload}) async {
-    kLog(bodyData);
+    kLog("BodyData: ${bodyData}");
     ResponseModel res = await CallAPI.postTeacherData(
       endPoint: endPoint,
       bodyData: bodyData,
@@ -65,8 +77,13 @@ class TeachPeriodicAttendanceApis {
       kLog("Successfully submit mSavePeriodicAttendance data");
       // return ExamAttendanceListModel.fromMap(res.body);
       return true;
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      if (res.statusCode == 410) {
+        showError(res.body['message']);
+      } else {
+        showError("Internal server error");
+      }
       kLog("mSavePeriodicAttendance status code is: ${res.statusCode}");
       return false;
       //return <ClassName>[];

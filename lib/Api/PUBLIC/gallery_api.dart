@@ -27,8 +27,9 @@ class GalleryApi {
           imageGalleryApiModel.galleryList!.data!.length.toString());
       return imageGalleryApiModel.galleryList!.data!;
       // return [];
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       return <Datum>[];
     }
   }

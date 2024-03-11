@@ -25,8 +25,9 @@ class AcademicCalendarApi {
       return res.body['academic_group_list']
           .map<AcademicGroupModel>((e) => AcademicGroupModel.fromMap(e))
           .toList();
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       return <AcademicGroupModel>[];
     }
   }
@@ -43,8 +44,9 @@ class AcademicCalendarApi {
       print(res.body);
       return monthWiseEventCalendarApiModel
           .monthWiseCalendarData!.eventDateList!;
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       print(res.body);
       return [<EventDateList>[]];
       //return <List<EventDateList>>[];

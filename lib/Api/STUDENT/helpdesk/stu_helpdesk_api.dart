@@ -27,7 +27,7 @@ class HelpdeskApi {
           .toList();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       // return List<StuHelpDeskModel>();
       return <HelpDeskModel>[];
     }

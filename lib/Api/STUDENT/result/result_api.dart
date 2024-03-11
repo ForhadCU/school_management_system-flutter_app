@@ -34,7 +34,7 @@ class ResultApis {
           .toList();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       //  return List<StuHistoryModel>();
       return <StuHistoryModel>[];
     }
@@ -71,7 +71,7 @@ class ResultApis {
           .toList();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       //  return List<StuHistoryModel>();
 
       return <StuResultTypeModel>[];
@@ -95,7 +95,7 @@ class ResultApis {
       return res.body;
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

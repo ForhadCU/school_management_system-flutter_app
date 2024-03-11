@@ -22,8 +22,9 @@ class ProfileApis {
       print("Successfully mGetProfileInfo read data");
       // kLog(res.body);
       return ProfileInfoModel.fromMap(res.body['student_profile']);
-    } else {      hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       kLog("StatusCode: " + res.statusCode.toString());
       return ProfileInfoModel();
     }

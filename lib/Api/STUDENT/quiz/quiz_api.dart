@@ -36,7 +36,7 @@ class QuizApis {
       // return QuizInfoModel();
     } else {
       kLog("mGetQuizInfo status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return QuizInfoModel();
     }
   }
@@ -62,7 +62,7 @@ class QuizApis {
       // return QuizInfoModel();
     } else {
       kLog("mGetQuizReportList status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return StuQuizResultModel();
     }
   }
@@ -90,7 +90,7 @@ class QuizApis {
       isSaveAnswer = true;
     } else {
       kLog("mSaveQuizAnswerSilently status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       isSaveAnswer = false;
     }
     return isSaveAnswer;
@@ -119,7 +119,7 @@ class QuizApis {
       isSaveAnswer = true;
     } else {
       kLog("mSaveQuizAnswerFinalEnd status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       isSaveAnswer = false;
     }
     return isSaveAnswer;
@@ -145,7 +145,7 @@ class QuizApis {
       isSaveAnswer = true;
     } else {
       kLog("mSaveQuizAnswerSilently status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       isSaveAnswer = false;
     }
     return isSaveAnswer;
@@ -172,7 +172,7 @@ class QuizApis {
       return QuizQuestionsModel.fromMap(res.body);
     } else {
       kLog("mGetQuizQuestions status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return QuizQuestionsModel();
     }
   }
@@ -192,7 +192,7 @@ class QuizApis {
       return true;
     } else {
       kLog("mStartQuiz status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return false;
     }
   }
@@ -216,7 +216,7 @@ class QuizApis {
       // return QuizInfoModel();
     } else {
       kLog("mGetQuizScheduleModel status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return QuizScheduleModel();
     }
   }

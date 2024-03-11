@@ -16,7 +16,6 @@ class TeachPeriodicAttendanceController extends GetxController {
   static TeachPeriodicAttendanceController get to => Get.find();
   var academicGroup = AcademicGroup();
   // var attendanceDate = "2024-02-07".obs;
-  var selectedPeriodModel = PeriodData();
   var token = "";
   var teachPeriodModel = TeachPeriodModel().obs;
   var periodDataList = <PeriodData>[].obs;
@@ -26,7 +25,7 @@ class TeachPeriodicAttendanceController extends GetxController {
   var presentStatus = true.obs;
   var leaveStatus = true.obs;
   var absenttStatus = true.obs;
-  var paginate = 10.obs;
+  var paginate = 14.obs;
   var attendanceDate = DateTime.now().obs;
   var scrollCtrlr = ScrollController().obs;
   var pageNumber = 1.obs;
@@ -41,28 +40,14 @@ class TeachPeriodicAttendanceController extends GetxController {
     await mGetPeriodicAttendanceModel();
     // await mSavePeriodicAttendance();
 
-    scrollCtrlr.value.addListener(() async {
-      if (scrollCtrlr.value.offset ==
-          scrollCtrlr.value.position.maxScrollExtent) {
-        if (teachPeriodicAttendanceModel.value.nextPageUrl != null) {
-          kLog("go next page");
-          kLog(teachPeriodicAttendanceModel.value.currentPage!);
-          pageNumber.value++;
-          await mGetPeriodicAttendanceModel();
-        } else {
-          kLog("end");
-        }
-        kLog("Reached to End");
-        // kLog(noticeApiModel.value.);
-      }
-    });
+    mListenScroll();
   }
 
   @override
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    
+
     mResetList();
   }
 
@@ -123,9 +108,11 @@ class TeachPeriodicAttendanceController extends GetxController {
             att_date: Utils().getTimeFromTimeStamp(
                 attendanceDate.value.toString(), kApiDateFormat)),
         token);
-
     periodDataList
         .addAll(teachPeriodModel.value.periodDataList ?? <PeriodData>[]);
+    for (var element in periodDataList) {
+      kLog(element.id ?? "Null id");
+    }
     selectedPeriodData.value = periodDataList.first;
   }
 
@@ -134,20 +121,23 @@ class TeachPeriodicAttendanceController extends GetxController {
     teachPeriodicAttendanceModel.value =
         await TeachPeriodicAttendanceApis.mGetPeriodicAttendanceModel(
             PayLoads.teachPeriodicAttend(
-                api_access_key: AppData.api_access_key,
-                academic_group_id: academicGroup.id.toString(),
-                // routine_allocation_id: selectedPeriodModel.id.toString(),
-                routine_allocation_id: 3576.toString(),
-                att_date: Utils().getTimeFromTimeStamp(
-                    attendanceDate.value.toString(), kApiDateFormat),
-                present: presentStatus.value ? 1.toString() : 0.toString(),
-                leave: leaveStatus.value ? 1.toString() : 0.toString(),
-                absent: absenttStatus.value ? 1.toString() : 0.toString(),
-                paginate: paginate.value.toString()),
+              api_access_key: AppData.api_access_key,
+              academic_group_id: academicGroup.id.toString(),
+              routine_allocation_id: selectedPeriodData.value.id.toString(),
+              // routine_allocation_id: 3576.toString(),
+              att_date: Utils().getTimeFromTimeStamp(
+                  attendanceDate.value.toString(), kApiDateFormat),
+              present: presentStatus.value ? 1.toString() : 0.toString(),
+              leave: leaveStatus.value ? 1.toString() : 0.toString(),
+              absent: absenttStatus.value ? 1.toString() : 0.toString(),
+              paginate: paginate.value.toString(),
+              page: pageNumber.value.toString(),
+            ),
             token);
-    periodicAttendanceDataList.addAll(
-        teachPeriodicAttendanceModel.value.periodicAttendanceDataList ??
-            <PeriodicAttendanceData>[]);
+    if (teachPeriodicAttendanceModel.value.periodicAttendanceDataList != null) {
+      periodicAttendanceDataList.addAll(
+          teachPeriodicAttendanceModel.value.periodicAttendanceDataList!);
+    }
   }
 
   mSavePeriodicAttendance() async {
@@ -165,8 +155,8 @@ class TeachPeriodicAttendanceController extends GetxController {
           payload: PayLoads.teachSavePeriodicAttend(
               api_access_key: AppData.api_access_key,
               academic_group_id: academicGroup.id.toString(),
-              // routine_allocation_id: selectedPeriodModel.id.toString(),
-              routine_allocation_id: 3576.toString(),
+              routine_allocation_id: selectedPeriodData.value.id.toString(),
+              // routine_allocation_id: 3576.toString(),
               att_date: Utils().getTimeFromTimeStamp(
                   attendanceDate.value.toString(), kApiDateFormat)),
           endPoint: ApiEndpoint.teachSavePeriodicAttend,
@@ -207,5 +197,23 @@ class TeachPeriodicAttendanceController extends GetxController {
   void mModifiedLeaveStatus(bool? value) {
     leaveStatus.value = value!;
     mResetList();
+  }
+
+  void mListenScroll() {
+    scrollCtrlr.value.addListener(() async {
+      if (scrollCtrlr.value.offset ==
+          scrollCtrlr.value.position.maxScrollExtent) {
+        if (teachPeriodicAttendanceModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(teachPeriodicAttendanceModel.value.currentPage!);
+          pageNumber.value++;
+          await mGetPeriodicAttendanceModel();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
   }
 }

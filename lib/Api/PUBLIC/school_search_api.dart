@@ -28,7 +28,7 @@ class SchoolSearchApi {
           .toList();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       return <SitelistModel>[];
     }
   }

@@ -31,7 +31,7 @@ class ExamApis {
     } else {
       //  return List<StuHistoryModel>();
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       return <StuHistoryModel>[];
     }
   }
@@ -50,7 +50,7 @@ class ExamApis {
     } else {
       //  return List<StuHistoryModel>();
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       return <StuExamTypeModel>[];
     }
   }
@@ -84,7 +84,7 @@ class ExamApis {
       return res.body;
     } else {
       // hideLoading();
-      // showError("Server failure");
+      // showError("Internal server error");
       kLog(res.body['message']);
       kLog("status code is: ${res.statusCode}");
       return null;

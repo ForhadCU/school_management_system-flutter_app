@@ -23,8 +23,9 @@ class TeachProfileApis {
       print("Successfully read data");
       // kLog(res.body);
       return TeachProfileInfoModel.fromMap(res.body['student_profile']);
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       kLog("StatusCode: " + res.statusCode.toString());
       return TeachProfileInfoModel();
     }

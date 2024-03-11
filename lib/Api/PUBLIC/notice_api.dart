@@ -22,8 +22,9 @@ class NoticeApi {
     if (res.statusCode == 200) {
       print("Successfully read data");
       return NoticeApiModel.fromMap(res.body);
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       return NoticeApiModel();
     }
   }

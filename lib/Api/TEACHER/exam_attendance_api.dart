@@ -17,14 +17,14 @@ class ExamAttendanceApis {
       Map<String, dynamic> payLoad, String token) async {
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.student_list_for_attendance_by_employ, payLoad, token);
-    // kLogger.d(res.body);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamAttendanceListModel data");
       return ExamAttendanceListModel.fromMap(res.body);
       // return ExamAttendanceListModel();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("mGetExamAttendanceListModel status code is: ${res.statusCode}");
       return ExamAttendanceListModel();
       //return <ClassName>[];
@@ -49,7 +49,7 @@ class ExamAttendanceApis {
       return true;
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("mSubmitExamAttendanceList status code is: ${res.statusCode}");
       return false;
       //return <ClassName>[];

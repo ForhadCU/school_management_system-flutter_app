@@ -26,19 +26,18 @@ class StuCalendarApis {
           .map<StuAcademicGroupModel>((e) => StuAcademicGroupModel.fromMap(e))
           .toList();
     } else {
-       hideLoading();
-      showError("Server failure");
+      hideLoading();
+      showError("Internal server error");
       return <StuAcademicGroupModel>[];
     }
   }
 
   static Future<List<List<StuEventDateList>>> mGetEventDateList(
-      Map<String, dynamic> payLoad, String token,
-     ) async {
+    Map<String, dynamic> payLoad,
+    String token,
+  ) async {
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuAcademicCalendar,
-        payLoad,
-        token);
+        ApiEndpoint.stuAcademicCalendar, payLoad, token);
     // kLogger.d(res.body['result']);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");
@@ -48,8 +47,8 @@ class StuCalendarApis {
           .monthWiseCalendarData!.eventDateList!;
     } else {
       print(res.body);
-       hideLoading();
-      showError("Server failure");
+      hideLoading();
+      showError("Internal server error");
       return [<StuEventDateList>[]];
       //return <List<EventDateList>>[];
     }

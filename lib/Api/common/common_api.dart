@@ -34,7 +34,7 @@ class CommonApis {
       return VersionYearShiftModel.fromMap(res.body);
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("mGetVersionYearShiftModel status code is: ${res.statusCode}");
       return VersionYearShiftModel();
       //return <ClassName>[];
@@ -52,7 +52,7 @@ class CommonApis {
       return DeptClasslistModel.fromMap(res.body);
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("mGetDeptClasslistModel status code is: ${res.statusCode}");
       return DeptClasslistModel();
       //return <ClassName>[];
@@ -73,7 +73,7 @@ class CommonApis {
       return ClassGroupModel.fromMap(res.body);
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("mGetClassGroupModel status code is: ${res.statusCode}");
       return ClassGroupModel();
       //return <ClassName>[];

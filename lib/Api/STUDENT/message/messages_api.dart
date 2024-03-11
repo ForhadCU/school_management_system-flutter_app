@@ -25,7 +25,7 @@ class StuMessageApis {
     } else {
       kLog("mGetMessageModel status code is: ${res.statusCode}");
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       return MessageModel();
       //return <MessageModel>[];
     }

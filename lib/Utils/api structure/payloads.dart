@@ -145,7 +145,6 @@ class PayLoads {
     required String date_range,
     required String api_access_key,
     required String page,
-    
   }) {
     return {
       "date_range": date_range,
@@ -703,6 +702,7 @@ class PayLoads {
     required String leave,
     required String absent,
     required String paginate,
+    required String page,
   }) {
     return {
       "api_access_key": api_access_key,
@@ -713,6 +713,7 @@ class PayLoads {
       "leave": leave,
       "absent": absent,
       "paginate": paginate,
+      "page": page,
     };
   }
 
@@ -729,19 +730,18 @@ class PayLoads {
       "att_date": att_date,
     };
   }
+
   static Map<String, dynamic> teachAttendance({
     required String api_access_key,
     required String academic_group_id,
     required String date_range,
     required String page,
-  
   }) {
     return {
       "api_access_key": api_access_key,
       "academic_group_id": academic_group_id,
       "date_range": date_range,
       "page": page,
-     
     };
   }
 }

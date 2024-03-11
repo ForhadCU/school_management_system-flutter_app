@@ -27,7 +27,7 @@ class PaymentsApi {
       return StuFeeDetailsModel.fromMap(res.body);
     } else {
       kLog("mGetFeeDetails status code is: ${res.statusCode}");
-      showError("Server failure");
+      showError("Internal server error");
       return StuFeeDetailsModel();
     }
   }
@@ -43,7 +43,7 @@ class PaymentsApi {
       return res.body;
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("status code is: ${res.statusCode}");
       return null;
     }
@@ -60,7 +60,7 @@ class PaymentsApi {
       return res.body;
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

@@ -18,7 +18,7 @@ void showSuccess(String message) {
 }
 
 void showError(String message) {
-  EasyLoading.showError(message, duration: const Duration(milliseconds: 1000));
+  EasyLoading.showError(message, duration: const Duration(milliseconds: 1500));
 }
 
 Widget helpCenterWidget(BuildContext context) {

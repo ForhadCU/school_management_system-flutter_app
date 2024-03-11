@@ -29,7 +29,7 @@ class RoutineApis {
           .toList();
     } else {
       hideLoading();
-      showError("Server failure");
+      showError("Internal server error");
       //  return List<StuHistoryModel>();
       return <PeriodicTypeModel>[];
     }

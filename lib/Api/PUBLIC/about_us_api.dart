@@ -22,8 +22,9 @@ class AboutUsApi {
       print("Successfully read data");
       AboutUsApiModel apiModel = AboutUsApiModel.fromMap(res.body);
       return apiModel.aboutUs!;
-    } else {   hideLoading();
-      showError("Server failure");
+    } else {
+      hideLoading();
+      showError("Internal server error");
       return AboutUs();
       //return <SiteHistoryApiM>[];
     }
