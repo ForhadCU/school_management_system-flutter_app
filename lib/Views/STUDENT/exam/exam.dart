@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Utils/utils.dart';
@@ -196,11 +195,11 @@ class Exam extends GetView<StuExamController> {
   }
 
   vExamDocumentsTable() {
-    return Obx(() => Visibility(
-          visible: controller.isFoundRoutinePdf.value ||
-              controller.isFoundAdmitCardPdf.value,
-          child: Expanded(
-              child: SingleChildScrollView(
+    return Obx(() => !controller.isLoading.value &&
+            (controller.isFoundRoutinePdf.value ||
+                controller.isFoundAdmitCardPdf.value)
+        ? Expanded(
+            child: SingleChildScrollView(
             child: Container(
                 width: double.infinity,
                 child: ClipRRect(
@@ -249,7 +248,7 @@ class Exam extends GetView<StuExamController> {
                       for (var item in controller.documentList) // test
 
                         /*  list.indexOf(item) == 0
-                            ? */
+                      ? */
                         TableRow(
                           // table decoration
                           decoration: BoxDecoration(
@@ -302,54 +301,75 @@ class Exam extends GetView<StuExamController> {
                           ],
                         )
                       /* : TableRow(
-                                // table decoration
-                                decoration: BoxDecoration(
-                                    color:
-                                        /* controller.userInfoModelList.indexOf(item) */ list
-                                                        .indexOf(item) %
-                                                    2 ==
-                                                0
-                                            ? AppColor.secondaryColor.withOpacity(.4)
-                                            : AppColor.secondaryColor
-                                                .withOpacity(.2)),
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          item['name'],
-                                          textAlign: TextAlign.start,
-                                          overflow: TextOverflow.clip,
-                                          style: kBody.copyWith(
-                                              color: AppColor.kBlack,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400),
-                                        ).marginAll(8),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppButtons.vDownloadButton(
-                                              onTap: () {
-                                                // controller.mDownloadPortraitResult();
-                                              },
-                                              horizontalPadding: AppSpacing.sm,
-                                              text: "Download")
-                                          .marginSymmetric(
-                                              horizontal: AppSpacing.smh,
-                                              vertical: AppSpacing.md),
-                            )        ],
-                              ),
-                            ],
-                          ), */
+                          // table decoration
+                          decoration: BoxDecoration(
+                              color:
+                                  /* controller.userInfoModelList.indexOf(item) */ list
+                                                  .indexOf(item) %
+                                              2 ==
+                                          0
+                                      ? AppColor.secondaryColor.withOpacity(.4)
+                                      : AppColor.secondaryColor
+                                          .withOpacity(.2)),
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    item['name'],
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.clip,
+                                    style: kBody.copyWith(
+                                        color: AppColor.kBlack,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ).marginAll(8),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppButtons.vDownloadButton(
+                                        onTap: () {
+                                          // controller.mDownloadPortraitResult();
+                                        },
+                                        horizontalPadding: AppSpacing.sm,
+                                        text: "Download")
+                                    .marginSymmetric(
+                                        horizontal: AppSpacing.smh,
+                                        vertical: AppSpacing.md),
+                      )        ],
+                        ),
+                      ],
+                    ), */
                     ],
                   ),
                 ) /* .marginOnly(left: 20, top: 10, right: 20, bottom: 50) */),
-          )),
-        ));
+          ))
+        : Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      color: AppColor.primaryColor.withOpacity(.5),
+                      strokeWidth: 1.5,
+                    ),
+                  ),
+                  AppSpacing.sm.height,
+                  const Text(
+                    "Please wait...",
+                    style: kLabel,
+                  ),
+                ],
+              ),
+            ),
+          ));
   }
 
   vNotFoundMessage() {

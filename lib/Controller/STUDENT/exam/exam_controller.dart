@@ -51,6 +51,7 @@ class StuExamController extends GetxController {
     await mGetExamTypeList();
     await mGetExamRoutinePdf();
     await mGetExamAdmitCardPdf();
+
     isLoading.value = false;
     hideLoading();
     mListenNotification();
