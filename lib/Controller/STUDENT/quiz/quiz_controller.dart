@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/quiz/quiz_api.dart';
@@ -136,71 +134,75 @@ class StuQuizController extends GetxController {
 
   mQuizLaunching() async {
     // check: Quiz e registered hoiye ache kina
-    if (quizInfoModel.value.joinStatus == 1) {
-      kLog("Registered");
-      var presentDateTime = DateTime.now();
-      var quizStartDateTime = DateTime.parse(
-          quizInfoModel.value.quizDeclare!.quizDeclareSettings!.startDateTime!);
-      /*    var quizEndDateTime = DateTime.parse(
+    if (quizInfoModel.value.currentDateTime != null) {
+      if (quizInfoModel.value.joinStatus == 1) {
+        kLog("Registered");
+        var presentDateTime = quizInfoModel.value.currentDateTime!;
+        var quizStartDateTime = DateTime.parse(quizInfoModel
+            .value.quizDeclare!.quizDeclareSettings!.startDateTime!);
+        /*    var quizEndDateTime = DateTime.parse(
           quizInfoModel.value.quizDeclare!.quizDeclareSettings!.endDateTime!); */
 
-      /// check: quiz already shuru hoiye gese kina
-      if (presentDateTime.millisecondsSinceEpoch >
-          quizStartDateTime.millisecondsSinceEpoch) {
-        kLog("Quiz already started");
+        /// check: quiz already shuru hoiye gese kina
+        if (presentDateTime.millisecondsSinceEpoch >
+            quizStartDateTime.millisecondsSinceEpoch) {
+          kLog("Quiz already started");
 
-        /// visible Quiz Screen
-        isQuizStart.value = true;
-        isLoading.value = true;
+          /// visible Quiz Screen
+          isQuizStart.value = true;
+          isLoading.value = true;
 
-        /// take questions
-        await mGetQuizQuestions();
-        isLoading.value = false;
+          /// take questions
+          await mGetQuizQuestions();
+          isLoading.value = false;
 
-        /*   /// check: quiz sesh kina
+          /*   /// check: quiz sesh kina
            if (presentDateTime.millisecondsSinceEpoch >
           quizEndDateTime.millisecondsSinceEpoch){
 
           } else{
 
           } */
+        } else {
+          kLog("Quiz not started");
+          isReady.value = true;
+          mGetRemainingTimeBeforeStart();
+        }
       } else {
-        kLog("Quiz not started");
-        isReady.value = true;
-        mGetRemainingTimeBeforeStart();
-      }
-    } else {
-      kLog("Not Registered");
+        kLog("Not Registered");
 
-      var presentDateTime = DateTime.now();
-      var quizStartDateTime = DateTime.parse(
-          quizInfoModel.value.quizDeclare!.quizDeclareSettings!.startDateTime!);
-      /*    var quizEndDateTime = DateTime.parse(
+        var presentDateTime = quizInfoModel.value.currentDateTime!;
+        var quizStartDateTime = DateTime.parse(quizInfoModel
+            .value.quizDeclare!.quizDeclareSettings!.startDateTime!);
+        /*    var quizEndDateTime = DateTime.parse(
           quizInfoModel.value.quizDeclare!.quizDeclareSettings!.endDateTime!); */
 
-      /// check: quiz already shuru hoiye gese kina
-      if (presentDateTime.millisecondsSinceEpoch >
-          quizStartDateTime.millisecondsSinceEpoch) {
-        kLog("Quiz already started");
-        // isQuizMissed.value = true;
-        /// visible Quiz Screen
-        isQuizStart.value = true;
-        isLoading.value = true;
+        /// check: quiz already shuru hoiye gese kina
+        if (presentDateTime.millisecondsSinceEpoch >
+            quizStartDateTime.millisecondsSinceEpoch) {
+          kLog("Quiz already started");
+          // isQuizMissed.value = true;
+          /// visible Quiz Screen
+          isQuizStart.value = true;
+          isLoading.value = true;
 
-        ///Register to quiz
-        await mRegisterToQuiz();
+          ///Register to quiz
+          await mRegisterToQuiz();
 
-        /// take questions
-        await mGetQuizQuestions();
-        isLoading.value = false;
-      } else {
-        kLog("Quiz not started");
+          /// take questions
+          await mGetQuizQuestions();
+          isLoading.value = false;
+        } else {
+          kLog("Quiz not started");
 
-        // isReady.value = true;
-        mGetRemainingTimeBeforeStart();
+          // isReady.value = true;
+          mGetRemainingTimeBeforeStart();
+        }
+
+        // mGetRemainingTimeBeforeStart();
       }
-
-      // mGetRemainingTimeBeforeStart();
+    } else {
+      showError("Invalid quiz time");
     }
   }
 
@@ -308,10 +310,11 @@ class StuQuizController extends GetxController {
   ///
 
   mCalcualteQuizTime() async {
-    if (quizInfoModel.value.quizDeclareId != null) {
+    if (quizInfoModel.value.quizDeclareId != null &&
+        quizInfoModel.value.currentDateTime != null) {
       timeRemainingBeforeStart = DateTime.parse(quizInfoModel
               .value.quizDeclare!.quizDeclareSettings!.endDateTime!)
-          .difference(DateTime.now())
+          .difference(quizInfoModel.value.currentDateTime!)
           .inSeconds;
 
       daysRemainingBeforeStart.value =
@@ -333,10 +336,11 @@ class StuQuizController extends GetxController {
   }
 
   mGetRemainingTimeBeforeStart() async {
-    if (quizInfoModel.value.quizDeclareId != null) {
+    if (quizInfoModel.value.quizDeclareId != null &&
+        quizInfoModel.value.currentDateTime != null) {
       int timeRemainingBeforeStart = DateTime.parse(quizInfoModel
               .value.quizDeclare!.quizDeclareSettings!.startDateTime!)
-          .difference(DateTime.now())
+          .difference(quizInfoModel.value.currentDateTime!)
           .inSeconds;
 
       daysRemainingBeforeStart.value =

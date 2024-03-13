@@ -16,7 +16,7 @@ class CallAPI {
   }
   CallAPI._internal();
 
-  static int timeOutSec = 15;
+  static int timeOutSec = 120;
   //DEV:
 // final  String _host = 'http://10.0.2.2:8080';
 // final  String _getHost = '10.0.2.2:8080';

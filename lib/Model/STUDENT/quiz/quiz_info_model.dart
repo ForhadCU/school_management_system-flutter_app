@@ -3,19 +3,19 @@ import 'dart:convert';
 class QuizInfoModel {
       static String get getParentJsonKey => "present_active_quiz";
 
-  
-    final int? studentHistoryId;
-    final int? quizDeclareId;
-    final int? joinStatus;
-    final int? endStatus;
-    final dynamic totalQuestion;
-    final QuizDeclare? quizDeclare;
-    final dynamic totalAnswer;
-    final dynamic totalRightAnswer;
-    final dynamic totalWrongAnswer;
-    final dynamic quizTime;
-    final dynamic mark;
-    final dynamic rank;
+    int? studentHistoryId;
+    int? quizDeclareId;
+    int? joinStatus;
+    int? endStatus;
+    dynamic totalQuestion;
+    QuizDeclare? quizDeclare;
+    DateTime? currentDateTime;
+    dynamic totalAnswer;
+    dynamic totalRightAnswer;
+    dynamic totalWrongAnswer;
+    dynamic quizTime;
+    dynamic mark;
+    dynamic rank;
 
     QuizInfoModel({
         this.studentHistoryId,
@@ -24,6 +24,7 @@ class QuizInfoModel {
         this.endStatus,
         this.totalQuestion,
         this.quizDeclare,
+        this.currentDateTime,
         this.totalAnswer,
         this.totalRightAnswer,
         this.totalWrongAnswer,
@@ -31,35 +32,6 @@ class QuizInfoModel {
         this.mark,
         this.rank,
     });
-
-    QuizInfoModel copyWith({
-        int? studentHistoryId,
-        int? quizDeclareId,
-        int? joinStatus,
-        int? endStatus,
-        dynamic totalQuestion,
-        QuizDeclare? quizDeclare,
-        dynamic totalAnswer,
-        dynamic totalRightAnswer,
-        dynamic totalWrongAnswer,
-        dynamic quizTime,
-        dynamic mark,
-        dynamic rank,
-    }) => 
-        QuizInfoModel(
-            studentHistoryId: studentHistoryId ?? this.studentHistoryId,
-            quizDeclareId: quizDeclareId ?? this.quizDeclareId,
-            joinStatus: joinStatus ?? this.joinStatus,
-            endStatus: endStatus ?? this.endStatus,
-            totalQuestion: totalQuestion ?? this.totalQuestion,
-            quizDeclare: quizDeclare ?? this.quizDeclare,
-            totalAnswer: totalAnswer ?? this.totalAnswer,
-            totalRightAnswer: totalRightAnswer ?? this.totalRightAnswer,
-            totalWrongAnswer: totalWrongAnswer ?? this.totalWrongAnswer,
-            quizTime: quizTime ?? this.quizTime,
-            mark: mark ?? this.mark,
-            rank: rank ?? this.rank,
-        );
 
     factory QuizInfoModel.fromJson(String str) => QuizInfoModel.fromMap(json.decode(str));
 
@@ -72,6 +44,7 @@ class QuizInfoModel {
         endStatus: json["end_status"],
         totalQuestion: json["total_question"],
         quizDeclare: json["quiz_declare"] == null ? null : QuizDeclare.fromMap(json["quiz_declare"]),
+        currentDateTime: json["current_date_time"] == null ? null : DateTime.parse(json["current_date_time"]),
         totalAnswer: json["total_answer"],
         totalRightAnswer: json["total_right_answer"],
         totalWrongAnswer: json["total_wrong_answer"],
@@ -87,6 +60,7 @@ class QuizInfoModel {
         "end_status": endStatus,
         "total_question": totalQuestion,
         "quiz_declare": quizDeclare?.toMap(),
+        "current_date_time": currentDateTime?.toIso8601String(),
         "total_answer": totalAnswer,
         "total_right_answer": totalRightAnswer,
         "total_wrong_answer": totalWrongAnswer,
@@ -97,11 +71,11 @@ class QuizInfoModel {
 }
 
 class QuizDeclare {
-    final int? id;
-    final int? quizId;
-    final String? declareKey;
-    final QuizDeclareSettings? quizDeclareSettings;
-    final Quiz? quiz;
+    int? id;
+    int? quizId;
+    String? declareKey;
+    QuizDeclareSettings? quizDeclareSettings;
+    Quiz? quiz;
 
     QuizDeclare({
         this.id,
@@ -110,21 +84,6 @@ class QuizDeclare {
         this.quizDeclareSettings,
         this.quiz,
     });
-
-    QuizDeclare copyWith({
-        int? id,
-        int? quizId,
-        String? declareKey,
-        QuizDeclareSettings? quizDeclareSettings,
-        Quiz? quiz,
-    }) => 
-        QuizDeclare(
-            id: id ?? this.id,
-            quizId: quizId ?? this.quizId,
-            declareKey: declareKey ?? this.declareKey,
-            quizDeclareSettings: quizDeclareSettings ?? this.quizDeclareSettings,
-            quiz: quiz ?? this.quiz,
-        );
 
     factory QuizDeclare.fromJson(String str) => QuizDeclare.fromMap(json.decode(str));
 
@@ -148,10 +107,10 @@ class QuizDeclare {
 }
 
 class Quiz {
-    final int? id;
-    final String? quizKey;
-    final String? quizName;
-    final int? status;
+    int? id;
+    String? quizKey;
+    String? quizName;
+    int? status;
 
     Quiz({
         this.id,
@@ -159,19 +118,6 @@ class Quiz {
         this.quizName,
         this.status,
     });
-
-    Quiz copyWith({
-        int? id,
-        String? quizKey,
-        String? quizName,
-        int? status,
-    }) => 
-        Quiz(
-            id: id ?? this.id,
-            quizKey: quizKey ?? this.quizKey,
-            quizName: quizName ?? this.quizName,
-            status: status ?? this.status,
-        );
 
     factory Quiz.fromJson(String str) => Quiz.fromMap(json.decode(str));
 
@@ -193,19 +139,19 @@ class Quiz {
 }
 
 class QuizDeclareSettings {
-    final int? id;
-    final int? duration;
-    final DateTime? startDate;
-    final String? startTime;
-    final String? endTime;
-    final String? startDateTime;
-    final String? endDateTime;
-    final int? isCancel;
-    final int? isEnd;
-    final int? isStart;
-    final int? questionPerStudent;
-    final int? quizDeclareId;
-    final int? resultShowToStudentPanelStatus;
+    int? id;
+    int? duration;
+    DateTime? startDate;
+    String? startTime;
+    String? endTime;
+    String? startDateTime;
+    String? endDateTime;
+    int? isCancel;
+    int? isEnd;
+    int? isStart;
+    int? questionPerStudent;
+    int? quizDeclareId;
+    int? resultShowToStudentPanelStatus;
 
     QuizDeclareSettings({
         this.id,
@@ -222,37 +168,6 @@ class QuizDeclareSettings {
         this.quizDeclareId,
         this.resultShowToStudentPanelStatus,
     });
-
-    QuizDeclareSettings copyWith({
-        int? id,
-        int? duration,
-        DateTime? startDate,
-        String? startTime,
-        String? endTime,
-        String? startDateTime,
-        String? endDateTime,
-        int? isCancel,
-        int? isEnd,
-        int? isStart,
-        int? questionPerStudent,
-        int? quizDeclareId,
-        int? resultShowToStudentPanelStatus,
-    }) => 
-        QuizDeclareSettings(
-            id: id ?? this.id,
-            duration: duration ?? this.duration,
-            startDate: startDate ?? this.startDate,
-            startTime: startTime ?? this.startTime,
-            endTime: endTime ?? this.endTime,
-            startDateTime: startDateTime ?? this.startDateTime,
-            endDateTime: endDateTime ?? this.endDateTime,
-            isCancel: isCancel ?? this.isCancel,
-            isEnd: isEnd ?? this.isEnd,
-            isStart: isStart ?? this.isStart,
-            questionPerStudent: questionPerStudent ?? this.questionPerStudent,
-            quizDeclareId: quizDeclareId ?? this.quizDeclareId,
-            resultShowToStudentPanelStatus: resultShowToStudentPanelStatus ?? this.resultShowToStudentPanelStatus,
-        );
 
     factory QuizDeclareSettings.fromJson(String str) => QuizDeclareSettings.fromMap(json.decode(str));
 
