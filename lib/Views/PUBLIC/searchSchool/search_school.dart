@@ -17,24 +17,49 @@ class SearchSchool extends GetView<SearchSchoolController> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Obx(
-      () => !controller.isAllSitesLoaded.value
-          ? Container()
-          : Column(
-              children: [
-                /// title
-                vTitle(),
-
-                /// searchbar
-                vSearchBar(),
-
-                AppSpacing.md.height,
-
-                /// Result List
-                Expanded(
-                  child: vSiteList(),
+      () => controller.isFetchingSiteData.value
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        color: AppColor.primaryColor.withOpacity(.5),
+                        strokeWidth: 2,
+                      )),
+                  AppSpacing.sm.height,
+                  Text(
+                    "Please wait",
+                    style: kBody.copyWith(color: Colors.black45),
+                  )
+                ],
+              ),
+            )
+          : !controller.isAllSitesLoaded.value
+              ? Center(
+                  child: Text(
+                    "Not Found",
+                    style: kBody.copyWith(color: Colors.black45),
+                  ),
                 )
-              ],
-            ),
+              : Column(
+                  children: [
+                    /// title
+                    vTitle(),
+
+                    /// searchbar
+                    vSearchBar(),
+
+                    AppSpacing.md.height,
+
+                    /// Result List
+                    Expanded(
+                      child: vSiteList(),
+                    )
+                  ],
+                ),
     ));
   }
 

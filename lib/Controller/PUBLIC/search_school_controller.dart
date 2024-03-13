@@ -15,17 +15,16 @@ import '../../Routes/app_pages.dart';
 
 class SearchSchoolController extends GetxController {
   static SearchSchoolController get to => Get.find();
-
   var allSitesList = Rxn<List<SitelistModel>>();
   RxList<SitelistModel> searchedSitesList = <SitelistModel>[].obs;
   TextEditingController textEditingControllerSearchSite =
       TextEditingController();
   var _siteListModel = SitelistModel().obs;
   late final SharedPreferences sharedPreferences;
-
   var isAllSitesLoaded = false.obs;
   var isVisibleCharWarning = true.obs;
   var isLoading = false.obs;
+  var isFetchingSiteData = false.obs;
 
   @override
   void onInit() async {
@@ -43,14 +42,14 @@ class SearchSchoolController extends GetxController {
   }
 
   mGetAllSites() async {
-    showLoading("Getting Site list");
-
+    // showLoading("Getting Site list");
+    isFetchingSiteData.value = true;
     allSitesList.value = await SchoolSearchApi.mGetAllSites();
 
     if (allSitesList.value!.length > 0) {
       isAllSitesLoaded.value = true;
     }
-
+    isFetchingSiteData.value = false;
     print(allSitesList.value!.length);
   }
 

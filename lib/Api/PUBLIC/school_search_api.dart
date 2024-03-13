@@ -1,3 +1,4 @@
+import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/PUBLIC/search_school_controller.dart';
 import 'package:school_management_system/Model/PUBLIC/searchSchool/site_list_model.dart';
 
@@ -19,7 +20,7 @@ class SchoolSearchApi {
   static Future<List<SitelistModel>> mGetAllSites(
       [Map<String, dynamic>? payLoad]) async {
     ResponseModel res = await CallAPI.getSiteData();
-    // kLogger.d(res.body['result']);
+    // kLogger.d(res.body[bodyKey]);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       print("Successfully read data");
       controller.isAllSitesLoaded.value = true;
@@ -28,6 +29,7 @@ class SchoolSearchApi {
           .toList();
     } else {
       hideLoading();
+      kLogger.i("Status Code: ${res.statusCode}");
       showError("Internal server error");
       return <SitelistModel>[];
     }
