@@ -40,10 +40,14 @@ class StuResultController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    // showLoading("Please wait");
+
     token.value = await AppLocalDataFactory.mGetToken();
     await mGetStudentHistoryList();
     await mGetResultTypeList();
     await mGetResultPdf();
+    isLoading.value = false;
+
     mListenNotification();
   }
 
@@ -81,7 +85,7 @@ class StuResultController extends GetxController {
   }
 
   /// code goes here
-  mChangeClassDropdownValue(StuHistoryModel value) {
+  /*  mChangeClassDropdownValue(StuHistoryModel value) {
     // selectedStudentHistory.value = value;
 
     if (selectedStudentHistory.value != value) {
@@ -92,14 +96,14 @@ class StuResultController extends GetxController {
   }
 
   mChangeResultTypeDropdownValue(StuResultTypeModel value) {
-    selectedResultModel.value = value;
+    // selectedResultModel.value = value;
 
     if (selectedResultModel.value != value) {
       isLoading.value = true;
       isResultFound.value = true;
       selectedResultModel.value = value;
     }
-  }
+  } */
 
   mGetStudentHistoryList() async {
     stuHistoryList.value = await ResultApis.mGetStudentHistoryList(
@@ -126,25 +130,26 @@ class StuResultController extends GetxController {
   }
 
   mGetResultPdf() async {
-    isLoading.value = true;
+    // isLoading.value = true;
 
     Uint8List? response = await ResultApis.mGetResultPdf(
         PayLoads.stuPrimaryResultDetailsPdf(
             api_access_key: AppData.api_access_key,
-            // student_history_id: selectedStudentHistory.value.id.toString(),
-            student_history_id: 39851.toString(),
+            student_history_id: selectedStudentHistory.value.id.toString(),
+            // student_history_id: 39851.toString(),
             academic_result_primary_type_id:
-                // selectedExamModel.value.id.toString(),
-                20.toString(),
+                selectedResultModel.value.id.toString(),
+            // 20.toString(),
             page_orientaion: PageOrientation.portrait),
         token.value);
-    isLoading.value = false;
+    // isLoading.value = false;
 
     if (response != null) {
-      kLog("Response not null: $response");
+      isResultFound.value = true;
+      // kLog("Response not null: $response");
       var dir = await getApplicationDocumentsDirectory();
       var filePath =
-          "${dir.path}/${selectedResultModel.value.name} ${selectedStudentHistory.value.studentRollNumber}.pdf";
+          "${dir.path}/${selectedResultModel.value.name} Result ${DateTime.now().millisecondsSinceEpoch}.pdf";
 
       /*  Directory downloadDirectory;
       if (Platform.isIOS) {
@@ -159,6 +164,8 @@ class StuResultController extends GetxController {
           "${downloadDirectory.path}/${selectedExamModel.value.examinationName}.pdf"; */
 
       File file = File(filePath);
+      pdfFilePath.value = filePath;
+      isResultFound.value = true;
       /*    await file.writeAsBytes(response);
       pdfFilePath.value = filePath; */
 
@@ -167,7 +174,7 @@ class StuResultController extends GetxController {
           kLog('permission granted');
 
           await file.writeAsBytes(response);
-          pdfFilePath.value = filePath;
+          isLoading.value = false;
 
           /* pdfPath.set(file.path);
             showBottomSheet(context!, invoiceRef, pdfPath.value); */
@@ -181,11 +188,14 @@ class StuResultController extends GetxController {
         }
       } catch (error) {
         kLog(error);
+        isLoading.value = false;
+        isResultFound.value = false;
       }
       // kLog(pdfPath);
     } else {
       kLog("Response Null");
       isResultFound.value = false;
+      isLoading.value = false;
     }
   }
 
@@ -249,7 +259,8 @@ class StuResultController extends GetxController {
       // kLog(pdfPath);
     } else {
       kLog("Response Null");
-      isResultFound.value = false;
+      // isResultFound.value = false;
+      hideLoading();
     }
 
     /* 
@@ -297,14 +308,16 @@ class StuResultController extends GetxController {
   }
 
   mDownloadLandscapeResult() async {
+    showLoading("Downloading...");
+
     Uint8List? response = await ResultApis.mGetResultPdf(
         PayLoads.stuPrimaryResultDetailsPdf(
             api_access_key: AppData.api_access_key,
-            // student_history_id: selectedStudentHistory.value.id.toString(),
-            student_history_id: 39851.toString(),
+            student_history_id: selectedStudentHistory.value.id.toString(),
+            // student_history_id: 39851.toString(),
             academic_result_primary_type_id:
-                // selectedExamModel.value.id.toString(),
-                20.toString(),
+                selectedResultModel.value.id.toString(),
+            // 20.toString(),
             page_orientaion: PageOrientation.landscape),
         token.value);
 
@@ -350,11 +363,13 @@ class StuResultController extends GetxController {
         }
       } catch (error) {
         kLog(error);
+        hideLoading();
       }
       // kLog(pdfPath);
     } else {
       kLog("Response Null");
-      isResultFound.value = false;
+      // isResultFound.value = false;
+      hideLoading();
     }
   }
 

@@ -60,8 +60,10 @@ class ResultApis {
 
   static Future<List<StuResultTypeModel>> mGetResultTypeList(
       Map<String, dynamic> payLoad, String token) async {
+    kLog(payLoad);
     ResponseModel res = await CallAPI.postStudentData(
         ApiEndpoint.stuPrimaryResultList, payLoad, token);
+
     kLogger.d(res.body[StuResultTypeModel.getDataListJsonKey]);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully read StuExamModel data");
@@ -95,7 +97,7 @@ class ResultApis {
       return res.body;
     } else {
       hideLoading();
-      showError("Internal server error");
+      showError("Not Found");
       kLog("status code is: ${res.statusCode}");
       return null;
     }

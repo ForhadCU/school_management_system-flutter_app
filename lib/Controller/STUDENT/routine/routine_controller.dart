@@ -210,6 +210,7 @@ class StuRoutineController extends GetxController {
         }
       } catch (error) {
         kLog(error);
+        hideLoading();
       }
       // kLog(pdfPath);
     } else {
@@ -217,12 +218,11 @@ class StuRoutineController extends GetxController {
       hideLoading();
       // isRoutineFound.value = false;
     }
-
   }
 
   void mUpdateSelectedPeriodicType(PeriodicTypeModel? selectedModel) {
     if (selectedPeriodicTypeModel.value != selectedModel) {
-    /*   isLoading.value = true;
+      /*   isLoading.value = true;
       isRoutineFound.value = true; */
       selectedPeriodicTypeModel.value = selectedModel;
     }
