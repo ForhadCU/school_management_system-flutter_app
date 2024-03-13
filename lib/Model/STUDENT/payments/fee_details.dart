@@ -7,7 +7,12 @@ class StuFeeDetailsModel {
     List<FeeAllocationDetail>? feeAllocationDetails;
     int? totalWithDue;
     String? userName;
-    String? total;
+    int? total;
+    String? totalInWord;
+    String? previousPaidAmount;
+    int? feeDelayFine;
+    int? feeDueFine;
+    String? totalFeeFine;
     String? mode;
     String? status;
 
@@ -19,6 +24,11 @@ class StuFeeDetailsModel {
         this.totalWithDue,
         this.userName,
         this.total,
+        this.totalInWord,
+        this.previousPaidAmount,
+        this.feeDelayFine,
+        this.feeDueFine,
+        this.totalFeeFine,
         this.mode,
         this.status,
     });
@@ -35,6 +45,11 @@ class StuFeeDetailsModel {
         totalWithDue: json["total_with_due"],
         userName: json["user_name"],
         total: json["total"],
+        totalInWord: json["total_in_word"],
+        previousPaidAmount: json["previous_paid_amount"],
+        feeDelayFine: json["fee_delay_fine"],
+        feeDueFine: json["fee_due_fine"],
+        totalFeeFine: json["total_fee_fine"],
         mode: json["mode"],
         status: json["status"],
     );
@@ -47,6 +62,11 @@ class StuFeeDetailsModel {
         "total_with_due": totalWithDue,
         "user_name": userName,
         "total": total,
+        "total_in_word": totalInWord,
+        "previous_paid_amount": previousPaidAmount,
+        "fee_delay_fine": feeDelayFine,
+        "fee_due_fine": feeDueFine,
+        "total_fee_fine": totalFeeFine,
         "mode": mode,
         "status": status,
     };
@@ -388,9 +408,9 @@ class StudentDetails {
     int? academicShiftId;
     int? academicClassId;
     dynamic siteBatchDetailId;
-    dynamic academicDepartmentId;
+    int? academicDepartmentId;
     dynamic academicResidenceId;
-    dynamic academicTransportId;
+    int? academicTransportId;
     int? academicSessionId;
     int? academicStudentCategoryId;
     int? academicStudentTypeId;
@@ -403,15 +423,15 @@ class StudentDetails {
     List<List<dynamic>?>? selectiveMarkinglessSubjectIds;
     List<List<dynamic>?>? compulsorySubjectIds;
     List<List<dynamic>?>? selectiveCompulsorySubjectIds;
-    int? religionSubjectId;
+    dynamic religionSubjectId;
     int? academicClassGroupId;
-    dynamic academicSectionId;
+    int? academicSectionId;
     int? academicYearId;
     int? studentRollNumber;
     dynamic registrationNo;
     int? localGuardianId;
-    dynamic previousAcademicClassId;
-    dynamic previousRollNo;
+    int? previousAcademicClassId;
+    String? previousRollNo;
     dynamic previousGpa;
     dynamic previousExamMark;
     dynamic previousInstituteName;
@@ -422,9 +442,9 @@ class StudentDetails {
     int? status;
     DateTime? createdAt;
     DateTime? updatedAt;
-    dynamic previousStudentHistoryId;
-    int? createdBy;
-    int? updatedBy;
+    int? previousStudentHistoryId;
+    dynamic createdBy;
+    dynamic updatedBy;
     dynamic siteStudentRegistrationApplicationId;
     dynamic exAcademicYearId;
     dynamic exAcademicShiftId;
@@ -448,7 +468,7 @@ class StudentDetails {
     Student? student;
     StClass? stClass;
     AccGroup? accGroup;
-    dynamic section;
+    Section? section;
     dynamic department;
 
     StudentDetails({
@@ -595,7 +615,7 @@ class StudentDetails {
         student: json["student"] == null ? null : Student.fromMap(json["student"]),
         stClass: json["st_class"] == null ? null : StClass.fromMap(json["st_class"]),
         accGroup: json["acc_group"] == null ? null : AccGroup.fromMap(json["acc_group"]),
-        section: json["section"],
+        section: json["section"] == null ? null : Section.fromMap(json["section"]),
         department: json["department"],
     );
 
@@ -667,7 +687,7 @@ class StudentDetails {
         "student": student?.toMap(),
         "st_class": stClass?.toMap(),
         "acc_group": accGroup?.toMap(),
-        "section": section,
+        "section": section?.toMap(),
         "department": department,
     };
 }
@@ -675,7 +695,7 @@ class StudentDetails {
 class AcademicSubjectIdClass {
     int? id;
     int? belongsToAcademicGroup;
-    DateTime? createdAt;
+    dynamic createdAt;
     DateTime? updatedAt;
     String? subjectName;
     List<AcademicSubjectIdTranslation>? translations;
@@ -696,7 +716,7 @@ class AcademicSubjectIdClass {
     factory AcademicSubjectIdClass.fromMap(Map<String, dynamic> json) => AcademicSubjectIdClass(
         id: json["id"],
         belongsToAcademicGroup: json["belongs_to_academic_group"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"],
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         subjectName: json["subject_name"],
         translations: json["translations"] == null ? [] : List<AcademicSubjectIdTranslation>.from(json["translations"]!.map((x) => AcademicSubjectIdTranslation.fromMap(x))),
@@ -705,7 +725,7 @@ class AcademicSubjectIdClass {
     Map<String, dynamic> toMap() => {
         "id": id,
         "belongs_to_academic_group": belongsToAcademicGroup,
-        "created_at": createdAt?.toIso8601String(),
+        "created_at": createdAt,
         "updated_at": updatedAt?.toIso8601String(),
         "subject_name": subjectName,
         "translations": translations == null ? [] : List<dynamic>.from(translations!.map((x) => x.toMap())),
@@ -716,7 +736,7 @@ class AcademicSubjectIdTranslation {
     int? id;
     String? academicSubjectId;
     String? subjectName;
-    Locale? locale;
+    String? locale;
 
     AcademicSubjectIdTranslation({
         this.id,
@@ -733,26 +753,16 @@ class AcademicSubjectIdTranslation {
         id: json["id"],
         academicSubjectId: json["academic_subject_id"],
         subjectName: json["subject_name"],
-        locale: localeValues.map[json["locale"]]!,
+        locale: json["locale"],
     );
 
     Map<String, dynamic> toMap() => {
         "id": id,
         "academic_subject_id": academicSubjectId,
         "subject_name": subjectName,
-        "locale": localeValues.reverse[locale],
+        "locale": locale,
     };
 }
-
-enum Locale {
-    BN,
-    EN
-}
-
-final localeValues = EnumValues({
-    "bn": Locale.BN,
-    "en": Locale.EN
-});
 
 class AccGroup {
     int? id;
@@ -787,6 +797,38 @@ class AccGroup {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
+    };
+}
+
+class Section {
+    int? id;
+    String? sectionName;
+    dynamic createdAt;
+    dynamic updatedAt;
+
+    Section({
+        this.id,
+        this.sectionName,
+        this.createdAt,
+        this.updatedAt,
+    });
+
+    factory Section.fromJson(String str) => Section.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Section.fromMap(Map<String, dynamic> json) => Section(
+        id: json["id"],
+        sectionName: json["section_name"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "section_name": sectionName,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
     };
 }
 
@@ -1308,7 +1350,7 @@ class StudentTranslation {
     dynamic spouseName;
     dynamic address;
     dynamic permanentAddress;
-    Locale? locale;
+    String? locale;
     dynamic localGuardianName;
 
     StudentTranslation({
@@ -1339,7 +1381,7 @@ class StudentTranslation {
         spouseName: json["spouse_name"],
         address: json["address"],
         permanentAddress: json["permanent_address"],
-        locale: localeValues.map[json["locale"]]!,
+        locale: json["locale"],
         localGuardianName: json["local_guardian_name"],
     );
 
@@ -1353,19 +1395,7 @@ class StudentTranslation {
         "spouse_name": spouseName,
         "address": address,
         "permanent_address": permanentAddress,
-        "locale": localeValues.reverse[locale],
+        "locale": locale,
         "local_guardian_name": localGuardianName,
     };
-}
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
 }

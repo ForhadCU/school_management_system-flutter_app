@@ -1080,8 +1080,11 @@ class StuPayments extends GetView<StuPaymentsController> {
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
               child: Text(
-                  controller.feeDetailsModel.value!.studentDetails!.fullName ??
-                      "N/A"),
+                  controller.feeDetailsModel.value!.studentDetails != null
+                      ? controller.feeDetailsModel.value!.studentDetails!
+                              .fullName ??
+                          "N/A"
+                      : "N/A"),
             ),
           ],
         ),
@@ -1099,9 +1102,17 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(controller.feeDetailsModel.value!.studentDetails!
-                      .stClass!.className ??
-                  "N/A"),
+              child: Text(
+                  controller.feeDetailsModel.value!.studentDetails != null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .stClass !=
+                              null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .stClass!.className !=
+                              null
+                      ? controller.feeDetailsModel.value!.studentDetails!
+                          .stClass!.className!
+                      : "N/A"),
             ),
           ],
         ),
@@ -1119,9 +1130,17 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text(controller.feeDetailsModel.value!.studentDetails!
-                      .accGroup!.groupName ??
-                  "N/A"),
+              child: Text(
+                  controller.feeDetailsModel.value!.studentDetails != null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .accGroup !=
+                              null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .accGroup!.groupName !=
+                              null
+                      ? controller.feeDetailsModel.value!.studentDetails!
+                          .accGroup!.groupName!
+                      : "N/A"),
             ),
           ],
         ),
@@ -1140,8 +1159,16 @@ class StuPayments extends GetView<StuPaymentsController> {
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
               child: Text(
-                  controller.feeDetailsModel.value!.studentDetails!.section ??
-                      "N/A"),
+                  controller.feeDetailsModel.value!.studentDetails != null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .section !=
+                              null &&
+                          controller.feeDetailsModel.value!.studentDetails!
+                                  .section!.sectionName !=
+                              null
+                      ? controller.feeDetailsModel.value!.studentDetails!
+                          .section!.sectionName!
+                      : "N/A"),
             ),
           ],
         ),
@@ -1159,10 +1186,15 @@ class StuPayments extends GetView<StuPaymentsController> {
             ),
             StaggeredGridTile.fit(
               crossAxisCellCount: 7,
-              child: Text((controller.feeDetailsModel.value!.studentDetails!
-                          .studentRollNumber ??
-                      00)
-                  .toString()),
+              child: Text(
+                  (controller.feeDetailsModel.value!.studentDetails != null &&
+                              controller.feeDetailsModel.value!.studentDetails!
+                                      .studentRollNumber !=
+                                  null
+                          ? controller.feeDetailsModel.value!.studentDetails!
+                              .studentRollNumber!
+                          : 00)
+                      .toString()),
             ),
           ],
         ),
@@ -1279,7 +1311,10 @@ class StuPayments extends GetView<StuPaymentsController> {
                         children: [
                           Text(
                             // controller.mGetFormatDate(item.date),
-                            item.academicFeeHead!.name ?? "",
+                            item.academicFeeHead != null &&
+                                    item.academicFeeHead!.name != null
+                                ? item.academicFeeHead!.name!
+                                : "",
                             style: kBody.copyWith(
                                 color: AppColor.kBlack,
                                 fontSize: 14,
@@ -1326,7 +1361,11 @@ class StuPayments extends GetView<StuPaymentsController> {
                                           border: Border.all(
                                               width: .5, color: Colors.white)),
                                       child: Text(
-                                        item.academicFeeSubHead!.name ?? "",
+                                        item.academicFeeSubHead != null &&
+                                                item.academicFeeSubHead!.name !=
+                                                    null
+                                            ? item.academicFeeSubHead!.name!
+                                            : "",
                                         textAlign: TextAlign.center,
                                         style: kBody.copyWith(
                                             color: AppColor.kBlack,
@@ -1337,94 +1376,10 @@ class StuPayments extends GetView<StuPaymentsController> {
                                   ),
                                 ],
                               ),
-                            ] /* List.generate(7, (index) =>  Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "Mid Term Exam",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),) */ /* [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "Mid Term Exam",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "Mid Term Exam",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "Mid Term Exam",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ] */
-                            ,
+                            ],
                           )),
                         ],
-                      ) /* .marginSymmetric(
-                              vertical: cellVerMargin,
-                              horizontal: cellHorMargin) */
-                      ,
+                      ),
 
                       /// fee
                       Row(
@@ -1453,56 +1408,11 @@ class StuPayments extends GetView<StuPaymentsController> {
                                     ),
                                   ),
                                 ],
-                              ), /* 
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "1254.00",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: .5, color: Colors.white)),
-                                      child: Text(
-                                        "1254.00",
-                                        textAlign: TextAlign.center,
-                                        style: kBody.copyWith(
-                                            color: AppColor.kBlack,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ), */
                             ],
                           )),
                         ],
-                      ) /* .marginSymmetric(
-                              vertical: cellVerMargin,
-                              horizontal: cellHorMargin) */
-                      ,
+                      ),
                     ],
                   ),
 
@@ -1529,9 +1439,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .feeAmount ??
-                              0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                      null &&
+                                  controller.feeDetailsModel.value!
+                                          .demandSlipDetails!.feeAmount !=
+                                      null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.feeAmount!
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1564,9 +1479,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .previousDue ??
-                              0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                      null &&
+                                  controller.feeDetailsModel.value!
+                                          .demandSlipDetails!.previousDue !=
+                                      null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.previousDue!
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1600,7 +1520,12 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.totalWithDue ?? 0.00)
+                      (controller.feeDetailsModel.value != null &&
+                                  controller.feeDetailsModel.value!
+                                          .totalWithDue !=
+                                      null
+                              ? controller.feeDetailsModel.value!.totalWithDue
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1633,9 +1558,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .waiverAmount ??
-                              0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                      null &&
+                                  controller.feeDetailsModel.value!
+                                          .demandSlipDetails!.waiverAmount !=
+                                      null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.waiverAmount
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1668,9 +1598,17 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .specialWaiverAmount ??
-                              0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                      null &&
+                                  controller
+                                          .feeDetailsModel
+                                          .value!
+                                          .demandSlipDetails!
+                                          .specialWaiverAmount !=
+                                      null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.specialWaiverAmount
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1704,8 +1642,44 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .offerAmount ??
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                  null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.offerAmount
+                              : 0.00)
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ]),
+                TableRow(children: <Widget>[
+                  Container(),
+                  Container(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      "Previous Paid (Tk)",
+                      textAlign: TextAlign.center,
+                      style: kBody.copyWith(
+                          color: AppColor.kBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.white)),
+                    child: Text(
+                      (controller.feeDetailsModel.value!.previousPaidAmount ??
                               0.00)
                           .toString(),
                       textAlign: TextAlign.center,
@@ -1739,9 +1713,14 @@ class StuPayments extends GetView<StuPaymentsController> {
                     decoration: BoxDecoration(
                         border: Border.all(width: .5, color: Colors.white)),
                     child: Text(
-                      (controller.feeDetailsModel.value!.demandSlipDetails!
-                                  .totalAmount ??
-                              0.00)
+                      (controller.feeDetailsModel.value!.demandSlipDetails !=
+                                      null &&
+                                  controller.feeDetailsModel.value!
+                                          .demandSlipDetails!.totalAmount !=
+                                      null
+                              ? controller.feeDetailsModel.value!
+                                  .demandSlipDetails!.totalAmount
+                              : 0.00)
                           .toString(),
                       textAlign: TextAlign.center,
                       style: kBody.copyWith(
@@ -1778,7 +1757,7 @@ class StuPayments extends GetView<StuPaymentsController> {
             Expanded(
                 flex: 6,
                 child: Text(
-                  (controller.feeDetailsModel.value!.total ?? "")
+                  (controller.feeDetailsModel.value!.totalInWord ?? "")
                       .toUpperCase()
                       .trim(),
                   textAlign: TextAlign.left,

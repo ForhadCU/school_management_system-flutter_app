@@ -16,19 +16,20 @@ class PaymentsApi {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static Future<StuFeeDetailsModel> mGetFeeDetails(
+  static Future<StuFeeDetailsModel?> mGetFeeDetails(
       Map<String, dynamic> payLoad, token) async {
+    kLogger.d(payLoad);
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuDemandSlip, payLoad, token);
-    if (res.statusCode == 200) {
-      kLogger.d(res.body);
+    kLogger.d(res.body);
 
+    if (res.statusCode == 200) {
       kLog("Successfully fetch mGetFeeDetails data");
       return StuFeeDetailsModel.fromMap(res.body);
     } else {
       kLog("mGetFeeDetails status code is: ${res.statusCode}");
-      showError("Internal server error");
-      return StuFeeDetailsModel();
+      // showError("Not found");
+      return null;
     }
   }
 
@@ -43,7 +44,7 @@ class PaymentsApi {
       return res.body;
     } else {
       hideLoading();
-      showError("Internal server error");
+      // showError("Not Found");
       kLog("status code is: ${res.statusCode}");
       return null;
     }
@@ -60,7 +61,7 @@ class PaymentsApi {
       return res.body;
     } else {
       hideLoading();
-      showError("Internal server error");
+      // showError("Not Found");
       kLog("status code is: ${res.statusCode}");
       return null;
     }
