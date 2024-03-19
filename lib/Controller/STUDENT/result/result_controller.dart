@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
@@ -24,13 +25,11 @@ class StuResultController extends GetxController {
 
   /// variable declaration
   RxList<StuResultTypeModel> stuResultModelList = <StuResultTypeModel>[].obs;
-/*   RxList<StuResultDetailsModel> stuResultDetailsModel =
-      <StuResultDetailsModel>[].obs; */
+
   RxList<StuHistoryModel> stuHistoryList = <StuHistoryModel>[].obs;
   Rx<StuHistoryModel> selectedStudentHistory = StuHistoryModel().obs;
   Rx<StuResultTypeModel> selectedResultModel = StuResultTypeModel().obs;
   RxString token = "".obs;
-  // RxString pageOrientation = PageOrientation.portrait.obs;
   Rx<String> pdfFilePath = "".obs;
   late Rx<PDFViewController> pdfController;
   RxBool isResultFound = false.obs;
@@ -170,21 +169,45 @@ class StuResultController extends GetxController {
       pdfFilePath.value = filePath; */
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await file.writeAsBytes(response);
-          isLoading.value = false;
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
 
-          /* pdfPath.set(file.path);
+              await file.writeAsBytes(response);
+              isLoading.value = false;
+
+              /* pdfPath.set(file.path);
             showBottomSheet(context!, invoiceRef, pdfPath.value); */
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          await Permission.storage.request();
-          kLog('request permission');
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted) {
+              kLog('permission granted');
+
+              await file.writeAsBytes(response);
+              isLoading.value = false;
+
+              /* pdfPath.set(file.path);
+            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);
@@ -236,7 +259,49 @@ class StuResultController extends GetxController {
       pdfFilePath.value = filePath; */
 
       try {
-        if (await Permission.storage.request().isGranted) {
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+          kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(response);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(response);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              kLog('request permission');
+            }
+          }
+        }
+        /* if (await Permission.storage.request().isGranted) {
           kLog('permission granted');
           await file.writeAsBytes(response);
           // localPathOfDemandSlip.value = file.path;
@@ -252,7 +317,7 @@ class StuResultController extends GetxController {
           kLog(statuses[Permission.storage].toString());
           await Permission.storage.request();
           kLog('request permission');
-        }
+        } */
       } catch (error) {
         kLog(error);
       }
@@ -344,22 +409,47 @@ class StuResultController extends GetxController {
       pdfFilePath.value = filePath; */
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
-          await file.writeAsBytes(response);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
-          isInitial.value = false;
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          await Permission.storage.request();
-          kLog('request permission');
+          kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(response);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(response);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);
