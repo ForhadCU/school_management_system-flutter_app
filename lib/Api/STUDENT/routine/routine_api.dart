@@ -17,9 +17,10 @@ class RoutineApis {
   // All methods should be static to maintain singleton instances
   static Future<List<PeriodicTypeModel>> mGetPeriodicTypeList(
       Map<String, dynamic> payLoad, String token) async {
+    kLogger.d(payLoad);
     ResponseModel res =
         await CallAPI.getStudentData(ApiEndpoint.stuPeriodType, payLoad, token);
-    // kLogger.d(res.body['result']);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully read mGetPeriodicTypeList data");
       // kLog(res.body[StuHistoryModel.getDataListJsonKey]);
@@ -38,13 +39,13 @@ class RoutineApis {
   static Future<Uint8List?> mGetRoutinePdf(
       Map<String, dynamic> payLoad, String token) async {
     ///////get request hobe//////
+    kLogger.d(payLoad);
     ResponseModel res = await CallAPI.getRoutineData(
         ApiEndpoint.stuRoutinePdf, payLoad, token, true);
-    // kLogger.d(res.body['result']);
+    kLogger.d(res.body);
     if (res.statusCode == 200 /* && res.body['mode'] == "success" */) {
       kLog("Successfully fetch mGetResultPdf data");
       if (res.body == "No Routine Found!") {
-        // kLog(res.body);
         kLogger.d("Null pdf");
         return null;
       } else {

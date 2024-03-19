@@ -282,7 +282,8 @@ class StuResultController extends GetxController {
               kLog('request permission');
             }
           } else {
-            if (await Permission.photos.request().isGranted) {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
               kLog('permission granted');
               await file.writeAsBytes(response);
               // localPathOfDemandSlip.value = file.path;
@@ -294,9 +295,11 @@ class StuResultController extends GetxController {
             } else {
               Map<Permission, PermissionStatus> statuses = await [
                 Permission.photos,
+                Permission.notification,
               ].request();
               kLog(statuses[Permission.photos].toString());
               await Permission.photos.request();
+              await Permission.notification.request();
               kLog('request permission');
             }
           }
@@ -432,7 +435,8 @@ class StuResultController extends GetxController {
               kLog('request permission');
             }
           } else {
-            if (await Permission.photos.request().isGranted) {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
               kLog('permission granted');
               await file.writeAsBytes(response);
               // localPathOfDemandSlip.value = file.path;
@@ -444,9 +448,11 @@ class StuResultController extends GetxController {
             } else {
               Map<Permission, PermissionStatus> statuses = await [
                 Permission.photos,
+                Permission.notification,
               ].request();
               kLog(statuses[Permission.photos].toString());
               await Permission.photos.request();
+              await Permission.notification.request();
               kLog('request permission');
             }
           }

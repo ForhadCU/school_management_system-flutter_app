@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -188,25 +189,56 @@ class StuRoutineController extends GetxController {
       pdfFilePath.value = filePath; */
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await file.writeAsBytes(routineResponse!);
-          // pdfFilePath.value = filePath;
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
 
-          /* pdfPath.set(file.path);
+              await file.writeAsBytes(routineResponse!);
+              // pdfFilePath.value = filePath;
+
+              /* pdfPath.set(file.path);
             showBottomSheet(context!, invoiceRef, pdfPath.value); */
-          isInitial.value = false;
+              isInitial.value = false;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          await Permission.storage.request();
-          kLog('request permission');
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
+              kLog('permission granted');
+
+              await file.writeAsBytes(routineResponse!);
+              // pdfFilePath.value = filePath;
+
+              /* pdfPath.set(file.path);
+            showBottomSheet(context!, invoiceRef, pdfPath.value); */
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+                Permission.notification,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              await Permission.notification.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);

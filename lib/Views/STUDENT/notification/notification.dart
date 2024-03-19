@@ -21,7 +21,7 @@ class StuNotification extends GetView<StuNoticeController> {
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text(
-            "Noitce Board".toUpperCase(),
+            "Notification".toUpperCase(),
             style: TextStyle(color: Colors.white),
           ),
           elevation: 0,
@@ -58,10 +58,17 @@ class StuNotification extends GetView<StuNoticeController> {
         ),
         endDrawer: vEndDrawer(),
         body: BaseWidgetChild(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [],
-        )),
+            child: Center(
+              child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+              Text(
+                "Not found",
+                style: kBody.copyWith(color: Colors.black45),
+              )
+                      ],
+                    ),
+            )),
       ),
     );
   }

@@ -101,6 +101,11 @@ class StuQuiz extends GetView<StuQuizController> {
                         strokeWidth: 1.5,
                       ),
                     ),
+                    AppSpacing.sm.height,
+                    Text(
+                      "Please wait",
+                      style: kBody.copyWith(color: Colors.black87),
+                    )
                   ],
                 ),
               )
@@ -111,7 +116,7 @@ class StuQuiz extends GetView<StuQuizController> {
                     : controller.quizInfoModel.value.endStatus == 1
                         ? _vQuizSubmitedMessage()
                         : controller.isQuizStart.value
-                            ? controller.quizQuestionsModel.value == null
+                            ? controller.quizQuestionsModelList.isEmpty
                                 ? Container()
                                 : _vQuizPart()
                             : _vQuizLaunchingPart()));
@@ -153,13 +158,14 @@ class StuQuiz extends GetView<StuQuizController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              controller.quizQuestionIndex.value ==
-                      controller
-                              .quizQuestionsModelList[
-                                  controller.quizQuestionIndex.value]
-                              .questionList!
-                              .length -
-                          1
+              controller.quizQuestionsModelList.isNotEmpty &&
+                      controller.quizQuestionIndex.value ==
+                          controller
+                                  .quizQuestionsModelList[
+                                      controller.quizQuestionIndex.value]
+                                  .questionList!
+                                  .length -
+                              1
                   ? AppButtons.vPrimaryButton(
                       onTap: () {
                         controller.mSubmitQuiz();
@@ -182,107 +188,123 @@ class StuQuiz extends GetView<StuQuizController> {
   }
 
   _vQuizLaunchingPart() {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            border: Border.all(color: AppColor.activeTab, width: .5)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text("Quiz will start",
-                // Text("Before Quiz",
-                style: kTitleLite.copyWith(
-                  color: AppColor.primaryColor,
-                  fontWeight: FontWeight.w500,
-                )),
-            AppSpacing.md.height,
+    return Obx(() {
+      return Expanded(
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColor.activeTab, width: .5)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Quiz will start",
+                  // Text("Before Quiz",
+                  style: kTitleLite.copyWith(
+                    color: AppColor.primaryColor,
+                    fontWeight: FontWeight.w500,
+                  )),
+              AppSpacing.md.height,
 
-            /// Countdown part
-            controller.quizInfoModel.value.currentDateTime != null
-                ? TimerCountdown(
-                    format: CountDownTimerFormat.daysHoursMinutesSeconds,
-                    endTime:
-                        controller.quizInfoModel.value.currentDateTime!.add(
-                      Duration(
-                        days: controller.daysRemainingBeforeStart.value,
-                        hours: controller.hoursRemainingBeforeStart.value,
-                        minutes: controller.minsRemainingBeforeStart.value,
-                        seconds: controller.secsRemainingBeforeStart.value,
+              /// Countdown part
+              controller.quizInfoModel.value.currentDateTime != null
+                  ? TimerCountdown(
+                      startTime: controller.startTimeForTimer.value,
+                      // DateTime.now(),
+                      format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                      endTime:
+                          controller.quizInfoModel.value.currentDateTime!.add(
+                        Duration(
+                          days: controller.daysRemainingBeforeStart.value,
+                          hours: controller.hoursRemainingBeforeStart.value,
+                          minutes: controller.minsRemainingBeforeStart.value,
+                          seconds: controller.secsRemainingBeforeStart.value,
 
-                        /*   days: 0,
+                          /*   days: 0,
                   hours: 0,
                   minutes: 0,
                   seconds: controller.testTimer.value, */
+                        ),
                       ),
-                    ),
-                    onEnd: () {
-                      print("Timer finished");
-                      controller.isQuizStart.value = true;
-                    },
-                    onTick: (remainingTime) async {
-                      /* kLog(Utils()
+                      onEnd: () {
+                        print("Timer finished");
+                        controller.isQuizStart.value = true;
+                      },
+                      onTick: (remainingTime) async {
+                        // kLog(remainingTime.inSeconds);
+                        /* kLog(Utils()
                     .mCalculateSecsFromSecs(secs: remainingTime.inSeconds)); */
-                      if (remainingTime.inSeconds <= (60 * 20) &&
-                          remainingTime.inSeconds > 0 &&
-                          !controller.isReady.value) {
-                        controller.isShownReady.value = true;
-                        controller.mGetRemainingTimeBeforeStart();
-                        controller.testTimer.value = remainingTime.inSeconds;
-                      }
-                      if (remainingTime.inSeconds == 0) {
-                        if (controller.isReady.value) {
-                          controller.isQuizStart.value = true;
-                          await controller.mGetQuizQuestions();
-                        } else {
-                          controller.isQuizMissed.value = true;
-                          controller.isShownReady.value = false;
+                        if (remainingTime.inSeconds <= (60 * 20) &&
+                            remainingTime.inSeconds > 0 &&
+                            !controller.isReady.value) {
+                          controller.isShownReady.value = true;
+                          controller.mGetRemainingTimeBeforeStart();
+                          controller.testTimer.value = remainingTime.inSeconds;
                         }
-                      }
-                    },
-                    descriptionTextStyle:
-                        kBody.copyWith(color: AppColor.kBlack),
-                    timeTextStyle: kTitle.copyWith(color: AppColor.kBlack),
-                  )
-                : Text(
-                    "N/A",
-                    style: kBody.copyWith(color: Colors.black45),
-                  ),
-            AppSpacing.xxl.height,
+                        if (remainingTime.inSeconds == 0) {
+                          if (controller.isReady.value) {
+                            controller.isQuizStart.value = true;
+                            await controller.mGetQuizQuestions();
+                          } else {
+                            controller.isQuizMissed.value = true;
+                            controller.isShownReady.value = false;
+                          }
+                        }
+                      },
+                      descriptionTextStyle:
+                          kBody.copyWith(color: AppColor.kBlack),
+                      timeTextStyle: kTitle.copyWith(color: AppColor.kBlack),
+                    )
+                  : Text(
+                      "N/A",
+                      style: kBody.copyWith(color: Colors.black45),
+                    ),
+              AppSpacing.xxl.height,
 
-            /// Ready Button
-            controller.isShownReady.value
-                ? AppButtons.vPrimaryButton(
-                    onTap: () {
-                      controller.mRegisterToQuiz();
-                    },
-                    text: "Ready",
-                    textColor: Colors.white,
-                    bg: const Color.fromARGB(255, 13, 160, 18))
-                : Container(),
+              /// Ready Button
+              controller.isShownReady.value
+                  ? AppButtons.vPrimaryButton(
+                      onTap: () {
+                        controller.mRegisterToQuiz();
+                      },
+                      text: "Ready",
+                      textColor: Colors.white,
+                      bg: const Color.fromARGB(255, 13, 160, 18))
+                  : Container(),
 
-            /// After Clicking on Ready Button
-            controller.isReady.value
-                ? Column(
-                    children: [
-                      Text("Registration successful!",
-                          // Text("Before Quiz",
-                          style: kBody.copyWith(
-                            fontSize: 16,
-                            color: AppColor.green,
-                            fontWeight: FontWeight.w500,
-                          )),
-                      AppSpacing.smh.height,
-                      Text("Please wait here...",
-                          // Text("Before Quiz",
-                          style: kBody.copyWith(
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w500,
-                          )),
-                    ],
-                  )
-                : Container(),
-            /*  controller.isQuizMissed.value
+              /// After Clicking on Ready Button
+              controller.isReady.value
+                  ? Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image(
+                              image: AssetImage(done),
+                              width: 16,
+                              height: 16,
+                              fit: BoxFit.contain,
+                            ),
+                            AppSpacing.smh.width,
+                            Text("Registration successful!",
+                                // Text("Before Quiz",
+                                style: kBody.copyWith(
+                                  fontSize: 16,
+                                  color: AppColor.green,
+                                  fontWeight: FontWeight.w500,
+                                )),
+                          ],
+                        ),
+                        AppSpacing.sm.height,
+                        Text("Please stay here",
+                            // Text("Before Quiz",
+                            style: kBody.copyWith(
+                              color: Colors.black45,
+                              fontWeight: FontWeight.w500,
+                            )),
+                      ],
+                    )
+                  : Container(),
+              /*  controller.isQuizMissed.value
                 ? Text("You have missed this quiz!",
                     // Text("Before Quiz",
                     style: kBody.copyWith(
@@ -291,10 +313,11 @@ class StuQuiz extends GetView<StuQuizController> {
                       fontWeight: FontWeight.w500,
                     ))
                 : Container(), */
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   _vQuizPart() {
@@ -352,12 +375,22 @@ class StuQuiz extends GetView<StuQuizController> {
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
-                                  controller
-                                      .quizQuestionsModelList[
-                                          controller.quizQuestionIndex.value]
-                                      .questionList!
-                                      .length
-                                      .toString(),
+                                  controller.quizQuestionsModelList
+                                              .isNotEmpty &&
+                                          controller
+                                                  .quizQuestionsModelList[
+                                                      controller
+                                                          .quizQuestionIndex
+                                                          .value]
+                                                  .questionList !=
+                                              null
+                                      ? controller
+                                          .quizQuestionsModelList[controller
+                                              .quizQuestionIndex.value]
+                                          .questionList!
+                                          .length
+                                          .toString()
+                                      : "0",
                                   style: kBody.copyWith(
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -422,68 +455,70 @@ class StuQuiz extends GetView<StuQuizController> {
           ),
 
           ///right part
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                /// timer
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.timer_outlined,
-                        color: AppColor.red,
-                        size: 16,
-                      ),
-                      AppSpacing.sm.width,
-                      /* Text("00:59:34",
+          Obx(() => Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    /// timer
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: AppSpacing.smh, horizontal: AppSpacing.sm),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.timer_outlined,
+                            color: AppColor.red,
+                            size: 16,
+                          ),
+                          AppSpacing.sm.width,
+                          /* Text("00:59:34",
                             style: kBody.copyWith(
                                 color: AppColor.red,
                                 fontWeight: FontWeight.w500)), */
 
-                      controller.quizInfoModel.value.currentDateTime != null
-                          ? TimerCountdown(
-                              spacerWidth: AppSpacing.smh,
-                              format: CountDownTimerFormat.hoursMinutesSeconds,
-                              endTime: controller
-                                  .quizInfoModel.value.currentDateTime!
-                                  .add(
-                                Duration(
-                                  hours: controller
-                                      .hoursRemainingBeforeStart.value,
-                                  minutes:
-                                      controller.minsRemainingBeforeStart.value,
-                                  seconds:
-                                      controller.secsRemainingBeforeStart.value,
+                          controller.quizInfoModel.value.currentDateTime != null
+                              ? TimerCountdown(
+                                  startTime: controller.startTimeForTimer.value,
+                                  spacerWidth: AppSpacing.smh,
+                                  format:
+                                      CountDownTimerFormat.hoursMinutesSeconds,
+                                  endTime: controller
+                                      .quizInfoModel.value.currentDateTime!
+                                      .add(
+                                    Duration(
+                                      hours: controller
+                                          .hoursRemainingBeforeStart.value,
+                                      minutes: controller
+                                          .minsRemainingBeforeStart.value,
+                                      seconds: controller
+                                          .secsRemainingBeforeStart.value,
+                                    ),
+                                  ),
+                                  onEnd: () {
+                                    kLog("Timer finished");
+                                  },
+                                  onTick: (remainingTime) async {
+                                    if (remainingTime.inSeconds == 0) {
+                                      await controller.mSubmitQuiz();
+                                    }
+                                  },
+                                  enableDescriptions: false,
+                                  timeTextStyle: kBody.copyWith(
+                                      color: AppColor.red,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              : Text(
+                                  "N/A",
+                                  style: kBody.copyWith(color: Colors.black45),
                                 ),
-                              ),
-                              onEnd: () {
-                                kLog("Timer finished");
-                              },
-                              onTick: (remainingTime) async {
-                                if (remainingTime.inSeconds == 0) {
-                                  await controller.mSubmitQuiz();
-                                }
-                              },
-                              enableDescriptions: false,
-                              timeTextStyle: kBody.copyWith(
-                                  color: AppColor.red,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          : Text(
-                              "N/A",
-                              style: kBody.copyWith(color: Colors.black45),
-                            ),
-                    ],
-                  ),
-                ),
+                        ],
+                      ),
+                    ),
 /* 
                 AppSpacing.md.width,
 
@@ -510,9 +545,9 @@ class StuQuiz extends GetView<StuQuizController> {
                     ],
                   ),
                 ), */
-              ],
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -522,7 +557,28 @@ class StuQuiz extends GetView<StuQuizController> {
     return Obx(() => Container(
           child: Visibility(
             visible: controller.isQuizScheduleActive.value,
-            child: _vScheduleTable(),
+            child: controller.isLoading.value
+                ? Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                            color: AppColor.inactiveTab,
+                            strokeWidth: 1.5,
+                          ),
+                        ),
+                        AppSpacing.sm.height,
+                        Text(
+                          "Please wait",
+                          style: kBody.copyWith(color: Colors.black87),
+                        )
+                      ],
+                    ),
+                  )
+                : _vScheduleTable(),
           ),
         ));
   }
@@ -531,7 +587,28 @@ class StuQuiz extends GetView<StuQuizController> {
     return Obx(() => Container(
           child: Visibility(
             visible: controller.isQuizResultActive.value,
-            child: _vResultTable(),
+            child: controller.isLoading.value
+                ? Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                            color: AppColor.inactiveTab,
+                            strokeWidth: 1.5,
+                          ),
+                        ),
+                        AppSpacing.sm.height,
+                        Text(
+                          "Please wait",
+                          style: kBody.copyWith(color: Colors.black87),
+                        )
+                      ],
+                    ),
+                  )
+                : _vResultTable(),
           ),
         ));
   }
@@ -547,11 +624,18 @@ class StuQuiz extends GetView<StuQuizController> {
           color: AppColor.kBlack.withOpacity(.1)),
       alignment: Alignment.center,
       child: Html(
-        data: controller
-            .quizQuestionsModelList[controller.quizQuestionIndex.value]
-            .questionList![controller.quizQuestionIndex.value]
-            .question
-            .toString(),
+        data: controller.quizQuestionsModelList.isNotEmpty &&
+                controller
+                        .quizQuestionsModelList[
+                            controller.quizQuestionIndex.value]
+                        .questionList !=
+                    null
+            ? controller
+                .quizQuestionsModelList[controller.quizQuestionIndex.value]
+                .questionList![controller.quizQuestionIndex.value]
+                .question
+                .toString()
+            : "",
       ), /* Text(
         // "What is the name of our country, can you tell us the shortform of the name?",
         controller.quizQuestionsModelList[controller.quizQuestionIndex.value]

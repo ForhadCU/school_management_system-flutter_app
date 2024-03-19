@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -304,24 +305,52 @@ class StuPaymentsController extends GetxController {
       File file = File(filePath);
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
-          await file.writeAsBytes(demandSlipPdfResponse.value.value!);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
-          isInitial.value = false;
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          // showLoading("Downloading...");
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(demandSlipPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
 
-          await Permission.storage.request();
-          kLog('request permission');
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              // showLoading("Downloading...");
+
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(demandSlipPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+                Permission.notification,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              await Permission.notification.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);
@@ -368,24 +397,52 @@ class StuPaymentsController extends GetxController {
       File file = File(filePath);
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
-          await file.writeAsBytes(bankSlipPdfResponse.value.value!);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
-          isInitial.value = false;
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          // showLoading("Downloading...");
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(bankSlipPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
 
-          await Permission.storage.request();
-          kLog('request permission');
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              // showLoading("Downloading...");
+
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(bankSlipPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+                Permission.notification,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              await Permission.notification.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);

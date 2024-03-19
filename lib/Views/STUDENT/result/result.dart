@@ -167,18 +167,18 @@ class Result extends GetView<StuResultController> {
 
   vResultPdf() {
     return Container(
-        alignment: Alignment.topCenter,
-        height: AppScreenSize.mGetHeight(kGlobContext, 40),
+        height: AppScreenSize.mGetHeight(kGlobContext, 50),
         width: double.infinity,
         child: PDFView(
           filePath: controller.pdfFilePath.value,
-          enableSwipe: true,
-          swipeHorizontal: true,
+          enableSwipe: false,
+          swipeHorizontal: false,
           autoSpacing: false,
           pageFling: false,
           pageSnap: true,
+          fitPolicy: FitPolicy.BOTH,
           onError: (error) {
-            print(error);
+            print("Error from PDFview: $error");
           },
           onRender: (pages) {
             // controller.obs;
@@ -247,50 +247,50 @@ class Result extends GetView<StuResultController> {
 
   vDownloadBtns() {
     return Column(
-          mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        /// heading
+        Row(
           children: [
-            /// heading
-            Row(
-              children: [
-                const Expanded(
-                    child: Divider(
-                  thickness: 1,
-                  color: Colors.black12,
-                  height: 1,
-                )),
-                AppSpacing.smh.width,
-                const Text(
-                  "Dowload",
-                  style: kLabel,
-                ),
-                AppSpacing.smh.width,
-                const Expanded(
-                    child: Divider(
-                  thickness: 1,
-                  color: Colors.black12,
-                  height: 1,
-                )),
-              ],
+            const Expanded(
+                child: Divider(
+              thickness: 1,
+              color: Colors.black12,
+              height: 1,
+            )),
+            AppSpacing.smh.width,
+            const Text(
+              "Dowload",
+              style: kLabel,
             ),
-            AppSpacing.sm.height,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppButtons.vDownloadButton(
-                    onTap: () {
-                      controller.mDownloadPortraitResult();
-                    },
-                    text: "Portrait"),
-                AppSpacing.md.width,
-                AppButtons.vDownloadButton(
-                    onTap: () {
-                      controller.mDownloadLandscapeResult();
-                    },
-                    text: "Landscape"),
-              ],
-            )
+            AppSpacing.smh.width,
+            const Expanded(
+                child: Divider(
+              thickness: 1,
+              color: Colors.black12,
+              height: 1,
+            )),
           ],
-        ); /* Visibility(
+        ),
+        AppSpacing.sm.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppButtons.vDownloadButton(
+                onTap: () {
+                  controller.mDownloadPortraitResult();
+                },
+                text: "Portrait"),
+            AppSpacing.md.width,
+            AppButtons.vDownloadButton(
+                onTap: () {
+                  controller.mDownloadLandscapeResult();
+                },
+                text: "Landscape"),
+          ],
+        )
+      ],
+    ); /* Visibility(
           visible: controller.isResultFound.value,
           child: Column(
             mainAxisSize: MainAxisSize.min,

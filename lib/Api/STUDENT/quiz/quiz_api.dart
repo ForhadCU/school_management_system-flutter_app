@@ -11,6 +11,7 @@ import '../../../Utils/api structure/payloads.dart';
 import '../../../Utils/utils.dart';
 
 class QuizApis {
+
   // make this class singleton
   QuizApis._internal();
   static final QuizApis _singleton = QuizApis._internal();
@@ -23,7 +24,8 @@ class QuizApis {
   static Future<QuizInfoModel> mGetQuizInfo(
       Map<String, dynamic> payLoad, token) async {
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuActiveQuizInfo, payLoad, token);
+        ApiEndpoint.stuActiveQuizInfo, payLoad, token,
+        hasLoading: false);
     if (res.statusCode == 200) {
       // kLogger.d(res.body[QuizInfoModel.getParentJsonKey]);
 
@@ -44,7 +46,8 @@ class QuizApis {
   static Future<StuQuizResultModel> mGetQuizReportList(
       Map<String, dynamic> payLoad, token) async {
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuPreviewsQuizReportList, payLoad, token);
+        ApiEndpoint.stuPreviewsQuizReportList, payLoad, token,
+        hasLoading: false);
     if (res.statusCode == 200) {
       // kLogger.d(res.body[StuQuizResultModel.getParentJsonKey]);
 
@@ -162,8 +165,9 @@ class QuizApis {
 
     /// get quizQuestion list
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuQuizQuestionList, payLoad, token);
-    kLogger.d(res.body);
+        ApiEndpoint.stuQuizQuestionList, payLoad, token,
+        hasLoading: false);
+    // kLogger.d(res.body);
 
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       // kLogger.d(res.body);
@@ -200,7 +204,7 @@ class QuizApis {
   static Future<QuizScheduleModel> mGetQuizScheduleModel(
       Map<String, dynamic> payLoad, token) async {
     ResponseModel res = await CallAPI.getStudentData(
-        ApiEndpoint.stuActiveQuizRoutineList, payLoad, token);
+        ApiEndpoint.stuActiveQuizRoutineList, payLoad, token, hasLoading: false);
     if (res.statusCode == 200) {
       // kLogger.d(res.body[StuQuizResultModel.getParentJsonKey]);
 

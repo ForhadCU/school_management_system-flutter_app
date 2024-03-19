@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/STUDENT/quiz/quiz_api.dart';
@@ -56,15 +58,22 @@ class StuQuizController extends GetxController {
   var quizScheduleListScrlCtrlr = ScrollController().obs;
   var pageNumberForResultList = 1.obs;
   var pageNumberForScheduleList = 1.obs;
+  var startTimeForTimer = DateTime.now().obs;
 
   @override
   void onInit() async {
     super.onInit();
-
+    isLoading.value = true;
     token = await AppLocalDataFactory.mGetToken();
     await mGetQuizInfo();
     await mGetQuizScheduleList();
     await mGetQuizResultList();
+    int i = 0;
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      // kLog("Tick: ${++i}");
+      startTimeForTimer.value =
+          startTimeForTimer.value.add(Duration(seconds: 1));
+    });
 
     /// Scroll Listener for quizResult List
     quizResultListScrlCtrlr.value.addListener(() {
@@ -99,7 +108,7 @@ class StuQuizController extends GetxController {
         // kLog(noticeApiModel.value.);
       }
     });
-
+    isLoading.value = false;
     // progress.value = progressStratingPoint.value;
   }
 
@@ -109,19 +118,20 @@ class StuQuizController extends GetxController {
     quizQuestionsModelList.clear();
     progress.value = 0.00;
     quizQuestionIndex.value = 0;
-
+    isLoading.value = true;
     await mGetQuizInfo();
     await mGetQuizScheduleList();
     await mGetQuizResultList();
+    isLoading.value = false;
   }
 
   /// code goes here
   mGetQuizInfo() async {
-    isLoading.value = true;
+    // isLoading.value = true;
     quizInfoModel.value = await QuizApis.mGetQuizInfo(
         PayLoads.stuActiveQuizList(api_access_key: AppData.api_access_key),
         token);
-    isLoading.value = false;
+    // isLoading.value = false;
     if (quizInfoModel.value.quizDeclareId != null) {
       kLog("Quiz found.");
       isQuizNotFound.value = false;
@@ -135,6 +145,7 @@ class StuQuizController extends GetxController {
   mQuizLaunching() async {
     // check: Quiz e registered hoiye ache kina
     if (quizInfoModel.value.currentDateTime != null) {
+      startTimeForTimer.value = quizInfoModel.value.currentDateTime!;
       if (quizInfoModel.value.joinStatus == 1) {
         kLog("Registered");
         var presentDateTime = quizInfoModel.value.currentDateTime!;
@@ -316,7 +327,7 @@ class StuQuizController extends GetxController {
               .value.quizDeclare!.quizDeclareSettings!.endDateTime!)
           .difference(quizInfoModel.value.currentDateTime!)
           .inSeconds;
-
+      kLogger.d(timeRemainingBeforeStart);
       daysRemainingBeforeStart.value =
           Utils().mCalculateDaysFromSecs(secs: timeRemainingBeforeStart);
       hoursRemainingBeforeStart.value =
@@ -342,7 +353,6 @@ class StuQuizController extends GetxController {
               .value.quizDeclare!.quizDeclareSettings!.startDateTime!)
           .difference(quizInfoModel.value.currentDateTime!)
           .inSeconds;
-
       daysRemainingBeforeStart.value =
           Utils().mCalculateDaysFromSecs(secs: timeRemainingBeforeStart);
       hoursRemainingBeforeStart.value =

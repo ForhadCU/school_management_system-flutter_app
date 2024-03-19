@@ -269,10 +269,10 @@ class CallAPI {
 
   static Future<ResponseModel> getStudentData(
       String endPoint, Map<String, dynamic>? params, String token,
-      {String? url}) async {
+      {String? url, bool? hasLoading}) async {
     dynamic body;
     kLog('GET + $endPoint');
-    showLoading("Please wait...");
+    hasLoading == null || hasLoading ? showLoading("Please wait...") : null;
 
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();

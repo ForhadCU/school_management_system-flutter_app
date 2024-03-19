@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_filex/open_filex.dart';
@@ -65,7 +66,7 @@ class StuExamController extends GetxController {
   /// code goes here
   mChangeClassDropdownValue(StuHistoryModel value) async {
     if (selectedStudentHistory.value != value) {
-      mResetPreviousDocs();
+      // mResetPreviousDocs();
       selectedStudentHistory.value = value;
       await mGetExamTypeList();
     }
@@ -83,7 +84,7 @@ class StuExamController extends GetxController {
 
   mChangeExamTypeDropdownValue(StuExamTypeModel value) {
     if (selectedExamTypeModel.value != value) {
-      mResetPreviousDocs();
+      // mResetPreviousDocs();
       kLog(value.id!);
       selectedExamTypeModel.value = value;
     }
@@ -184,24 +185,53 @@ class StuExamController extends GetxController {
       File file = File(filePath);
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
-          await file.writeAsBytes(routinePdfResponse.value.value!);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
-          isInitial.value = false;
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          // showLoading("Downloading...");
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(routinePdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
 
-          await Permission.storage.request();
-          kLog('request permission');
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              // showLoading("Downloading...");
+
+              await Permission.storage.request();
+              kLog('request permission');
+              hideLoading();
+            }
+          } else {
+            if (await Permission.photos.request().isGranted &&
+                await Permission.notification.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(routinePdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+                Permission.notification,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              await Permission.notification.request();
+              kLog('request permission');
+            }
+          }
         }
       } catch (error) {
         kLog(error);
@@ -232,24 +262,54 @@ class StuExamController extends GetxController {
       File file = File(filePath);
 
       try {
-        if (await Permission.storage.request().isGranted) {
-          kLog('permission granted');
-          await file.writeAsBytes(admitCardPdfResponse.value.value!);
-          // localPathOfDemandSlip.value = file.path;
-          // await showNotification();
-          isInitial.value = false;
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-          await LocalNotification().mShowNotification(payload: file.path);
-          showSuccess("Downloaded");
-        } else {
-          Map<Permission, PermissionStatus> statuses = await [
-            Permission.storage,
-          ].request();
-          kLog(statuses[Permission.storage].toString());
-          // showLoading("Downloading...");
+          // kLogger.d(androidInfo.version.sdkInt);
+          if (androidInfo.version.sdkInt <= 32) {
+            if (await Permission.storage.request().isGranted) {
+              kLog('permission granted');
+              await file.writeAsBytes(admitCardPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
 
-          await Permission.storage.request();
-          kLog('request permission');
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.storage,
+              ].request();
+              kLog(statuses[Permission.storage].toString());
+              // showLoading("Downloading...");
+
+              await Permission.storage.request();
+              kLog('request permission');
+            }
+          } else {
+            if (await Permission.photos.request().isGranted &&
+            await Permission.notification.request().isGranted
+            
+            ) {
+              kLog('permission granted');
+              await file.writeAsBytes(admitCardPdfResponse.value.value!);
+              // localPathOfDemandSlip.value = file.path;
+              // await showNotification();
+              isInitial.value = false;
+
+              await LocalNotification().mShowNotification(payload: file.path);
+              showSuccess("Downloaded");
+            } else {
+              Map<Permission, PermissionStatus> statuses = await [
+                Permission.photos,
+                Permission.notification,
+              ].request();
+              kLog(statuses[Permission.photos].toString());
+              await Permission.photos.request();
+              await Permission.notification.request();
+              kLog('request permission');
+             }
+          }
         }
       } catch (error) {
         kLog(error);
