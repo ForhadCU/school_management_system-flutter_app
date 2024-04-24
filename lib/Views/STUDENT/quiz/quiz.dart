@@ -884,6 +884,7 @@ class StuQuiz extends GetView<StuQuizController> {
                         style: kLabel.copyWith(color: AppColor.red),
                       ))
                   : SingleChildScrollView(
+                      controller: controller.quizResultListScrlCtrlr.value,
                       child: Column(
                         children: [
                           SingleChildScrollView(

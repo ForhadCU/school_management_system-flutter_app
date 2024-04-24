@@ -112,6 +112,7 @@ class Login extends GetView<LoginController> {
           validator: (p0) =>
               p0 == null || p0.isEmpty ? "Password required" : null,
           style: kBody,
+          obscureText: true,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(
@@ -133,7 +134,7 @@ class Login extends GetView<LoginController> {
               }
             },
             text: "Login"),
-        AppSpacing.xxl.height,
+        /* AppSpacing.xxl.height,
         GestureDetector(
           onTap: () {
             controller.isLoginViewVisible.value = false;
@@ -146,7 +147,7 @@ class Login extends GetView<LoginController> {
               decoration: TextDecoration.underline,
             ),
           ),
-        )
+        ) */
       ],
     );
   }

@@ -11,7 +11,6 @@ import '../../../Controller/PUBLIC/gallery_controller.dart';
 import '../../Widgets/base_widget.dart';
 
 class Gallery extends GetView<GalleryController> {
-  
   const Gallery({super.key});
 
   @override
@@ -178,53 +177,56 @@ class Gallery extends GetView<GalleryController> {
   vPhotos() {
     return Expanded(
       child: Obx(() => !controller.isPhotoViewByAlbums.value
-          ? StaggeredGrid.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: AppSpacing.md,
-              crossAxisSpacing: AppSpacing.md,
-              children: List.generate(controller.fileElementList.length,
-                  (gridViewIndex) {
-                kLog(AppData.eduWorldErpHostname +
-                    controller.fileElementList[gridViewIndex].path!);
-                return GestureDetector(
-                    onTap: () {
-                      controller.mGetClickedImageDetails(controller
-                          .fileElementList[gridViewIndex].imageableId!);
-                      _vShowImageDialog(
-                        AppData.eduWorldErpHostname +
+          ? SingleChildScrollView(
+              child: StaggeredGrid.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: AppSpacing.md,
+                crossAxisSpacing: AppSpacing.md,
+                children: List.generate(controller.fileElementList.length,
+                    (gridViewIndex) {
+                  kLog(AppData.eduWorldErpHostname +
+                      controller.fileElementList[gridViewIndex].path!);
+                  return GestureDetector(
+                      onTap: () {
+                        controller.mGetClickedImageDetails(controller
+                            .fileElementList[gridViewIndex].imageableId!);
+                        _vShowImageDialog(
+                          AppData.eduWorldErpHostname +
+                              controller.fileElementList[gridViewIndex].path!,
+                          controller.clickedImageDetails.value.eventTitle!,
+                          controller
+                              .clickedImageDetails.value.eventDescription!,
+                          controller.fileElementList[gridViewIndex].createdAt!,
+                        );
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: AppData.eduWorldErpHostname +
                             controller.fileElementList[gridViewIndex].path!,
-                        controller.clickedImageDetails.value.eventTitle!,
-                        controller.clickedImageDetails.value.eventDescription!,
-                        controller.fileElementList[gridViewIndex].createdAt!,
-                      );
-                    },
-                    child: CachedNetworkImage(
-                      imageUrl: AppData.eduWorldErpHostname +
-                          controller.fileElementList[gridViewIndex].path!,
-                      height: 100,
-                      fit: BoxFit.fill,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Align(
-                              alignment: Alignment.center,
-                              child: CircularProgressIndicator(
-                                value: downloadProgress.progress,
-                                color: AppColor.activeTab,
-                              )),
-                      errorWidget: (context, url, error) => const Align(
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.error,
-                            color: Colors.black26,
-                          )),
-                    ) /* const Image(
+                        height: 100,
+                        fit: BoxFit.fill,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  color: AppColor.activeTab,
+                                )),
+                        errorWidget: (context, url, error) => const Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.black26,
+                            )),
+                      ) /* const Image(
                               image: AssetImage(
                                   PublicAssetLocation.sample_gallery_image),
                               height: 100,
                               fit: BoxFit.fitHeight,
                               // color: AppColor.secondaryColor,
                             ), */
-                    );
-              }).toList(),
+                      );
+                }).toList(),
+              ),
             )
 
           /// for photo viewing by albums
