@@ -33,10 +33,10 @@ class TeachNoticeController extends GetxController {
     super.onInit();
     /*  _mInitialization();
      */
-    isLoading.value = false;
+    isLoading.value = true;
     await _mInitialization();
     await mGetNoticesInRange();
-    isLoading.value = true;
+    isLoading.value = false;
 
     noticeListScrollCntrlr.value.addListener(() {
       if (noticeListScrollCntrlr.value.offset ==

@@ -378,52 +378,55 @@ class TeachNotice extends GetView<TeachNoticeController> {
   }
 
   vNoticeList() {
-    return Obx(() => controller.isLoading.value
-        ? Container()
-        : controller.noticeApiModel.value.data == null ||
-                controller.noticeApiModel.value.data!.isEmpty
-            ? Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "No notice found!",
-                  style: kBody.copyWith(color: Colors.amber),
-                ),
-              )
-            : ListView.separated(
-                controller: controller.noticeListScrollCntrlr.value,
-                shrinkWrap: true,
-                itemCount: controller.noticeApiModel.value.data == null
-                    ? 0
-                    : controller.noticeList.length,
-                itemBuilder: (context, index) {
-                  final data = controller.noticeList[index];
-                  return _vNoticeCard(
-                      files: data.files,
-                      title: data.noticeTitle ?? "",
-                      desc: data.noticeDescription ?? "",
-                      date: data.createdAt == null
-                          ? ""
-                          : Utils().getTimeFromTimeStamp(
-                              data.createdAt.toString(),
-                              kAppDateFormatWithTime12),
-                      color: AppColor.kNoticeListColorPlate[
-                          index % (AppColor.kNoticeListColorPlate.length)],
-                      onTapToExpand: () {
-                        controller.mUpdateClickedNoticeModel(data);
-                        print("clicked: $index");
-                        Get.toNamed(AppRoutes.expandedTeachNotice);
-                      },
-                      onTapToDownload: () async {
-                        await controller.mDownloadNotice(
-                            path: data.files!.first.path);
-                      });
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    color: Colors.white,
-                  );
-                },
-              ));
+    return Obx(() {
+      
+      return controller.isLoading.value
+          ? Container()
+          : controller.noticeApiModel.value.data == null ||
+                  controller.noticeApiModel.value.data!.isEmpty
+              ? Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "No notice found!",
+                    style: kBody.copyWith(color: Colors.amber),
+                  ),
+                )
+              : ListView.separated(
+                  controller: controller.noticeListScrollCntrlr.value,
+                  shrinkWrap: true,
+                  itemCount: controller.noticeApiModel.value.data == null
+                      ? 0
+                      : controller.noticeList.length,
+                  itemBuilder: (context, index) {
+                    final data = controller.noticeList[index];
+                    return _vNoticeCard(
+                        files: data.files,
+                        title: data.noticeTitle ?? "",
+                        desc: data.noticeDescription ?? "",
+                        date: data.createdAt == null
+                            ? ""
+                            : Utils().getTimeFromTimeStamp(
+                                data.createdAt.toString(),
+                                kAppDateFormatWithTime12),
+                        color: AppColor.kNoticeListColorPlate[
+                            index % (AppColor.kNoticeListColorPlate.length)],
+                        onTapToExpand: () {
+                          controller.mUpdateClickedNoticeModel(data);
+                          print("clicked: $index");
+                          Get.toNamed(AppRoutes.expandedTeachNotice);
+                        },
+                        onTapToDownload: () async {
+                          await controller.mDownloadNotice(
+                              path: data.files!.first.path);
+                        });
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      color: Colors.white,
+                    );
+                  },
+                );
+    });
   }
 
   Widget _vNoticeCard(

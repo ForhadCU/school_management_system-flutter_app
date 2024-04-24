@@ -774,6 +774,7 @@ class StudentNotice extends GetView<StuNoticeController> {
   _vGetResultBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       onTap: () async {
+        kLog("clicked");
         controller.mResetList();
         await controller.mGetNoticesInRange();
       },

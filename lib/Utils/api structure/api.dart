@@ -237,7 +237,7 @@ class CallAPI {
     SitelistModel sitelistModel = SitelistModel.fromMap(
         jsonDecode(sharedPreferences.getString(kSiteListModel)!));
     final siteAlias = sitelistModel.siteAlias;
-
+    kLog(siteAlias! + _get_host);
     try {
       http.Response res = await http.get(
         Uri.https(siteAlias! + _get_host, endPoint, params),
