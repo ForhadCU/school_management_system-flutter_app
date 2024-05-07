@@ -14,7 +14,7 @@ class AboutUsApi {
   // codes start from here
   // All methods should be static to maintain singleton instances
 
-  static Future<AboutUs> mMethodName(Map<String, dynamic> payLoad) async {
+  static Future<AboutUs> mGetAboutUsData(Map<String, dynamic> payLoad) async {
     ResponseModel res =
         await CallAPI.getPublicData(ApiEndpoint.aboutUs, payLoad);
     // kLogger.d(res.body['result']);

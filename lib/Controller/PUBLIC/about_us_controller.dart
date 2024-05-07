@@ -28,7 +28,7 @@ class AboutUsController extends GetxController {
   }
 
   mGetSiteHistory() async {
-    aboutUsData.value = await AboutUsApi.mMethodName(PayLoads.aboutUs(
+    aboutUsData.value = await AboutUsApi.mGetAboutUsData(PayLoads.aboutUs(
         site_id: siteListModel.value.id.toString(),
         api_access_key: AppData.api_access_key));
     aboutUsData.value.description != null ? mModifyHtmlContent() : null;
