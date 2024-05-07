@@ -864,7 +864,7 @@ class StuQuiz extends GetView<StuQuizController> {
   }
 
   _vResultTable() {
-    double cellVerMargin = 8;
+    double cellVerMargin =26;
     double cellHorMargin = 16;
     return Obx(() => Expanded(
           child: /*  controller.quizResultList.value == null
