@@ -141,9 +141,9 @@ class StuCalendar extends GetView<StuCalendarController> {
                       defaultBuilder: (context, day, focusedDay) {
                         for (List<StuEventDateList> element
                             in controller.eventDateListModelList) {
-                          if (day.day == element.first.startDate!.day &&
-                              day.month == element.first.startDate!.month &&
-                              day.year == element.first.startDate!.year) {
+                          if (day.day == element.first.activateDate!.day &&
+                              day.month == element.first.activateDate!.month &&
+                              day.year == element.first.activateDate!.year) {
                             return Container(
                               margin: EdgeInsets.all(AppSpacing.smh + 2),
                               decoration: BoxDecoration(
@@ -240,7 +240,8 @@ class StuCalendar extends GetView<StuCalendarController> {
                     color: Utils.mParseColorFromHexCode(
                         hexCode: eventDateList.academicCalendarHead!.colorId!),
                     date: Utils().getTimeFromTimeStamp(
-                        eventDateList.startDate.toString(),
+                        eventDateList.activateDate
+                        .toString(),
                         kAppDateFormatWithDayMonth),
                   );
                 },
