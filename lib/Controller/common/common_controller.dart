@@ -12,6 +12,7 @@ import '../../Model/TEACHER/dept_classlist_model.dart';
 import '../../Model/TEACHER/distribution_list_model.dart';
 import '../../Model/TEACHER/examAttendance/exam_attendance_list_model.dart';
 import '../../Model/TEACHER/exam_subject_list_model.dart';
+import '../../Model/TEACHER/exam_type_model.dart';
 import '../../Model/TEACHER/examination_list_model.dart';
 import '../../Model/TEACHER/section_session_model.dart';
 
@@ -44,7 +45,10 @@ class CommonController extends GetxController {
   var selectedSubjectGorupConditionSetting = SubjectGorupConditionSetting().obs;
   var subjectGorupConditionSettingList = <SubjectGorupConditionSetting>[].obs;
   var selectedEmployeePaperDistribution = EmployeePaperDistribution().obs;
+  var selectedexamTypeListForAttandance = ExamTypeListForAttandance().obs;
+  var examTypeListbution = EmployeePaperDistribution().obs;
   var employeePaperDistributionList = <EmployeePaperDistribution>[].obs;
+  var examTypeListForAttandance = <ExamTypeListForAttandance>[].obs;
 
   var canContinue = true.obs;
 
@@ -392,6 +396,58 @@ class CommonController extends GetxController {
         : null;
   }
 
+  mGetExamTypeListModel(
+      /* {
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String? academic_department_id,
+    required String academic_class_group_id,
+    required String examination_id,
+    required String site_subject_group_condition_setting_id,
+  } */
+      ) async {
+    examTypeListForAttandance.value = [];
+    selectedexamTypeListForAttandance.value = ExamTypeListForAttandance();
+    canContinue.value
+        ? await CommonApis.mGetExamTypeListModel(
+                PayLoads.examTypeList(
+                    api_access_key: AppData.api_access_key,
+                    academic_group_id: academicGroupId.value,
+                    academic_version_id:
+                        selectedAcademicVersion.value.id.toString(),
+                    academic_year_id: selectedAcademicYear.value.id.toString(),
+                    academic_shift_id:
+                        selectedAcademicShift.value.id.toString(),
+                    academic_class_id:
+                        selectedAcademicClass.value.id.toString(),
+                    academic_department_id: null,
+                    academic_class_group_id:
+                        selectedAcademicGroup.value.id.toString(),
+                    examination_id: selectedExamination.value.id.toString(),
+                    site_subject_group_condition_setting_id:
+                        selectedSubjectGorupConditionSetting.value.id
+                            .toString(),
+                    academic_section_id: null,
+                    academic_session_id: null),
+                token.value)
+            .then((value) {
+            value.examTypeList != null && value.examTypeList!.isNotEmpty
+                ? {
+                    ///Distribution list
+                    /* employeePaperDistributionList.add(EmployeePaperDistribution(
+                        academicExamType: DistributedAcademicExamType(
+                            marksType: "Select Mark Type"))), */
+                    examTypeListForAttandance.addAll(value.examTypeList!),
+                    selectedexamTypeListForAttandance.value =
+                        examTypeListForAttandance.first,
+                  }
+                : canContinue.value = false;
+          })
+        : null;
+  }
+
   ////////********After Selecting Dropdown item*****//////////////// */
   ///
   mUpdateSelectedAcademicYear(AcademicYear? selectedModel) async {
@@ -509,6 +565,19 @@ class CommonController extends GetxController {
       EmployeePaperDistribution? selectedModel) async {
     if (selectedEmployeePaperDistribution.value != selectedModel) {
       selectedEmployeePaperDistribution.value = selectedModel!;
+      // canContinue.value = true;
+      // await mGetDeptClasslistModel();
+      // await mGetDeptClasslistModel();
+      // await mGetClassGroupModel();
+      // await mGetSectionSessionModel();
+      // await mGetExaminationListModel();
+      // await mGetExamSubjectListModel();
+      // await mGetExamDistributionListModel();
+    }
+  }  mUpdateSelectedExamType(
+      ExamTypeListForAttandance? selectedModel) async {
+    if (selectedexamTypeListForAttandance.value != selectedModel) {
+      selectedexamTypeListForAttandance.value = selectedModel!;
       // canContinue.value = true;
       // await mGetDeptClasslistModel();
       // await mGetDeptClasslistModel();

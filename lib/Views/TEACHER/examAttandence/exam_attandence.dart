@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:school_management_system/Model/TEACHER/exam_type_model.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 
 import '../../../Config/config.dart';
@@ -575,15 +576,14 @@ class ExamAttendance extends GetView<ExamAttendanceController> {
               ],
             ),
             Visibility(
-                visible:
-                    commonController.employeePaperDistributionList.isNotEmpty,
+                visible: commonController.examTypeListForAttandance.isNotEmpty,
                 child: AppSpacing.sm.height),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Obx(() => Visibility(
-                      visible: commonController
-                          .employeePaperDistributionList.isNotEmpty,
+                      visible:
+                          commonController.examTypeListForAttandance.isNotEmpty,
                       child: Expanded(
                         flex: 1,
                         child: Container(
@@ -594,14 +594,14 @@ class ExamAttendance extends GetView<ExamAttendanceController> {
                             /*  decoration:
                             BoxDecoration(borderRadius: BorderRadius.circular(5)), */
                             child: Obx(
-                              () => DropdownButton<EmployeePaperDistribution>(
+                              () => DropdownButton<ExamTypeListForAttandance>(
                                 // child: DropdownButton<String>(
                                 value: commonController
-                                    .selectedEmployeePaperDistribution.value,
+                                    .selectedexamTypeListForAttandance.value,
                                 hint: Text(
                                   commonController.canContinue.value
-                                      ? "Select Paper Distribution"
-                                      : "No Paper Distribution",
+                                      ? "Select Exam Type"
+                                      : "No Exam Type",
                                   style: kBody.copyWith(color: Colors.black),
                                 ),
                                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -614,22 +614,21 @@ class ExamAttendance extends GetView<ExamAttendanceController> {
                                 isExpanded: true,
                                 underline: Container(),
                                 onChanged:
-                                    (EmployeePaperDistribution? selectedModel) {
+                                    (ExamTypeListForAttandance? selectedModel) {
                                   controller
-                                      .mUpdateSelectedEmployeePaperDistribution(
-                                          selectedModel);
+                                      .mUpdateSelectedExamType(selectedModel);
                                 },
                                 /*  onChanged: (String? selectedModel) {
                                       // controller.mUpdateSelectedStuHistory(selectedModel);
                                     }, */
                                 items: commonController
-                                    .employeePaperDistributionList
-                                    .map((EmployeePaperDistribution value) {
+                                    .examTypeListForAttandance
+                                    .map((ExamTypeListForAttandance value) {
                                   return DropdownMenuItem<
-                                      EmployeePaperDistribution>(
+                                      ExamTypeListForAttandance>(
                                     value: value,
                                     child: Text(
-                                      value.academicExamType!.marksType ?? "",
+                                      value.marksType ?? "",
                                       style: kBody.copyWith(
                                         fontWeight: FontWeight.w400,
                                       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Api/TEACHER/exam_attendance_api.dart';
 import 'package:school_management_system/Controller/common/common_controller.dart';
+import 'package:school_management_system/Model/TEACHER/exam_type_model.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 
@@ -117,7 +118,7 @@ class ExamAttendanceController extends GetxController {
     await _commonController.mGetDeptClasslistModel();
     await _commonController.mGetExaminationListModel();
     await _commonController.mGetExamSubjectListModel();
-    await _commonController.mGetExamDistributionListModel();
+    await _commonController.mGetExamTypeListModel();
     await _commonController.mGetClassGroupModel();
     await _commonController.mGetSectionSessionModel();
     isVisibleGetButton.value = true;
@@ -161,5 +162,9 @@ class ExamAttendanceController extends GetxController {
       EmployeePaperDistribution? selectedModel) async {
     await _commonController
         .mUpdateSelectedEmployeePaperDistribution(selectedModel);
+  }
+
+  mUpdateSelectedExamType(ExamTypeListForAttandance? selectedModel) async {
+    await _commonController.mUpdateSelectedExamType(selectedModel);
   }
 }

@@ -530,6 +530,37 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> examTypeList({
+    required String api_access_key,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String? academic_department_id,
+    required String academic_class_group_id,
+    required String examination_id,
+    required String site_subject_group_condition_setting_id,
+    required String? academic_section_id,
+    required String? academic_session_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_department_id": academic_department_id,
+      "academic_class_group_id": academic_class_group_id,
+      "examination_id": examination_id,
+      "site_subject_group_condition_setting_id":
+          site_subject_group_condition_setting_id,
+      "academic_section_id": academic_section_id,
+      "academic_session_id": academic_session_id,
+    };
+  }
+
   static Map<String, dynamic> site_class_base_group({
     required String api_access_key,
     required String academic_group_id,

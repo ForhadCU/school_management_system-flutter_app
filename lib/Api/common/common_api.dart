@@ -7,6 +7,7 @@ import 'package:school_management_system/Model/TEACHER/version_year_shift_model.
 
 import '../../Model/TEACHER/class_group_model.dart';
 import '../../Model/TEACHER/examAttendance/exam_attendance_list_model.dart';
+import '../../Model/TEACHER/exam_type_model.dart';
 import '../../Model/TEACHER/section_session_model.dart';
 import '../../Model/response_model.dart';
 import '../../Utils/utils.dart';
@@ -153,6 +154,25 @@ class CommonApis {
     } else {
       kLog("mGetExamDistributionListModel status code is: ${res.statusCode}");
       return ExamDistributionListModel();
+      //return <ClassName>[];
+    }
+  }
+
+  static Future<ExamTypeModel> mGetExamTypeListModel(
+      Map<String, dynamic> payLoad, String token) async {
+    ResponseModel res = await CallAPI.getTeacherData(
+        isShowLoading: false,
+        ApiEndpoint.exam_type_for_attendance,
+        payLoad,
+        token);
+    // kLogger.d(res.body);
+    if (res.statusCode == 200 && res.body['mode'] == "success") {
+      kLog("Successfully fetch mGetExamTypeListModel data");
+      return ExamTypeModel.fromMap(res.body);
+      // return ExamDistributionListModel();
+    } else {
+      kLog("mGetExamTypeListModel status code is: ${res.statusCode}");
+      return ExamTypeModel();
       //return <ClassName>[];
     }
   }

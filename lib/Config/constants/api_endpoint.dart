@@ -98,7 +98,9 @@ class ApiEndpoint {
   static const String examination_base_subject_list_by_employee =
       "/api/employee/get-site-examination-base-subject-list-by-employee";
   static const String attendance_paper_list_by_employee =
-      "/api/employee/get-site-base-attendance-paper-list-by-employee";
+      "/api/employee/get-site-base-attendance-paper-list-by-employee"; 
+       static const String exam_type_for_attendance =
+      "/api/employee/get-site-exam-type-list";
   static const String student_list_for_attendance_by_employ =
       "/api/employee/get-site-student-list-for-attendance-by-employee";
   static const String student_exam_attendance_submit_by_employee =
