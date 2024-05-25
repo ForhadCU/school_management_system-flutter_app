@@ -67,14 +67,31 @@ class ExamAttendanceController extends GetxController {
       examAttendanceListModel.value =
           await ExamAttendanceApis.mGetExamAttendanceListModel(
               PayLoads.examAttendanceList(
-                  api_access_key: AppData.api_access_key,
-                  academic_group_id: _commonController.academicGroupId.value,
-                  site_subject_group_condition_setting_id: _commonController
-                      .selectedSubjectGorupConditionSetting.value.id
-                      .toString(),
-                  answer_paper_distribution_detail_id: _commonController
-                      .selectedEmployeePaperDistribution.value.id
-                      .toString()),
+                api_access_key: AppData.api_access_key,
+                academic_group_id: academicGroupId.value,
+                academic_version_id: _commonController
+                    .selectedAcademicVersion.value.id
+                    .toString(),
+                academic_year_id:
+                    _commonController.selectedAcademicYear.value.id.toString(),
+                academic_shift_id:
+                    _commonController.selectedAcademicShift.value.id.toString(),
+                academic_class_id:
+                    _commonController.selectedAcademicClass.value.id.toString(),
+                academic_department_id: null,
+                academic_class_group_id:
+                    _commonController.selectedAcademicGroup.value.id.toString(),
+                examination_id:
+                    _commonController.selectedExamination.value.id.toString(),
+                site_subject_group_condition_setting_id: _commonController
+                    .selectedSubjectGorupConditionSetting.value.id
+                    .toString(),
+                academic_section_id: null,
+                academic_session_id: null,
+                academic_exam_type_id: _commonController
+                    .selectedexamTypeListForAttandance.value.id
+                    .toString(),
+              ),
               _commonController.token.value);
     } else {
       kLog("Empty");
@@ -95,14 +112,30 @@ class ExamAttendanceController extends GetxController {
       bodyData: _mGetBody(),
       token: _commonController.token.value,
       payload: PayLoads.examAttendanceList(
-          api_access_key: AppData.api_access_key,
-          academic_group_id: _commonController.academicGroupId.value,
-          site_subject_group_condition_setting_id: _commonController
-              .selectedSubjectGorupConditionSetting.value.id
-              .toString(),
-          answer_paper_distribution_detail_id: _commonController
-              .selectedEmployeePaperDistribution.value.id
-              .toString()),
+        api_access_key: AppData.api_access_key,
+        academic_group_id: academicGroupId.value,
+        academic_version_id:
+            _commonController.selectedAcademicVersion.value.id.toString(),
+        academic_year_id:
+            _commonController.selectedAcademicYear.value.id.toString(),
+        academic_shift_id:
+            _commonController.selectedAcademicShift.value.id.toString(),
+        academic_class_id:
+            _commonController.selectedAcademicClass.value.id.toString(),
+        academic_department_id: null,
+        academic_class_group_id:
+            _commonController.selectedAcademicGroup.value.id.toString(),
+        examination_id:
+            _commonController.selectedExamination.value.id.toString(),
+        site_subject_group_condition_setting_id: _commonController
+            .selectedSubjectGorupConditionSetting.value.id
+            .toString(),
+        academic_section_id: null,
+        academic_session_id: null,
+        academic_exam_type_id: _commonController
+            .selectedexamTypeListForAttandance.value.id
+            .toString(),
+      ),
     );
   }
 

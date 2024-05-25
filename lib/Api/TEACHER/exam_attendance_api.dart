@@ -15,6 +15,7 @@ class ExamAttendanceApis {
 
   static Future<ExamAttendanceListModel> mGetExamAttendanceListModel(
       Map<String, dynamic> payLoad, String token) async {
+    kLog(payLoad);
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.student_list_for_attendance_by_employ, payLoad, token);
     kLogger.d(res.body);
