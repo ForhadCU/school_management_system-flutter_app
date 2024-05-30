@@ -457,6 +457,7 @@ class CommonController extends GetxController {
       await mGetDeptClasslistModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
       await mGetClassGroupModel();
       await mGetSectionSessionModel();
@@ -470,6 +471,7 @@ class CommonController extends GetxController {
       await mGetDeptClasslistModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
       await mGetClassGroupModel();
       await mGetSectionSessionModel();
@@ -484,6 +486,7 @@ class CommonController extends GetxController {
       // await mGetDeptClasslistModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
       await mGetClassGroupModel();
       await mGetSectionSessionModel();
@@ -499,7 +502,9 @@ class CommonController extends GetxController {
       // await mGetClassGroupModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
+      await mGetExamTypeListModel();
       await mGetSectionSessionModel();
     }
   }
@@ -514,6 +519,7 @@ class CommonController extends GetxController {
       // await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
     }
   }
@@ -528,6 +534,7 @@ class CommonController extends GetxController {
       // await mGetSectionSessionModel();
       await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
     }
   }
@@ -542,6 +549,7 @@ class CommonController extends GetxController {
       // await mGetSectionSessionModel();
       // await mGetExaminationListModel();
       await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
     }
   }
@@ -557,6 +565,7 @@ class CommonController extends GetxController {
       // await mGetSectionSessionModel();
       // await mGetExaminationListModel();
       // await mGetExamSubjectListModel();
+      await mGetExamTypeListModel();
       await mGetExamDistributionListModel();
     }
   }
@@ -574,8 +583,9 @@ class CommonController extends GetxController {
       // await mGetExamSubjectListModel();
       // await mGetExamDistributionListModel();
     }
-  }  mUpdateSelectedExamType(
-      ExamTypeListForAttandance? selectedModel) async {
+  }
+
+  mUpdateSelectedExamType(ExamTypeListForAttandance? selectedModel) async {
     if (selectedexamTypeListForAttandance.value != selectedModel) {
       selectedexamTypeListForAttandance.value = selectedModel!;
       // canContinue.value = true;

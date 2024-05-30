@@ -165,7 +165,7 @@ class CommonApis {
         ApiEndpoint.exam_type_for_attendance,
         payLoad,
         token);
-    // kLogger.d(res.body);
+    kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamTypeListModel data");
       return ExamTypeModel.fromMap(res.body);
