@@ -35,8 +35,8 @@ class CallAPI {
   // static const String _host = 'https://cms.goecworld.com';
   static const String _https = 'https://';
   // static const String _get_host = '.theworld.com.bd';
-  // static const String _get_host = '.eduworlderp.com';
-  static const String _get_host = '.theworld.com.bd';
+  static const String _get_host = '.eduworlderp.com';
+  // static const String _get_host = '.theworld.com.bd';
   // static const String _getHostForSubmition = 'https://fccdc.theworld.com.bd';
   // static const String _url = 'https://cms.goecworld.com/Chargetron/api/';
   // static const String _get_middle_point = '/Chargetron/api/';
