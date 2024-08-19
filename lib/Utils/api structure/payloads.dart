@@ -659,7 +659,7 @@ class PayLoads {
       "academic_session_id": academic_session_id,
       "academic_exam_type_id": academic_exam_type_id,
     };
-   }
+  }
 
   static Map<String, dynamic> examAttendanceListSubmit({
     required String api_access_key,
@@ -790,6 +790,118 @@ class PayLoads {
       "academic_group_id": academic_group_id,
       "date_range": date_range,
       "page": page,
+    };
+  }
+
+  static Map<String, dynamic> academicClassGroup({
+    required String api_access_key,
+    required String site_id,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+    };
+  }
+
+  static Map<String, dynamic> academicClass({
+    required String api_access_key,
+    required String site_id,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+    };
+  }
+
+  static Map<String, dynamic> academicGroup({
+    required String api_access_key,
+    required String site_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+    };
+  }
+
+  static Map<String, dynamic> academicSection({
+    required String api_access_key,
+    required String site_id,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String academic_class_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_class_group_id": academic_class_group_id,
+    };
+  }
+
+  static Map<String, dynamic> academicVersionYear({
+    required String api_access_key,
+    required String site_id,
+    required String academic_group_id,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+      "academic_group_id": academic_group_id,
+    };
+  }
+
+  static Map<String, dynamic> examResult({
+    required String api_access_key,
+    required String site_id,
+    required String academic_group_id,
+    required String academic_version_id,
+    required String academic_year_id,
+    required String academic_shift_id,
+    required String academic_class_id,
+    required String academic_class_group_id,
+    required String site_batch_detail_id,
+    required String academic_section_id,
+    required String academic_result_primary_type_id,
+    required String student_roll_number,
+  }) {
+    return {
+      "api_access_key": api_access_key,
+      "site_id": site_id,
+      "academic_group_id": academic_group_id,
+      "academic_version_id": academic_version_id,
+      "academic_year_id": academic_year_id,
+      "academic_shift_id": academic_shift_id,
+      "academic_class_id": academic_class_id,
+      "academic_class_group_id": academic_class_group_id,
+      "site_batch_detail_id": site_batch_detail_id,
+      "academic_section_id": academic_section_id,
+      "academic_result_primary_type_id": academic_result_primary_type_id,
+      "student_roll_number": student_roll_number
     };
   }
 }

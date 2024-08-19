@@ -7,10 +7,14 @@ import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/api%20structure/payloads.dart';
 import 'package:school_management_system/Utils/utils.dart';
 
+import '../../Model/PUBLIC/result/academic_class_group_res_model.dart';
+import '../../Model/PUBLIC/result/academic_class_res_model.dart';
+import '../../Model/PUBLIC/result/academic_group_res_model.dart';
+import '../../Model/PUBLIC/result/academic_section_res_model.dart';
+import '../../Model/PUBLIC/result/academic_year_res_model.dart';
 import '../../Model/TEACHER/class_group_model.dart';
 import '../../Model/TEACHER/dept_classlist_model.dart';
 import '../../Model/TEACHER/distribution_list_model.dart';
-import '../../Model/TEACHER/examAttendance/exam_attendance_list_model.dart';
 import '../../Model/TEACHER/exam_subject_list_model.dart';
 import '../../Model/TEACHER/exam_type_model.dart';
 import '../../Model/TEACHER/examination_list_model.dart';
@@ -20,6 +24,7 @@ class CommonController extends GetxController {
   var currentSitelistModel = SitelistModel().obs;
 
   static CommonController get to => Get.find();
+
   var academicGroupId = ''.obs;
   var token = ''.obs;
   final academic_group_id = '';
@@ -27,21 +32,35 @@ class CommonController extends GetxController {
   final answer_paper_distribution_detail_id = '';
   // var academicVersionYearShiftModel = VersionYearShiftModel().obs;
 
+  var selectedAcademicGroupList = AcademicGroupList().obs;
+  var pubAcademicGroupList = <AcademicGroupList>[].obs;
+  var selectedAcademicYearList = AcademicYearList().obs;
+  var pubAcademicYearList = <AcademicYearList>[].obs;
   var selectedAcademicYear = AcademicYear().obs;
   var academicYearList = <AcademicYear>[].obs;
+  var selectedAcademicShiftList = AcademicShiftList().obs;
+  var pubAcademicShiftList = <AcademicShiftList>[].obs;
   var selectedAcademicShift = AcademicShift().obs;
   var academicShiftList = <AcademicShift>[].obs;
   var selectedAcademicVersion = AcademicVersion().obs;
   var selectedAcademicClass = AcademicClass().obs;
   var academicClassList = <AcademicClass>[].obs;
+  var selectedAcademicClassList = AcademicClassList().obs;
+  var pubAcademicClassList = <AcademicClassList>[].obs;
   var selectedAcademicGroup = TeachAcademicGroup().obs;
   var academicGroupList = <TeachAcademicGroup>[].obs;
+  var selectedAcademicClassGroupList = AcademicClassGroupList().obs;
+  var pubAcademicClassGroupList = <AcademicClassGroupList>[].obs;
   var selectedAcademicSection = AcademicSection().obs;
   var academicSectionList = <AcademicSection>[].obs;
+  var selectedAcademicSectionList = AcademicSectionList().obs;
+  var pubAcademicSectionList = <AcademicSectionList>[].obs;
   var selectedAcademicSession = AcademicSession().obs;
   var academicSessionList = <AcademicSession>[].obs;
   var selectedExamination = Examination().obs;
   var examinationList = <Examination>[].obs;
+  var selectedResultList = ResultList().obs;
+  var pubResultList = <ResultList>[].obs;
   var selectedSubjectGorupConditionSetting = SubjectGorupConditionSetting().obs;
   var subjectGorupConditionSettingList = <SubjectGorupConditionSetting>[].obs;
   var selectedEmployeePaperDistribution = EmployeePaperDistribution().obs;
@@ -127,6 +146,7 @@ class CommonController extends GetxController {
   }
 
   mGetDeptClasslistModel(
+
       /* {
     required String academic_version_id,
     required String academic_year_id,

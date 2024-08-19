@@ -98,8 +98,8 @@ class ApiEndpoint {
   static const String examination_base_subject_list_by_employee =
       "/api/employee/get-site-examination-base-subject-list-by-employee";
   static const String attendance_paper_list_by_employee =
-      "/api/employee/get-site-base-attendance-paper-list-by-employee"; 
-       static const String exam_type_for_attendance =
+      "/api/employee/get-site-base-attendance-paper-list-by-employee";
+  static const String exam_type_for_attendance =
       "/api/employee/get-site-exam-type-list";
   static const String student_list_for_attendance_by_employ =
       "/api/employee/get-site-student-list-for-attendance-by-employee";
@@ -125,4 +125,21 @@ class ApiEndpoint {
       "/api/employee/save-student-periodic-attendance";
   static const String teachAttendance =
       "/api/employee/get-my-attendance-list-for-employee";
+
+  // Academic Result
+  static const String academicGroupList = "/api/web-app/academic-group-list";
+  static const String academicgroupWiseVersionYearShift =
+      "/api/web-app/get-academic-group-wise-version-year-shift";
+
+  static const String academic_year_version_shift_based_department_class =
+      "/api/web-app/get-site-year-version-shift-based-department-class";
+  static const String
+      academic_year_shift_class_based_class_groups_and_exam_list =
+      "/api/web-app/get-version-year-shift-class-based-class-groups-and-exam-list";
+  static const String academic_year_shift_class_or_class_group_based_section =
+      "/api/web-app/get-version-year-shift-class-or-class-group-based-section";
+  static const String academic_exam_result =
+      "/api/web-app/get-student-exam-result";
+  static const String academic_exam_result_pdf =
+      "/api/web-app/get-student-exam-result-pdf";
 }

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/student_library.dart';
 import 'package:school_management_system/Utils/utils.dart';
-import 'package:school_management_system/Views/STUDENT/attendance/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
 
 import '../../Widgets/buttons.dart';
@@ -46,7 +45,7 @@ class StuAttendance extends GetView<StuAttendanceController> {
               style: kLabel,
             ),
           )
-        : controller.stuAttendanceList.value.isEmpty
+        : controller.stuAttendanceList.isEmpty
             ? Container(
                 alignment: Alignment.center,
                 child: Text(

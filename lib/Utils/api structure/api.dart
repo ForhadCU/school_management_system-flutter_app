@@ -228,17 +228,17 @@ class CallAPI {
 
   static Future<ResponseModel> getPublicData(
       String endPoint, Map<String, dynamic>? params,
-      {String? url}) async {
+      {String? url, bool? hasLoading}) async {
     dynamic body;
     kLog('GET + $endPoint');
-    showLoading("Please wait...");
+    hasLoading == null || hasLoading ? showLoading("Please wait...") : null;
 
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     SitelistModel sitelistModel = SitelistModel.fromMap(
         jsonDecode(sharedPreferences.getString(kSiteListModel)!));
     final siteAlias = sitelistModel.siteAlias;
-    kLog(siteAlias! + _get_host);
+    kLog("BaseUrl: " + siteAlias! + _get_host);
     try {
       http.Response res = await http.get(
         Uri.https(siteAlias! + _get_host, endPoint, params),

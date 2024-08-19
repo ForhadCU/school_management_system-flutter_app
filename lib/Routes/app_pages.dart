@@ -23,6 +23,7 @@ class AppRoutes {
   static String notification = '/notification';
   static String landing = '/landing';
   static String splashScreen = '/splashScreen';
+  static String publicResult = '/publicResult';
 
   ///STUDENT
   static const String classroom = "/classroom";

@@ -8,6 +8,7 @@ import 'package:school_management_system/Bindings/PUBLIC/landing_binding.dart';
 import 'package:school_management_system/Bindings/PUBLIC/launcher_slides.dart';
 import 'package:school_management_system/Bindings/PUBLIC/login.dart';
 import 'package:school_management_system/Bindings/PUBLIC/notice.dart';
+import 'package:school_management_system/Bindings/PUBLIC/result.dart';
 import 'package:school_management_system/Bindings/PUBLIC/search_school.dart';
 import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
 import 'package:school_management_system/Bindings/PUBLIC/splash_scr_binding.dart';
@@ -29,6 +30,7 @@ import 'package:school_management_system/Views/PUBLIC/academicCalendar/academic_
 import 'package:school_management_system/Views/PUBLIC/contact/contact.dart';
 import 'package:school_management_system/Views/PUBLIC/landing/landing.dart';
 import 'package:school_management_system/Views/PUBLIC/login/pages/academic_group.dart';
+import 'package:school_management_system/Views/PUBLIC/result/result.dart';
 import 'package:school_management_system/Views/PUBLIC/splashScreen/splash_screen.dart';
 import 'package:school_management_system/Views/STUDENT/classroom/subPages/classroom_details.dart';
 import 'package:school_management_system/Views/STUDENT/dashboard/dashboard.dart';
@@ -339,5 +341,9 @@ abstract class AppPages {
         name: AppRoutes.teachTest,
         page: () => const TeachTest(),
         binding: TeachTestBindings()),
+    GetPage(
+        name: AppRoutes.publicResult,
+        page: () =>  PublicResult(),
+        binding: PublicResultBinding()),
   ];
 }

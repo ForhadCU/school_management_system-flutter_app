@@ -1,19 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Config/config.dart';
 import 'package:school_management_system/Controller/PUBLIC/landing_controller.dart';
 import 'package:school_management_system/Routes/app_pages.dart';
-import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/int_extensions.dart';
 import 'package:school_management_system/Utils/utils.dart';
-import 'package:school_management_system/Views/PUBLIC/landing/widgets.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:school_management_system/Views/Widgets/buttons.dart';
-import 'package:school_management_system/Views/Widgets/custom_textfield.dart';
 import 'package:school_management_system/Views/Widgets/top_bar_banner.dart';
 
 class Landing extends GetView<LandingController> {
@@ -78,7 +72,6 @@ class Landing extends GetView<LandingController> {
             Expanded(
               child: vIconButton(
                   onTap: () {
-                    print("Click");
                     return Get.toNamed(AppRoutes.notice);
                   },
                   iconLoc: PublicAssetLocation.ic_notices,
@@ -140,12 +133,32 @@ class Landing extends GetView<LandingController> {
                 child: Align(
                     alignment: Alignment.center,
                     child: vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.publicResult),
+                        iconLoc: PublicAssetLocation.ic_userLogin,
+                        // bgColor: Colors.amber.shade100,
+                        bgColor: Colors.red,
+                        // iconColor: Colors.amber,
+                        label: "Result"))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: PublicAssetLocation.ic_userLogin,
                         // bgColor: Colors.amber.shade100,
                         bgColor: Colors.red,
                         // iconColor: Colors.amber,
                         label: "Login"))),
+            Expanded(
+                child: Align(alignment: Alignment.center, child: Container())),
+            Expanded(
+                child: Align(alignment: Alignment.center, child: Container())),
           ],
         ),
         (AppSpacing.xxl * 2).height,
