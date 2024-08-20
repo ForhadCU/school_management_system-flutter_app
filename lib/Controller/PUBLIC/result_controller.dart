@@ -12,6 +12,7 @@ import 'package:school_management_system/Model/TEACHER/version_year_shift_model.
 import '../../Api/TEACHER/exam_attendance_api.dart';
 import '../../Api/common/common_api.dart';
 import '../../Config/config.dart';
+import '../../Model/PUBLIC/result/exam_result_res_model.dart';
 import '../../Model/PUBLIC/searchSchool/site_list_model.dart';
 /* import '../../Model/TEACHER/class_group_model.dart';
 import '../../Model/TEACHER/dept_classlist_model.dart';
@@ -26,11 +27,6 @@ import '../../Singletones/app_data.dart';
 import '../../Utils/api structure/payloads.dart';
 import '../../Utils/utils.dart';
 import '../common/common_controller.dart';
-import '../../Model/PUBLIC/result/academic_class_group_res_model.dart';
-import '../../Model/PUBLIC/result/academic_class_res_model.dart';
-import '../../Model/PUBLIC/result/academic_group_res_model.dart';
-import '../../Model/PUBLIC/result/academic_section_res_model.dart';
-import '../../Model/PUBLIC/result/academic_year_res_model.dart';
 
 class PublicResultController extends GetxController {
   static PublicResultController get to => Get.find();
@@ -68,12 +64,15 @@ class PublicResultController extends GetxController {
 
   var selectedAcademicVersionList = AcademicList().obs;
 
-  var selectedResultList = ResultList().obs;
-  var pubResultList = <ResultList>[].obs;
+  var selectedResultTypeList = ResultList().obs;
+  var pubResultTypeList = <ResultList>[].obs;
+
+  var studentExamResult = StudentExamResult().obs;
 
   var siteListModel = SitelistModel().obs;
 
   var canContinue = true.obs;
+  var rollEditTextCtrlr = TextEditingController();
 
   @override
   void onInit() async {
@@ -108,8 +107,28 @@ class PublicResultController extends GetxController {
   }
 
   //******* Get Result ***********//
-  mGetResult() async {
-    /////////Continue....
+  mGetPubExamResultResModel() async {
+    studentExamResult.value = StudentExamResult();
+    await PublicResultApis.mGetPubExamResultResModel(PayLoads.examResult(
+      api_access_key: AppData.api_access_key,
+      academic_group_id: selectedAcademicGroupList.value.id.toString(),
+      site_id: siteId.value.toString(),
+      academic_version_id: selectedAcademicVersionList.value.id.toString(),
+      academic_year_id: selectedAcademicYearList.value.id.toString(),
+      academic_shift_id: selectedAcademicShiftList.value.id.toString(),
+      academic_class_id: selectedAcademicClassList.value.id.toString(),
+      academic_class_group_id:
+          selectedAcademicClassGroupList.value.id.toString(),
+      site_batch_detail_id: '', //no dropdown
+      academic_section_id: selectedAcademicSectionList.value.id.toString(),
+      academic_result_primary_type_id:
+          selectedResultTypeList.value.id.toString(),
+      student_roll_number: rollEditTextCtrlr.value.text,
+    )).then((value) {
+      studentExamResult.value = value.studentExamResult != null
+          ? value.studentExamResult!.first
+          : StudentExamResult();
+    });
   }
 
   /* mGetExamAttendanceListModel() async {
@@ -208,9 +227,9 @@ class PublicResultController extends GetxController {
               }
               if (value.resultList != null && value.resultList!.isNotEmpty) {
                 // academicYearList.addAll(value.academicYearList!);
-                pubResultList.value = value.resultList!;
+                pubResultTypeList.value = value.resultList!;
 
-                selectedResultList.value = value.resultList!.first;
+                selectedResultTypeList.value = value.resultList!.first;
               }
             }
           })
@@ -425,8 +444,8 @@ class PublicResultController extends GetxController {
   }
 
   void mUpdateSelectedResultList(ResultList? selectedModel) async {
-    if (selectedResultList.value != selectedModel) {
-      selectedResultList.value = selectedModel!;
+    if (selectedResultTypeList.value != selectedModel) {
+      selectedResultTypeList.value = selectedModel!;
       canContinue.value = true;
       await mGetSectionResModel();
     }

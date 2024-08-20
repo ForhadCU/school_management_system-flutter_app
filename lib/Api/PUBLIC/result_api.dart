@@ -5,6 +5,7 @@ import 'package:school_management_system/Model/PUBLIC/result/academic_section_re
 
 import '../../Config/config.dart';
 import '../../Model/PUBLIC/result/academic_year_res_model.dart';
+import '../../Model/PUBLIC/result/exam_result_res_model.dart';
 import '../../Model/response_model.dart';
 import '../../Utils/utils.dart';
 
@@ -121,6 +122,26 @@ class PublicResultApis {
       showError("No Section Found!");
       kLog("mGetSectionResModel status code is: ${res.statusCode}");
       return PubAcademicSectionResModel();
+      //return <ClassName>[];
+    }
+  }
+  static Future<PubExamResultResModel> mGetPubExamResultResModel(
+      Map<String, dynamic> payLoad) async {
+    kLog("Payload: ${payLoad}");
+    ResponseModel res = await CallAPI.getPublicData(
+      hasLoading: true,
+      ApiEndpoint.academic_exam_result,
+      payLoad,
+    );
+    kLogger.d(res.body);
+    if (res.statusCode == 200 && res.body['mode'] == "success") {
+      kLog("Successfully fetch mGetPubExamResultResModel data");
+      return PubExamResultResModel.fromMap(res.body);
+    } else {
+      hideLoading();
+      showError("No Result Found!");
+      kLog("mGetPubExamResultResModel status code is: ${res.statusCode}");
+      return PubExamResultResModel();
       //return <ClassName>[];
     }
   }
