@@ -10,7 +10,6 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../Config/config.dart';
 
 class AcademicCalanderWidget {
-  
   AcademicCalanderWidget._internal();
   static final AcademicCalanderWidget _singleton =
       AcademicCalanderWidget._internal();
@@ -225,7 +224,7 @@ class AcademicCalanderWidget {
                     title: eventDateList.title!,
                     color: Utils.mParseColorFromHexCode(
                         hexCode: eventDateList.academicCalendarHead!.colorId!),
-                    date: Utils().getTimeFromTimeStamp(
+                    date: Utils().getFormatedDateTime(
                         eventDateList.startDate.toString(),
                         kAppDateFormatWithDayMonth),
                   );

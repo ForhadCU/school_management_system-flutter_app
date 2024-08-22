@@ -37,7 +37,7 @@ class StuMessageExpand extends GetView<StuMessageController> {
             ),
             AppSpacing.sm.height,
             Text(
-              Utils().getTimeFromTimeStamp(
+              Utils().getFormatedDateTime(
                   controller.clickedMessageModel.value.createdAt.toString(),
                   kAppDateFormatWithTime12),
               style: kBody.copyWith(fontWeight: FontWeight.w500),

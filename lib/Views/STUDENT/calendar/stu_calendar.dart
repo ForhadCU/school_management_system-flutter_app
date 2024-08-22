@@ -239,9 +239,8 @@ class StuCalendar extends GetView<StuCalendarController> {
                     title: eventDateList.title!,
                     color: Utils.mParseColorFromHexCode(
                         hexCode: eventDateList.academicCalendarHead!.colorId!),
-                    date: Utils().getTimeFromTimeStamp(
-                        eventDateList.activateDate
-                        .toString(),
+                    date: Utils().getFormatedDateTime(
+                        eventDateList.activateDate.toString(),
                         kAppDateFormatWithDayMonth),
                   );
                 },

@@ -88,7 +88,7 @@ class TeachMessage extends GetView<TeachMessageController> {
             style: TextStyle(overflow: TextOverflow.ellipsis),
           ),
           Text(
-            Utils().getTimeFromTimeStamp(
+            Utils().getFormatedDateTime(
                 message.createdAt.toString(), kAppTimeFormat12),
             style: kBody.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
           ),
@@ -120,7 +120,7 @@ class TeachMessage extends GetView<TeachMessageController> {
               message.createdAt == null
                   ? Container()
                   : Text(
-                      Utils().getTimeFromTimeStamp(message.createdAt.toString(),
+                      Utils().getFormatedDateTime(message.createdAt.toString(),
                           kAppDateFormatWithDayMonth),
                       style: kBody.copyWith(
                           fontWeight: FontWeight.w400, fontSize: 12),

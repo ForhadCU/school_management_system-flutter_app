@@ -80,8 +80,8 @@ class TeachAttendanceController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom, [String? dateFormat]) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(
-        dateFrom.toString(), dateFormat ?? kAppDateFormat);
+    return Utils()
+        .getFormatedDateTime(dateFrom.toString(), dateFormat ?? kAppDateFormat);
   }
 
   mSelectDateTo() async {

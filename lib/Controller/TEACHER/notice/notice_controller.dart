@@ -67,11 +67,11 @@ class TeachNoticeController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(dateFrom.toString(), kAppDateFormat);
+    return Utils().getFormatedDateTime(dateFrom.toString(), kAppDateFormat);
   }
 
   String mGetFormatDateForApi(dynamic date) {
-    return Utils().getTimeFromTimeStamp(date.toString(), kApiDateFormat);
+    return Utils().getFormatedDateTime(date.toString(), kApiDateFormat);
   }
 
   mGetNoticesInRange() async {

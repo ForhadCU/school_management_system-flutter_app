@@ -379,7 +379,6 @@ class TeachNotice extends GetView<TeachNoticeController> {
 
   vNoticeList() {
     return Obx(() {
-      
       return controller.isLoading.value
           ? Container()
           : controller.noticeApiModel.value.data == null ||
@@ -405,7 +404,7 @@ class TeachNotice extends GetView<TeachNoticeController> {
                         desc: data.noticeDescription ?? "",
                         date: data.createdAt == null
                             ? ""
-                            : Utils().getTimeFromTimeStamp(
+                            : Utils().getFormatedDateTime(
                                 data.createdAt.toString(),
                                 kAppDateFormatWithTime12),
                         color: AppColor.kNoticeListColorPlate[

@@ -57,7 +57,7 @@ class AppColor {
   static const Color academic_calendar = Color(0xffB3E59E);
   static const Color attendance = Color(0xff7983EA);
   static const Color live_class = Color(0xff354FC5);
-  static const Color log_out = Color(0xffFD6097);
+  static const Color log_out = Colors.red;
   static const Color my_class = Color(0xffBFFE65);
   static const Color my_exam = Color(0xffFEDF46);
   static const Color my_payments = Color(0xff18C93A);
@@ -70,6 +70,7 @@ class AppColor {
   static const Color liveQuizBg = Color(0xffDAE0F1);
   static const Color quizAnsItemBg = Color(0xff8B93C9);
   static const Color messages = Color.fromARGB(255, 2, 155, 33);
+  static const Color leave = Color(0xffFEDF46);
 
   static const Color paymentMethodCard = Color(0xffE1E7F5);
 

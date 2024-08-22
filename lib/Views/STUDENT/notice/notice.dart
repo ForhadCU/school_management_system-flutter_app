@@ -368,7 +368,7 @@ class StudentNotice extends GetView<StuNoticeController> {
                       desc: data.noticeDescription ?? "",
                       date: data.createdAt == null
                           ? ""
-                          : Utils().getTimeFromTimeStamp(
+                          : Utils().getFormatedDateTime(
                               data.createdAt.toString(),
                               kAppDateFormatWithTime12),
                       color: AppColor.kNoticeListColorPlate[

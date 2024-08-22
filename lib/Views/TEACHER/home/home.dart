@@ -85,7 +85,7 @@ class TeachHome extends GetView<TeachHomeController> {
                         iconLoc: StudentAssetLocation.attendance,
                         // bgColor: AppColor.red.shade100,
                         // iconColor: AppColor.red,
-                        bgColor: AppColor.attendance,
+                        bgColor: AppColor.my_class,
                         label: "Exam Attendance".toUpperCase()))),
             Expanded(
               child: _vIconButton(
@@ -285,19 +285,6 @@ class TeachHome extends GetView<TeachHomeController> {
                 child: Align(
                     alignment: Alignment.center,
                     child: _vIconButton(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.teachPeriodicAttnd);
-                        },
-                        // onTap: () => Get.toNamed(AppRoutes.login),
-                        iconLoc: StudentAssetLocation.periodic_attend,
-                        // bgColor: AppColor.amber.shade100,
-                        bgColor: AppColor.my_class,
-                        // iconColor: AppColor.amber,
-                        label: "Periodic Attendance".toUpperCase()))),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: _vIconButton(
                         onTap: () => Get.toNamed(AppRoutes.teachMessage),
                         // onTap: () => Get.toNamed(AppRoutes.login),
                         iconLoc: StudentAssetLocation.message_ic,
@@ -305,6 +292,19 @@ class TeachHome extends GetView<TeachHomeController> {
                         bgColor: AppColor.messages,
                         // iconColor: AppColor.amber,
                         label: "Messages".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.teachPeriodicAttnd);
+                        },
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.periodic_attend,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.attendance,
+                        // iconColor: AppColor.amber,
+                        label: "Periodic Attendance".toUpperCase()))),
           ],
         ),
         AppSpacing.xl.height,
@@ -330,9 +330,27 @@ class TeachHome extends GetView<TeachHomeController> {
                         onTap: () => Get.toNamed(AppRoutes.teachHelpdesk),
                         iconLoc: StudentAssetLocation.help_desk,
                         // bgColor: AppColor.amber.shade100,
-                        bgColor: AppColor.log_out,
+                        bgColor: AppColor.my_result,
                         // iconColor: AppColor.amber,
                         label: "Help Desk".toUpperCase()))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: _vIconButton(
+                        onTap: () => Get.toNamed(AppRoutes.teachLeave),
+
+                        // onTap: () => Get.toNamed(AppRoutes.login),
+                        iconLoc: StudentAssetLocation.leave,
+                        // bgColor: AppColor.amber.shade100,
+                        bgColor: AppColor.leave,
+                        // iconColor: AppColor.amber,
+                        label: "Leave".toUpperCase()))),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -347,6 +365,8 @@ class TeachHome extends GetView<TeachHomeController> {
                         bgColor: AppColor.log_out,
                         // iconColor: AppColor.amber,
                         label: "Log out".toUpperCase()))),
+            Expanded(child: Container()),
+            Expanded(child: Container()),
           ],
         ),
       ],

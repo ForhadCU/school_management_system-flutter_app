@@ -18,7 +18,8 @@ class StuAttendanceController extends GetxController {
 
   /// variable declaration
   var endDate = DateTime.now().obs;
-  var startDate = DateTime.now().subtract( Duration(days: (DateTime.now().day))).obs;
+  var startDate =
+      DateTime.now().subtract(Duration(days: (DateTime.now().day))).obs;
   var isDailyAttendaceTabActive = true.obs;
   // var isPeriodicAttendaceActive = false.obs;
   var numOfNoticesInRange = 0.obs;
@@ -75,8 +76,8 @@ class StuAttendanceController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom, [String? dateFormat]) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(
-        dateFrom.toString(), dateFormat ?? kAppDateFormat);
+    return Utils()
+        .getFormatedDateTime(dateFrom.toString(), dateFormat ?? kAppDateFormat);
   }
 
   mSelectDateTo() async {

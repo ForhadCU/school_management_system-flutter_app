@@ -57,7 +57,7 @@ class ExpandedTeachNotice extends GetView<TeachNoticeController> {
             ),
             AppSpacing.sm.height,
             Text(
-              Utils().getTimeFromTimeStamp(
+              Utils().getFormatedDateTime(
                   controller.clickedNoticeModel.value.createdAt.toString(),
                   kAppDateFormatWithTime12),
               style: kBody.copyWith(fontWeight: FontWeight.w500),

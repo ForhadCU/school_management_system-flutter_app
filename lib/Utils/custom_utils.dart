@@ -94,7 +94,7 @@ class Utils {
     return int.parse((((secs % (3600 * 24)) % 3600) % 60).toString());
   }
 
-  String getTimeFromTimeStamp(String timestamp, String format) {
+  String getFormatedDateTime(String timestamp, String format) {
     if (timestamp.isEmpty) return '00:00 AM';
     DateTime dateTime = DateTime.parse(timestamp);
     String formattedString = DateFormat(format).format(dateTime);

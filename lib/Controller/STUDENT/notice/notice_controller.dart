@@ -66,11 +66,11 @@ class StuNoticeController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(dateFrom.toString(), kAppDateFormat);
+    return Utils().getFormatedDateTime(dateFrom.toString(), kAppDateFormat);
   }
 
   String mGetFormatDateForApi(dynamic date) {
-    return Utils().getTimeFromTimeStamp(date.toString(), kApiDateFormat);
+    return Utils().getFormatedDateTime(date.toString(), kApiDateFormat);
   }
 
   mGetNoticesInRange() async {
@@ -124,7 +124,7 @@ class StuNoticeController extends GetxController {
 
   void mUpdateClickedNoticeModel(Datum data) {
     clickedNoticeModel.value = data;
-    kLog(Utils().getTimeFromTimeStamp(
+    kLog(Utils().getFormatedDateTime(
         clickedNoticeModel.value.createdAt.toString(),
         kAppDateFormatWithTime12));
   }
@@ -155,5 +155,5 @@ class StuNoticeController extends GetxController {
     } else {
       showError("Pdf not found!");
     }
-   }
+  }
 }

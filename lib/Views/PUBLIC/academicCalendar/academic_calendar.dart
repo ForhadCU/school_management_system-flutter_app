@@ -239,7 +239,7 @@ class AcademicCalendar extends GetView<AcademicCalendarController> {
                     title: eventDateList.title!,
                     color: Utils.mParseColorFromHexCode(
                         hexCode: eventDateList.academicCalendarHead!.colorId!),
-                    date: Utils().getTimeFromTimeStamp(
+                    date: Utils().getFormatedDateTime(
                         eventDateList.activateDate.toString(),
                         kAppDateFormatWithDayMonth),
                   );

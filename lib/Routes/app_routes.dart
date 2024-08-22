@@ -12,6 +12,7 @@ import 'package:school_management_system/Bindings/PUBLIC/result.dart';
 import 'package:school_management_system/Bindings/PUBLIC/search_school.dart';
 import 'package:school_management_system/Bindings/PUBLIC/site_history.dart';
 import 'package:school_management_system/Bindings/PUBLIC/splash_scr_binding.dart';
+import 'package:school_management_system/Bindings/TEACHER/leave/leave_bindings.dart';
 import 'package:school_management_system/Bindings/STUDENT/message/messages_binding.dart';
 import 'package:school_management_system/Bindings/TEACHER/attendance/attendance_bindings.dart';
 import 'package:school_management_system/Bindings/TEACHER/dashboard/dashboard_bindings.dart';
@@ -42,6 +43,7 @@ import 'package:school_management_system/Views/PUBLIC/notice/notice.dart';
 import 'package:school_management_system/Views/PUBLIC/notification/notifications.dart';
 import 'package:school_management_system/Views/PUBLIC/searchSchool/search_school.dart';
 import 'package:school_management_system/Views/PUBLIC/siteHistory/about_us.dart';
+import 'package:school_management_system/Views/TEACHER/leave/leave.dart';
 import 'package:school_management_system/Views/STUDENT/message/message.dart';
 import 'package:school_management_system/Views/STUDENT/message/pages/expanded_message.dart';
 import 'package:school_management_system/Views/STUDENT/notice/pages/expanded_notice.dart';
@@ -343,7 +345,11 @@ abstract class AppPages {
         binding: TeachTestBindings()),
     GetPage(
         name: AppRoutes.publicResult,
-        page: () =>  PublicResult(),
+        page: () => PublicResult(),
         binding: PublicResultBinding()),
+    GetPage(
+        name: AppRoutes.teachLeave,
+        page: () => TeachLeave(),
+        binding: TeachLeaveBindings()),
   ];
 }

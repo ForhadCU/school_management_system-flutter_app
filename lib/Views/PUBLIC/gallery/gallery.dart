@@ -250,7 +250,7 @@ class Gallery extends GetView<GalleryController> {
                       ),
                       AppSpacing.smh.height,
                       Text(
-                        Utils().getTimeFromTimeStamp(
+                        Utils().getFormatedDateTime(
                             controller
                                 .galleryDataModelList[listViewIndex].createdAt
                                 .toString(),
@@ -330,7 +330,7 @@ class Gallery extends GetView<GalleryController> {
                   ),
                   AppSpacing.smh.height,
                   Text(
-                    Utils().getTimeFromTimeStamp(
+                    Utils().getFormatedDateTime(
                         dateTime.toString(), kAppDateFormatWithDayMonth),
                     style: kLabel.copyWith(
                         color: AppColor.kGray700.withOpacity(.8)),

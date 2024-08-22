@@ -864,7 +864,7 @@ class StuQuiz extends GetView<StuQuizController> {
   }
 
   _vResultTable() {
-    double cellVerMargin =26;
+    double cellVerMargin = 26;
     double cellHorMargin = 16;
     return Obx(() => Expanded(
           child: /*  controller.quizResultList.value == null
@@ -1154,7 +1154,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            Utils().getTimeFromTimeStamp(
+                                            Utils().getFormatedDateTime(
                                                 item
                                                     .quizDeclare!
                                                     .quizDeclareSettings!
@@ -1174,7 +1174,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            Utils().getTimeFromTimeStamp(
+                                            Utils().getFormatedDateTime(
                                                 item
                                                     .quizDeclare!
                                                     .quizDeclareSettings!
@@ -1518,7 +1518,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        Utils().getTimeFromTimeStamp(
+                                        Utils().getFormatedDateTime(
                                             item
                                                 .quizDeclare!
                                                 .quizDeclareSettings!
@@ -1537,7 +1537,7 @@ class StuQuiz extends GetView<StuQuizController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        Utils().getTimeFromTimeStamp(
+                                        Utils().getFormatedDateTime(
                                             item
                                                 .quizDeclare!
                                                 .quizDeclareSettings!

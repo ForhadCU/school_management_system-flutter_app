@@ -10,7 +10,6 @@ import 'package:school_management_system/Utils/int_extensions.dart';
 import '../../../Controller/PUBLIC/gallery_controller.dart';
 
 class GalleryWidget {
-  
   static final GalleryWidget _singleton = GalleryWidget._internal();
   GalleryWidget._internal();
   factory GalleryWidget() {
@@ -198,7 +197,10 @@ class GalleryWidget {
                               )),
                       errorWidget: (context, url, error) => const Align(
                           alignment: Alignment.center,
-                          child: Icon(Icons.error, color: Colors.black26,)),
+                          child: Icon(
+                            Icons.error,
+                            color: Colors.black26,
+                          )),
                     ) /* const Image(
                               image: AssetImage(
                                   PublicAssetLocation.sample_gallery_image),
@@ -230,7 +232,7 @@ class GalleryWidget {
                       ),
                       AppSpacing.smh.height,
                       Text(
-                        Utils().getTimeFromTimeStamp(
+                        Utils().getFormatedDateTime(
                             controler
                                 .galleryDataModelList[listViewIndex].createdAt
                                 .toString(),
@@ -310,7 +312,7 @@ class GalleryWidget {
                   ),
                   AppSpacing.smh.height,
                   Text(
-                    Utils().getTimeFromTimeStamp(
+                    Utils().getFormatedDateTime(
                         dateTime.toString(), kAppDateFormatWithDayMonth),
                     style: kLabel.copyWith(
                         color: AppColor.kGray700.withOpacity(.8)),

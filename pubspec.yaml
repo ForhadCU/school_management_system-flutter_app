@@ -34,7 +34,7 @@ dependencies:
   flutter_zoom_drawer: ^3.1.1
   permission_handler: ^11.0.1
   youtube_player_flutter: ^8.1.2
-  cached_network_image: ^3.3.0
+  cached_network_image: 3.3.0
   flutter_html: ^3.0.0-beta.2
   google_maps_flutter: ^2.5.0
   excel: ^4.0.0

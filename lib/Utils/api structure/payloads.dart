@@ -875,6 +875,82 @@ class PayLoads {
     };
   }
 
+  static Map<String, dynamic> leaveTypeAndCategory({
+    required String academic_group_id,
+    required String api_access_key,
+    required String paginate,
+  }) {
+    return {
+      "academic_group_id": academic_group_id,
+      "api_access_key": api_access_key,
+      "paginate": paginate
+    };
+  }
+
+  static Map<String, dynamic> leaveTypeApplicationSubmit({
+    required String academic_group_id,
+    required String api_access_key,
+    required String academic_leave_type_id,
+    required String academic_leave_category_id,
+    required String id,
+    required String date_range,
+    /* // For dateRange input 
+    jsonEncode(PayLoads.dateRange(
+                start: mGetFormatDateForApi(dateFrom),
+                end: mGetFormatDateForApi(dateTo))) */
+    required String status,
+  }) {
+    return {
+      "academic_group_id": academic_group_id,
+      "api_access_key": api_access_key,
+      "academic_leave_type_id": academic_leave_type_id,
+      "academic_leave_category_id": academic_leave_category_id,
+      "id": id,
+      "date_range": date_range,
+      "status": status
+    };
+  }
+
+  static Map<String, dynamic> leaveHistoryList({
+    required String academic_group_id,
+    required String api_access_key,
+    required String? date,
+    required String? academic_leave_type_id,
+    required String? academic_leave_category_id,
+    required String? leave_status,
+    required String paginate,
+  }) {
+    return {
+      "academic_group_id": academic_group_id,
+      "api_access_key": api_access_key,
+      "date": date,
+      "academic_leave_type_id": academic_leave_type_id,
+      "academic_leave_category_id": academic_leave_category_id,
+      "leave_status": leave_status,
+      "paginate": leave_status
+    };
+  }
+
+  static Map<String, dynamic> leaveBalanceList({
+    required String academic_group_id,
+    required String api_access_key,
+    required String? date,
+    required String? academic_leave_type_id,
+    required String? academic_leave_category_id,
+    required String? leave_status,
+    required String paginate,
+  }) {
+    return {
+      "academic_group_id": academic_group_id,
+      "api_access_key": api_access_key,
+      "date": date,
+      "academic_leave_type_id": academic_leave_type_id,
+      "academic_leave_category_id": academic_leave_category_id,
+      "leave_status": leave_status,
+      "paginate": leave_status
+    };
+  }
+
   static Map<String, dynamic> examResult({
     required String api_access_key,
     required String site_id,

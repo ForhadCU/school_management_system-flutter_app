@@ -67,4 +67,6 @@ class AppRoutes {
   static const String teachAttendance = "/teachAttendance";
   static const String teachTest = "/teachTest";
   static const String teachMessageExpand = "/teachMessageExpand";
+    static const String teachLeave = "/teachLeave";
+
 }

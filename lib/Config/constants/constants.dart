@@ -98,7 +98,7 @@ const String tReadMore = "Read More";
 const String tSeeAll = "See All";
 const String tDots3 = "...";
 
-const String kAppDateFormat = "dd-MM-yyyy";
+const String kAppDateFormat = "dd/MM/yyyy";
 
 /// 24 hours AM/PM
 // const String kAppDateWithTimeFormat = "dd-MM-yyyy kk:mm:a";

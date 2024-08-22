@@ -63,7 +63,7 @@ class Notice extends GetView<NoticeController> {
                       desc: data.noticeDescription ?? "",
                       date: data.createdAt == null
                           ? ""
-                          : Utils().getTimeFromTimeStamp(
+                          : Utils().getFormatedDateTime(
                               data.createdAt.toString(),
                               kAppDateFormatWithTime12),
                       color: AppColor.kNoticeListColorPlate[
@@ -111,7 +111,7 @@ class Notice extends GetView<NoticeController> {
                   child: _vLeftPart(title, desc, color, () {
                     onTapToExpand();
                   }, date)),
-             /*  files == null || files.isEmpty
+              /*  files == null || files.isEmpty
                   ? Container()
                   : StaggeredGridTile.fit(
                       crossAxisCellCount: 2,

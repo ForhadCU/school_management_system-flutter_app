@@ -54,6 +54,7 @@ class PublicAssetLocation {
   static const String ic_whatsapp = "assets/icons/whatsapp.png";
   static const String ic_google = "assets/icons/google.png";
   static const String ic_youtube = "assets/icons/youtube.png";
+  static const String ic_academic_result = "assets/logos/academic_result.png";
 
   /// images
   static const String slide_bg_1 = "assets/images/slide_bg_1.png";
@@ -124,6 +125,7 @@ class StudentAssetLocation {
   static const String cellfin = "assets/logos/cellfin.png";
   static const String bkash = "assets/logos/bksh.png";
   static const String nagad = "assets/logos/nagad.png";
+  static const String leave = "assets/logos/leave.png";
 }
 
 class TeacherAssetLocation {

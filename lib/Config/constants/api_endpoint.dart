@@ -142,4 +142,8 @@ class ApiEndpoint {
       "/api/web-app/get-student-exam-result";
   static const String academic_exam_result_pdf =
       "/api/web-app/get-student-exam-result-pdf";
+  static const String leave_type_and_category_list = "/api/employee/get-leave-type-and-leave-category-list";
+  static const String leave_aplication_submit = "/api/employee/create-employee-leave-aplication";
+  static const String leave_history_list = "/api/employee/employee-leave-history-list";
+  static const String leave_balance_list = "/api/employee/employee-leave-balance-list";
 }

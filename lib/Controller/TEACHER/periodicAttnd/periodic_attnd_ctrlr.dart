@@ -96,8 +96,8 @@ class TeachPeriodicAttendanceController extends GetxController {
 
   String mGetFormatDate(dynamic dateFrom, [String? dateFormat]) {
     // return Utils().getTimeFromTimeStamp(dateFrom.toString(), "dd-MM-yyyy");
-    return Utils().getTimeFromTimeStamp(
-        dateFrom.toString(), dateFormat ?? kAppDateFormat);
+    return Utils()
+        .getFormatedDateTime(dateFrom.toString(), dateFormat ?? kAppDateFormat);
   }
 
   mGetPeriodModel() async {
@@ -105,7 +105,7 @@ class TeachPeriodicAttendanceController extends GetxController {
         PayLoads.teachPeriodList(
             api_access_key: AppData.api_access_key,
             academic_group_id: academicGroup.id.toString(),
-            att_date: Utils().getTimeFromTimeStamp(
+            att_date: Utils().getFormatedDateTime(
                 attendanceDate.value.toString(), kApiDateFormat)),
         token);
     periodDataList
@@ -125,7 +125,7 @@ class TeachPeriodicAttendanceController extends GetxController {
               academic_group_id: academicGroup.id.toString(),
               routine_allocation_id: selectedPeriodData.value.id.toString(),
               // routine_allocation_id: 3576.toString(),
-              att_date: Utils().getTimeFromTimeStamp(
+              att_date: Utils().getFormatedDateTime(
                   attendanceDate.value.toString(), kApiDateFormat),
               present: presentStatus.value ? 1.toString() : 0.toString(),
               leave: leaveStatus.value ? 1.toString() : 0.toString(),
@@ -157,7 +157,7 @@ class TeachPeriodicAttendanceController extends GetxController {
               academic_group_id: academicGroup.id.toString(),
               routine_allocation_id: selectedPeriodData.value.id.toString(),
               // routine_allocation_id: 3576.toString(),
-              att_date: Utils().getTimeFromTimeStamp(
+              att_date: Utils().getFormatedDateTime(
                   attendanceDate.value.toString(), kApiDateFormat)),
           endPoint: ApiEndpoint.teachSavePeriodicAttend,
           bodyData: modified.toMap(),
