@@ -83,7 +83,7 @@ class PublicResult extends GetView<PublicResultController> {
       onTap: () async {
         await controller.mGetPubExamResultResModel();
       },
-      text: "Get List",
+      text: "Get Result",
     );
   }
 
