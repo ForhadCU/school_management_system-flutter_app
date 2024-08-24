@@ -95,7 +95,7 @@ class TeachLeaveController extends GetxController {
 
   void mUpdateDummyValueModel(DummyValueModel? selectedModel) {}
 
-  void UpdateLeaveApplyDateRange(DateTimeRange? dateTimeRange) {
+   UpdateLeaveApplyDateRange(DateTimeRange? dateTimeRange) {
     if (dateTimeRange != null) {
       leaveApplyDateRange = dateTimeRange;
       String leaveApplyDateRangeStartDate = Utils()

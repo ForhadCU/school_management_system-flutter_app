@@ -1000,7 +1000,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
+      /*   Row(
           children: [
             Expanded(
               flex: 1,
@@ -1054,8 +1054,8 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   )),
             ),
           ],
-        ),
-        AppSpacing.sm.height,
+        ), 
+        AppSpacing.sm.height,*/
         Row(
           children: [
             Expanded(
@@ -1207,7 +1207,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
+        /* Row(
           children: [
             Expanded(
               flex: 1,
@@ -1261,7 +1261,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   )),
             ),
           ],
-        ),
+        ), */
         AppSpacing.sm.height,
         Row(
           children: [
