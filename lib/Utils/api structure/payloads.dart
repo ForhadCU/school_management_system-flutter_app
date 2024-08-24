@@ -927,7 +927,7 @@ class PayLoads {
       "academic_leave_type_id": academic_leave_type_id,
       "academic_leave_category_id": academic_leave_category_id,
       "leave_status": leave_status,
-      "paginate": leave_status
+      "paginate": paginate
     };
   }
 

@@ -676,12 +676,13 @@ class CallAPI {
       String urlWithParams = Uri.parse('$_https$siteAlias$_get_host$endPoint')
           .replace(queryParameters: payload)
           .toString();
-      kLog(urlWithParams);
+      kLog(Uri.parse(urlWithParams));
       http.Response res = await http.post(
         // Uri.https(_get_host, endPoint),
         Uri.parse(urlWithParams),
         body: jsonEncode(bodyData),
         headers: {
+          // 'Content-Length': jsonEncode(bodyData).length.toString(),
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': "Bearer $token",
@@ -699,6 +700,8 @@ class CallAPI {
         body = json.decode(res.body);
 
         showSuccess("Submitted");
+      } else {
+        body = res.body;
       }
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/leave/leave_controller.dart';
+import 'package:school_management_system/Model/TEACHER/leave/leave_balance_list_model.dart';
+import 'package:school_management_system/Model/TEACHER/leave/leave_type_and_category_model.dart';
 import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
@@ -101,13 +103,56 @@ class TeachLeave extends GetView<TeachLeaveController> {
           thickness: .8,
         ),
         vLeaveApplicationSearch(),
+        AppSpacing.sm.height,
+        Obx(() => controller.leaveAppSearchResultList.isNotEmpty
+            ? vLeaveApplicatinTable()
+            : Container())
       ],
     );
   }
 
+  vLeaveBalanceSearch() {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      Container(
+        padding: const EdgeInsets.symmetric(
+            vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+        decoration: const BoxDecoration(
+            // borderRadius: BorderRadius.circular(8),
+            color: AppColor.activeTab),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _vLeaveBalanceSearchFilteringFields(),
+            Obx(
+              () => Visibility(
+                visible: controller.isApplyApplicationBtn.value,
+                child: Column(
+                  children: [
+                    AppSpacing.md.height,
+                    SizedBox(
+                      width: AppScreenSize.mGetWidth(kGlobContext, 50),
+                      child: _vLeaveBalanceSearchBtn(),
+                    ),
+                    AppSpacing.smh.height,
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ]);
+  }
+
   vLeaveBalanceBody() {
-    return Container(
-      child: const Text("Balance"),
+    return Column(
+      children: [
+        vLeaveBalanceSearch(),
+        AppSpacing.sm.height,
+        Obx(() => controller.leaveBalanceSearchResultList.isNotEmpty
+            ? vLeaveBalanceTable()
+            : Container())
+      ],
     );
   }
 
@@ -160,7 +205,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _vFilteringFields(),
+              _vLeaveAppSearchFilteringFields(),
               Obx(
                 () => Visibility(
                   visible: controller.isApplyApplicationBtn.value,
@@ -169,7 +214,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
                       AppSpacing.md.height,
                       SizedBox(
                         width: AppScreenSize.mGetWidth(kGlobContext, 50),
-                        child: _vSearchApplicationBtn(),
+                        child: _vLeaveAppSearchBtn(),
                       ),
                       AppSpacing.smh.height,
                     ],
@@ -194,7 +239,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
     );
   }
 
-  vResultTable() {
+  vLeaveApplicatinTable() {
     double cellVerMargin = 8;
     double cellHorMargin = 16;
     return Column(
@@ -214,7 +259,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SizedBox(
-                width: AppScreenSize.mGetWidth(kGlobContext, 100),
+                // width: AppScreenSize.mGetWidth(kGlobContext, 100),
                 child: ClipRRect(
                     // borderRadius: BorderRadius.circular(12),
                     child: Table(
@@ -230,6 +275,284 @@ class TeachLeave extends GetView<TeachLeaveController> {
                     2: IntrinsicColumnWidth(),
                     3: IntrinsicColumnWidth(),
                     4: IntrinsicColumnWidth(),
+                    5: IntrinsicColumnWidth(),
+                  },
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  border: TableBorder.all(color: AppColor.white),
+                  children: <TableRow>[
+                    TableRow(
+                      // table decoration
+                      decoration: const BoxDecoration(
+                          // color: AppColor.secondaryColor),
+                          color: AppColor.inactiveTab),
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'SL',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Type',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Category',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'From Date',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'To Date',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Status',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                      ],
+                    ),
+                    for (var item in controller.leaveAppSearchResultList)
+                      TableRow(
+                        // table decoration
+                        decoration: BoxDecoration(
+                            // color: AppColor.secondaryColor.withOpacity(.4),
+                            color: controller.leaveAppSearchResultList
+                                            .indexOf(item) %
+                                        2 ==
+                                    0
+                                ? AppColor.secondaryColor.withOpacity(.4)
+                                : AppColor.secondaryColor.withOpacity(.2)),
+                        children: <Widget>[
+                          /// SL
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                (controller.leaveAppSearchResultList
+                                            .indexOf(item) +
+                                        1)
+                                    .toString(),
+                                style: kBody.copyWith(
+                                    color: AppColor.kBlack,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400),
+                              ).marginSymmetric(
+                                  vertical: cellVerMargin,
+                                  horizontal: cellHorMargin),
+                            ],
+                          ),
+
+                          /// Leave Type
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item
+                                      .siteEmployeeLeaveGenerate!
+                                      .siteLeavePolicy!
+                                      .academicLeaveType!
+                                      .name!,
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Leave Category
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item
+                                      .siteEmployeeLeaveGenerate!
+                                      .siteLeavePolicy!
+                                      .academicLeaveCategory!
+                                      .name
+                                      .toString(),
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// From Date
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  Utils().getFormatedDateTime(
+                                      item.fromDate.toString(), kAppDateFormat),
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// To Date
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  Utils().getFormatedDateTime(
+                                      item.toDate.toString(), kAppDateFormat),
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Status
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.leaveStatus ?? "",
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                  ],
+                )),
+              ),
+            ),
+            /* AppSpacing.md.height,
+                    vUpdateButton(), */
+          ],
+        ),
+      ],
+    );
+  }
+
+  vLeaveBalanceTable() {
+    double cellVerMargin = 8;
+    double cellHorMargin = 16;
+    return Column(
+      children: [
+        _vPlainBox(
+          boxBg: AppColor.white,
+          child: const Text(
+            "Search results",
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: AppColor.textColor),
+          ),
+        ),
+        Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                // width: AppScreenSize.mGetWidth(kGlobContext, 100),
+                child: ClipRRect(
+                    // borderRadius: BorderRadius.circular(12),
+                    child: Table(
+                  columnWidths: const <int, TableColumnWidth>{
+                    /*  0: m.sm
+                                      ? const FlexColumnWidth()
+                                      : const IntrinsicColumnWidth(), */
+                    // 1: FlexColumnWidth(),
+                    /*  1: FixedColumnWidth(AppScreenSize.mGetWidth(
+                      kGlobContext, 30)), */
+                    0: IntrinsicColumnWidth(),
+                    1: IntrinsicColumnWidth(),
+                    2: IntrinsicColumnWidth(),
+                    3: IntrinsicColumnWidth(),
+                    4: IntrinsicColumnWidth(),
+                    5: IntrinsicColumnWidth(),
                   },
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   border: TableBorder.all(color: AppColor.white),
@@ -283,7 +606,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'From Date',
+                              'Total Days',
                               style: kBody.copyWith(
                                   color: AppColor.white,
                                   fontWeight: FontWeight.w500),
@@ -296,7 +619,20 @@ class TeachLeave extends GetView<TeachLeaveController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'To Date',
+                              'Spend Days',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Remaining Days',
                               style: kBody.copyWith(
                                   color: AppColor.white,
                                   fontWeight: FontWeight.w500),
@@ -307,24 +643,27 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         ),
                       ],
                     ),
-                    for (var item in controller.dummyValueModelList)
+                    for (var item in controller.leaveBalanceSearchResultList)
                       TableRow(
                         // table decoration
                         decoration: BoxDecoration(
                             // color: AppColor.secondaryColor.withOpacity(.4),
-                            color:
-                                controller.dummyValueModelList.indexOf(item) %
-                                            2 ==
-                                        0
-                                    ? AppColor.secondaryColor.withOpacity(.4)
-                                    : AppColor.secondaryColor.withOpacity(.2)),
+                            color: controller.leaveBalanceSearchResultList
+                                            .indexOf(item) %
+                                        2 ==
+                                    0
+                                ? AppColor.secondaryColor.withOpacity(.4)
+                                : AppColor.secondaryColor.withOpacity(.2)),
                         children: <Widget>[
-                          /// Code
+                          /// SL
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                item.name ?? "",
+                                (controller.leaveBalanceSearchResultList
+                                            .indexOf(item) +
+                                        1)
+                                    .toString(),
                                 style: kBody.copyWith(
                                     color: AppColor.kBlack,
                                     fontSize: 14,
@@ -335,13 +674,13 @@ class TeachLeave extends GetView<TeachLeaveController> {
                             ],
                           ),
 
-                          /// Subject
+                          /// Leave Type
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 child: Text(
-                                  item.name ?? "",
+                                  item.leaveType ?? "",
                                   textAlign: TextAlign.start,
                                   style: kBody.copyWith(
                                       color: AppColor.kBlack,
@@ -354,13 +693,70 @@ class TeachLeave extends GetView<TeachLeaveController> {
                             ],
                           ),
 
-                          /// Grade
+                          /// Leave Category
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 child: Text(
-                                  item.name ?? "",
+                                  item.leaveCategory ?? "",
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Total Days
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.totalDays.toString(),
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Spend Days
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.spendDays.toString(),
+                                  textAlign: TextAlign.start,
+                                  style: kBody.copyWith(
+                                      color: AppColor.kBlack,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Remaining Days
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.remainingDays.toString(),
                                   textAlign: TextAlign.start,
                                   style: kBody.copyWith(
                                       color: AppColor.kBlack,
@@ -391,18 +787,18 @@ class TeachLeave extends GetView<TeachLeaveController> {
       bg: AppColor.green,
       bgGradient: AppColor.kDonwloadBtnGradiantColor,
       onTap: () async {
-        // await controller.mGetPubExamResultResModel();
+        await controller.mSubmitLeaveApplication();
       },
       text: "Apply",
     );
   }
 
-  _vSearchApplicationBtn() {
+  _vLeaveAppSearchBtn() {
     return AppButtons.vPrimaryButtonWithGradient(
       /*   bg: AppColor.green,
       bgGradient: AppColor.kDonwloadBtnGradiantColor, */
       onTap: () async {
-        // await controller.mGetPubExamResultResModel();
+        await controller.mGetLeaveHistory();
       },
       text: "Search",
     );
@@ -425,8 +821,9 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   color: AppColor.frenchSkyBlue100,
                   child: Obx(
                     () {
-                      return DropdownButton<DummyValueModel>(
-                        value: controller.selectedDummyValueModel.value,
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value:
+                            controller.selectedLeaveApplyLeaveTypeModel.value,
                         hint: Text(
                           "Select Leave Type*",
                           style: kBody.copyWith(color: Colors.black),
@@ -448,13 +845,14 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         isDense: true,
                         isExpanded: true,
                         underline: Container(),
-                        onChanged: (DummyValueModel? selectedModel) {
-                          controller.mUpdateDummyValueModel(selectedModel);
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller
+                              .mUpdateLeaveApplyLeaveTyperopDown(selectedModel);
                         },
 
-                        items: controller.dummyValueModelList
-                            .map((DummyValueModel value) {
-                          return DropdownMenuItem<DummyValueModel>(
+                        items: controller.leaveApplyLeaveTypeModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
                             value: value,
                             child: Text(
                               value.name ?? "",
@@ -481,8 +879,9 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   color: AppColor.frenchSkyBlue100,
                   child: Obx(
                     () {
-                      return DropdownButton<DummyValueModel>(
-                        value: controller.selectedDummyValueModel.value,
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value: controller
+                            .selectedLeaveApplyLeaveCategoryModel.value,
                         hint: Text(
                           "Select Leave Category*",
                           style: kBody.copyWith(color: Colors.black),
@@ -505,13 +904,15 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         isDense: true,
                         isExpanded: true,
                         underline: Container(),
-                        onChanged: (DummyValueModel? selectedModel) {
-                          controller.mUpdateDummyValueModel(selectedModel);
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller
+                              .mUpdateLeaveApplyLeaveCategoryDropdownDropDown(
+                                  selectedModel);
                         },
 
-                        items: controller.dummyValueModelList
-                            .map((DummyValueModel value) {
-                          return DropdownMenuItem<DummyValueModel>(
+                        items: controller.leaveApplyLeaveCategoryModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
                             value: value,
                             child: Text(
                               value.name ?? "",
@@ -543,10 +944,10 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         firstDate: DateTime.now(),
                         lastDate:
                             DateTime.now().add(const Duration(days: 365)));
-                    controller.UpdateLeaveAppDateRange(dateTimeRange);
+                    controller.UpdateLeaveApplyDateRange(dateTimeRange);
                   },
                   child: Text(
-                    controller.leaveAppDateRange.value,
+                    controller.leaveApplyFormatedDateRange.value,
                     style: kBody.copyWith(color: Colors.black),
                   ),
                 ),
@@ -563,7 +964,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
               child: Container(
                 color: AppColor.frenchSkyBlue100,
                 child: TextFormField(
-                  controller: controller.leaveAppReasonEditTextCtrlr,
+                  controller: controller.leaveApplyReasonEditTextCtrlr,
                   style: kBody.copyWith(color: Colors.black),
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -581,7 +982,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
     );
   }
 
-  _vFilteringFields() {
+  _vLeaveAppSearchFilteringFields() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -651,10 +1052,161 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   color: AppColor.frenchSkyBlue100,
                   child: Obx(
                     () {
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value: controller
+                            .selectedLeaveAppSearchLeaveTypeModel.value,
+                        hint: Text(
+                          "Select Leave Type*",
+                          style: kBody.copyWith(color: Colors.black),
+                          /* 
+                              controller.canContinue.value
+                                  ? "Select School"
+                                  : "No School",
+                              style: kBody.copyWith(color: Colors.black),
+                            */
+                        ),
+                        iconEnabledColor: Colors.black54,
+                        iconDisabledColor: Colors.black54,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 12,
+                        elevation: 10,
+                        // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        // focusColor: AppColor.white,
+                        dropdownColor: AppColor.frenchSkyBlue100,
+                        isDense: true,
+                        isExpanded: true,
+                        underline: Container(),
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller
+                              .mUpdateLeaveAppSearchTypeDropDown(selectedModel);
+                        },
+
+                        items: controller.leaveAppSearchLeaveTypeModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
+                            value: value,
+                            child: Text(
+                              value.name ?? "",
+                              style: kBody.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  )),
+            ),
+          ],
+        ),
+        AppSpacing.sm.height,
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
+                  color: AppColor.frenchSkyBlue100,
+                  child: Obx(
+                    () {
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value: controller
+                            .selectedLeaveAppSearchLeaveCategoryModel.value,
+                        hint: Text(
+                          "Select Leave Category*",
+                          style: kBody.copyWith(color: Colors.black),
+                          /* 
+                              controller.canContinue.value
+                                  ? "Select School"
+                                  : "No School",
+                              style: kBody.copyWith(color: Colors.black),
+                            */
+                        ),
+                        iconEnabledColor: Colors.black54,
+                        iconDisabledColor: Colors.black54,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 12,
+                        elevation: 10,
+                        // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        // focusColor: AppColor.white,
+                        dropdownColor: AppColor.frenchSkyBlue100,
+                        isDense: true,
+                        isExpanded: true,
+                        underline: Container(),
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller.mUpdateLeaveAppSearchCategoryDropDown(
+                              selectedModel);
+                        },
+
+                        items: controller.leaveAppSearchLeaveCategoryModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
+                            value: value,
+                            child: Text(
+                              value.name ?? "",
+                              style: kBody.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  )),
+            ),
+          ],
+        ),
+        AppSpacing.sm.height,
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                color: AppColor.frenchSkyBlue100,
+                child: InkWell(
+                  onTap: () async {
+                    DateTime? selectedDate = await showDatePicker(
+                      context: kGlobContext,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now().subtract(Duration(days: 630)),
+                      lastDate: DateTime.now().add(Duration(days: 630)),
+                    );
+                    controller.mUpdateleaveAppSearchStartDate(selectedDate);
+                  },
+                  child: Text(
+                    controller.leaveAppSearchFormatedStartDate.value,
+                    style: kBody.copyWith(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  _vLeaveBalanceSearchFilteringFields() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
+                  color: AppColor.frenchSkyBlue100,
+                  child: Obx(
+                    () {
                       return DropdownButton<DummyValueModel>(
                         value: controller.selectedDummyValueModel.value,
                         hint: Text(
-                          "Select Leave Type*",
+                          "1S",
                           style: kBody.copyWith(color: Colors.black),
                           /* 
                               controller.canContinue.value
@@ -707,12 +1259,12 @@ class TeachLeave extends GetView<TeachLeaveController> {
                   color: AppColor.frenchSkyBlue100,
                   child: Obx(
                     () {
-                      return DropdownButton<DummyValueModel>(
-                        value: controller.selectedDummyValueModel.value,
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value: controller
+                            .selectedLeaveBalanceSearchLeaveTypeModel.value,
                         hint: Text(
-                          "Select Leave Category*",
+                          "Select Leave Type*",
                           style: kBody.copyWith(color: Colors.black),
-
                           /* 
                               controller.canContinue.value
                                   ? "Select School"
@@ -726,18 +1278,19 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         iconSize: 12,
                         elevation: 10,
                         // style: kBody.copyWith(fontWeight: FontWeight.w500),
-                        focusColor: AppColor.white,
+                        // focusColor: AppColor.white,
                         dropdownColor: AppColor.frenchSkyBlue100,
                         isDense: true,
                         isExpanded: true,
                         underline: Container(),
-                        onChanged: (DummyValueModel? selectedModel) {
-                          controller.mUpdateDummyValueModel(selectedModel);
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller.mUpdateLeaveBalanceLeaveTypeDropdown(
+                              selectedModel);
                         },
 
-                        items: controller.dummyValueModelList
-                            .map((DummyValueModel value) {
-                          return DropdownMenuItem<DummyValueModel>(
+                        items: controller.leaveBalanceSearchLeaveTypeModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
                             value: value,
                             child: Text(
                               value.name ?? "",
@@ -759,29 +1312,71 @@ class TeachLeave extends GetView<TeachLeaveController> {
             Expanded(
               flex: 1,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                color: AppColor.frenchSkyBlue100,
-                child: InkWell(
-                  onTap: () async {
-                    DateTime? selectedDate = await showDatePicker(
-                      context: kGlobContext,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now().subtract(Duration(days: 630)),
-                      lastDate: DateTime.now().add(Duration(days: 630)),
-                    );
-                    controller.mUpdateleaveAppSearchStartDate(selectedDate);
-                  },
-                  child: Text(
-                    controller.leaveAppDateRange.value,
-                    style: kBody.copyWith(color: Colors.black),
-                  ),
-                ),
-              ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm, vertical: AppSpacing.smh),
+                  color: AppColor.frenchSkyBlue100,
+                  child: Obx(
+                    () {
+                      return DropdownButton<LeaveTypeAndCategoryModel>(
+                        value: controller
+                            .selectedLeaveBalanceSearchLeaveCategoryModel.value,
+                        hint: Text(
+                          "Select Leave Category*",
+                          style: kBody.copyWith(color: Colors.black),
+                          /* 
+                              controller.canContinue.value
+                                  ? "Select School"
+                                  : "No School",
+                              style: kBody.copyWith(color: Colors.black),
+                            */
+                        ),
+                        iconEnabledColor: Colors.black54,
+                        iconDisabledColor: Colors.black54,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 12,
+                        elevation: 10,
+                        // style: kBody.copyWith(fontWeight: FontWeight.w500),
+                        // focusColor: AppColor.white,
+                        dropdownColor: AppColor.frenchSkyBlue100,
+                        isDense: true,
+                        isExpanded: true,
+                        underline: Container(),
+                        onChanged: (LeaveTypeAndCategoryModel? selectedModel) {
+                          controller.mUpdateLeaveBalanceLeaveCategoryDropdown(
+                              selectedModel);
+                        },
+
+                        items: controller
+                            .leaveBalanceSearchLeaveCategoryModelList
+                            .map((LeaveTypeAndCategoryModel value) {
+                          return DropdownMenuItem<LeaveTypeAndCategoryModel>(
+                            value: value,
+                            child: Text(
+                              value.name ?? "",
+                              style: kBody.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  )),
             ),
           ],
         ),
       ],
+    );
+  }
+
+  _vLeaveBalanceSearchBtn() {
+    return AppButtons.vPrimaryButtonWithGradient(
+      /*   bg: AppColor.green,
+      bgGradient: AppColor.kDonwloadBtnGradiantColor, */
+      onTap: () async {
+        await controller.mGetLeaveBalance();
+      },
+      text: "Search",
     );
   }
 }

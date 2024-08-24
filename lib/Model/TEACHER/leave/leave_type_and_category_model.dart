@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class LeaveTypeAndCategoryListModel {
-    List<LeaveList>? leaveTypeList;
-    List<LeaveList>? leaveCategoryList;
+    List<LeaveTypeAndCategoryModel>? leaveTypeList;
+    List<LeaveTypeAndCategoryModel>? leaveCategoryList;
     String? mode;
     String? status;
 
@@ -18,8 +18,8 @@ class LeaveTypeAndCategoryListModel {
     String toJson() => json.encode(toMap());
 
     factory LeaveTypeAndCategoryListModel.fromMap(Map<String, dynamic> json) => LeaveTypeAndCategoryListModel(
-        leaveTypeList: json["leave_type_list"] == null ? [] : List<LeaveList>.from(json["leave_type_list"]!.map((x) => LeaveList.fromMap(x))),
-        leaveCategoryList: json["leave_category_list"] == null ? [] : List<LeaveList>.from(json["leave_category_list"]!.map((x) => LeaveList.fromMap(x))),
+        leaveTypeList: json["leave_type_list"] == null ? [] : List<LeaveTypeAndCategoryModel>.from(json["leave_type_list"]!.map((x) => LeaveTypeAndCategoryModel.fromMap(x))),
+        leaveCategoryList: json["leave_category_list"] == null ? [] : List<LeaveTypeAndCategoryModel>.from(json["leave_category_list"]!.map((x) => LeaveTypeAndCategoryModel.fromMap(x))),
         mode: json["mode"],
         status: json["status"],
     );
@@ -32,7 +32,7 @@ class LeaveTypeAndCategoryListModel {
     };
 }
 
-class LeaveList {
+class LeaveTypeAndCategoryModel {
     int? id;
     String? name;
     String? headKey;
@@ -41,7 +41,7 @@ class LeaveList {
     dynamic updatedAt;
     String? shortName;
 
-    LeaveList({
+    LeaveTypeAndCategoryModel({
         this.id,
         this.name,
         this.headKey,
@@ -51,11 +51,11 @@ class LeaveList {
         this.shortName,
     });
 
-    factory LeaveList.fromJson(String str) => LeaveList.fromMap(json.decode(str));
+    factory LeaveTypeAndCategoryModel.fromJson(String str) => LeaveTypeAndCategoryModel.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory LeaveList.fromMap(Map<String, dynamic> json) => LeaveList(
+    factory LeaveTypeAndCategoryModel.fromMap(Map<String, dynamic> json) => LeaveTypeAndCategoryModel(
         id: json["id"],
         name: json["name"],
         headKey: json["head_key"],
