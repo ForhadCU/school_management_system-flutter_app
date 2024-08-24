@@ -918,7 +918,8 @@ class PayLoads {
     required String? academic_leave_type_id,
     required String? academic_leave_category_id,
     required String? leave_status,
-    required String paginate,
+    required String paginate,    required String page,
+
   }) {
     return {
       "academic_group_id": academic_group_id,
@@ -927,7 +928,8 @@ class PayLoads {
       "academic_leave_type_id": academic_leave_type_id,
       "academic_leave_category_id": academic_leave_category_id,
       "leave_status": leave_status,
-      "paginate": paginate
+      "paginate": paginate,
+      "page": page,
     };
   }
 

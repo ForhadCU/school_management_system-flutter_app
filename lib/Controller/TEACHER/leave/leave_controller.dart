@@ -35,6 +35,8 @@ class TeachLeaveController extends GetxController {
   var dummyValueModelList = <DummyValueModel>[].obs;
   var selectedDummyValueModel = DummyValueModel().obs;
   var leaveAppSearchResultList = <LeaveHistoryData>[].obs;
+  var leaveAppSearchResultListModel = LeaveHistory().obs;
+  // var leaveBalanceSearchResultListModel = LeaveHistoryListModel().obs;
   var leaveBalanceSearchResultList = <LeaveBalanceList>[].obs;
 
   // var leaveAppDateRangeEditTextCtrlr = TextEditingController();
@@ -44,12 +46,15 @@ class TeachLeaveController extends GetxController {
   var leaveApplyDateRangeStartDate;
   var leaveApplyDateRangeEndDate;
   var leaveAppSearchFormatedStartDate = "Select From Date*".obs;
+  // var leaveAppSearchStartDate = "".obs;
   var leaveAppSearchStartDate;
   var leaveApplyReasonEditTextCtrlr = TextEditingController();
 
-  var leaveTypeAndCatListPageNo = 10;
-  var leaveAppSearchResultPageNo = 10.obs;
-  var leaveBalanceSearchResultPageNo = 10.obs;
+  var leaveTypeAndCatListPaginate = 10;
+  var leaveAppSearchResultPaginate = 5;
+  var leaveBalanceSearchResultPaginate = 10.obs;
+  var leaveAppSearchResulPageNumber = 1.obs;
+  var leaveBalanceSearchResulPageNumber = 1.obs;
 
   var isLeaveApplicationActive = true.obs;
   var isLeaveBalanceActive = false.obs;
@@ -57,12 +62,15 @@ class TeachLeaveController extends GetxController {
   var token = ''.obs;
   var applicationAddId = 0;
   var isApplyApplicationBtn = true.obs;
+  var LeaveAppSearchPaginationCtrlr = ScrollController().obs;
+  var LeaveBalanceSearchPaginationCtrlr = ScrollController().obs;
 
   @override
   void onInit() async {
     super.onInit();
 
     await _mGetInitialData();
+    mLeaveAppSearchPaginationListener();
   }
 
   mGetAcademicGroupModel() async {
@@ -157,7 +165,7 @@ class TeachLeaveController extends GetxController {
             payLoad: PayLoads.leaveTypeAndCategory(
                 academic_group_id: academicGroupId.value,
                 api_access_key: AppData.api_access_key,
-                paginate: leaveTypeAndCatListPageNo.toString()),
+                paginate: leaveTypeAndCatListPaginate.toString()),
             token: token.value)
         .then((value) {
       if (value.leaveTypeList != null && value.leaveTypeList!.isNotEmpty) {
@@ -200,26 +208,30 @@ class TeachLeaveController extends GetxController {
   }
 
   mGetLeaveHistory() async {
-    leaveAppSearchResultList.clear();
+    // leaveAppSearchResultList.clear();
 
     await LeaveApis.mGetLeaveHistory(
             payLoad: PayLoads.leaveHistoryList(
                 academic_group_id: academicGroupId.value,
                 api_access_key: AppData.api_access_key,
-                date: leaveAppSearchStartDate.value,
+                date: leaveAppSearchStartDate,
                 academic_leave_type_id:
                     selectedLeaveAppSearchLeaveTypeModel.value.id.toString(),
                 academic_leave_category_id:
                     selectedLeaveAppSearchLeaveCategoryModel.value.id
                         .toString(),
                 leave_status: "",
-                paginate: leaveAppSearchResultPageNo.value.toString()),
+                paginate: leaveAppSearchResultPaginate.toString(),
+                page: leaveAppSearchResulPageNumber.value.toString()),
             token: token.value)
         .then((value) {
       if (value.leaveHistory != null &&
           value.leaveHistory!.dataList != null &&
           value.leaveHistory!.dataList!.isNotEmpty) {
-        leaveAppSearchResultList.value = value.leaveHistory!.dataList!;
+        leaveAppSearchResultListModel.value =
+            value.leaveHistory!; // Contain pageNumber
+
+        leaveAppSearchResultList.addAll(value.leaveHistory!.dataList!);
       }
     });
   }
@@ -239,7 +251,8 @@ class TeachLeaveController extends GetxController {
                     selectedLeaveBalanceSearchLeaveCategoryModel.value.id
                         .toString(),
                 leave_status: "",
-                paginate: leaveBalanceSearchResultPageNo.value.toString()),
+                paginate: leaveBalanceSearchResultPaginate.value.toString(),
+                page: leaveBalanceSearchResulPageNumber.value.toString()),
             token: token.value)
         .then((value) {
       if (value.leaveBalanceList != null &&
@@ -262,5 +275,23 @@ class TeachLeaveController extends GetxController {
     if (selectedLeaveBalanceSearchLeaveCategoryModel.value != selectedModel) {
       selectedLeaveBalanceSearchLeaveCategoryModel.value = selectedModel!;
     }
+  }
+
+  mLeaveAppSearchPaginationListener() {
+    LeaveAppSearchPaginationCtrlr.value.addListener(() async {
+      if (LeaveAppSearchPaginationCtrlr.value.offset ==
+          LeaveAppSearchPaginationCtrlr.value.position.maxScrollExtent) {
+        if (leaveAppSearchResultListModel.value.nextPageUrl != null) {
+          kLog("go next page");
+          kLog(leaveAppSearchResultListModel.value.currentPage!);
+          /*  pageNumber.value =  */ leaveAppSearchResulPageNumber.value++;
+          await mGetLeaveHistory();
+        } else {
+          kLog("end");
+        }
+        kLog("Reached to End");
+        // kLog(noticeApiModel.value.);
+      }
+    });
   }
 }

@@ -21,6 +21,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
         title: "Leave",
         child: BaseWidgetChild(
           child: SingleChildScrollView(
+            controller: controller.LeaveAppSearchPaginationCtrlr.value,
             child: Column(
               children: [
                 vTabBar(),
@@ -512,6 +513,18 @@ class TeachLeave extends GetView<TeachLeaveController> {
                     vUpdateButton(), */
           ],
         ),
+
+        /* 
+       _vPlainBox(
+          boxBg: AppColor.white,
+          child: const Text(
+            "See more...",
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: AppColor.textColor),
+          ),
+        ), */
       ],
     );
   }
@@ -798,6 +811,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
       /*   bg: AppColor.green,
       bgGradient: AppColor.kDonwloadBtnGradiantColor, */
       onTap: () async {
+        controller.leaveAppSearchResultList.clear();
         await controller.mGetLeaveHistory();
       },
       text: "Search",
