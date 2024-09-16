@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:school_management_system/Controller/TEACHER/leave/leave_controller.dart';
-import 'package:school_management_system/Model/TEACHER/leave/leave_balance_list_model.dart';
 import 'package:school_management_system/Model/TEACHER/leave/leave_type_and_category_model.dart';
-import 'package:school_management_system/Singletones/app_data.dart';
 import 'package:school_management_system/Utils/custom_utils.dart';
 import 'package:school_management_system/Utils/utils.dart';
 import 'package:school_management_system/Views/Widgets/base_widget.dart';
-import 'package:school_management_system/Views/test/dummy_model.dart';
 import '../../../Config/config.dart';
 import '../../Widgets/buttons.dart';
 import '../../Widgets/custom_container.dart';
@@ -277,6 +274,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
                     3: IntrinsicColumnWidth(),
                     4: IntrinsicColumnWidth(),
                     5: IntrinsicColumnWidth(),
+                    6: IntrinsicColumnWidth(),
                   },
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   border: TableBorder.all(color: AppColor.white),
@@ -357,6 +355,19 @@ class TeachLeave extends GetView<TeachLeaveController> {
                           children: [
                             Text(
                               'Status',
+                              style: kBody.copyWith(
+                                  color: AppColor.white,
+                                  fontWeight: FontWeight.w500),
+                            ).marginSymmetric(
+                                vertical: cellVerMargin,
+                                horizontal: cellHorMargin),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Edit',
                               style: kBody.copyWith(
                                   color: AppColor.white,
                                   fontWeight: FontWeight.w500),
@@ -497,6 +508,27 @@ class TeachLeave extends GetView<TeachLeaveController> {
                                       color: AppColor.kBlack,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
+                                ).marginSymmetric(
+                                    vertical: cellVerMargin,
+                                    horizontal: cellHorMargin),
+                              ),
+                            ],
+                          ),
+
+                          /// Edit
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: AppColor.primaryColor,
+                                    size: 24,
+                                  ),
+                                  onPressed: () {
+                                    controller.mUpdateLeaveApplication(item);
+                                  },
                                 ).marginSymmetric(
                                     vertical: cellVerMargin,
                                     horizontal: cellHorMargin),
@@ -802,7 +834,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
       onTap: () async {
         await controller.mSubmitLeaveApplication();
       },
-      text: "Apply",
+      text: controller.isApplicationUpdate.value ? "Update" : "Apply",
     );
   }
 
@@ -811,7 +843,8 @@ class TeachLeave extends GetView<TeachLeaveController> {
       /*   bg: AppColor.green,
       bgGradient: AppColor.kDonwloadBtnGradiantColor, */
       onTap: () async {
-        controller.leaveAppSearchResultList.clear();
+        controller.mResetLeaveHistory();
+
         await controller.mGetLeaveHistory();
       },
       text: "Search",
@@ -958,7 +991,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
                         firstDate: DateTime.now(),
                         lastDate:
                             DateTime.now().add(const Duration(days: 365)));
-                    controller.UpdateLeaveApplyDateRange(dateTimeRange);
+                    controller.mUpdateLeaveApplyDateRange(dateTimeRange);
                   },
                   child: Text(
                     controller.leaveApplyFormatedDateRange.value,
@@ -1000,7 +1033,7 @@ class TeachLeave extends GetView<TeachLeaveController> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-      /*   Row(
+        /*   Row(
           children: [
             Expanded(
               flex: 1,
@@ -1185,8 +1218,9 @@ class TeachLeave extends GetView<TeachLeaveController> {
                     DateTime? selectedDate = await showDatePicker(
                       context: kGlobContext,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime.now().subtract(Duration(days: 630)),
-                      lastDate: DateTime.now().add(Duration(days: 630)),
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 630)),
+                      lastDate: DateTime.now().add(const Duration(days: 630)),
                     );
                     controller.mUpdateleaveAppSearchStartDate(selectedDate);
                   },

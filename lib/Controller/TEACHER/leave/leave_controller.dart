@@ -64,6 +64,7 @@ class TeachLeaveController extends GetxController {
   var isApplyApplicationBtn = true.obs;
   var LeaveAppSearchPaginationCtrlr = ScrollController().obs;
   var LeaveBalanceSearchPaginationCtrlr = ScrollController().obs;
+  var isApplicationUpdate = false.obs;
 
   @override
   void onInit() async {
@@ -95,7 +96,7 @@ class TeachLeaveController extends GetxController {
 
   void mUpdateDummyValueModel(DummyValueModel? selectedModel) {}
 
-   UpdateLeaveApplyDateRange(DateTimeRange? dateTimeRange) {
+  mUpdateLeaveApplyDateRange(DateTimeRange? dateTimeRange) {
     if (dateTimeRange != null) {
       leaveApplyDateRange = dateTimeRange;
       String leaveApplyDateRangeStartDate = Utils()
@@ -111,7 +112,7 @@ class TeachLeaveController extends GetxController {
     if (selectedDate != null) {
       leaveAppSearchStartDate =
           Utils().getFormatedDateTime(selectedDate.toString(), kApiDateFormat);
-      ;
+
       String startDate =
           Utils().getFormatedDateTime(selectedDate.toString(), kAppDateFormat);
 
@@ -148,6 +149,10 @@ class TeachLeaveController extends GetxController {
                 start: mGetFormatDateForApi(leaveApplyDateRange!.start),
                 end: mGetFormatDateForApi(leaveApplyDateRange!.end))),
             status: 1.toString()));
+    // reset dateRange
+    leaveApplyFormatedDateRange.value = "Select Date Range*";
+    // if update button was ON, that will be turned into SAVE button
+    isApplicationUpdate.value = false;
   }
 
   String mGetFormatDateForApi(dynamic date) {
@@ -209,7 +214,6 @@ class TeachLeaveController extends GetxController {
 
   mGetLeaveHistory() async {
     // leaveAppSearchResultList.clear();
-
     await LeaveApis.mGetLeaveHistory(
             payLoad: PayLoads.leaveHistoryList(
                 academic_group_id: academicGroupId.value,
@@ -293,5 +297,41 @@ class TeachLeaveController extends GetxController {
         // kLog(noticeApiModel.value.);
       }
     });
+  }
+
+  void mUpdateLeaveApplication(LeaveHistoryData item) {
+    kLogger.d(item.id);
+    isApplicationUpdate.value = true;
+
+    LeaveTypeAndCategoryModel leaveType = LeaveTypeAndCategoryModel.fromMap(item
+        .siteEmployeeLeaveGenerate!.siteLeavePolicy!.academicLeaveType!
+        .toMap());
+    LeaveTypeAndCategoryModel leaveCategory = LeaveTypeAndCategoryModel.fromMap(
+        item.siteEmployeeLeaveGenerate!.siteLeavePolicy!.academicLeaveCategory!
+            .toMap());
+    // set ApplicationId
+    applicationAddId = item.id ?? 0;
+    // set leaveType
+    for (var element in leaveApplyLeaveTypeModelList) {
+      if (element.id == leaveType.id) {
+        selectedLeaveApplyLeaveTypeModel.value = element;
+        kLogger.d(element.name);
+      }
+    }
+    // set LeaveCategory
+    for (var element in leaveApplyLeaveCategoryModelList) {
+      if (element.id == leaveCategory.id) {
+        selectedLeaveApplyLeaveCategoryModel.value = element;
+        kLogger.d(element.name);
+      }
+    }
+
+    mUpdateLeaveApplyDateRange(DateTimeRange(
+        start: DateTime.parse(item.fromDate ?? ""), end: item.toDate!));
+  }
+
+  void mResetLeaveHistory() {
+    leaveAppSearchResultList.clear();
+    leaveAppSearchResulPageNumber.value = 1;
   }
 }

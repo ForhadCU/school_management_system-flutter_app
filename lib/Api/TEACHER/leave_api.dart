@@ -21,7 +21,7 @@ class LeaveApis {
       // required Map<String, dynamic> bodyData,
       required String token,
       required Map<String, dynamic> payload}) async {
-    kLog(payload);
+    kLogger.t(payload);
     ResponseModel res = await CallAPI.postTeacherData(
       endPoint: ApiEndpoint.leave_aplication_submit,
       bodyData: {},
