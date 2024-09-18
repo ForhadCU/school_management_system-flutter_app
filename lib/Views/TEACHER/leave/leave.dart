@@ -520,18 +520,23 @@ class TeachLeave extends GetView<TeachLeaveController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: AppColor.primaryColor,
-                                    size: 24,
-                                  ),
-                                  onPressed: () {
-                                    controller.mUpdateLeaveApplication(item);
-                                  },
-                                ).marginSymmetric(
-                                    vertical: cellVerMargin,
-                                    horizontal: cellHorMargin),
+                                child: item.leaveStatus == "pending"
+                                    ? IconButton(
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: AppColor.primaryColor,
+                                          size: 24,
+                                        ),
+                                        onPressed: () {
+                                          controller
+                                              .mUpdateLeaveApplication(item);
+                                        },
+                                      ).marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin)
+                                    : Container().marginSymmetric(
+                                        vertical: cellVerMargin,
+                                        horizontal: cellHorMargin),
                               ),
                             ],
                           ),

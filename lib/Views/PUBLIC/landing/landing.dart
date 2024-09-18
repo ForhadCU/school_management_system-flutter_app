@@ -101,12 +101,6 @@ class Landing extends GetView<LandingController> {
 
                         // iconColor: Colors.blue,
                         label: "Gallery"))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             Expanded(
               child: Align(
                 alignment: Alignment.center,
@@ -114,11 +108,17 @@ class Landing extends GetView<LandingController> {
                     onTap: () => Get.toNamed(AppRoutes.siteHistory),
                     iconLoc: PublicAssetLocation.ic_sitehistory,
                     // bgColor: Colors.purple.shade100,
-                    bgColor: Colors.green,
+                    bgColor: Colors.purple,
                     // iconColor: Colors.purple,
                     label: "Site History"),
               ),
             ),
+          ],
+        ),
+        AppSpacing.xl.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -127,7 +127,7 @@ class Landing extends GetView<LandingController> {
                         iconLoc: PublicAssetLocation.ic_contact_mail_us,
                         // bgColor: Colors.red.shade100,
                         // iconColor: Colors.red,
-                        bgColor: Colors.purple,
+                        bgColor: Colors.yellow,
                         label: "Contact Us"))),
             Expanded(
                 child: Align(
@@ -139,12 +139,6 @@ class Landing extends GetView<LandingController> {
                         bgColor: Colors.cyan,
                         // iconColor: Colors.amber,
                         label: "Result"))),
-          ],
-        ),
-        AppSpacing.xl.height,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             Expanded(
                 child: Align(
                     alignment: Alignment.center,
@@ -157,10 +151,9 @@ class Landing extends GetView<LandingController> {
                         label: "Login"))),
             Expanded(
                 child: Align(alignment: Alignment.center, child: Container())),
-            Expanded(
-                child: Align(alignment: Alignment.center, child: Container())),
           ],
         ),
+        AppSpacing.xl.height,
         (AppSpacing.xxl * 2).height,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +183,7 @@ class Landing extends GetView<LandingController> {
         children: [
           Container(
             padding: const EdgeInsets.all(AppSpacing.sm),
-            width: AppScreenSize.mGetWidth(kGlobContext, 20),
+            width: AppScreenSize.mGetWidth(kGlobContext, 15),
             decoration: BoxDecoration(
                 color: bgColor,
                 borderRadius: BorderRadius.circular(AppSpacing.sm)),
