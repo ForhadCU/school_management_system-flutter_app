@@ -628,7 +628,7 @@ class ExamAttendance extends GetView<ExamAttendanceController> {
                                       ExamTypeListForAttandance>(
                                     value: value,
                                     child: Text(
-                                      value.marksType ?? "",
+                                      value.academicExamType!.marksType ?? "",
                                       style: kBody.copyWith(
                                         fontWeight: FontWeight.w400,
                                       ),

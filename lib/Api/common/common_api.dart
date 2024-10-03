@@ -160,6 +160,7 @@ class CommonApis {
 
   static Future<ExamTypeModel> mGetExamTypeListModel(
       Map<String, dynamic> payLoad, String token) async {
+    kLogger.t(payLoad);
     ResponseModel res = await CallAPI.getTeacherData(
         isShowLoading: false,
         ApiEndpoint.exam_type_for_attendance,
@@ -168,7 +169,7 @@ class CommonApis {
     kLogger.d(res.body);
     if (res.statusCode == 200 && res.body['mode'] == "success") {
       kLog("Successfully fetch mGetExamTypeListModel data");
-      return ExamTypeModel.fromMap(res.body);
+      return ExamTypeModel.fromJson(res.body);
       // return ExamDistributionListModel();
     } else {
       kLog("mGetExamTypeListModel status code is: ${res.statusCode}");

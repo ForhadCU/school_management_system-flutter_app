@@ -444,7 +444,7 @@ class CommonController extends GetxController {
                         selectedAcademicClass.value.id.toString(),
                     academic_department_id: null,
                     academic_class_group_id:
-                        selectedAcademicGroup.value.id.toString(),
+                        null /* selectedAcademicGroup.value.id.toString() */,
                     examination_id: selectedExamination.value.id.toString(),
                     site_subject_group_condition_setting_id:
                         selectedSubjectGorupConditionSetting.value.id

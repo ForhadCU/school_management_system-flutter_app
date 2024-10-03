@@ -16,6 +16,7 @@ class ExamMarksEntryApis {
 
   static Future<ExamMarksEntryListModel> mGetExamMarksEntryModel(
       Map<String, dynamic> payLoad, String token) async {
+    kLogger.t(payLoad);
     ResponseModel res = await CallAPI.getTeacherData(
         ApiEndpoint.employee_base_student_marks_entry_list, payLoad, token);
     // kLogger.d(res.body);

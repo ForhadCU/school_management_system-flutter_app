@@ -79,8 +79,8 @@ class ExamAttendanceController extends GetxController {
                 academic_class_id:
                     _commonController.selectedAcademicClass.value.id.toString(),
                 academic_department_id: null,
-                academic_class_group_id:
-                    _commonController.selectedAcademicGroup.value.id.toString(),
+                academic_class_group_id: null,
+                // _commonController.selectedAcademicGroup.value.id ,
                 examination_id:
                     _commonController.selectedExamination.value.id.toString(),
                 site_subject_group_condition_setting_id: _commonController
@@ -89,7 +89,7 @@ class ExamAttendanceController extends GetxController {
                 academic_section_id: null,
                 academic_session_id: null,
                 academic_exam_type_id: _commonController
-                    .selectedexamTypeListForAttandance.value.id
+                    .selectedexamTypeListForAttandance.value.academicExamTypeId
                     .toString(),
               ),
               _commonController.token.value);
@@ -133,7 +133,7 @@ class ExamAttendanceController extends GetxController {
         academic_section_id: null,
         academic_session_id: null,
         academic_exam_type_id: _commonController
-            .selectedexamTypeListForAttandance.value.id
+            .selectedexamTypeListForAttandance.value.academicExamTypeId
             .toString(),
       ),
     );
